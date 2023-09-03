@@ -1,0 +1,52 @@
+{
+  "scenes": "SceneEvents",
+  "events": [
+    {
+      "id": "C10004",
+      "events": [
+        {
+          "type": "ShowCharacter",
+          "data": {
+            "character": "CharacterA",
+            "expression": "Concerned"
+          }
+        },
+        {
+          "type": "ChangeBackground",
+          "data": {
+            "background": "ForestBackground"
+          }
+        }
+      ]
+    },
+    {
+      "id": "C10001",
+      "events": [
+        {
+          "type": "PlaySound",
+          "data": {
+            "soundName": "Footsteps"
+          }
+        }
+      ]
+    },
+    {
+      "id": "C10006",
+      "events": [
+        {
+          "type": "SceneChange",
+          "data": "Ending"
+        }
+      ]
+    },
+    {
+      "id": "P00004",
+      "events": [
+        {
+          "type": "SceneChange",
+          "data": "Chapter01"
+        }
+      ]
+    }
+  ]
+}
