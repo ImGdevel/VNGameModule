@@ -66,7 +66,7 @@ public class SettingsManager : MonoBehaviour
         settings.soundSettings = currentSoundSetting;
 
         LanguageSettings languageSettings = new();
-        languageSettings.selectedLanguage = Application.systemLanguage;
+        languageSettings.selectedLanguage = Application.systemLanguage.ToString();
 
         DialogueSettings dialogueSettings = new();
         dialogueSettings.typingSpeed = 0.05f;

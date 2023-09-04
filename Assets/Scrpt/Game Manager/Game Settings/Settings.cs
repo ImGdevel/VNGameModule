@@ -72,7 +72,7 @@ public class DialogueSettings
 [System.Serializable]
 public class LanguageSettings
 {
-    public SystemLanguage selectedLanguage;
+    public string selectedLanguage;
 }
 
 [System.Serializable]

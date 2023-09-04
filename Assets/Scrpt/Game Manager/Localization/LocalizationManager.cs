@@ -7,6 +7,8 @@ public class LocalizationManager : MonoBehaviour
 {
     bool isChange;
 
+    public static List<string> SupportedLanguages { get; internal set; }
+
     public void ChangeLocalization(int index) {
         if (isChange) {
             return;
