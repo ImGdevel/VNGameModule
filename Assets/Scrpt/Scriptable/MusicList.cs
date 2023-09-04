@@ -7,8 +7,9 @@ public class MusicList : ScriptableObject
     [System.Serializable]
     public class Music
     {
-        public AudioClip musicClip;
-        public string musicName;
+        public AudioClip audio;
+        public string name;
+        [Range(0f, 1f)]
         public float volume = 1.0f;
     }
 

@@ -86,6 +86,7 @@ public class MenuController : MonoBehaviour
     }
 
     public void GotoTitle() {
+        Time.timeScale = 1;
         SceneManager.LoadScene("GameTitle");
     }
 

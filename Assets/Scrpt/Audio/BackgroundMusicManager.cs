@@ -4,22 +4,23 @@ using System.Collections;
 
 public class BackgroundMusicManager : MonoBehaviour
 {
-    private static BackgroundMusicManager instance;
+    public static BackgroundMusicManager Instance { get; private set; }
 
     private AudioSource audioSource;
     public MusicList musicList;
 
-    private float masterVolume = 1.0f;
-    private float musicVolume = 1.0f;
-    private float currentVolume = 1.0f;
-
     private string currentPlayingMusicName; // 현재 재생 중인 음악 이름
+    [Range(0f, 1f)] private float masterVolume = 1.0f;
+    [Range(0f, 1f)] private float musicVolume = 1.0f;
+    [Range(0f, 1f)] public float currentVolume;
+
+    public float fadeDuration = 2.0f;
 
     private Coroutine fadeOutCoroutine;
 
     private void Awake() {
-        if (instance == null) {
-            instance = this;
+        if (Instance == null) {
+            Instance = this;
         }
         else {
             Destroy(gameObject);
@@ -30,12 +31,12 @@ public class BackgroundMusicManager : MonoBehaviour
         if (audioSource == null) {
             audioSource = gameObject.AddComponent<AudioSource>();
         }
-
         DontDestroyOnLoad(gameObject);
     }
 
     private void Start() {
         SettingsManager.OnSettingsChanged += SetSoundSetting;
+        currentVolume = 0;
     }
 
     private void OnDestroy() {
@@ -48,7 +49,7 @@ public class BackgroundMusicManager : MonoBehaviour
             return;
         }
 
-        MusicList.Music selectedMusic = musicList.musicClips.Find(music => music.musicName == musicName);
+        MusicList.Music selectedMusic = musicList.musicClips.Find(music => music.name == musicName);
 
         if (selectedMusic != null) {
             if (fadeOutCoroutine != null) {
@@ -61,16 +62,17 @@ public class BackgroundMusicManager : MonoBehaviour
             }
             else {
                 // 이전 음악이 없는 경우, 즉시 음악 재생
+                Debug.Log("음악 첫 시행");
                 audioSource.volume = 0.0f;
-                audioSource.clip = selectedMusic.musicClip;
+                audioSource.clip = selectedMusic.audio;
                 audioSource.Play();
+                StartCoroutine(FadeInMusic(currentVolume)); // 볼륨 서서히 증가
             }
 
             currentPlayingMusicName = musicName;
 
             // 현재 볼륨을 계산하여 설정
-            float finalVolume = masterVolume * musicVolume * selectedMusic.volume;
-            currentVolume = finalVolume;
+            currentVolume = selectedMusic.volume;
         }
         else {
             // 음악을 찾을 수 없는 경우
@@ -102,9 +104,22 @@ public class BackgroundMusicManager : MonoBehaviour
         }
     }
 
+    private IEnumerator FadeInMusic(float targetVolume) {
+        float startVolume = audioSource.volume;
+
+        float startTime = Time.time;
+        while (Time.time < startTime + fadeDuration) {
+            float elapsed = Time.time - startTime;
+            float t = elapsed / fadeDuration;
+            audioSource.volume = Mathf.Lerp(startVolume, targetVolume, t);
+            yield return null;
+        }
+
+        audioSource.volume = targetVolume;
+    }
+
     private IEnumerator FadeOutMusic() {
         float startVolume = audioSource.volume;
-        float fadeDuration = 1.0f; // 페이드 아웃에 걸리는 시간
 
         float startTime = Time.time;
         while (Time.time < startTime + fadeDuration) {

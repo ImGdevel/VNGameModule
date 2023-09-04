@@ -143,9 +143,13 @@ public class DialogueModule : MonoBehaviour
                     break;
 
                 case "PlaySound":
-                    if (!onSceneSkipMove) {
-                        Debug.Log("사운드 플레이");
-                    }
+                    string music;
+                    BackgroundMusicManager.Instance.PlayMusic("JazzCafe");
+                    break;
+
+                case "PlayMusic":
+                    string musicAudio = eventData.data;
+                    BackgroundMusicManager.Instance.PlayMusic(musicAudio);
                     break;
 
                 case "SceneChange":

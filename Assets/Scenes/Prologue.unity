@@ -518,10 +518,10 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -615,7 +615,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b3f8ef5d5ca5548a2e490d0db4eefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicList: {fileID: 0}
+  musicList: {fileID: 11400000, guid: b27998f9f64bbb642b8dbd7a76a2c7dc, type: 2}
+  currentVolume: 0
+  fadeDuration: 2
 --- !u!4 &395845505
 Transform:
   m_ObjectHideFlags: 0

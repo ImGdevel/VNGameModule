@@ -12,7 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c16a7153647a42c4c851a0ebaa9ed0f3, type: 3}
   m_Name: Background Music List
   m_EditorClassIdentifier: 
-  musicClips:
-  - musicClip: {fileID: 0}
-    musicName: 
-    volume: 1
+  musicClips: []

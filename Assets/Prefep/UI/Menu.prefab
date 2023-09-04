@@ -3469,6 +3469,7 @@ GameObject:
   - component: {fileID: 2447371629024616338}
   - component: {fileID: 2447371629024616336}
   - component: {fileID: 5518085057434875546}
+  - component: {fileID: 4261119889159582323}
   - component: {fileID: 2447371629024616337}
   m_Layer: 5
   m_Name: Setting Menu
@@ -3554,6 +3555,28 @@ MonoBehaviour:
       SaveKeyCode: 0
       LoadKeyCode: 0
       ShowLogKeyCode: 0
+--- !u!114 &4261119889159582323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2447371629024616339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c639395d7af75f448a26c6a230ae9cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiElements:
+  - {fileID: 2447371628982532855}
+  - {fileID: 7834752424445457757}
+  - {fileID: 5808435790299617968}
+  - {fileID: 2653728502736703162}
+  - {fileID: 1368145628305566191}
+  - {fileID: 821236803200215142}
+  clickSound: {fileID: 8300000, guid: 4c283176b96f7f8408e92f8ec22a0763, type: 3}
+  highlightSound: {fileID: 0}
+  volume: 0.5
 --- !u!114 &2447371629024616337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5138,6 +5161,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2447371630370162715}
   - component: {fileID: 2447371630370162712}
+  - component: {fileID: 4742246476728880703}
   - component: {fileID: 2447371630370162714}
   - component: {fileID: 2447371630370162713}
   m_Layer: 5
@@ -5186,6 +5210,28 @@ MonoBehaviour:
   saveUI: {fileID: 0}
   loadUI: {fileID: 0}
   MenuBackScreen: {fileID: 2447371630370162714}
+--- !u!114 &4742246476728880703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2447371630370162716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c639395d7af75f448a26c6a230ae9cbd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiElements:
+  - {fileID: 2447371629916771535}
+  - {fileID: 2447371629214089464}
+  - {fileID: 2447371629658477899}
+  - {fileID: 2447371630276498694}
+  - {fileID: 2447371629268077803}
+  - {fileID: 512166906224700619}
+  clickSound: {fileID: 8300000, guid: ff82681f340afe247a173b6f7998d406, type: 3}
+  highlightSound: {fileID: 8300000, guid: 4c283176b96f7f8408e92f8ec22a0763, type: 3}
+  volume: 0.5
 --- !u!114 &2447371630370162714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9097,7 +9143,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Quality
+  m_text: "\uADF8\uB798\uD53D \uD488\uC9C8"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13509,7 +13555,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Resolution
+  m_text: "\uD654\uBA74 \uD574\uC0C1\uB3C4"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15425,7 +15471,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Full Screen
+  m_text: "\uD654\uBA74 \uBAA8\uB4DC"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
