@@ -50,6 +50,7 @@ public class DialogueModule : MonoBehaviour
     }
 
     private void  StartDialogue() {
+        ApplaySetting(SettingsManager.GetSettings);
         ToggleDialogueUI();
         LoadDialogue("Prologue");
         isPauseGame = false;   
@@ -72,7 +73,12 @@ public class DialogueModule : MonoBehaviour
         if (dialogueList != null && dialogueList.Count > 0) {
             currentDialogueIndex = 0;
             DialogData dialog = dialogueList[currentDialogueIndex];
-            PlayScene(dialog);
+            if (Input.GetKey(SkipDialogueKey)) {
+                SkipScene(dialog);
+            }
+            else {
+                PlayScene(dialog);
+            }
         }
         else {
             Debug.LogWarning("No dialogue data found for the current scene.");
@@ -94,7 +100,6 @@ public class DialogueModule : MonoBehaviour
             SkipScene(dialogueList[currentDialogueIndex]);
         }
         if (Input.GetKeyUp(SkipDialogueKey)) {
-            Debug.Log("스킵모드 오프");
             onSceneSkipMove = false;
         }
 
@@ -119,13 +124,31 @@ public class DialogueModule : MonoBehaviour
     }
 
     private void PlayScene(DialogData dialog) {
-        //Debug.Log("current dialogue number: " + currentSceneName + "(" + dialog.id + ")");
+        Debug.Log("current dialogue number: " + currentSceneName + "(" + dialog.id + ")");
         if (dialog.choices.Count == 0) {
             if (sceneEvents.ContainsKey(dialog.id)) {
                 PlaySceneEvent(sceneEvents[dialog.id]);
             }
             
             dialogController.TypeDialogue(dialog.character, dialog.content, typingSpeed);
+        }
+        else {
+            ChoiceScene(dialog);
+        }
+    }
+
+    private void SkipScene(DialogData dialog) {
+        if (dialog.choices.Count == 0) {
+
+            if (Input.GetKeyDown(KeyCode.LeftControl)) {
+                dialogController.CurrentDialogueSkip();
+            }
+            else {
+                if (sceneEvents.ContainsKey(dialog.id)) {
+                    PlaySceneEvent(sceneEvents[dialog.id]);
+                }
+                dialogController.SkipDialogue(dialog.character, dialog.content);
+            }
         }
         else {
             ChoiceScene(dialog);
@@ -170,21 +193,6 @@ public class DialogueModule : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    private void SkipScene(DialogData dialog) {
-        if (dialog.choices.Count == 0) {
-
-            if (Input.GetKeyDown(KeyCode.LeftControl)) {
-                dialogController.CurrentDialogueSkip();
-            }
-            else {
-                dialogController.SkipDialogue(dialog.character, dialog.content);
-            }
-        }
-        else {
-            ChoiceScene(dialog);
-        }
-    }
-
     private void ChoiceScene(DialogData dialog) {
         isPauseGame = true;
         choiceController.transform.gameObject.SetActive(true);
@@ -220,7 +228,8 @@ public class DialogueModule : MonoBehaviour
         isPauseGame = state;
     }
 
-    private void ApplaySetting(Settings settings) {   
+    public void ApplaySetting(Settings settings) {
+        Debug.Log("세팅 적용");
         typingSpeed = settings.dialogueSettings.typingSpeed;
         autoScrollDelay = settings.dialogueSettings.dialogueDelay;
 

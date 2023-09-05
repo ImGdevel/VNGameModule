@@ -66,7 +66,6 @@ public class BackgroundMusicManager : MonoBehaviour
             }
             else {
                 // 이전 음악이 없는 경우, 즉시 음악 재생
-                Debug.Log("음악 첫 시행");
                 audioSource.volume = 0.0f;
                 audioSource.clip = selectedMusic.audio;
                 audioSource.Play();
@@ -78,7 +77,6 @@ public class BackgroundMusicManager : MonoBehaviour
 
             currentPlayingMusicName = musicName;
 
-            // 현재 볼륨을 계산하여 설정
             currentVolume = selectedMusic.volume;
         }
         else {

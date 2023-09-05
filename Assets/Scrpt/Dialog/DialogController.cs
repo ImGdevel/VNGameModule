@@ -30,7 +30,6 @@ public class DialogController : MonoBehaviour
 
     public void TypeDialogue(string charcterName, string content, float typingSpeed) {
         if (!isTyping) {
-            Debug.Log("¿œπ›");
             originTypingSpeed = typingSpeed;
             TypeCharacterName(charcterName);
             StartCoroutine(TypeText(content, typingSpeed));
@@ -43,7 +42,6 @@ public class DialogController : MonoBehaviour
 
     public void SkipDialogue(string charcterName, string content) {
         if (!isTyping) {
-            Debug.Log("Ω∫≈µ");
             TypeCharacterName(charcterName);
             StartCoroutine(TypeText(content, fastSkipTypingSpeed));
         }
