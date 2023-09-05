@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using System;
 
 public class BackgroundMusicManager : MonoBehaviour
 {
@@ -58,7 +59,10 @@ public class BackgroundMusicManager : MonoBehaviour
 
             if (currentPlayingMusicName != null) {
                 // 이전 음악을 서서히 페이드 아웃
-                fadeOutCoroutine = StartCoroutine(FadeOutMusic());
+                fadeOutCoroutine = StartCoroutine(FadeOutMusic(() => {
+                    // 페이드 아웃이 완료되면 새로운 음악을 페이드 인하여 재생
+                    StartCoroutine(FadeInNewMusic(selectedMusic));
+                }));
             }
             else {
                 // 이전 음악이 없는 경우, 즉시 음악 재생
@@ -66,7 +70,10 @@ public class BackgroundMusicManager : MonoBehaviour
                 audioSource.volume = 0.0f;
                 audioSource.clip = selectedMusic.audio;
                 audioSource.Play();
-                StartCoroutine(FadeInMusic(currentVolume)); // 볼륨 서서히 증가
+
+                float finalSound = musicVolume * masterVolume;
+
+                StartCoroutine(FadeInMusic(finalSound)); // 볼륨 서서히 증가
             }
 
             currentPlayingMusicName = musicName;
@@ -118,6 +125,25 @@ public class BackgroundMusicManager : MonoBehaviour
         audioSource.volume = targetVolume;
     }
 
+    private IEnumerator FadeInNewMusic(MusicList.Music newMusic) {
+        audioSource.clip = newMusic.audio;
+        audioSource.Play();
+
+        float targetVolume = musicVolume * masterVolume;
+
+        float startVolume = 0.0f;
+
+        float startTime = Time.time;
+        while (Time.time < startTime + fadeDuration) {
+            float elapsed = Time.time - startTime;
+            float t = elapsed / fadeDuration;
+            audioSource.volume = Mathf.Lerp(startVolume, targetVolume, t);
+            yield return null;
+        }
+
+        audioSource.volume = targetVolume;
+    }
+
     private IEnumerator FadeOutMusic() {
         float startVolume = audioSource.volume;
 
@@ -131,5 +157,23 @@ public class BackgroundMusicManager : MonoBehaviour
 
         audioSource.volume = 0.0f;
         audioSource.Stop();
+    }
+
+    private IEnumerator FadeOutMusic(Action onFadeOutComplete) {
+        float startVolume = audioSource.volume;
+
+        float startTime = Time.time;
+        while (Time.time < startTime + fadeDuration) {
+            float elapsed = Time.time - startTime;
+            float t = elapsed / fadeDuration;
+            audioSource.volume = Mathf.Lerp(startVolume, 0.0f, t);
+            yield return null;
+        }
+
+        audioSource.volume = 0.0f;
+        audioSource.Stop();
+
+        // 페이드 아웃이 완료되면 콜백 함수 호출
+        onFadeOutComplete?.Invoke();
     }
 }

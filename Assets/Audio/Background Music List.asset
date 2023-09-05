@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Background Music List
   m_EditorClassIdentifier: 
   musicClips:
-  - audio: {fileID: 0}
-    name: 
-    volume: 0
-  - audio: {fileID: 0}
-    name: 
-    volume: 0
+  - audio: {fileID: 8300000, guid: d8f7a78a964aa489aafb3749d805cd4b, type: 3}
+    name: GameTitle
+    volume: 1
+  - audio: {fileID: 8300000, guid: be7de8c15cc1cee5685b2736ba2f1c3f, type: 3}
+    name: JazzCafe
+    volume: 1

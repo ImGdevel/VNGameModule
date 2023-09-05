@@ -2,6 +2,15 @@
   "scenes": "SceneEvents",
   "events": [
     {
+      "id": "C10001",
+      "events": [
+        {
+          "type": "PlayMusic",
+          "data": "JazzCafe"
+        }
+      ]
+    },
+    {
       "id": "C10004",
       "events": [
         {
@@ -16,17 +25,10 @@
           "data": {
             "background": "ForestBackground"
           }
-        }
-      ]
-    },
-    {
-      "id": "C10001",
-      "events": [
+        },
         {
-          "type": "PlaySound",
-          "data": {
-            "soundName": "Footsteps"
-          }
+          "type": "PlayMusic",
+          "data": "GameTitle"
         }
       ]
     },
