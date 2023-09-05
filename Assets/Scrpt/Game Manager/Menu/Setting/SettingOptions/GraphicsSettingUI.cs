@@ -7,11 +7,11 @@ using UnityEngine.UI;
 
 public class GraphicsSettingUI : SettingOption
 {
-    [SerializeField] private Settings settings; // 세팅 정보 저장
-
     [SerializeField] private TMP_Dropdown resolutionDropdown; // 해상도 설정을 위한 TMP Dropdown 메뉴
     [SerializeField] private TMP_Dropdown fullscreenModeDropdown; // 전체 화면 모드 설정을 위한 TMP Dropdown 메뉴
     [SerializeField] private TMP_Dropdown qualityDropdown; // 그래픽 품질 설정을 위한 TMP Dropdown 메뉴
+
+    private Settings settings; // 세팅 정보 저장
 
     public enum FullScreenModeEnum
     {

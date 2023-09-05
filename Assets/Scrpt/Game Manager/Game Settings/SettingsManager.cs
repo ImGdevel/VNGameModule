@@ -30,7 +30,9 @@ public class SettingsManager : MonoBehaviour
         AvailableResolutions = Screen.resolutions;
         System.Array.Reverse(AvailableResolutions);
 
-        if (File.Exists(settingsFilePath)) {
+        bool isFile = File.Exists(settingsFilePath);
+
+        if (false) {
             Debug.Log("세팅 불러오기 성공");
             string json = File.ReadAllText(settingsFilePath);
             GetSettings = JsonUtility.FromJson<Settings>(json);
@@ -45,7 +47,6 @@ public class SettingsManager : MonoBehaviour
 
     private void ScreenSetting() {
         ScreenManager.ChangeResolution(GetSettings.graphicsSettings.Resolution);
-        
     }
 
     private Settings InitSetting() {
@@ -65,13 +66,15 @@ public class SettingsManager : MonoBehaviour
         currentSoundSetting.dialogVolume = 1.0f;
         settings.soundSettings = currentSoundSetting;
 
-        LanguageSettings languageSettings = new();
-        languageSettings.selectedLanguage = Application.systemLanguage.ToString();
-
         DialogueSettings dialogueSettings = new();
         dialogueSettings.typingSpeed = 0.05f;
         dialogueSettings.dialogueDelay = 2.0f;
         dialogueSettings.dialogueBoxTransparency = 100f;
+        settings.dialogueSettings = dialogueSettings;
+
+        LanguageSettings languageSettings = new();
+        languageSettings.selectedLanguage = Application.systemLanguage.ToString();
+        settings.languageSettings = languageSettings;
 
         ControlSettings controlSettings = new();
         controlSettings.AutoDialogKeyCode = KeyCode.A;
@@ -81,7 +84,8 @@ public class SettingsManager : MonoBehaviour
         controlSettings.SaveKeyCode = KeyCode.S;
         controlSettings.ShowLogKeyCode = KeyCode.T;
         controlSettings.SkipKeyCode = KeyCode.LeftControl;
-        
+        settings.controlSettings = controlSettings;
+
         return settings;
     }
 
@@ -98,6 +102,6 @@ public class SettingsManager : MonoBehaviour
         GetSettings = gameSettings;
         OnSettingsChanged?.Invoke(gameSettings);
 
-        SaveSettings(); // 설정 변경 시 저장
+        SaveSettings(); 
     }
 }

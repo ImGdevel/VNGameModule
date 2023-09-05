@@ -10,12 +10,8 @@ public class Settings
     public LanguageSettings languageSettings;
     public ControlSettings controlSettings;
 
-    public void Load() {
-        // 설정 정보를 로드하는 로직 구현
-    }
-
-    public void Save() {
-        // 설정 정보를 저장하는 로직 구현
+    private void Save() {
+        SettingsManager.Instance.ApplySetting(this);
     }
 
 }

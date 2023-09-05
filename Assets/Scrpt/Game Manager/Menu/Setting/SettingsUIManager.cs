@@ -6,7 +6,7 @@ public class SettingsUIManager : MonoBehaviour
 {
     [SerializeField] List<SettingOption> SettingOptions;
 
-    [SerializeField] Settings settings;
+    private Settings settings;
 
     private void Start() {
         LoadSettings();
@@ -35,7 +35,9 @@ public class SettingsUIManager : MonoBehaviour
         settings = SettingsManager.GetSettings;
     }
 
-    private void SaveSettings() {
-        settings.Save();
+    private void SaveSettings(Settings settings) {
+        foreach (SettingOption settingOption in SettingOptions) {
+            settingOption.ApplyUIToSettings(settings);
+        }
     }
 }

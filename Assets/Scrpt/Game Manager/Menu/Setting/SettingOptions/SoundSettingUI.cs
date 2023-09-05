@@ -8,6 +8,7 @@ public class SoundSettingUI : SettingOption
 {
     [SerializeField] List<GameObject> volumeElements;
 
+    Settings Settings;
     SoundSettings soundSetting;
 
     private void Start() {
@@ -24,16 +25,14 @@ public class SoundSettingUI : SettingOption
                 Debug.LogWarning("Slider or TextMesh Pro component not found in GameObject " + i);
             }
         }
-        soundSetting = new SoundSettings();
     }
 
     public override void LoadSettingsToUI(Settings settings) {
         soundSetting = settings.soundSettings;
-
         for (int i = 0; i < volumeElements.Count; i++) {
             Slider slider = volumeElements[i].GetComponentInChildren<Slider>();
             if (slider != null) {
-                slider.value = GetVolume(i);
+                slider.value = GetVolume(i) * 100;
                 UpdateValueText(i);
             }
         }
@@ -43,28 +42,39 @@ public class SoundSettingUI : SettingOption
         settings.soundSettings = soundSetting;
     }
 
+    // UI에 값을 표시할 때 0 ~ 100으로 변환
+    private void UpdateValueText(int sliderIndex) {
+        if (sliderIndex >= 0 && sliderIndex < volumeElements.Count) {
+            TMP_Text textMeshPro = volumeElements[sliderIndex].GetComponentInChildren<TMP_Text>();
+            if (textMeshPro != null) {
+                float normalizedValue = GetVolume(sliderIndex) * 100;
+                textMeshPro.text = normalizedValue.ToString("F0");
+            }
+        }
+    }
+
+    // 사용할 때는 0 ~ 1로 변환
     public void SetVolume(int sliderIndex) {
         if (soundSetting != null && sliderIndex >= 0 && sliderIndex < volumeElements.Count) {
             Slider slider = volumeElements[sliderIndex].GetComponentInChildren<Slider>();
-            float volume = slider.value;
+            float normalizedValue = slider.value / 100f;
 
             switch (sliderIndex) {
                 case 0:
-                    soundSetting.masterVolume = volume;
+                    soundSetting.masterVolume = normalizedValue;
                     break;
                 case 1:
-                    soundSetting.musicVolume = volume;
+                    soundSetting.musicVolume = normalizedValue;
                     break;
                 case 2:
-                    soundSetting.sfxVolume = volume;
+                    soundSetting.sfxVolume = normalizedValue;
                     break;
                 case 3:
-                    soundSetting.dialogVolume = volume;
+                    soundSetting.dialogVolume = normalizedValue;
                     break;
                 case 4:
-                    soundSetting.UIVolume = volume;
+                    soundSetting.UIVolume = normalizedValue;
                     break;
-                    // 다른 볼륨 슬라이더의 처리를 추가할 수 있습니다.
             }
 
             UpdateValueText(sliderIndex);
@@ -84,18 +94,8 @@ public class SoundSettingUI : SettingOption
                     return soundSetting.dialogVolume;
                 case 4:
                     return soundSetting.UIVolume;
-                    // 다른 볼륨 슬라이더의 처리를 추가할 수 있습니다.
             }
         }
         return 0f;
-    }
-
-    void UpdateValueText(int sliderIndex) {
-        if (sliderIndex >= 0 && sliderIndex < volumeElements.Count) {
-            TMP_Text textMeshPro = volumeElements[sliderIndex].GetComponentInChildren<TMP_Text>();
-            if (textMeshPro != null) {
-                textMeshPro.text = GetVolume(sliderIndex).ToString();
-            }
-        }
     }
 }
