@@ -94,6 +94,7 @@ public class DialogueModule : MonoBehaviour
             SkipScene(dialogueList[currentDialogueIndex]);
         }
         if (Input.GetKeyUp(SkipDialogueKey)) {
+            Debug.Log("스킵모드 오프");
             onSceneSkipMove = false;
         }
 
@@ -118,11 +119,12 @@ public class DialogueModule : MonoBehaviour
     }
 
     private void PlayScene(DialogData dialog) {
-        Debug.Log("current dialogue number: " + currentSceneName + "(" + dialog.id + ")");
+        //Debug.Log("current dialogue number: " + currentSceneName + "(" + dialog.id + ")");
         if (dialog.choices.Count == 0) {
             if (sceneEvents.ContainsKey(dialog.id)) {
                 PlaySceneEvent(sceneEvents[dialog.id]);
             }
+            
             dialogController.TypeDialogue(dialog.character, dialog.content, typingSpeed);
         }
         else {
@@ -170,6 +172,7 @@ public class DialogueModule : MonoBehaviour
 
     private void SkipScene(DialogData dialog) {
         if (dialog.choices.Count == 0) {
+
             if (Input.GetKeyDown(KeyCode.LeftControl)) {
                 dialogController.CurrentDialogueSkip();
             }

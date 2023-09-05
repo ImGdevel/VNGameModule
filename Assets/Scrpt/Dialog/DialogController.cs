@@ -15,7 +15,7 @@ public class DialogController : MonoBehaviour
     private bool isTyping = false;
     private float currentTypingSpeed;
     private float originTypingSpeed;
-    private const float fastSkipTypingSpeed = 0.0001f;
+    private const float fastSkipTypingSpeed = 0.00001f;
 
     public event Action OnTypingEnd;
 
@@ -30,6 +30,7 @@ public class DialogController : MonoBehaviour
 
     public void TypeDialogue(string charcterName, string content, float typingSpeed) {
         if (!isTyping) {
+            Debug.Log("¿œπ›");
             originTypingSpeed = typingSpeed;
             TypeCharacterName(charcterName);
             StartCoroutine(TypeText(content, typingSpeed));
@@ -42,8 +43,9 @@ public class DialogController : MonoBehaviour
 
     public void SkipDialogue(string charcterName, string content) {
         if (!isTyping) {
+            Debug.Log("Ω∫≈µ");
             TypeCharacterName(charcterName);
-            StartCoroutine(TypeText(content, 0.00001f));
+            StartCoroutine(TypeText(content, fastSkipTypingSpeed));
         }
     }
 
@@ -73,7 +75,7 @@ public class DialogController : MonoBehaviour
         isTyping = true;
         dialogTextMesh.text = "";
         currentTypingSpeed = speed;
-        
+
         foreach (char c in text) {
             if (!isTyping)
                 break;

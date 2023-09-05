@@ -74,16 +74,12 @@ public class GraphicsSettingUI : SettingOption
             Debug.LogWarning("No SerchDatas");
             return;
         }
-        if (loadSettings == null || loadSettings.graphicsSettings == null) {
-            Debug.LogWarning("No SearchDatas");
-            return;
-        }
         // 해상도 설정 로드
         resolutionDropdown.value = GetResolutionIndex(loadSettings.graphicsSettings.Resolution);
         // 그래픽 퀄리티 설정 로드
         qualityDropdown.value = loadSettings.graphicsSettings.qualityLevel;
         // 그래픽 품질 설정 로드
-        qualityDropdown.value = settings.graphicsSettings.qualityLevel;
+        //qualityDropdown.value = settings.graphicsSettings.qualityLevel;
     }
 
     public override void ApplyUIToSettings(Settings settings) {
@@ -101,6 +97,7 @@ public class GraphicsSettingUI : SettingOption
 
     // 사용자가 해상도를 선택했을 때 호출되는 메서드
     private void ResolutionDropdownValueChanged(int value) {
+
         Resolution[] availableResolutions = SettingsManager.AvailableResolutions;
         Resolution selectedResolution = availableResolutions[value];
         

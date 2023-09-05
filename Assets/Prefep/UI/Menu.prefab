@@ -3743,34 +3743,6 @@ MonoBehaviour:
   - {fileID: 5851950274705124545}
   - {fileID: 3859045873108727034}
   - {fileID: 1178116461313304742}
-  settings:
-    graphicsSettings:
-      resolution:
-        width: 0
-        height: 0
-      fullScreenMode: 0
-      qualityLevel: 0
-    soundSettings:
-      masterVolume: 0
-      musicVolume: 0
-      sfxVolume: 0
-      dialogVolume: 0
-      UIVolume: 0
-    dialogueSettings:
-      typingSpeed: 0
-      dialogueDelay: 0
-      dialogueBoxTransparency: 0
-    languageSettings:
-      selectedLanguage: 
-    controlSettings:
-      SkipKeyCode: 0
-      NextDialogKeyCode: 0
-      AutoDialogKeyCode: 0
-      HideUIKeyCode: 0
-      QuickSaveKeyCode: 0
-      SaveKeyCode: 0
-      LoadKeyCode: 0
-      ShowLogKeyCode: 0
 --- !u!114 &4261119889159582323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12167,34 +12139,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d5d7172ff286bc428d7fd3930b52a6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settings:
-    graphicsSettings:
-      resolution:
-        width: 0
-        height: 0
-      fullScreenMode: 0
-      qualityLevel: 0
-    soundSettings:
-      masterVolume: 0
-      musicVolume: 0
-      sfxVolume: 0
-      dialogVolume: 0
-      UIVolume: 0
-    dialogueSettings:
-      typingSpeed: 0
-      dialogueDelay: 0
-      dialogueBoxTransparency: 0
-    languageSettings:
-      selectedLanguage: 
-    controlSettings:
-      SkipKeyCode: 0
-      NextDialogKeyCode: 0
-      AutoDialogKeyCode: 0
-      HideUIKeyCode: 0
-      QuickSaveKeyCode: 0
-      SaveKeyCode: 0
-      LoadKeyCode: 0
-      ShowLogKeyCode: 0
   resolutionDropdown: {fileID: 2901341617885646754}
   fullscreenModeDropdown: {fileID: 6299475109768990626}
   qualityDropdown: {fileID: 2060724969272599554}

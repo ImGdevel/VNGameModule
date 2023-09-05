@@ -30,12 +30,11 @@ public class SettingsManager : MonoBehaviour
         AvailableResolutions = Screen.resolutions;
         System.Array.Reverse(AvailableResolutions);
 
-        bool isFile = File.Exists(settingsFilePath);
-
-        if (false) {
+        if (File.Exists(settingsFilePath)) {
             Debug.Log("세팅 불러오기 성공");
             string json = File.ReadAllText(settingsFilePath);
             GetSettings = JsonUtility.FromJson<Settings>(json);
+            Debug.Log("불러온 설정:" + GetSettings);
         }
         else {
             Debug.Log("초기 세팅 저장");
@@ -84,12 +83,15 @@ public class SettingsManager : MonoBehaviour
         controlSettings.SaveKeyCode = KeyCode.S;
         controlSettings.ShowLogKeyCode = KeyCode.T;
         controlSettings.SkipKeyCode = KeyCode.LeftControl;
+        controlSettings.QuickSaveKeyCode = KeyCode.Q;
         settings.controlSettings = controlSettings;
 
         return settings;
     }
 
     private void SaveSettings() {
+        Debug.Log( "저장: " + GetSettings.ToString());
+
         string json = JsonUtility.ToJson(GetSettings);
         File.WriteAllText(settingsFilePath, json);
     }
@@ -99,8 +101,9 @@ public class SettingsManager : MonoBehaviour
             Debug.LogError("Setting Error: gameSettings is null");
             return;
         }
+        Debug.Log("세팅 적용:" + gameSettings);
         GetSettings = gameSettings;
-        OnSettingsChanged?.Invoke(gameSettings);
+        OnSettingsChanged?.Invoke(GetSettings);
 
         SaveSettings(); 
     }

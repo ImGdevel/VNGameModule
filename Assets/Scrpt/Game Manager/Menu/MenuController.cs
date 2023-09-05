@@ -84,7 +84,7 @@ public class MenuController : MonoBehaviour
 
     private void CloseSettingMenu() {
 
-        
+        Debug.Log("메뉴 닫기(저장):" + settings);
         SettingsManager.Instance.ApplySetting(settings);
         settingUI.SetActive(false);
         menuUI.SetActive(true);
