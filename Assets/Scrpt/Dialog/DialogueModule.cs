@@ -190,6 +190,10 @@ public class DialogueModule : MonoBehaviour
     }
 
     private void SceneChange(string sceneName) {
+
+        
+
+
         SceneManager.LoadScene(sceneName);
     }
 

@@ -15,7 +15,7 @@ public class BackgroundMusicManager : MonoBehaviour
     [Range(0f, 1f)] private float musicVolume = 1.0f;
     [Range(0f, 1f)] public float currentVolume;
 
-    public float fadeDuration = 2.0f;
+    const float fadeDuration = 2.0f;
 
     private Coroutine fadeOutCoroutine;
 
@@ -93,6 +93,11 @@ public class BackgroundMusicManager : MonoBehaviour
         audioSource.UnPause();
     }
 
+    public void StopMusic() {
+        currentPlayingMusicName = "";
+        StartCoroutine(FadeOutMusic());
+    }
+
     public void SetVolume(float volume) {
         float finalVolume = masterVolume * musicVolume * volume;
         audioSource.volume = Mathf.Clamp01(finalVolume);
@@ -109,7 +114,7 @@ public class BackgroundMusicManager : MonoBehaviour
         }
     }
 
-    private IEnumerator FadeInMusic(float targetVolume) {
+    private IEnumerator FadeInMusic(float targetVolume ) {
         float startVolume = audioSource.volume;
 
         float startTime = Time.time;
