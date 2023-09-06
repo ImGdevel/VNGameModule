@@ -56,6 +56,9 @@ public class DialogueLoader : MonoBehaviour
         }
         return characterNames;
     }
+
+
+
 }
 
 [System.Serializable]

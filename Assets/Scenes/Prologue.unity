@@ -617,7 +617,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicList: {fileID: 11400000, guid: b27998f9f64bbb642b8dbd7a76a2c7dc, type: 2}
   currentVolume: 0
-  fadeDuration: 2
 --- !u!4 &395845505
 Transform:
   m_ObjectHideFlags: 0

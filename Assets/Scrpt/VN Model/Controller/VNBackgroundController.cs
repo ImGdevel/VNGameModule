@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundController : MonoBehaviour
+public class VNBackgroundController : MonoBehaviour
 {
     [SerializeField]
-    BackgroundList backgroundList;
+    SpriteList backgroundList;
 
     [SerializeField]
     SpriteRenderer spriteRenderer;
@@ -12,7 +12,7 @@ public class BackgroundController : MonoBehaviour
     private List<Sprite> backgrounds;
 
     private void Start() {
-        backgrounds = backgroundList.backgroundSprites;
+        backgrounds = backgroundList.spriteList;
 
         if (spriteRenderer == null) {
             spriteRenderer = GetComponent<SpriteRenderer>();

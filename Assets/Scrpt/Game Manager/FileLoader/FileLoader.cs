@@ -2,7 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface FileLoader
+public class FileLoader
 {
-    public List<string[]> FileLoad(string name);
+
+
+
 }

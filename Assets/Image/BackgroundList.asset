@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee5657e4059eab4a8ab45a8da98a19a, type: 3}
   m_Name: BackgroundList
   m_EditorClassIdentifier: 
-  backgroundSprites: []
+  spriteList: []

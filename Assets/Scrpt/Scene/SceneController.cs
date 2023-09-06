@@ -5,13 +5,12 @@ using UnityEngine;
 public class SceneController : MonoBehaviour
 {
 
-    [SerializeField] BackgroundController backgroundController;
-    [SerializeField] CharacterController characterController;
+    [SerializeField] VNBackgroundController backgroundController;
 
 
     void Start()
     {
-        backgroundController = backgroundController.GetComponent<BackgroundController>();
+        backgroundController = backgroundController.GetComponent<VNBackgroundController>();
     }
 
     public void PlaySceneTransitionEffect(EventData eventData) {
