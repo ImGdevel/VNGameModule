@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class DialogController : MonoBehaviour
+public class VNDialogController : MonoBehaviour
 {
     [SerializeField] TMP_Text dialogTextMesh;
     [SerializeField] TMP_Text characterNameTextMesh;

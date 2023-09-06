@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class DialogueModule : MonoBehaviour
+public class VNDialogueModule : MonoBehaviour
 {
     [SerializeField] GameObject dialogueUI;
-    [SerializeField] DialogController dialogController;
+    [SerializeField] VNDialogController dialogController;
     [SerializeField] SceneController sceneController;
     [SerializeField] ChoiceController choiceController;
     VNDialogManager dialogManager;
@@ -33,7 +33,7 @@ public class DialogueModule : MonoBehaviour
     private KeyCode HideDialogurKey = KeyCode.Tab;
 
     void Start() {
-        dialogController = dialogController.GetComponent<DialogController>();
+        dialogController = dialogController.GetComponent<VNDialogController>();
         sceneController = sceneController.GetComponent<SceneController>();
         dialogManager = VNDialogManager.Instance.GetComponent<VNDialogManager>();
 
