@@ -9,7 +9,7 @@ public class DialogueModule : MonoBehaviour
     [SerializeField] DialogController dialogController;
     [SerializeField] SceneController sceneController;
     [SerializeField] ChoiceController choiceController;
-    DialogManager dialogManager;
+    VNDialogManager dialogManager;
     
 
     private List<DialogData> dialogueList;
@@ -35,7 +35,7 @@ public class DialogueModule : MonoBehaviour
     void Start() {
         dialogController = dialogController.GetComponent<DialogController>();
         sceneController = sceneController.GetComponent<SceneController>();
-        dialogManager = DialogManager.Instance.GetComponent<DialogManager>();
+        dialogManager = VNDialogManager.Instance.GetComponent<VNDialogManager>();
 
         sceneEvents = dialogManager.GetSceneEvents();
         isPauseGame = true;
@@ -52,7 +52,7 @@ public class DialogueModule : MonoBehaviour
     private void  StartDialogue() {
         ApplaySetting(SettingsManager.GetSettings);
         ToggleDialogueUI();
-        LoadDialogue("Prologue");
+        LoadDialogue(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
         isPauseGame = false;   
     }
 
@@ -233,7 +233,6 @@ public class DialogueModule : MonoBehaviour
     }
 
     public void ApplaySetting(Settings settings) {
-        Debug.Log("세팅 적용");
         typingSpeed = settings.dialogueSettings.typingSpeed;
         autoScrollDelay = settings.dialogueSettings.dialogueDelay;
 

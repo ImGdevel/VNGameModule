@@ -31,16 +31,15 @@ public class SettingsManager : MonoBehaviour
         System.Array.Reverse(AvailableResolutions);
 
         if (File.Exists(settingsFilePath)) {
-            Debug.Log("세팅 불러오기 성공");
             string json = File.ReadAllText(settingsFilePath);
             GetSettings = JsonUtility.FromJson<Settings>(json);
-            Debug.Log("불러온 설정:" + GetSettings);
+            
         }
         else {
-            Debug.Log("초기 세팅 저장");
             GetSettings = InitSetting();
             SaveSettings();
         }
+        Debug.Log("불러온 설정:" + GetSettings);
         ScreenSetting();
     }
 

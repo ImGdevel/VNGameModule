@@ -1,0 +1,100 @@
+{
+  "language": "en",
+  "characters": {
+    "Player": "Player Character",
+    "CharacterA": "Character A",
+    "NPCB": "NPC B",
+    "CharacterC": "Character C"
+  },
+  "scenes": [
+    {
+      "name": "Prologue",
+      "dialogs": [
+        {
+          "id": "P00001",
+          "character": "Player",
+          "content": "Hello, are you new here?"
+        },
+        {
+          "id": "P00002",
+          "character": "CharacterA",
+          "content": "Yes, I just arrived. Nice to meet you!"
+        },
+        {
+          "id": "P00003",
+          "character": "Player",
+          "content": "Hi, Nice to meet you too!"
+        },
+        {
+          "id": "P00004",
+          "character": "",
+          "content": ""
+        }
+      ]
+    },
+    {
+      "name": "Chapter01",
+      "dialogs": [
+        {
+          "id": "C10001",
+          "character": "NPCB",
+          "content": "Hey there! I heard you're the new adventurer in town."
+        },
+        {
+          "id": "C10002",
+          "character": "Player",
+          "content": "That's right! I'm excited to explore."
+        },
+        {
+          "id": "C10003",
+          "character": "NPCB",
+          "choices": [
+            {
+              "text": "Ask about the nearby forest.",
+              "nextDialog": "C10004"
+            },
+            {
+              "text": "Inquire about recent quests.",
+              "nextDialog": "C10005"
+            }
+          ]
+        },
+        {
+          "id": "C10004",
+          "character": "NPCB",
+          "content": "The nearby forest is a dangerous place filled with monsters."
+        },
+        {
+          "id": "C10005",
+          "character": "NPCB",
+          "content": "Lately, we've had many requests to clear out goblin camps."
+        },
+        {
+          "id": "C10006",
+          "character": "",
+          "content": ""
+        }
+      ]
+    },
+    {
+      "name": "Ending",
+      "dialogs": [
+        {
+          "id": "E20001",
+          "character": "Player",
+          "content": "It's been quite a journey, hasn't it?"
+        },
+        {
+          "id": "E20002",
+          "character": "CharacterC",
+          "content": "Indeed, we've been through a lot together."
+        },
+        {
+          "id": "E20003",
+          "character": "Player",
+          "content": "I'm glad we could overcome all challenges."
+        }
+      ]
+    }
+  ]
+}
