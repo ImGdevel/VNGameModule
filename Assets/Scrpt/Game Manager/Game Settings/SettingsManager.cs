@@ -6,7 +6,7 @@ public class SettingsManager : MonoBehaviour
 {
     public static SettingsManager Instance { get; private set; }
 
-    public static Settings GetSettings { get; private set; }
+    public static Settings GameSetting { get; private set; }
 
     public static Resolution[] AvailableResolutions;
 
@@ -29,22 +29,24 @@ public class SettingsManager : MonoBehaviour
     private void LoadSettings() {
         AvailableResolutions = Screen.resolutions;
         System.Array.Reverse(AvailableResolutions);
-
+        Debug.Log(Settings.GetInstanceCount());
         if (File.Exists(settingsFilePath)) {
+
             string json = File.ReadAllText(settingsFilePath);
-            GetSettings = JsonUtility.FromJson<Settings>(json);
+            GameSetting = JsonUtility.FromJson<Settings>(json);
             
         }
         else {
-            GetSettings = InitSetting();
+            GameSetting = InitSetting();
             SaveSettings();
         }
-        Debug.Log("불러온 설정:" + GetSettings);
+        Debug.Log("불러온 설정:" + GameSetting);
         ScreenSetting();
+        Debug.Log(Settings.GetInstanceCount());
     }
 
     private void ScreenSetting() {
-        ScreenManager.ChangeResolution(GetSettings.graphicsSettings.Resolution);
+        ScreenManager.ChangeResolution(GameSetting.graphicsSettings.Resolution);
     }
 
     private Settings InitSetting() {
@@ -89,20 +91,19 @@ public class SettingsManager : MonoBehaviour
     }
 
     private void SaveSettings() {
-        Debug.Log( "저장: " + GetSettings.ToString());
-
-        string json = JsonUtility.ToJson(GetSettings);
+        string json = JsonUtility.ToJson(GameSetting);
         File.WriteAllText(settingsFilePath, json);
     }
 
     public void ApplySetting(Settings gameSettings) {
+
         if (gameSettings == null) {
             Debug.LogError("Setting Error: gameSettings is null");
             return;
         }
-        Debug.Log("세팅 적용:" + gameSettings);
-        GetSettings = gameSettings;
-        OnSettingsChanged?.Invoke(GetSettings);
+        GameSetting = gameSettings;
+        OnSettingsChanged?.Invoke(GameSetting);
+        Debug.Log(Settings.GetInstanceCount());
 
         SaveSettings(); 
     }

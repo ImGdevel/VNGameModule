@@ -54,7 +54,7 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     private void  StartDialogue() {
-        ApplaySetting(SettingsManager.GetSettings);
+        ApplaySetting(SettingsManager.GameSetting);
         ToggleDialogueUI();
         LoadDialogue(currentSceneName);
         isPauseGame = false;   

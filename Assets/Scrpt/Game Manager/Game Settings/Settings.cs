@@ -22,6 +22,21 @@ public class Settings
                $"Control Settings:\n{controlSettings}";
     }
 
+    private static int instanceCount = 0; // 클래스 인스턴스 개수를 추적하기 위한 정적 변수
+
+    public Settings() {
+        Debug.Log("생성됨");
+        instanceCount++; // 클래스의 생성자가 호출될 때마다 인스턴스 개수 증가
+    }
+    
+    ~Settings() // 소멸자 (파괴자)
+    {
+        instanceCount--; // 클래스의 인스턴스가 소멸될 때마다 인스턴스 개수 감소
+    }
+
+    public static int GetInstanceCount() {
+        return instanceCount; // 현재 클래스 인스턴스 개수 반환
+    }
 }
 
 [System.Serializable]

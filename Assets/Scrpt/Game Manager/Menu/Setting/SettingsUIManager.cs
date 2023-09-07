@@ -8,8 +8,8 @@ public class SettingsUIManager : MonoBehaviour
 
     private Settings settings;
 
-    public void ShowSettingMenu() {
-        LoadSettings();
+    public void OpenSettingMenu() {
+        settings = SettingsManager.GameSetting;
         ShowSettingPanel(SettingOptions[0]);
     }
 
@@ -17,7 +17,6 @@ public class SettingsUIManager : MonoBehaviour
         foreach (SettingOption settingOption in SettingOptions) {
             GameObject panel = settingOption.gameObject;
             if(settingOption == settingPanel) {
-                Debug.Log("메뉴에서 로드:" + settings);
                 SettingOption setting = settingOption.GetComponent<SettingOption>();
                 setting.LoadSettingsToUI(settings);
                 panel.SetActive(true);
@@ -28,14 +27,13 @@ public class SettingsUIManager : MonoBehaviour
         }
     }
 
-    private void LoadSettings() {
-        Debug.Log("세팅 가져오기");
-        settings = SettingsManager.GetSettings;
-    }
-
-    private void SaveSettings(Settings settings) {
+    private void SaveSettings() {
         foreach (SettingOption settingOption in SettingOptions) {
             settingOption.ApplyUIToSettings(settings);
         }
+    }
+
+    private void OnDisable() {
+        SettingsManager.Instance.ApplySetting(settings);
     }
 }

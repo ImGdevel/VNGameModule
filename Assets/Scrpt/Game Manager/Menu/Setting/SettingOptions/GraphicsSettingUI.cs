@@ -11,7 +11,7 @@ public class GraphicsSettingUI : SettingOption
     [SerializeField] private TMP_Dropdown fullscreenModeDropdown; // 전체 화면 모드 설정을 위한 TMP Dropdown 메뉴
     [SerializeField] private TMP_Dropdown qualityDropdown; // 그래픽 품질 설정을 위한 TMP Dropdown 메뉴
 
-    private Settings settings; // 세팅 정보 저장
+    GraphicsSettings graphicsSettings;
 
     public enum FullScreenModeEnum
     {
@@ -20,7 +20,6 @@ public class GraphicsSettingUI : SettingOption
     }
 
     private void Start() {
-        settings = SettingsManager.GetSettings;
         InitializeResolutionDropdown();
         InitializeFullScreenModeDropdown();
         InitializeQualityDropdown();
@@ -50,7 +49,6 @@ public class GraphicsSettingUI : SettingOption
     private void InitializeQualityDropdown() {
         qualityDropdown.ClearOptions();
 
-        // Unity에서 지원하는 그래픽 퀄리티 레벨을 가져와서 드롭다운 메뉴에 추가
         List<string> qualityOptions = new List<string>(QualitySettings.names);
         qualityDropdown.AddOptions(qualityOptions);
         qualityDropdown.onValueChanged.AddListener(QualityDropdownValueChanged);
@@ -74,37 +72,24 @@ public class GraphicsSettingUI : SettingOption
             Debug.LogWarning("No SerchDatas");
             return;
         }
+        graphicsSettings = loadSettings.graphicsSettings;
         // 해상도 설정 로드
         resolutionDropdown.value = GetResolutionIndex(loadSettings.graphicsSettings.Resolution);
         // 그래픽 퀄리티 설정 로드
         qualityDropdown.value = loadSettings.graphicsSettings.qualityLevel;
-        // 그래픽 품질 설정 로드
-        //qualityDropdown.value = settings.graphicsSettings.qualityLevel;
     }
 
     public override void ApplyUIToSettings(Settings settings) {
-        // 해상도 설정 적용
-
-        // 전체 화면 설정 적용
-
-        // 그래픽 퀄리티 설정 적용
-        settings.graphicsSettings.qualityLevel = qualityDropdown.value;
-        QualitySettings.SetQualityLevel((int)qualityDropdown.value);
-
-        // 그래픽 품질 설정 적용
-        settings.graphicsSettings.qualityLevel = qualityDropdown.value;
+        graphicsSettings = settings.graphicsSettings;
     }
 
     // 사용자가 해상도를 선택했을 때 호출되는 메서드
     private void ResolutionDropdownValueChanged(int value) {
-
         Resolution[] availableResolutions = SettingsManager.AvailableResolutions;
         Resolution selectedResolution = availableResolutions[value];
-        
-        settings.graphicsSettings.Resolution = selectedResolution;
-        ScreenManager.ChangeResolution(selectedResolution);
 
-        Debug.Log("Resolution Dropdown Value Changed: " + selectedResolution);
+        graphicsSettings.Resolution = selectedResolution;
+        ScreenManager.ChangeResolution(selectedResolution);
     }
 
     // 사용자가 전체 화면 모드를 선택했을 때 호출되는 메서드
@@ -112,8 +97,8 @@ public class GraphicsSettingUI : SettingOption
         string selectedModeString = fullscreenModeDropdown.options[value].text;
         FullScreenModeEnum selectedMode = (FullScreenModeEnum)System.Enum.Parse(typeof(FullScreenModeEnum), selectedModeString);
 
+        graphicsSettings.fullScreenMode = ConvertFullScreenMode(selectedMode);
         Screen.fullScreenMode = ConvertFullScreenMode(selectedMode);
-        Debug.Log("Resolution Dropdown Value Changed: " + value);
     }
 
     // FullScreenModeEnum을 Unity의 FullScreenMode로 변환
@@ -128,15 +113,9 @@ public class GraphicsSettingUI : SettingOption
         }
     }
 
-    // 사용자가 그래픽 퀄리티를 선택했을 때 호출되는 메서드
     private void QualityDropdownValueChanged(int value) {
-        // 설정을 변경하고 저장
-        settings.graphicsSettings.qualityLevel = value;
-
-        // Unity의 그래픽 퀄리티 설정에도 적용
+        graphicsSettings.qualityLevel = value;
         QualitySettings.SetQualityLevel(value);
-
-        Debug.Log("Quality Dropdown Value Changed: " + value);
     }
 }
 

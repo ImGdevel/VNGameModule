@@ -8,7 +8,6 @@ public class SoundSettingUI : SettingOption
 {
     [SerializeField] List<GameObject> volumeElements;
 
-    Settings Settings;
     SoundSettings soundSetting;
 
     private void Start() {
