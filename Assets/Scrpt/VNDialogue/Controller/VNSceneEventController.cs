@@ -6,7 +6,7 @@ public class VNSceneEventController : MonoBehaviour
 {
 
     [SerializeField] VNBackgroundController backgroundController;
-
+    
 
     void Start()
     {
