@@ -1,40 +1,70 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class VNScreenController : MonoBehaviour
 {
-    void Start() {
-        // Canvas에 연결된 RectTransform 가져오기
-        RectTransform canvasRect = GetComponent<RectTransform>();
+    public static VNScreenController Instance { get; private set; }
 
-        // 자신의 RectTransform을 부모 크기에 딱 맞게 조정
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        if (rectTransform == null) {
-            rectTransform = gameObject.AddComponent<RectTransform>();
+    private Image fadeImage;
+    private Color originalColor;
+
+    private const float fadeDuration = 1.0f;
+
+    void Awake() {
+        if (Instance != null) {
+            Destroy(this);
+            return;
         }
+        Instance = this;
+
+        RectTransform rectTransform = GetComponent<RectTransform>();
         rectTransform.anchorMin = Vector2.zero;
         rectTransform.anchorMax = Vector2.one;
         rectTransform.offsetMin = Vector2.zero;
         rectTransform.offsetMax = Vector2.zero;
+        CreateFadeScreen();
 
-        // 자신의 RectTransform에 Image 컴포넌트 추가 (검은 화면 역할)
-        Image blackOutImage = gameObject.AddComponent<Image>();
-        blackOutImage.color = Color.black;
-        blackOutImage.raycastTarget = false; // 이벤트 무시
+        FadeIn();
+    }
 
-        // 자식 UI 요소 추가 및 크기 설정 (예: 텍스트 UI 요소 추가)
-        GameObject childObject = new GameObject("ChildUI");
+    private void CreateFadeScreen() {
+        GameObject childObject = new GameObject("FadeScreen");
         RectTransform childRectTransform = childObject.AddComponent<RectTransform>();
-        childRectTransform.SetParent(rectTransform); // 부모 설정
+        childRectTransform.SetParent(transform, false);
         childRectTransform.anchorMin = Vector2.zero;
         childRectTransform.anchorMax = Vector2.one;
         childRectTransform.offsetMin = Vector2.zero;
         childRectTransform.offsetMax = Vector2.zero;
 
-        Text textComponent = childObject.AddComponent<Text>();
-        textComponent.text = "Hello, World!";
-        textComponent.font = Resources.GetBuiltinResource<Font>("Arial.ttf"); // 폰트 설정
-        textComponent.alignment = TextAnchor.MiddleCenter;
-        textComponent.color = Color.white;
+        Image childImage = gameObject.AddComponent<Image>();
+        fadeImage = childImage;
+        fadeImage.color = Color.black;
+        originalColor = fadeImage.color;
+        fadeImage.raycastTarget = false;
+    }
+
+    public void FadeIn(float fadeTime = fadeDuration) {
+        fadeImage.gameObject.SetActive(true);
+        StartCoroutine(Fade(fadeImage, originalColor, Color.clear, fadeTime));
+    }
+
+    public void FadeOut(float fadeTime = fadeDuration) {
+        fadeImage.gameObject.SetActive(true);
+        StartCoroutine(Fade(fadeImage, Color.clear, originalColor, fadeTime));
+
+    }
+
+    private IEnumerator Fade(Image image, Color startColor, Color targetColor, float duration) {
+        float startTime = Time.time;
+
+        while (Time.time - startTime < duration) {
+            float normalizedTime = (Time.time - startTime) / duration;
+            image.color = Color.Lerp(startColor, targetColor, normalizedTime);
+
+            yield return null;
+        }
+        image.color = targetColor;
+        fadeImage.gameObject.SetActive(targetColor != Color.clear);
     }
 }
