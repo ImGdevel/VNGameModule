@@ -7,11 +7,10 @@ public class VNDialogueModule : MonoBehaviour
 {
     [SerializeField] GameObject dialogueUI;
     [SerializeField] VNDialogController dialogController;
-    [SerializeField] SceneController sceneController;
-    [SerializeField] ChoiceController choiceController;
+    [SerializeField] VNSceneEventController sceneEventController;
+    [SerializeField] VNChoiceController choiceController;
     VNDialogManager dialogManager;
     
-
     private List<DialogData> dialogueList;
     private Dictionary<string, string> chracterName;
     private Dictionary<string, List<EventData>> sceneEvents;
@@ -32,18 +31,23 @@ public class VNDialogueModule : MonoBehaviour
     private KeyCode AutoDialogueKey = KeyCode.A;
     private KeyCode HideDialogurKey = KeyCode.Tab;
 
-    void Start() {
+    void Awake() {
         dialogController = dialogController.GetComponent<VNDialogController>();
-        sceneController = sceneController.GetComponent<SceneController>();
+        sceneEventController = sceneEventController.GetComponent<VNSceneEventController>();
+        choiceController = choiceController.GetComponent<VNChoiceController>();
+    }
+
+    void Start() {
         dialogManager = VNDialogManager.Instance.GetComponent<VNDialogManager>();
 
-        sceneEvents = dialogManager.GetSceneEvents();
-        isPauseGame = true;
-
+        currentSceneName = UnityEngine.SceneManagement.SceneManager.GetActiveScene().name;
         dialogController.OnTypingEnd += NextScene;
         choiceController.ChoiceScene += JumpScene;
         SettingsManager.OnSettingsChanged += ApplaySetting;
         MenuController.OnMenuOpened += PauseGame;
+
+        sceneEvents = dialogManager.GetSceneEvents();
+        isPauseGame = true;
         dialogueUI.SetActive(false);
 
         Invoke("StartDialogue", 2.0f);
@@ -52,7 +56,7 @@ public class VNDialogueModule : MonoBehaviour
     private void  StartDialogue() {
         ApplaySetting(SettingsManager.GetSettings);
         ToggleDialogueUI();
-        LoadDialogue(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+        LoadDialogue(currentSceneName);
         isPauseGame = false;   
     }
 
@@ -239,6 +243,7 @@ public class VNDialogueModule : MonoBehaviour
         AutoDialogueKey = settings.controlSettings.AutoDialogKeyCode;
         NextDialogueKey = settings.controlSettings.NextDialogKeyCode;
         SkipDialogueKey = settings.controlSettings.SkipKeyCode;
+        HideDialogurKey = settings.controlSettings.HideUIKeyCode;
     }
 
     private void ToggleDialogueUI() {

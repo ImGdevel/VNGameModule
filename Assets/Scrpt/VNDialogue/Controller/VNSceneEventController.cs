@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SceneController : MonoBehaviour
+public class VNSceneEventController : MonoBehaviour
 {
 
     [SerializeField] VNBackgroundController backgroundController;

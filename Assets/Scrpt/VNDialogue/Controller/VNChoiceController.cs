@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class ChoiceController : MonoBehaviour
+public class VNChoiceController : MonoBehaviour
 {
     [SerializeField] private GameObject choiceButtonPrefab; 
     [SerializeField] private Transform choiceButtonContainer; 
