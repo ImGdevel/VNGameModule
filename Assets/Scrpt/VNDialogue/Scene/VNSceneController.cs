@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VNSceneEventController : MonoBehaviour
+public class VNSceneController : MonoBehaviour
 {
 
     [SerializeField] VNBackgroundController backgroundController;
@@ -21,8 +21,12 @@ public class VNSceneEventController : MonoBehaviour
         // 장면 페이드 아웃
     }
 
+    public void PlayEventScene(EventData eventData) {
+
+    }
+
     public void PlayCharacterTransitionEffect(EventData eventData) {
-        
+        //
 
 
     }

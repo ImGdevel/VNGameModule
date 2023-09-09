@@ -7,7 +7,7 @@ public class VNDialogueModule : MonoBehaviour
 {
     [SerializeField] GameObject dialogueUI;
     [SerializeField] VNDialogController dialogController;
-    [SerializeField] VNSceneEventController sceneEventController;
+    [SerializeField] VNSceneController sceneEventController;
     [SerializeField] VNChoiceController choiceController;
     VNDialogManager dialogManager;
     
@@ -33,7 +33,7 @@ public class VNDialogueModule : MonoBehaviour
 
     void Awake() {
         dialogController = dialogController.GetComponent<VNDialogController>();
-        sceneEventController = sceneEventController.GetComponent<VNSceneEventController>();
+        sceneEventController = sceneEventController.GetComponent<VNSceneController>();
         choiceController = choiceController.GetComponent<VNChoiceController>();
     }
 
