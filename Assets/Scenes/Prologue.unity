@@ -616,7 +616,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicList: {fileID: 11400000, guid: b27998f9f64bbb642b8dbd7a76a2c7dc, type: 2}
-  currentVolume: 0
 --- !u!4 &395845505
 Transform:
   m_ObjectHideFlags: 0
@@ -1030,7 +1029,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1036937075}
   - component: {fileID: 1036937073}
-  - component: {fileID: 1036937076}
   m_Layer: 0
   m_Name: Screen Manager
   m_TagString: Untagged
@@ -1065,18 +1063,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1036937076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1036937072}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19c18898c86c5d149bcdd5c47eb2dc62, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1208623083 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8583317177668614664, guid: abc00c0dadc446e42b8f3688791c8422, type: 3}
