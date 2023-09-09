@@ -12,12 +12,12 @@ public class VNCharacterController : MonoBehaviour
     private SpriteRenderer changeSprite;
 
     [SerializeField]
-    private float transitionDuration = 1.0f;
+    private float transitionDuration = 0.5f;
 
     private List<Sprite> spriteList;
     private int currentIndex = 0;
     private bool isTransitioning = false;
-
+     
     private void Awake() {
         if (currentSprite == null) {
             currentSprite = transform.gameObject.AddComponent<SpriteRenderer>();
@@ -30,32 +30,39 @@ public class VNCharacterController : MonoBehaviour
             changeSprite.enabled = false;
         }
     }
-
+     
     private void Start() {
         spriteList = spriteDatas.spriteList;
     }
-
+     
     private void Update() {
         if (Input.GetKeyDown(KeyCode.F) && !isTransitioning) {
             Debug.Log("배경 변경 (즉시)");
-            int newIndex = (currentIndex + 1) % spriteList.Count;
-            ChangeCharacterInstant(newIndex);
+            int newIndex = (currentIndex) % spriteList.Count;
+            ShowCharacterInstant(newIndex);
         }
 
         if (Input.GetKeyDown(KeyCode.G) && !isTransitioning) {
             Debug.Log("배경 변경 (크로스페이드)");
-            int newIndex = (currentIndex + 1) % spriteList.Count;
-            StartCoroutine(ChangeCharcaterCrossfade(newIndex));
+            int newIndex = (currentIndex) % spriteList.Count;
+            StartCoroutine(ShowCharcaterCrossfade(newIndex));
+        }
+
+        if (Input.GetKeyDown(KeyCode.J) && !isTransitioning) {
+            Debug.Log("페이드 아웃");
+            int newIndex = (currentIndex) % spriteList.Count;
+            
+            StartCoroutine(MoveCharacterPosision(new Vector3(1, 0, 0),0.5f));
         }
 
         if (Input.GetKeyDown(KeyCode.H) && !isTransitioning) {
             Debug.Log("페이드 아웃");
-            int newIndex = (currentIndex + 1) % spriteList.Count;
-            StartCoroutine(ChangeCharcaterCrossfade(newIndex));
+            int newIndex = (currentIndex) % spriteList.Count;
+            StartCoroutine(FadeOutCharacter());
         }
     }
 
-    private void ChangeCharacterInstant(int newIndex) {
+    private void ShowCharacterInstant(int newIndex) {
         if (newIndex >= 0 && newIndex < spriteList.Count) {
             currentIndex = newIndex;
             currentSprite.sprite = spriteList[currentIndex];
@@ -65,7 +72,7 @@ public class VNCharacterController : MonoBehaviour
         }
     }
 
-    private IEnumerator ChangeCharcaterCrossfade(int newIndex) {
+    private IEnumerator ShowCharcaterCrossfade(int newIndex) {
         if (newIndex >= 0 && newIndex < spriteList.Count) {
             isTransitioning = true;
             float elapsedTime = 0f;
@@ -87,6 +94,7 @@ public class VNCharacterController : MonoBehaviour
             }
 
             currentSprite.sprite = spriteList[currentIndex];
+            currentSprite.color = endColor;
             changeSprite.color = endColor;
             changeSprite.enabled = false;
             isTransitioning = false;
@@ -149,8 +157,6 @@ public class VNCharacterController : MonoBehaviour
             elapsedTime += Time.deltaTime;
             yield return null;
         }
-
         isTransitioning = false;
     }
-
 }

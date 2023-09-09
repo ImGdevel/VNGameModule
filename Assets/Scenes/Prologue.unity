@@ -822,6 +822,7 @@ MonoBehaviour:
   dialogController: {fileID: 1208623083}
   sceneEventController: {fileID: 842486135}
   choiceController: {fileID: 1938770977}
+  sceneController: {fileID: 0}
 --- !u!4 &598045503
 Transform:
   m_ObjectHideFlags: 0
@@ -837,6 +838,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &779831406 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1815600748829348077, guid: c2be472363a851a4eb287680d94ca022, type: 3}
+  m_PrefabInstance: {fileID: 5550700789393677423}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf2810799a7704a4e821f2815f8e74a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &842486135 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5550700790168751384, guid: c2be472363a851a4eb287680d94ca022, type: 3}
@@ -1206,6 +1218,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1815600748829348077, guid: c2be472363a851a4eb287680d94ca022, type: 3}
+      propertyPath: transitionDuration
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5550700790168751384, guid: c2be472363a851a4eb287680d94ca022, type: 3}
+      propertyPath: characterController
+      value: 
+      objectReference: {fileID: 779831406}
     - target: {fileID: 5550700790168751385, guid: c2be472363a851a4eb287680d94ca022, type: 3}
       propertyPath: m_RootOrder
       value: 2

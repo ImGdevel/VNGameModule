@@ -9,6 +9,7 @@ public class VNDialogueModule : MonoBehaviour
     [SerializeField] VNDialogController dialogController;
     [SerializeField] VNSceneController sceneEventController;
     [SerializeField] VNChoiceController choiceController;
+    [SerializeField] VNSceneController sceneController;
     VNDialogManager dialogManager;
     
     private List<DialogData> dialogueList;
@@ -163,12 +164,12 @@ public class VNDialogueModule : MonoBehaviour
         foreach (EventData eventData in eventDatas) {
             switch (eventData.type) {
                 case "ShowCharacter":
-                    Debug.Log("캐릭터 전환");
-
-                    break;
-                    
+                case "MoveCharacter":
+                case "DismissCharacter":
                 case "ChangeBackground":
-                    Debug.Log("배경 전환");
+                
+
+                    sceneController.PlayEventScene(eventData);
                     break;
 
                 case "PlaySound":
@@ -177,13 +178,13 @@ public class VNDialogueModule : MonoBehaviour
                     break;
 
                 case "PlayMusic":
-                    string musicAudio = eventData.data;
+                    string musicAudio = eventData.data.name;
                     if (onSceneSkipMove) break;
                     BackgroundMusicManager.Instance.PlayMusic(musicAudio);
                     break;
 
                 case "SceneChange":
-                    SceneChange(eventData.data);
+                    SceneChange(eventData.data.name);
                     break;
 
                 default:
@@ -196,8 +197,6 @@ public class VNDialogueModule : MonoBehaviour
     private void SceneChange(string sceneName) {
 
         
-
-
         SceneManager.LoadScene(sceneName);
     }
 
@@ -255,4 +254,6 @@ public class VNDialogueModule : MonoBehaviour
             dialogueUI.SetActive(false);
         }
     }
+
+
 }

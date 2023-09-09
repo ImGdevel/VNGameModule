@@ -69,12 +69,27 @@ public class DialogueJSONData
     public List<SceneData> scenes;
 }
 
-
 [System.Serializable]
 public class EventData
 {
     public string type;
-    public string data;
+    public Data data;
+}
+
+[System.Serializable]
+public class Data
+{
+    public string name;
+    public int number;
+    public Posision posision;
+    public int scale;
+}
+
+[System.Serializable]
+public class Posision
+{
+    public string x;
+    public string y;
 }
 
 [System.Serializable]

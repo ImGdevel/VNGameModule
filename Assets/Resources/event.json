@@ -6,7 +6,9 @@
       "events": [
         {
           "type": "PlayMusic",
-          "data": "JazzCafe"
+          "data": {
+            "name": "JazzCafe"
+          }
         }
       ]
     },
@@ -16,19 +18,21 @@
         {
           "type": "ShowCharacter",
           "data": {
-            "character": "CharacterA",
-            "expression": "Concerned"
+            "name": "CharacterA",
+            "number": "0"
           }
         },
         {
           "type": "ChangeBackground",
           "data": {
-            "background": "ForestBackground"
+            "name": "0"
           }
         },
         {
           "type": "PlayMusic",
-          "data": "GameTitle"
+          "data": {
+            "name": "GameTitle"
+          }
         }
       ]
     },
@@ -37,7 +41,9 @@
       "events": [
         {
           "type": "SceneChange",
-          "data": "Ending"
+          "data": {
+            "name": "Ending"
+          }
         }
       ]
     },
@@ -46,7 +52,9 @@
       "events": [
         {
           "type": "SceneChange",
-          "data": "Chapter01"
+          "data": {
+            "name": "Chapter01"
+          }
         }
       ]
     }
