@@ -20,9 +20,6 @@ public class VNCharacterController : MonoBehaviour
             spriteController.SetSpriteList(character.spriteList);
             characterObj.transform.SetParent(transform);
 
-            Debug.Log(characterName);
-            Debug.Log(spriteController);
-
             characters.Add(characterName, spriteController);
         }
     }

@@ -82,7 +82,7 @@ public class Data
     public string name;
     public int number;
     public float time;
-    public Posision posision;
+    public Posision position;
     public float scale;
 }
 

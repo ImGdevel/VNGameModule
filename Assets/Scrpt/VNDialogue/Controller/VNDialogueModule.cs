@@ -7,7 +7,6 @@ public class VNDialogueModule : MonoBehaviour
 {
     [SerializeField] GameObject dialogueUI;
     [SerializeField] VNDialogController dialogController;
-    [SerializeField] VNSceneController sceneEventController;
     [SerializeField] VNChoiceController choiceController;
     [SerializeField] VNCharacterController characterController;
     [SerializeField] VNBackgroundController backgroundController;
@@ -35,7 +34,6 @@ public class VNDialogueModule : MonoBehaviour
 
     void Awake() {
         dialogController = dialogController.GetComponent<VNDialogController>();
-        sceneEventController = sceneEventController.GetComponent<VNSceneController>();
         choiceController = choiceController.GetComponent<VNChoiceController>();
         if (backgroundController == null) {
             backgroundController = FindObjectOfType<VNBackgroundController>();
@@ -86,7 +84,7 @@ public class VNDialogueModule : MonoBehaviour
             Debug.LogError("DialogManager is not assigned.");
             return;
         }
-        dialogueList = dialogManager.GetSceneDialogs(loadName); // 대화 데이터 받아오기
+        dialogueList = dialogManager.GetSceneDialogs(loadName);
 
         if (dialogueList != null && dialogueList.Count > 0) {
             currentDialogueIndex = 0;
@@ -181,7 +179,7 @@ public class VNDialogueModule : MonoBehaviour
                     characterController.ShowCharacter(data.name, data.number, data.time);
                     break;
                 case "MoveCharacter":
-                    characterController.MoveCharacter(data.name, new Vector2(data.posision.x, data.posision.y), data.time);
+                    characterController.MoveCharacter(data.name, new Vector2(data.position.x, data.position.y), data.time);
                     break;
                 case "DismissCharacter":
                     characterController.DismissCharacter(data.name, data.time);
@@ -228,7 +226,7 @@ public class VNDialogueModule : MonoBehaviour
         for (int i = 0; i < dialogueList.Count; i++) {
             if (dialogueList[i].id == jump_id) {
                 currentDialogueIndex = i;
-                dialogController.ClearDialogue(); // 이전 대화 내용을 지웁니다.
+                dialogController.ClearDialogue();
                 PlayScene(dialogueList[currentDialogueIndex]);
                 break;
             }

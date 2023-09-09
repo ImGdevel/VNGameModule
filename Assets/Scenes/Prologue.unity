@@ -820,7 +820,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 167186262}
   dialogController: {fileID: 1208623083}
-  sceneEventController: {fileID: 842486135}
   choiceController: {fileID: 1938770977}
   characterController: {fileID: 779831406}
   backgroundController: {fileID: 972223822}
@@ -848,17 +847,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf2810799a7704a4e821f2815f8e74a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &842486135 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5550700790168751384, guid: c2be472363a851a4eb287680d94ca022, type: 3}
-  m_PrefabInstance: {fileID: 5550700789393677423}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: daa04e8e6e083f846b056f4478d16f23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &972223818 stripped
@@ -1312,6 +1300,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5550700790648676813, guid: c2be472363a851a4eb287680d94ca022, type: 3}
+    - {fileID: 5550700790168751384, guid: c2be472363a851a4eb287680d94ca022, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c2be472363a851a4eb287680d94ca022, type: 3}
 --- !u!1001 &6214364785856717562
 PrefabInstance:
