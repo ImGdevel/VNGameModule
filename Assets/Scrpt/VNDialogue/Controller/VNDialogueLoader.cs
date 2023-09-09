@@ -81,15 +81,16 @@ public class Data
 {
     public string name;
     public int number;
+    public float time;
     public Posision posision;
-    public int scale;
+    public float scale;
 }
 
 [System.Serializable]
 public class Posision
 {
-    public string x;
-    public string y;
+    public float x;
+    public float y;
 }
 
 [System.Serializable]

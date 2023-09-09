@@ -9,7 +9,8 @@ public class VNDialogueModule : MonoBehaviour
     [SerializeField] VNDialogController dialogController;
     [SerializeField] VNSceneController sceneEventController;
     [SerializeField] VNChoiceController choiceController;
-    [SerializeField] VNSceneController sceneController;
+    [SerializeField] VNCharacterController characterController;
+    [SerializeField] VNBackgroundController backgroundController;
     VNDialogManager dialogManager;
     
     private List<DialogData> dialogueList;
@@ -36,6 +37,18 @@ public class VNDialogueModule : MonoBehaviour
         dialogController = dialogController.GetComponent<VNDialogController>();
         sceneEventController = sceneEventController.GetComponent<VNSceneController>();
         choiceController = choiceController.GetComponent<VNChoiceController>();
+        if (backgroundController == null) {
+            backgroundController = FindObjectOfType<VNBackgroundController>();
+            if (backgroundController == null) {
+                Debug.LogError("can not find VNBackgroundController");
+            }
+        }
+        if (characterController == null) {
+            characterController = FindObjectOfType<VNCharacterController>();
+            if (characterController == null) {
+                Debug.LogError("can not find VNCharacterController");
+            }
+        }
     }
 
     void Start() {
@@ -91,7 +104,6 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     void Update() {
-
         if (isPauseGame) {
             return;
         }
@@ -161,32 +173,34 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     private void PlaySceneEvent(List<EventData> eventDatas) {
+        
         foreach (EventData eventData in eventDatas) {
+            Data data = eventData.data;
             switch (eventData.type) {
                 case "ShowCharacter":
-                case "MoveCharacter":
-                case "DismissCharacter":
-                case "ChangeBackground":
-                
-
-                    sceneController.PlayEventScene(eventData);
+                    characterController.ShowCharacter(data.name, data.number, data.time);
                     break;
-
+                case "MoveCharacter":
+                    characterController.MoveCharacter(data.name, new Vector2(data.posision.x, data.posision.y), data.time);
+                    break;
+                case "DismissCharacter":
+                    characterController.DismissCharacter(data.name, data.time);
+                    break;
+                case "ChangeBackground":
+                    
+                    break;
                 case "PlaySound":
                     if (onSceneSkipMove) break;
                     BackgroundMusicManager.Instance.PlayMusic("JazzCafe");
                     break;
-
                 case "PlayMusic":
-                    string musicAudio = eventData.data.name;
                     if (onSceneSkipMove) break;
+                    string musicAudio = data.name;
                     BackgroundMusicManager.Instance.PlayMusic(musicAudio);
                     break;
-
                 case "SceneChange":
-                    SceneChange(eventData.data.name);
+                    SceneChange(data.name);
                     break;
-
                 default:
                     Debug.LogWarning("Cannot find event type.");
                     break;
@@ -254,6 +268,5 @@ public class VNDialogueModule : MonoBehaviour
             dialogueUI.SetActive(false);
         }
     }
-
 
 }

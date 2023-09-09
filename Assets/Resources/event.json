@@ -9,19 +9,20 @@
           "data": {
             "name": "JazzCafe"
           }
+        },
+        {
+          "type": "ShowCharacter",
+          "data": {
+            "name": "heroine01",
+            "number": "0",
+            "time": "1"
+          }
         }
       ]
     },
     {
       "id": "C10004",
       "events": [
-        {
-          "type": "ShowCharacter",
-          "data": {
-            "name": "CharacterA",
-            "number": "0"
-          }
-        },
         {
           "type": "ChangeBackground",
           "data": {

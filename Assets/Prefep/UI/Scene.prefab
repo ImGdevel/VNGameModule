@@ -140,9 +140,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf2810799a7704a4e821f2815f8e74a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteDatas: {fileID: 11400000, guid: 6ac50398e44e95a43b8e013797bf7313, type: 2}
-  currentSprite: {fileID: 761785126094684846}
-  transitionDuration: 1
+  characterData:
+  - {fileID: 11400000, guid: 6ac50398e44e95a43b8e013797bf7313, type: 2}
+  - {fileID: 11400000, guid: 2bc8bdd586eae504f8cd987e6fe2bdf3, type: 2}
 --- !u!212 &761785126094684846
 SpriteRenderer:
   m_ObjectHideFlags: 0

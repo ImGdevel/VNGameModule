@@ -822,7 +822,8 @@ MonoBehaviour:
   dialogController: {fileID: 1208623083}
   sceneEventController: {fileID: 842486135}
   choiceController: {fileID: 1938770977}
-  sceneController: {fileID: 0}
+  characterController: {fileID: 779831406}
+  backgroundController: {fileID: 972223822}
 --- !u!4 &598045503
 Transform:
   m_ObjectHideFlags: 0
@@ -917,6 +918,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &972223822 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5550700790648676812, guid: c2be472363a851a4eb287680d94ca022, type: 3}
+  m_PrefabInstance: {fileID: 5550700789393677423}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 972223818}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fd993fdb5728814e96bc313072081c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1004174798
 GameObject:
   m_ObjectHideFlags: 0
@@ -1222,6 +1234,18 @@ PrefabInstance:
       propertyPath: transitionDuration
       value: 0.1
       objectReference: {fileID: 0}
+    - target: {fileID: 1815600748829348077, guid: c2be472363a851a4eb287680d94ca022, type: 3}
+      propertyPath: spriteDatas.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1815600748829348077, guid: c2be472363a851a4eb287680d94ca022, type: 3}
+      propertyPath: characterDatas.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1815600748829348077, guid: c2be472363a851a4eb287680d94ca022, type: 3}
+      propertyPath: spriteDatas.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 6ac50398e44e95a43b8e013797bf7313, type: 2}
     - target: {fileID: 5550700790168751384, guid: c2be472363a851a4eb287680d94ca022, type: 3}
       propertyPath: characterController
       value: 
