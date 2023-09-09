@@ -68,7 +68,7 @@ public class VNSpriteController : MonoBehaviour
         }
     }
 
-    public IEnumerator MoveSpritePosision(Vector2 movePos, float transitionDuration = defaultDuration) {
+    public IEnumerator MoveSpritePosition(Vector2 movePos, float transitionDuration = defaultDuration) {
         if (!isTransitioning) {
             isTransitioning = true;
 

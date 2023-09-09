@@ -7,7 +7,7 @@ public class VNCharacterController : MonoBehaviour
     [SerializeField]
     private SpriteList[] characterData;
 
-    Dictionary<string, VNSpriteController> characters;
+    private Dictionary<string, VNSpriteController> characters;
 
     private const float defaultDuration = 0.1f;
 
@@ -15,7 +15,7 @@ public class VNCharacterController : MonoBehaviour
         characters = new Dictionary<string, VNSpriteController>();
         foreach (var character in characterData) {
             string characterName = character.listName;
-            GameObject characterObj = new GameObject("character("+ characterName + ")");
+            GameObject characterObj = new GameObject("Character(" + characterName + ")");
             VNSpriteController spriteController = characterObj.AddComponent<VNSpriteController>();
             spriteController.SetSpriteList(character.spriteList);
             characterObj.transform.SetParent(transform);
@@ -23,20 +23,31 @@ public class VNCharacterController : MonoBehaviour
             characters.Add(characterName, spriteController);
         }
     }
-     
+
     public void ShowCharacter(string name, int index, float transitionDuration = defaultDuration) {
-        VNSpriteController characterSprite = characters[name].GetComponent<VNSpriteController>();
-        StartCoroutine(characterSprite.ChangeSpriteCrossfade(index, transitionDuration));
+        if (characters.TryGetValue(name, out VNSpriteController characterSprite)) {
+            StartCoroutine(characterSprite.ChangeSpriteCrossfade(index, transitionDuration));
+        }
+        else {
+            Debug.LogError("Character not found: " + name);
+        }
     }
 
-    public void MoveCharacter(string name, Vector2 posision, float transitionDuration = defaultDuration) {
-        VNSpriteController characterSprite = characters[name].GetComponent<VNSpriteController>();
-        StartCoroutine(characterSprite.MoveSpritePosision(posision, transitionDuration));
+    public void MoveCharacter(string name, Vector2 position, float transitionDuration = defaultDuration) {
+        if (characters.TryGetValue(name, out VNSpriteController characterSprite)) {
+            StartCoroutine(characterSprite.MoveSpritePosition(position, transitionDuration));
+        }
+        else {
+            Debug.LogError("Character not found: " + name);
+        }
     }
 
     public void DismissCharacter(string name, float transitionDuration = defaultDuration) {
-        VNSpriteController characterSprite = characters[name].GetComponent<VNSpriteController>();
-        StartCoroutine(characterSprite.FadeOutSprite(transitionDuration));
+        if (characters.TryGetValue(name, out VNSpriteController characterSprite)) {
+            StartCoroutine(characterSprite.FadeOutSprite(transitionDuration));
+        }
+        else {
+            Debug.LogError("Character not found: " + name);
+        }
     }
-
 }
