@@ -12,4 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee5657e4059eab4a8ab45a8da98a19a, type: 3}
   m_Name: BackgroundList
   m_EditorClassIdentifier: 
-  spriteList: []
+  spriteList:
+  - {fileID: 21300000, guid: b44c5cf3bc775ad4a86e2b131088c47c, type: 3}
+  - {fileID: 21300000, guid: 7f11f1962d68ef74aad3cfd4ed997e7d, type: 3}
