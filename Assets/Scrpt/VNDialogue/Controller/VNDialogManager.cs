@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,28 +15,31 @@ public class VNDialogManager : MonoBehaviour
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
+
+        LoadDialogueData();
+        LoadEventList();
+        LoadCharacterNames();
     }
 
     private void LoadDialogueData() {
-        sceneDialogs = new Dictionary<string, List<DialogData>>();
-        Dictionary<string, List<DialogData>> dialogDatas = VNDialogueLoader.LoadDialogueFile();
-        if (dialogDatas != null) {
-            sceneDialogs = dialogDatas;
-        }
-        else {
+        sceneDialogs = VNDialogueLoader.LoadDialogueFile("en");
+        if (sceneDialogs == null || sceneDialogs.Count == 0) {
             Debug.LogWarning("No dialogue datas");
         }
     }
 
     private void LoadEventList() {
-        sceneDialogs = new Dictionary<string, List<DialogData>>();
-        Dictionary<string, List<EventData>> eventDatas = VNDialogueLoader.LoadEventFile();
-        if (eventDatas != null) {
-            sceneEvents = eventDatas;
-        }
-        else {
+        sceneEvents = VNDialogueLoader.LoadEventFile("event");
+        if (sceneEvents == null || sceneEvents.Count == 0) {
             Debug.LogWarning("No event datas");
+        }
+    }
+
+    private void LoadCharacterNames() {
+        characterNames = VNDialogueLoader.LoadCharacterNames("en");
+        if (characterNames == null || characterNames.Count == 0) {
+            //Debug.LogWarning("No character names");
         }
     }
 
@@ -52,13 +54,16 @@ public class VNDialogManager : MonoBehaviour
     }
 
     public Dictionary<string, List<EventData>> GetSceneEvents() {
-        if (sceneEvents == null) {
+        if (sceneEvents == null || sceneEvents.Count == 0) {
             LoadEventList();
         }
         return sceneEvents;
     }
 
-    public Dictionary<string, string> GetCharacterName() {
+    public Dictionary<string, string> GetCharacterNames() {
+        if (characterNames == null || characterNames.Count == 0) {
+            LoadCharacterNames();
+        }
         return characterNames;
     }
 }

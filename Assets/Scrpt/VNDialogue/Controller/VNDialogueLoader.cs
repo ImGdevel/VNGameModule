@@ -1,32 +1,57 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System.IO;
+using System;
 
 public class VNDialogueLoader : MonoBehaviour
 {
+    public static Dictionary<string, List<DialogData>> LoadDialogueFile(string fileName) {
+        try {
+            TextAsset textAsset = Resources.Load<TextAsset>(fileName);
+            DialogueJSONData dialogJsonData = JsonUtility.FromJson<DialogueJSONData>(textAsset.text);
 
-    public static Dictionary<string, List<DialogData>> LoadDialogueFile() {
-        TextAsset textAsset = Resources.Load<TextAsset>("en");
-        DialogueJSONData dialogJsonData = JsonUtility.FromJson<DialogueJSONData>(textAsset.text);
-        
-        Dictionary<string, List<DialogData>> Dialogs = new Dictionary<string, List<DialogData>>();
-        
-        foreach (var sceneData in dialogJsonData.scenes) {
-            Dialogs.Add(sceneData.name, sceneData.dialogs);
+            Dictionary<string, List<DialogData>> Dialogs = new Dictionary<string, List<DialogData>>();
+
+            foreach (var sceneData in dialogJsonData.scenes) {
+                Dialogs.Add(sceneData.name, sceneData.dialogs);
+            }
+            return Dialogs;
         }
-        return Dialogs;
+        catch (Exception e) {
+            Debug.LogError("Error loading dialogue file: " + e.Message);
+            return null;
+        }
     }
 
-    public static Dictionary<string, List<EventData>> LoadEventFile() {
-        TextAsset textAsset = Resources.Load<TextAsset>("event");
-        SceneEventJSONData eventJsonData = JsonUtility.FromJson<SceneEventJSONData>(textAsset.text);
+    public static Dictionary<string, List<EventData>> LoadEventFile(string fileName) {
+        try {
+            TextAsset textAsset = Resources.Load<TextAsset>(fileName);
+            SceneEventJSONData eventJsonData = JsonUtility.FromJson<SceneEventJSONData>(textAsset.text);
 
-        Dictionary<string, List<EventData>> Events = new Dictionary<string, List<EventData>>();
+            Dictionary<string, List<EventData>> Events = new Dictionary<string, List<EventData>>();
 
-        foreach (var eventData in eventJsonData.events) {
-            Events.Add(eventData.id, eventData.events);
+            foreach (var eventData in eventJsonData.events) {
+                Events.Add(eventData.id, eventData.events);
+            }
+            return Events;
         }
-        return Events;
+        catch (Exception e) {
+            Debug.LogError("Error loading event file: " + e.Message);
+            return null;
+        }
+    }
+
+    public static Dictionary<string, string> LoadCharacterNames(string fileName) {
+        try {
+            TextAsset textAsset = Resources.Load<TextAsset>(fileName);
+            DialogueJSONData dialogJsonData = JsonUtility.FromJson<DialogueJSONData>(textAsset.text);
+
+            Dictionary<string, string> characterNames = dialogJsonData.characters;
+            return characterNames;
+        }
+        catch (Exception e) {
+            Debug.LogError("Error loading character names: " + e.Message);
+            return null;
+        }
     }
 }
 
