@@ -8,45 +8,35 @@ public class VNSpriteController : MonoBehaviour
     private SpriteRenderer changeSprite;
 
     private List<Sprite> spriteList;
-    private const float defaultDuration = 0.1f;
+    private const float DefaultDuration = 0.1f;
     private bool isTransitioning = false;
 
     private void Awake() {
-        currentSprite = transform.gameObject.AddComponent<SpriteRenderer>();
-        GameObject changeBackgroundObject = new GameObject("change sprite");
-        changeBackgroundObject.transform.SetParent(currentSprite.transform);
+        currentSprite = gameObject.AddComponent<SpriteRenderer>();
+        GameObject changeBackgroundObject = new GameObject("ChangeSprite");
+        changeBackgroundObject.transform.SetParent(transform);
         changeSprite = changeBackgroundObject.AddComponent<SpriteRenderer>();
         changeSprite.sortingOrder = currentSprite.sortingOrder + 1;
         changeSprite.enabled = false;
-    }
-
-    private void Start() {
-        if (spriteList == null) {
-            Debug.LogError("not find spriteList");
-        }
     }
 
     public void SetSpriteList(List<Sprite> sprites) {
         spriteList = sprites;
     }
 
-    public void SetPosision(Vector3 posision) {
-        transform.position = posision;
-    }
-
     public void ShowSpriteInstant(int index) {
-        if (index >= 0 && index < spriteList.Count) {
+        if (IsValidIndex(index)) {
             currentSprite.sprite = spriteList[index];
         }
         else {
-            Debug.LogWarning("Invalid background index: " + index);
+            Debug.LogWarning("Invalid sprite index: " + index);
         }
     }
 
-    public IEnumerator ChangeSpriteCrossfade(int index, float transitionDuration = defaultDuration) {
-        if (!isTransitioning && index >= 0 && index < spriteList.Count) {
+    public IEnumerator ChangeSpriteCrossfade(int index, float transitionDuration = DefaultDuration) {
+        if (!isTransitioning && IsValidIndex(index)) {
             isTransitioning = true;
-            
+
             if (currentSprite.sprite == null) {
                 StartCoroutine(FadeInSprite(index, transitionDuration));
             }
@@ -54,43 +44,43 @@ public class VNSpriteController : MonoBehaviour
                 changeSprite.enabled = true;
                 changeSprite.sprite = spriteList[index];
                 StartCoroutine(FadeInChangeSprite(transitionDuration));
-                StartCoroutine(FadeOutSprite( transitionDuration));
+                StartCoroutine(FadeOutSprite(transitionDuration));
             }
+
             yield return new WaitForSeconds(transitionDuration);
 
             currentSprite.sprite = spriteList[index];
-            currentSprite.color = new Color(1f, 1f, 1f, 1f);
+            currentSprite.color = Color.white;
             changeSprite.enabled = false;
             isTransitioning = false;
         }
         else {
-            Debug.LogWarning("Invalid background index: " + index);
+            Debug.LogWarning("Invalid sprite index: " + index);
         }
     }
 
-    public IEnumerator MoveSpritePosition(Vector2 movePos, float transitionDuration = defaultDuration) {
+    public IEnumerator MoveSpritePosition(Vector2 movePosition, float transitionDuration = DefaultDuration) {
         if (!isTransitioning) {
             isTransitioning = true;
 
-            Vector2 startPos = currentSprite.transform.position;
+            Vector3 startPosition = currentSprite.transform.position;
             float elapsedTime = 0f;
 
             while (elapsedTime < transitionDuration) {
                 float normalizedTime = elapsedTime / transitionDuration;
-                currentSprite.transform.position = Vector3.Lerp(startPos, movePos, normalizedTime);
+                currentSprite.transform.position = Vector3.Lerp(startPosition, movePosition, normalizedTime);
 
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
-            currentSprite.transform.position = movePos;
+            currentSprite.transform.position = movePosition;
             isTransitioning = false;
         }
     }
 
-    public IEnumerator ZoomSprite(Vector2 zoomScale, float transitionDuration = defaultDuration) {
+    public IEnumerator ZoomSprite(Vector2 zoomScale, float transitionDuration = DefaultDuration) {
         if (!isTransitioning) {
-
             Vector2 startScale = currentSprite.transform.localScale;
             float elapsedTime = 0f;
 
@@ -106,11 +96,15 @@ public class VNSpriteController : MonoBehaviour
         }
     }
 
-    public IEnumerator FadeInSprite(int index, float transitionDuration = defaultDuration) {
+    private bool IsValidIndex(int index) {
+        return index >= 0 && index < spriteList.Count;
+    }
+
+    public IEnumerator FadeInSprite(int index, float transitionDuration = DefaultDuration) {
         isTransitioning = true;
         float elapsedTime = 0f;
         Color startColor = new Color(1f, 1f, 1f, 0f);
-        Color endColor = new Color(1f, 1f, 1f, 1f);
+        Color endColor = Color.white;
         currentSprite.sprite = spriteList[index];
 
         while (elapsedTime < transitionDuration) {
@@ -123,10 +117,10 @@ public class VNSpriteController : MonoBehaviour
         isTransitioning = false;
     }
 
-    public IEnumerator FadeOutSprite(float transitionDuration = defaultDuration) {
+    public IEnumerator FadeOutSprite(float transitionDuration = DefaultDuration) {
         isTransitioning = true;
         float elapsedTime = 0f;
-        Color startColor = new Color(1f, 1f, 1f, 1f);
+        Color startColor = Color.white;
         Color endColor = new Color(1f, 1f, 1f, 0f);
 
         while (elapsedTime < transitionDuration) {
@@ -140,10 +134,10 @@ public class VNSpriteController : MonoBehaviour
         isTransitioning = false;
     }
 
-    private IEnumerator FadeInChangeSprite(float transitionDuration = defaultDuration) {
+    private IEnumerator FadeInChangeSprite(float transitionDuration = DefaultDuration) {
         float elapsedTime = 0f;
         Color startColor = new Color(1f, 1f, 1f, 0f);
-        Color endColor = new Color(1f, 1f, 1f, 1f);
+        Color endColor = Color.white;
 
         while (elapsedTime < transitionDuration) {
             float normalizedTime = elapsedTime / transitionDuration;
