@@ -11,8 +11,8 @@ public class LanguageSettingUI : SettingOption
     public TMP_Dropdown languageDropdown; // UI Dropdown 컴포넌트
 
     private void Start() {
+        Debug.Log("언어설정");
         InitializeDropdown(); // 먼저 Dropdown을 초기화합니다.
-        LoadSettingsToUI(SettingsManager.GetSettings); // 그 다음 설정을 불러옵니다.
     }
 
     // Dropdown을 초기화하고 지원되는 언어 목록을 설정
@@ -22,16 +22,11 @@ public class LanguageSettingUI : SettingOption
             return;
         }
 
-        // 지원되는 언어 목록 가져오기
         List<string> supportedLanguages = LocalizationSettings.AvailableLocales.Locales.ConvertAll(locale => locale.name);
 
-        Debug.Log(supportedLanguages);
-
-        // Dropdown에 언어 목록 추가
         languageDropdown.ClearOptions();
         languageDropdown.AddOptions(supportedLanguages);
 
-        // Dropdown의 현재 선택 항목을 현재 언어로 설정
         int currentLanguageIndex = supportedLanguages.IndexOf(LocalizationSettings.SelectedLocale.name);
         languageDropdown.value = currentLanguageIndex;
 
@@ -47,8 +42,8 @@ public class LanguageSettingUI : SettingOption
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.GetLocale(selectedLanguage);
 
         // 언어 변경을 저장 (SettingsManager를 사용하여 설정을 저장)
-        Settings settings = SettingsManager.GetSettings;
-        settings.languageSettings.selectedLanguage = selectedLanguage;
+        //Settings settings = SettingsManager.GetSettings;
+        //settings.languageSettings.selectedLanguage = selectedLanguage;
         //SettingsManager.SaveSettings(settings);
     }
 

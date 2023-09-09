@@ -15,7 +15,6 @@ public class MenuController : MonoBehaviour
     [SerializeField] Image MenuBackScreen;
     
     private GameManager gameManager;
-    private Settings settings;
 
     public static UnityAction<bool> OnMenuOpened; // 직접 이벤트를 정의
 
@@ -25,7 +24,6 @@ public class MenuController : MonoBehaviour
     void Start()
     {
         gameManager = GameManager.Instance;
-        settings = SettingsManager.GetSettings;
         CloseMenu();
     }
 
@@ -78,14 +76,11 @@ public class MenuController : MonoBehaviour
 
     private void OpenSettingMenu() {
         settingUI.SetActive(true);
-        settingUI.GetComponent<SettingsUIManager>().ShowSettingMenu();
+        settingUI.GetComponent<SettingsUIManager>().OpenSettingMenu();
         menuUI.SetActive(false);
     }
 
     private void CloseSettingMenu() {
-
-        Debug.Log("메뉴 닫기(저장):" + settings);
-        SettingsManager.Instance.ApplySetting(settings);
         settingUI.SetActive(false);
         menuUI.SetActive(true);
     }

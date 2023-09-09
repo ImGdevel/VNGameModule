@@ -767,7 +767,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b3f8ef5d5ca5548a2e490d0db4eefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicList: []
+  musicList: {fileID: 0}
+  currentVolume: 0
 --- !u!4 &577726873
 Transform:
   m_ObjectHideFlags: 0
@@ -814,7 +815,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 8583317178608526820}
   dialogController: {fileID: 1208623083}
-  sceneController: {fileID: 842486135}
+  sceneEventController: {fileID: 842486135}
   choiceController: {fileID: 1938770977}
 --- !u!4 &598045503
 Transform:
@@ -1104,7 +1105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441739567632949458eb92bfeb0528f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentSceneName: Chpter01
 --- !u!114 &1428703341
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1117,8 +1117,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a1f53774d78c445b1a7df4cd869152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueJsonAsset: {fileID: 4900000, guid: 7614202fb0e10314994953a63886ac9b, type: 3}
-  sceneEvnetJsonAsset: {fileID: 4900000, guid: 89f5c6858a7cba345a2cb3e863e49f64, type: 3}
 --- !u!114 &1428703342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1131,7 +1129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9b3f8ef5d5ca5548a2e490d0db4eefd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicList: []
+  musicList: {fileID: 0}
+  currentVolume: 0
 --- !u!224 &1932425235 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8583317177280912880, guid: abc00c0dadc446e42b8f3688791c8422, type: 3}
