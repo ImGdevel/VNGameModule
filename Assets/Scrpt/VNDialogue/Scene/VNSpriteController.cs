@@ -6,13 +6,19 @@ public class VNSpriteController : MonoBehaviour
 {
     private SpriteRenderer currentSprite;
     private SpriteRenderer changeSprite;
-
+    private const float defaultDuration = 0.1f;
     private List<Sprite> spriteList;
-    private const float DefaultDuration = 0.1f;
     private bool isTransitioning = false;
 
     private void Awake() {
-        currentSprite = gameObject.AddComponent<SpriteRenderer>();
+        InitializeSprites();
+    }
+
+    private void InitializeSprites() {
+        currentSprite = gameObject.GetComponent<SpriteRenderer>();
+        if (currentSprite == null) {
+            currentSprite = gameObject.AddComponent<SpriteRenderer>();
+        }
         GameObject changeBackgroundObject = new GameObject("ChangeSprite");
         changeBackgroundObject.transform.SetParent(transform);
         changeSprite = changeBackgroundObject.AddComponent<SpriteRenderer>();
@@ -33,7 +39,7 @@ public class VNSpriteController : MonoBehaviour
         }
     }
 
-    public IEnumerator ChangeSpriteCrossfade(int index, float transitionDuration = DefaultDuration) {
+    public IEnumerator ChangeSpriteCrossfade(int index, float transitionDuration = defaultDuration) {
         if (!isTransitioning && IsValidIndex(index)) {
             isTransitioning = true;
 
@@ -59,17 +65,15 @@ public class VNSpriteController : MonoBehaviour
         }
     }
 
-    public IEnumerator MoveSpritePosition(Vector2 movePosition, float transitionDuration = DefaultDuration) {
+    public IEnumerator MoveSpritePosition(Vector2 movePosition, float transitionDuration = defaultDuration) {
         if (!isTransitioning) {
             isTransitioning = true;
-
             Vector3 startPosition = currentSprite.transform.position;
             float elapsedTime = 0f;
 
             while (elapsedTime < transitionDuration) {
                 float normalizedTime = elapsedTime / transitionDuration;
                 currentSprite.transform.position = Vector3.Lerp(startPosition, movePosition, normalizedTime);
-
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
@@ -79,7 +83,7 @@ public class VNSpriteController : MonoBehaviour
         }
     }
 
-    public IEnumerator ZoomSprite(Vector2 zoomScale, float transitionDuration = DefaultDuration) {
+    public IEnumerator ZoomSprite(Vector2 zoomScale, float transitionDuration = defaultDuration) {
         if (!isTransitioning) {
             Vector2 startScale = currentSprite.transform.localScale;
             float elapsedTime = 0f;
@@ -87,7 +91,6 @@ public class VNSpriteController : MonoBehaviour
             while (elapsedTime < transitionDuration) {
                 float normalizedTime = elapsedTime / transitionDuration;
                 currentSprite.transform.localScale = Vector2.Lerp(startScale, zoomScale, normalizedTime);
-
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
@@ -100,7 +103,7 @@ public class VNSpriteController : MonoBehaviour
         return index >= 0 && index < spriteList.Count;
     }
 
-    public IEnumerator FadeInSprite(int index, float transitionDuration = DefaultDuration) {
+    public IEnumerator FadeInSprite(int index, float transitionDuration = defaultDuration) {
         isTransitioning = true;
         float elapsedTime = 0f;
         Color startColor = new Color(1f, 1f, 1f, 0f);
@@ -110,14 +113,13 @@ public class VNSpriteController : MonoBehaviour
         while (elapsedTime < transitionDuration) {
             float normalizedTime = elapsedTime / transitionDuration;
             currentSprite.color = Color.Lerp(startColor, endColor, normalizedTime);
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
         isTransitioning = false;
     }
 
-    public IEnumerator FadeOutSprite(float transitionDuration = DefaultDuration) {
+    public IEnumerator FadeOutSprite(float transitionDuration = defaultDuration) {
         isTransitioning = true;
         float elapsedTime = 0f;
         Color startColor = Color.white;
@@ -126,7 +128,6 @@ public class VNSpriteController : MonoBehaviour
         while (elapsedTime < transitionDuration) {
             float normalizedTime = elapsedTime / transitionDuration;
             currentSprite.color = Color.Lerp(startColor, endColor, normalizedTime);
-
             elapsedTime += Time.deltaTime;
             yield return null;
         }
@@ -134,7 +135,7 @@ public class VNSpriteController : MonoBehaviour
         isTransitioning = false;
     }
 
-    private IEnumerator FadeInChangeSprite(float transitionDuration = DefaultDuration) {
+    private IEnumerator FadeInChangeSprite(float transitionDuration = defaultDuration) {
         float elapsedTime = 0f;
         Color startColor = new Color(1f, 1f, 1f, 0f);
         Color endColor = Color.white;
@@ -142,9 +143,41 @@ public class VNSpriteController : MonoBehaviour
         while (elapsedTime < transitionDuration) {
             float normalizedTime = elapsedTime / transitionDuration;
             changeSprite.color = Color.Lerp(startColor, endColor, normalizedTime);
-
             elapsedTime += Time.deltaTime;
             yield return null;
+        }
+    }
+
+    public IEnumerator ChangeSpriteWithFadeToBlack(int index, float transitionDuration = defaultDuration) {
+        if (!isTransitioning && IsValidIndex(index)) {
+            isTransitioning = true;
+            float elapsedTime = 0f;
+            Color startColor = currentSprite.color;
+            Color endColor = new Color(0f, 0f, 0f, 1f); // 검은 화면
+
+            while (elapsedTime < transitionDuration) {
+                float normalizedTime = elapsedTime / transitionDuration;
+                currentSprite.color = Color.Lerp(startColor, endColor, normalizedTime);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            currentSprite.color = endColor;
+            currentSprite.sprite = spriteList[index];
+
+            elapsedTime = 0f;
+            while (elapsedTime < transitionDuration) {
+                float normalizedTime = elapsedTime / transitionDuration;
+                currentSprite.color = Color.Lerp(endColor, startColor, normalizedTime);
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            currentSprite.color = startColor;
+            isTransitioning = false;
+        }
+        else {
+            Debug.LogWarning("Invalid sprite index: " + index);
         }
     }
 }
