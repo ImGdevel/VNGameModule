@@ -5,36 +5,54 @@ using UnityEngine;
 public class VNCameraController : MonoBehaviour
 {
     private Transform shakeTransform;
-    private float shakeDuration = 0f;
-    private float shakeMagnitude = 0.1f;
-    private float dampingSpeed = 1.0f;
-
     private Vector3 initialPosition;
 
-    void Awake() {
-        shakeTransform = transform; // 현재 스크립트가 연결된 GameObject의 Transform을 가져옴
+    private bool isShaking = false;
+    private float shakeDuration = 1f;
+    private float shakeMagnitude = 0.2f;
+    private float shakeDelay = 0.5f;
+
+    private void Awake() {
+        shakeTransform = transform;
     }
 
-    void OnEnable() {
+    private void OnEnable() {
         initialPosition = shakeTransform.localPosition;
     }
 
-    void Update() {
-        if (shakeDuration > 0) {
+    private void Update() {
+        if (isShaking) {
             shakeTransform.localPosition = initialPosition + Random.insideUnitSphere * shakeMagnitude;
-
-            shakeDuration -= Time.deltaTime * dampingSpeed;
-        }
-        else {
-            shakeDuration = 0f;
-            shakeTransform.localPosition = initialPosition;
         }
     }
 
-    // 흔들림을 시작하는 함수
+    // 코루틴을 사용하여 흔들림을 시작하는 함수
     public void StartShake(float duration, float magnitude) {
-        shakeDuration = duration;
-        shakeMagnitude = magnitude;
+        if (!isShaking) {
+            //shakeDuration = duration;
+            //shakeMagnitude = magnitude;
+            StartCoroutine(Shake());
+        }
     }
 
+    // 코루틴으로 흔들림 효과 구현
+    private IEnumerator Shake() {
+        isShaking = true;
+        Debug.Log("흔들 흔들");
+        float elapsed = 0f;
+        float startTime = Time.time;
+
+        while (Time.time - startTime < shakeDuration) {
+            elapsed += Time.time - startTime;
+
+            // 흔들림 감소
+            float percentComplete = elapsed / shakeDuration;
+            float dampingFactor = 1 - Mathf.Clamp01(percentComplete);
+            shakeTransform.localPosition = initialPosition + Random.insideUnitSphere * shakeMagnitude * dampingFactor;
+            yield return new WaitForSeconds(shakeDelay);
+        }
+
+        isShaking = false;
+        shakeTransform.localPosition = initialPosition;
+    }
 }

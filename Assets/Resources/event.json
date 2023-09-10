@@ -21,6 +21,18 @@
       ]
     },
     {
+      "id": "C10002",
+      "events": [
+        {
+          "type": "ShakeScreen",
+          "data": {
+            "number": "0.1",
+            "time": "0.5"
+          }
+        }
+      ]
+    },
+    {
       "id": "C10004",
       "events": [
         {
