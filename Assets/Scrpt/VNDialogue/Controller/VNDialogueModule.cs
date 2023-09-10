@@ -6,10 +6,10 @@ using UnityEngine.SceneManagement;
 public class VNDialogueModule : MonoBehaviour
 {
     [SerializeField] GameObject dialogueUI;
-    VNDialogController dialogController;
-    VNChoiceController choiceController;
-    VNCharacterController characterController;
-    VNBackgroundController backgroundController;
+    [SerializeField] VNDialogController dialogController;
+    [SerializeField] VNChoiceController choiceController;
+    [SerializeField] VNCharacterController characterController;
+    [SerializeField] VNBackgroundController backgroundController;
     VNDialogManager dialogManager;
 
     private List<DialogData> dialogueList;
@@ -23,87 +23,87 @@ public class VNDialogueModule : MonoBehaviour
     private bool waitingForNextScene = false;
     private bool autoScrollEnabled = false;
     private bool onSceneSkipMove = false;
-    private bool showDialogue = false;
-    private bool isPauseGame = true;
+    private bool isDialogueVisible = false;
+    private bool isGamePaused = true;
     private string currentSceneName;
 
-    private KeyCode NextDialogueKey = KeyCode.Space;
-    private KeyCode SkipDialogueKey = KeyCode.LeftControl;
-    private KeyCode AutoDialogueKey = KeyCode.A;
-    private KeyCode HideDialogurKey = KeyCode.Tab;
+    private KeyCode nextDialogueKey = KeyCode.Space;
+    private KeyCode skipDialogueKey = KeyCode.LeftControl;
+    private KeyCode autoDialogueKey = KeyCode.A;
+    private KeyCode hideDialogueKey = KeyCode.Tab;
 
     void Awake() {
+        currentSceneName = SceneManager.GetActiveScene().name;
         dialogController = FindObjectOfType<VNDialogController>();
         if (dialogController == null) {
-            Debug.LogError("can not find VNDialogController");
+            Debug.LogError("VNDialogController not found.");
         }
         choiceController = FindObjectOfType<VNChoiceController>();
         if (choiceController == null) {
-            Debug.LogError("can not find VNChoiceController");
+            Debug.LogError("VNChoiceController not found.");
         }
         backgroundController = FindObjectOfType<VNBackgroundController>();
         if (backgroundController == null) {
-            Debug.LogError("can not find VNBackgroundController");
+            Debug.LogError("VNBackgroundController not found.");
         }
         characterController = FindObjectOfType<VNCharacterController>();
         if (characterController == null) {
-            Debug.LogError("can not find VNCharacterController");
+            Debug.LogError("VNCharacterController not found.");
         }
         dialogManager = FindObjectOfType<VNDialogManager>();
         if (dialogManager == null) {
-            Debug.LogError("can not find VNDialogManager");
+            Debug.LogError("VNDialogManager not found.");
         }
     }
 
     void Start() {
-        currentSceneName = SceneManager.GetActiveScene().name;
+        isGamePaused = true;
         RegisterEventListeners();
-
-        sceneEvents = dialogManager.GetSceneEvents();
-        isPauseGame = true;
-        dialogueUI.SetActive(false);
-
-        Invoke("StartDialogue", 2.0f);
+        StartCoroutine(StartDialogueAfterDelay(2.0f));
     }
 
-    private void StartDialogue() {
-        ApplySetting(SettingsManager.GameSetting);
-        ToggleDialogueUI();
-        LoadDialogue(currentSceneName);
-        isPauseGame = false;
+    private void RegisterEventListeners() {
+        dialogController.OnTypingEnd += NextScene;
+        choiceController.ChoiceScene += JumpScene;
+        SettingsManager.OnSettingsChanged += ApplySettings;
+        MenuController.OnMenuOpened += ToggleGamePause;
     }
 
     private void OnDestroy() {
         UnregisterEventListeners();
     }
 
-    private void RegisterEventListeners() {
-        dialogController.OnTypingEnd += NextScene;
-        choiceController.ChoiceScene += JumpScene;
-        SettingsManager.OnSettingsChanged += ApplySetting;
-        MenuController.OnMenuOpened += PauseGame;
-    }
-
     private void UnregisterEventListeners() {
         dialogController.OnTypingEnd -= NextScene;
         choiceController.ChoiceScene -= JumpScene;
-        SettingsManager.OnSettingsChanged -= ApplySetting;
-        MenuController.OnMenuOpened -= PauseGame;
+        SettingsManager.OnSettingsChanged -= ApplySettings;
+        MenuController.OnMenuOpened -= ToggleGamePause;
     }
 
-    
+    private IEnumerator StartDialogueAfterDelay(float delay) {
+        yield return new WaitForSeconds(delay);
+        StartDialogue();
+    }
+
+    private void StartDialogue() {
+        ToggleDialogueUI();
+        ApplySettings(SettingsManager.GameSetting);
+        LoadDialogue(currentSceneName);
+        isGamePaused = false;
+    }
 
     private void LoadDialogue(string loadName) {
         if (dialogManager == null) {
-            Debug.LogError("DialogManager is not assigned.");
+            Debug.LogError("VNDialogManager is not assigned.");
             return;
         }
+        sceneEvents = dialogManager.GetSceneEvents();
         dialogueList = dialogManager.GetSceneDialogs(loadName);
 
         if (dialogueList != null && dialogueList.Count > 0) {
             currentDialogueIndex = 0;
             DialogData dialog = dialogueList[currentDialogueIndex];
-            if (Input.GetKey(SkipDialogueKey)) {
+            if (Input.GetKey(skipDialogueKey)) {
                 SkipScene(dialog);
             }
             else {
@@ -116,24 +116,24 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     void Update() {
-        if (isPauseGame) {
+        if (isGamePaused) {
             return;
         }
 
-        if (Input.GetKeyDown(NextDialogueKey)) {
+        if (Input.GetKeyDown(nextDialogueKey)) {
             PlayScene(dialogueList[currentDialogueIndex]);
         }
 
-        if (Input.GetKey(SkipDialogueKey)) {
+        if (Input.GetKey(skipDialogueKey)) {
             onSceneSkipMove = true;
             SkipScene(dialogueList[currentDialogueIndex]);
         }
 
-        if (Input.GetKeyUp(SkipDialogueKey)) {
+        if (Input.GetKeyUp(skipDialogueKey)) {
             onSceneSkipMove = false;
         }
 
-        if (!autoScrollEnabled && Input.GetKeyDown(AutoDialogueKey)) {
+        if (!autoScrollEnabled && Input.GetKeyDown(autoDialogueKey)) {
             autoScrollEnabled = true;
             StopAllCoroutines();
             StartCoroutine(AutoPlayScene());
@@ -143,7 +143,7 @@ public class VNDialogueModule : MonoBehaviour
             StopCoroutine("AutoPlayScene");
         }
 
-        if (Input.GetKeyDown(HideDialogurKey)) {
+        if (Input.GetKeyDown(hideDialogueKey)) {
             ToggleDialogueUI();
         }
     }
@@ -154,7 +154,7 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     private void PlayScene(DialogData dialog) {
-        Debug.Log("current dialogue number: " + currentSceneName + "(" + dialog.id + ")");
+        Debug.Log("Current dialogue number: " + currentSceneName + "(" + dialog.id + ")");
         if (dialog.choices.Count == 0) {
             if (sceneEvents.ContainsKey(dialog.id)) {
                 PlaySceneEvent(sceneEvents[dialog.id]);
@@ -224,7 +224,7 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     private void ChoiceScene(DialogData dialog) {
-        isPauseGame = true;
+        isGamePaused = true;
         choiceController.transform.gameObject.SetActive(true);
         choiceController.ShowChoices(dialog.choices);
         dialogController.ClearDialogue();
@@ -232,7 +232,7 @@ public class VNDialogueModule : MonoBehaviour
 
     public void JumpScene(string jump_id) {
         choiceController.transform.gameObject.SetActive(false);
-        isPauseGame = false;
+        isGamePaused = false;
 
         for (int i = 0; i < dialogueList.Count; i++) {
             if (dialogueList[i].id == jump_id) {
@@ -254,22 +254,22 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
-    public void PauseGame(bool state) {
-        isPauseGame = state;
+    public void ToggleGamePause(bool state) {
+        isGamePaused = state;
     }
 
-    public void ApplySetting(Settings settings) {
+    public void ApplySettings(Settings settings) {
         typingSpeed = settings.dialogueSettings.typingSpeed;
         autoScrollDelay = settings.dialogueSettings.dialogueDelay;
 
-        AutoDialogueKey = settings.controlSettings.AutoDialogKeyCode;
-        NextDialogueKey = settings.controlSettings.NextDialogKeyCode;
-        SkipDialogueKey = settings.controlSettings.SkipKeyCode;
-        HideDialogurKey = settings.controlSettings.HideUIKeyCode;
+        autoDialogueKey = settings.controlSettings.AutoDialogKeyCode;
+        nextDialogueKey = settings.controlSettings.NextDialogKeyCode;
+        skipDialogueKey = settings.controlSettings.SkipKeyCode;
+        hideDialogueKey = settings.controlSettings.HideUIKeyCode;
     }
 
     private void ToggleDialogueUI() {
-        showDialogue = !showDialogue;
-        dialogueUI.SetActive(showDialogue);
+        isDialogueVisible = !isDialogueVisible;
+        dialogueUI.SetActive(isDialogueVisible);
     }
 }
