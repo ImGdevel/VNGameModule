@@ -26,7 +26,7 @@ public class VNCharacterController : MonoBehaviour
 
     public void ShowCharacter(string name, int index, float transitionDuration = defaultDuration) {
         if (characters.TryGetValue(name, out VNSpriteController characterSprite)) {
-            StartCoroutine(characterSprite.ChangeSpriteCrossfade(index, transitionDuration));
+            StartCoroutine(characterSprite.ChangeSpriteCrossFade(index, transitionDuration));
         }
         else {
             Debug.LogError("Character not found: " + name);
