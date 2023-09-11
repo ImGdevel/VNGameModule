@@ -2,7 +2,7 @@
   "scenes": "SceneEvents",
   "events": [
     {
-      "id": "C10001",
+      "id": "C10002",
       "events": [
         {
           "type": "PlayMusic",
@@ -15,18 +15,22 @@
           "data": {
             "name": "heroine01",
             "number": "0",
-            "time": "1"
+            "time": "0.5"
           }
         }
       ]
     },
     {
-      "id": "C10002",
+      "id": "C10003",
       "events": [
         {
-          "type": "ShakeScreen",
+          "type": "MoveCharacter",
           "data": {
-            "number": "0.1",
+            "name": "heroine01",
+            "position": {
+              "x": "1",
+              "y": "0"
+            },
             "time": "0.5"
           }
         }

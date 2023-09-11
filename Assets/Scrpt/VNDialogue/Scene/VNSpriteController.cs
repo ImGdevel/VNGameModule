@@ -92,17 +92,10 @@ public class VNSpriteController : MonoBehaviour
     public IEnumerator ChangeSpriteCrossFade(int index, float transitionDuration = defaultDuration) {
         if (!isTransitioning && IsValidIndex(index)) {
             isTransitioning = true;
-
-            if (currentSprite.sprite == null) {
-                StartCoroutine(FadeInSprite(index, transitionDuration));
-            }
-            else {
-                changeSprite.enabled = true;
-                changeSprite.sprite = spriteList[index];
-                StartCoroutine(FadeInChangeSprite(transitionDuration));
-                StartCoroutine(FadeOutSprite(transitionDuration));
-            }
-
+            changeSprite.enabled = true;
+            changeSprite.sprite = spriteList[index];
+            StartCoroutine(FadeInChangeSprite(transitionDuration));
+            StartCoroutine(FadeOutSprite(transitionDuration));
             yield return new WaitForSeconds(transitionDuration);
 
             currentSprite.sprite = spriteList[index];
@@ -139,6 +132,39 @@ public class VNSpriteController : MonoBehaviour
             }
 
             currentSprite.color = startColor;
+            isTransitioning = false;
+        }
+    }
+
+    // Coroutine for moving the sprite to a new position and zooming it
+    public IEnumerator MoveAndZoomSprite(Vector3 movePosition, Vector3 zoomScale, float transitionDuration = defaultDuration) {
+        if (!isTransitioning) {
+            isTransitioning = true;
+
+            Vector3 startPosition = currentSprite.transform.position;
+            Vector3 startScale = currentSprite.transform.localScale;
+
+            float elapsedTime = 0f;
+
+            while (elapsedTime < transitionDuration) {
+                float normalizedTime = elapsedTime / transitionDuration;
+
+                // Interpolate position
+                Vector3 newPosition = Vector3.Lerp(startPosition, movePosition, normalizedTime);
+                currentSprite.transform.position = newPosition;
+
+                // Interpolate scale
+                Vector3 newScale = Vector3.Lerp(startScale, zoomScale, normalizedTime);
+                currentSprite.transform.localScale = newScale;
+
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            // Ensure final position and scale are set
+            currentSprite.transform.position = movePosition;
+            currentSprite.transform.localScale = zoomScale;
+
             isTransitioning = false;
         }
     }

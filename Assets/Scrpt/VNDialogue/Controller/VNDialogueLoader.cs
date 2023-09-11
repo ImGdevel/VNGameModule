@@ -107,12 +107,12 @@ public class Data
     public string name;
     public int number;
     public float time;
-    public Posision position;
+    public Position position;
     public float scale;
 }
 
 [System.Serializable]
-public class Posision
+public class Position
 {
     public float x;
     public float y;
