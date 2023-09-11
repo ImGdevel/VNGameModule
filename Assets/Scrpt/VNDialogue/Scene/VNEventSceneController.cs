@@ -9,7 +9,7 @@ public class VNEventSceneController : MonoBehaviour
 
     private VNSpriteController spriteController;
 
-    private const float defaultDuration = 0.1f;
+    private const float defaultDuration = 0.5f;
 
     private void Awake() {
         GameObject spriteCotrollerObj = new GameObject("Event Scene");
@@ -18,15 +18,15 @@ public class VNEventSceneController : MonoBehaviour
         spriteCotrollerObj.transform.SetParent(transform);
     }
 
-    public void NextEventSceneCross(int index, float transitionDuration = defaultDuration) {
-        spriteController.ChangeSpriteCrossFade(index,transitionDuration);
+    public void NextEventScene(int index, float transitionDuration = defaultDuration) {
+        StartCoroutine(spriteController.ChangeSpriteCrossFade(index,transitionDuration));
     }
 
-    public void ChangeEventSceneChange(int index, float transitionDuration = defaultDuration) {
-        spriteController.ChangeSpriteWithFadeToBlack(index,transitionDuration);
+    public void ChangeEventScene(int index, float transitionDuration = defaultDuration) {
+        StartCoroutine(spriteController.ChangeSpriteWithFadeToBlack(index,transitionDuration));
     }
 
     public void CloseEventScene() {
-        spriteController.FadeOutSprite();
+        StartCoroutine(spriteController.FadeOutSprite());
     }
 }
