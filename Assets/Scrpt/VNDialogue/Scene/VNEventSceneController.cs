@@ -16,17 +16,17 @@ public class VNEventSceneController : MonoBehaviour
         VNSpriteController spriteController = spriteCotrollerObj.AddComponent<VNSpriteController>();
         spriteController.SetSpriteList(eventSceneData.spriteList);
         spriteCotrollerObj.transform.SetParent(transform);
-
     }
 
-    public void ShowEventScene(int name, float transitionDuration = defaultDuration) {
-
-
-
-        
+    public void NextEventSceneCross(int index, float transitionDuration = defaultDuration) {
+        spriteController.ChangeSpriteCrossFade(index,transitionDuration);
     }
 
-    public void ChangeEventScene(int index, float transitionDuration = defaultDuration) {
+    public void ChangeEventSceneChange(int index, float transitionDuration = defaultDuration) {
+        spriteController.ChangeSpriteWithFadeToBlack(index,transitionDuration);
+    }
 
+    public void CloseEventScene() {
+        spriteController.FadeOutSprite();
     }
 }
