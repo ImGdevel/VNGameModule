@@ -33,7 +33,7 @@ public class VNCharacterController : MonoBehaviour
         }
     }
 
-    public void MoveCharacter(string name, Vector2 position, float transitionDuration = defaultDuration) {
+    public void MoveCharacter(string name, Vector3 position, float transitionDuration = defaultDuration) {
         if (characters.TryGetValue(name, out VNSpriteController characterSprite)) {
             StartCoroutine(characterSprite.MoveSpritePosition(position, transitionDuration));
         }

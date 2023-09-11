@@ -2,7 +2,7 @@
   "scenes": "SceneEvents",
   "events": [
     {
-      "id": "C10002",
+      "id": "C10001",
       "events": [
         {
           "type": "PlayMusic",
@@ -21,7 +21,7 @@
       ]
     },
     {
-      "id": "C10003",
+      "id": "C10002",
       "events": [
         {
           "type": "MoveCharacter",

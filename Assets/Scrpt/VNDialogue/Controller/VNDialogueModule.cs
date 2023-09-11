@@ -192,7 +192,8 @@ public class VNDialogueModule : MonoBehaviour
                     characterController.ShowCharacter(data.name, data.number, data.time);
                     break;
                 case "MoveCharacter":
-                    characterController.MoveCharacter(data.name, new Vector2(data.position.x, data.position.y), data.time);
+                    Debug.Log("캐릭터 이동");
+                    characterController.MoveCharacter(data.name, new Vector3(data.position.x, data.position.y), data.time);
                     break;
                 case "DismissCharacter":
                     characterController.DismissCharacter(data.name, data.time);
