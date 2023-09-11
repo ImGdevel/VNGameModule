@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,8 @@ public class VNDialogueModule : MonoBehaviour
     private KeyCode autoDialogueKey = KeyCode.A;
     private KeyCode hideDialogueKey = KeyCode.Tab;
 
+    public static event Action EndDialogue;
+
     void Awake() {
         currentSceneName = SceneManager.GetActiveScene().name;
         dialogController = FindObjectOfType<VNDialogController>();
@@ -63,7 +66,7 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     private void RegisterEventListeners() {
-        dialogController.OnTypingEnd += NextScene;
+        dialogController.OnTypingEnd += NextDialogue;
         choiceController.ChoiceScene += JumpScene;
         SettingsManager.OnSettingsChanged += ApplySettings;
         MenuController.OnMenuOpened += ToggleGamePause;
@@ -74,7 +77,7 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     private void UnregisterEventListeners() {
-        dialogController.OnTypingEnd -= NextScene;
+        dialogController.OnTypingEnd -= NextDialogue;
         choiceController.ChoiceScene -= JumpScene;
         SettingsManager.OnSettingsChanged -= ApplySettings;
         MenuController.OnMenuOpened -= ToggleGamePause;
@@ -148,9 +151,10 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
-    public void NextScene() {
+    public void NextDialogue() {
         currentDialogueIndex = (currentDialogueIndex + 1) % dialogueList.Count;
         waitingForNextScene = false;
+        EndDialogue?.Invoke();
     }
 
     private void PlayScene(DialogData dialog) {
@@ -192,15 +196,14 @@ public class VNDialogueModule : MonoBehaviour
                     characterController.ShowCharacter(data.name, data.number, data.time);
                     break;
                 case "MoveCharacter":
-                    Debug.Log("캐릭터 이동");
                     characterController.MoveCharacter(data.name, new Vector3(data.position.x, data.position.y), data.time);
                     break;
                 case "DismissCharacter":
                     characterController.DismissCharacter(data.name, data.time);
                     break;
-                case "ChangeBackground":
+                case "ShowBackground":
                     Debug.Log("배경 출력");
-                    // 배경 변경 이벤트 처리 추가
+                    
                     break;
                 case "ShowEventScene":
                     Debug.Log("이벤트 씬 출력");
