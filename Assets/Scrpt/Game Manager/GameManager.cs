@@ -6,9 +6,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
 
     private SaveLoadManager saveLoadManager;
-    private GameData gameData;
+    public static GameData gameData;
 
     public event Action<GameData> SaveGame;
+    public event Action<GameData> LoadGame;
 
     private void Awake() {
         if (Instance != null) {
@@ -69,8 +70,8 @@ public class GameManager : MonoBehaviour
 
     // 로드 버튼 클릭 시 호출할 메서드 (예시)
     public void OnLoadGameData() {
-        
         gameData = saveLoadManager.LoadGameData("PlayerSave");
+        LoadGame?.Invoke(gameData);
     }
 
     public void QuitGame() {
