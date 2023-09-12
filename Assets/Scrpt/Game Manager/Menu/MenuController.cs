@@ -13,10 +13,12 @@ public class MenuController : MonoBehaviour
     [SerializeField] GameObject loadUI;
 
     [SerializeField] Image MenuBackScreen;
+
+    
     
     private GameManager gameManager;
 
-    public static UnityAction<bool> OnMenuOpened; // 직접 이벤트를 정의
+    public static UnityAction<bool> OnMenuOpened;
 
     private bool isMenuOpen = false;
     private bool isSettingMenuOpen = false;
@@ -76,13 +78,30 @@ public class MenuController : MonoBehaviour
 
     private void OpenSettingMenu() {
         settingUI.SetActive(true);
-        settingUI.GetComponent<SettingsUIManager>().OpenSettingMenu();
         menuUI.SetActive(false);
     }
 
     private void CloseSettingMenu() {
         settingUI.SetActive(false);
         menuUI.SetActive(true);
+    }
+
+    public void ToggleModalMenu() {
+
+        if (isSettingMenuOpen) {
+            OpenModalMenu();
+        }
+        else {
+            ClodeModalMenu();
+        }
+    }
+
+    private void OpenModalMenu() {
+
+    }
+
+    private void ClodeModalMenu() {
+
     }
 
     public void GotoTitle() {

@@ -4230,9 +4230,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2447371630370162712}
+      - m_Target: {fileID: 2685347326022620459}
         m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
-        m_MethodName: ShowSettingMenu
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5457,7 +5457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuUI: {fileID: 2447371629084493918}
   settingUI: {fileID: 2447371629024616339}
-  saveUI: {fileID: 0}
+  saveUI: {fileID: 2685347326022620459}
   loadUI: {fileID: 0}
   MenuBackScreen: {fileID: 2447371630370162714}
 --- !u!114 &4742246476728880703
@@ -6211,7 +6211,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7469281943025778981
 RectTransform:
   m_ObjectHideFlags: 0

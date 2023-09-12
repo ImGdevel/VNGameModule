@@ -22,7 +22,7 @@ public class SaveMenuUIController : MonoBehaviour
 
     void Start() {
         List<SaveData> saveDatas = GameManager.gameData.saveDatas;
-   
+        
         for(int i=0; i<slotCount; i++) {
             SaveSlotController slot = saveSlots[i];
             if (saveDatas.Count > i) {
