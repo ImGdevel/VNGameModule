@@ -262,7 +262,6 @@ public class VNSpriteController : MonoBehaviour
     }
 
     private void EndSpriteEffect() {
-        Debug.Log("대사는 종료다!");
         isAnimaionEnd = true;
         isTransitioning = false;
     }

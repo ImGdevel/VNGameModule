@@ -698,6 +698,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2447371630370162712, guid: 545f905207adc064b9baeff78cbc30c1, type: 3}
+      propertyPath: ModalWindows.Array.data[0].button.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2447371630370162712, guid: 545f905207adc064b9baeff78cbc30c1, type: 3}
+      propertyPath: ModalWindows.Array.data[1].button.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2447371630370162715, guid: 545f905207adc064b9baeff78cbc30c1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -820,6 +828,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2679068931753612710, guid: 545f905207adc064b9baeff78cbc30c1, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2685347326022620459, guid: 545f905207adc064b9baeff78cbc30c1, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2718872498452063975, guid: 545f905207adc064b9baeff78cbc30c1, type: 3}
@@ -2272,7 +2284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9009410639790770373, guid: 545f905207adc064b9baeff78cbc30c1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9009410639790770373, guid: 545f905207adc064b9baeff78cbc30c1, type: 3}
       propertyPath: m_AnchoredPosition.y
