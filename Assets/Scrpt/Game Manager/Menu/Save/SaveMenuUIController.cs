@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveMenuUIController : MonoBehaviour
+public class SaveMenuUIController : MenuModal
 {
     [SerializeField] private GameObject saveSlotPrefep;
     [SerializeField] private Transform slotTransform;
@@ -30,8 +30,24 @@ public class SaveMenuUIController : MonoBehaviour
                 //slot.SetSaveSlot(null,"","","",0);
             }
         }
-
     }
 
-    
+    private void OnEnable() {
+        OpenMenu();
+    }
+
+    public override void OpenMenu() {
+
+        throw new System.NotImplementedException();
+    }
+
+    private void OnDisable() {
+        CloseMenu();
+    }
+
+    public override void CloseMenu() {
+
+        throw new System.NotImplementedException();
+    }
+
 }
