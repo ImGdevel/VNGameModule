@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
             saveLoadManager.SaveGameData(gameData, "PlayerSave");
         }
 
+        return;
         // 게임 데이터 출력 (예시로 출력, 실제 게임에서는 필요에 따라 사용)
         Debug.Log("Loaded UID: " + gameData.uid);
         foreach (SaveData save in gameData.saveDatas) {

@@ -74,10 +74,7 @@ public class MenuController : MonoBehaviour
 
     public void ToggleModalWindows(int index) {
         ModalData modal = ModalWindows[index];
-
-        modal.isOpen = !modal.isOpen; // 모달 창 상태를 열기 또는 닫기로 변경
-
-        Debug.Log("메뉴 토글됨!:" +index);
+        modal.isOpen = !modal.isOpen; 
 
         if (modal.isOpen) {
             currentOpenModalWindowIndex = index;
