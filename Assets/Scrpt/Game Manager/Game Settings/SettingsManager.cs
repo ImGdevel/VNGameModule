@@ -29,7 +29,6 @@ public class SettingsManager : MonoBehaviour
     private void LoadSettings() {
         AvailableResolutions = Screen.resolutions;
         System.Array.Reverse(AvailableResolutions);
-        Debug.Log(Settings.GetInstanceCount());
         if (File.Exists(settingsFilePath)) {
 
             string json = File.ReadAllText(settingsFilePath);
@@ -103,8 +102,6 @@ public class SettingsManager : MonoBehaviour
         }
         GameSetting = gameSettings;
         OnSettingsChanged?.Invoke(GameSetting);
-        Debug.Log(Settings.GetInstanceCount());
-
         SaveSettings(); 
     }
 }

@@ -9,7 +9,9 @@ public class VNScreenController : MonoBehaviour
     private Image fadeImage;
     private Color originalColor;
 
-    private const float fadeDuration = 1.0f;
+    [SerializeField] float startFadeInDuration = 1.0f;
+
+    private const float defaultFadeDuration = 1.0f;
 
     void Awake() {
         if (Instance != null) {
@@ -25,7 +27,7 @@ public class VNScreenController : MonoBehaviour
         rectTransform.offsetMax = Vector2.zero;
         CreateFadeScreen();
 
-        FadeIn();
+        FadeIn(startFadeInDuration);
     }
 
     private void CreateFadeScreen() {
@@ -44,12 +46,12 @@ public class VNScreenController : MonoBehaviour
         fadeImage.raycastTarget = false;
     }
 
-    public void FadeIn(float fadeTime = fadeDuration) {
+    public void FadeIn(float fadeTime = defaultFadeDuration) {
         fadeImage.gameObject.SetActive(true);
         StartCoroutine(Fade(fadeImage, originalColor, Color.clear, fadeTime));
     }
 
-    public void FadeOut(float fadeTime = fadeDuration) {
+    public void FadeOut(float fadeTime = defaultFadeDuration) {
         fadeImage.gameObject.SetActive(true);
         StartCoroutine(Fade(fadeImage, Color.clear, originalColor, fadeTime));
 
