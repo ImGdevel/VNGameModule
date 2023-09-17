@@ -4,10 +4,10 @@ using System.Collections.Generic;
 
 public class SaveLoadManager
 {
-    private string fileExtension = ".sav"; // Default file extension
+    private string fileExtension = ".save";
 
     // Constructor to set the file extension
-    public SaveLoadManager(string extension = ".sav") {
+    public SaveLoadManager(string extension = ".save") {
         fileExtension = extension;
     }
 
@@ -15,7 +15,7 @@ public class SaveLoadManager
     public void SaveUserData(UserData data, string saveFileName) {
         string json = JsonUtility.ToJson(data);
         string savePath = GetSavePath(saveFileName);
-
+        Debug.Log("SaveFile: " + savePath);
         // Write JSON data to a .sav file
         File.WriteAllText(savePath, json);
     }

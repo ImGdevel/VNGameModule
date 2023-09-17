@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class SaveSlotController : MonoBehaviour
+public class SaveSlotComponent : MonoBehaviour
 {
     [SerializeField] Image saveImage;
     [SerializeField] TMP_Text saveTitleText;
@@ -12,18 +12,28 @@ public class SaveSlotController : MonoBehaviour
     [SerializeField] TMP_Text playChapterText;
     [SerializeField] TMP_Text playTimeText;
 
-    [SerializeField] private Sprite defaultImage;
+    [SerializeField] private Sprite emptySlotImage;
 
-    void Start() {
-        //saveImage.sprite = defaultImage;
+    void Awake() {
+        Debug.Log("¼¼ÆÃ");
     }
 
     public void SetSaveSlot(Sprite sprite, string title, string name, string chapter, float playtime) {
-        saveImage.sprite = sprite;
+        Debug.Log("tmffht");
+        //saveImage.sprite = sprite;
         saveTitleText.text = title;
         playerNameText.text = name;
         playChapterText.text = chapter;
-        playTimeText.text = playTimeText.ToString();
+        playTimeText.text = playtime.ToString();
+    }
+
+    public void SetEmptySaveSlot() {
+        Debug.Log("tmffht");
+        //saveImage.sprite = emptySlotImage;
+        saveTitleText.text = "Empty Slot";
+        playerNameText.text = "";
+        playChapterText.text = "";
+        playTimeText.text = "";
     }
 }
 

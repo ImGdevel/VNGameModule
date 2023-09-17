@@ -811,6 +811,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 732e4e67c72c47549bcdf3502af798fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  quickSaveSlot:
+    playerName: 
+    chapter: 
+    dialogId: 
 --- !u!114 &1428703340
 MonoBehaviour:
   m_ObjectHideFlags: 0

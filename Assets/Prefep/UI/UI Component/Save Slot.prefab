@@ -369,7 +369,7 @@ MonoBehaviour:
   playerNameText: {fileID: 5494711642940697270}
   playChapterText: {fileID: 7006727624417102617}
   playTimeText: {fileID: 1377321120300070875}
-  defaultImage: {fileID: 0}
+  emptySlotImage: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &5927834701572107881
 GameObject:
   m_ObjectHideFlags: 0

@@ -6250,6 +6250,7 @@ MonoBehaviour:
   saveSlotPrefep: {fileID: 5024980950726923490, guid: abf503878e1fbb44989e3b45a0432c15, type: 3}
   slotTransform: {fileID: 9009410639790770373}
   slotCount: 20
+  emptySlotImage: {fileID: 0}
 --- !u!222 &7647381220337156625
 CanvasRenderer:
   m_ObjectHideFlags: 0

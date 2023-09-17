@@ -8,8 +8,10 @@ public class GameManager : MonoBehaviour
     private SaveLoadManager saveLoadManager;
     public static UserData userData;
 
-    public event Action<UserData> SaveGame;
-    public event Action<UserData> LoadGame;
+    public SaveData quickSaveSlot;
+
+    public static event Action<SaveData> SaveUserData;
+    public static event Action<SaveData> LoadUserData;
 
     private void Awake() {
         if (Instance != null) {
@@ -21,33 +23,39 @@ public class GameManager : MonoBehaviour
     }
 
     private void Start() {
-        // SaveLoadManager 인스턴스 생성
         saveLoadManager = new SaveLoadManager();
 
         // 게임 데이터 불러오기 (저장된 데이터가 없을 경우 기본 데이터 생성)
-        userData = saveLoadManager.LoadUserData("PlayerSave");
+        userData = saveLoadManager.LoadUserData("userdata");
 
         if (userData == null) {
             userData = CreateDefaultUserData();
-            saveLoadManager.SaveUserData(userData, "PlayerSave");
+            saveLoadManager.SaveUserData(userData, "userdata");
         }
 
         PrintUserData();
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.S)) {
+            Debug.Log("저장");
+            OnSaveUserData();
+        }
     }
 
     private UserData CreateDefaultUserData() {
         UserData defaultData = new UserData();
         defaultData.uid = "";
 
-        // 예시로 두 개의 저장 데이터를 생성
-        SaveData save1 = new SaveData();
-        save1.playerName = "";
-        save1.chapter = "";
-        save1.dialogId = "";
-
-        defaultData.saveDatas.Add(save1);
-
         return defaultData;
+    }
+
+    private void CreateNewSaveSlot() {
+        SaveData newSaveData = new SaveData();
+        newSaveData.playerName = "";
+        newSaveData.chapter = "";
+        newSaveData.dialogId = "";
+        userData.saveDatas.Add(newSaveData);
     }
 
     private void PrintUserData() {
@@ -62,21 +70,23 @@ public class GameManager : MonoBehaviour
 
     // 저장 버튼 클릭 시 호출할 메서드 (예시)
     public void OnSaveUserData() {
-        SaveGame?.Invoke(userData);
-        saveLoadManager.SaveUserData(userData, "PlayerSave");
+        SaveUserData?.Invoke(userData.saveDatas[0]);
+        PrintUserData();
+        saveLoadManager.SaveUserData(userData, "userdata");
     }
 
     // 로드 버튼 클릭 시 호출할 메서드 (예시)
     public void OnLoadUserData() {
-        userData = saveLoadManager.LoadUserData("PlayerSave");
-        LoadGame?.Invoke(userData);
+        userData = saveLoadManager.LoadUserData("userdata");
+        LoadUserData?.Invoke(userData.saveDatas[0]);
     }
 
+    //
     public void QuitGame() {
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 }
