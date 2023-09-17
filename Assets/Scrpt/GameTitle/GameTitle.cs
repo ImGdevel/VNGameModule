@@ -6,28 +6,21 @@ using UnityEngine.SceneManagement;
 public class GameTitle : MonoBehaviour
 {
 
-
-    private void Awake() {
-        
-    }
-
-
     private void Start() {
-        
-    }
-
-
-    public void ShowOpeningCredits() {
-
+        Invoke("ShowGameTitle", 1.3f);
     }
 
     public void ShowGameTitle() {
-
+        BackgroundMusicManager.Instance.PlayMusic("GameTitle");
     }
 
-
-
     public void NewGame() {
+        BackgroundMusicManager.Instance.StopMusic();
+        VNScreenController.Instance.FadeOut(2f);
+        Invoke("LoadPrologueScene", 2f);
+    }
+
+    public void LoadPrologueScene() {
         SceneManager.LoadScene("Prologue");
     }
 }

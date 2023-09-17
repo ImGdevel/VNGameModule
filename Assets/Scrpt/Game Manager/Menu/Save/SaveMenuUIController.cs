@@ -21,7 +21,7 @@ public class SaveMenuUIController : MenuModal
     }
 
     void Start() {
-        List<SaveData> saveDatas = GameManager.gameData.saveDatas;
+        List<SaveData> saveDatas = GameManager.userData.saveDatas;
         
         for(int i=0; i<slotCount; i++) {
             SaveSlotController slot = saveSlots[i];
