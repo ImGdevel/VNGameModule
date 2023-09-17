@@ -16,7 +16,7 @@ public class SaveMenuUIController : MenuModal
         saveSlots = new List<SaveSlotComponent>();
         for (int i=0; i<slotCount; i++) {
             GameObject slotObj = Instantiate(saveSlotPrefep, slotTransform.position, Quaternion.identity);
-            SaveSlotComponent saveSlotController = slotObj.AddComponent<SaveSlotComponent>();
+            SaveSlotComponent saveSlotController = slotObj.GetComponent<SaveSlotComponent>();
             slotObj.transform.SetParent(slotTransform);
             saveSlots.Add(saveSlotController);
         }
@@ -25,9 +25,6 @@ public class SaveMenuUIController : MenuModal
     void Start() {
         
     }
-
-    
-
 
     private void OnEnable() {
         OpenMenu();

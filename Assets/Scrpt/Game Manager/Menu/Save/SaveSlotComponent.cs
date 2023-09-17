@@ -14,13 +14,9 @@ public class SaveSlotComponent : MonoBehaviour
 
     [SerializeField] private Sprite emptySlotImage;
 
-    void Awake() {
-        Debug.Log("¼¼ÆÃ");
-    }
-
     public void SetSaveSlot(Sprite sprite, string title, string name, string chapter, float playtime) {
         Debug.Log("tmffht");
-        //saveImage.sprite = sprite;
+        saveImage.sprite = sprite;
         saveTitleText.text = title;
         playerNameText.text = name;
         playChapterText.text = chapter;
@@ -29,7 +25,7 @@ public class SaveSlotComponent : MonoBehaviour
 
     public void SetEmptySaveSlot() {
         Debug.Log("tmffht");
-        //saveImage.sprite = emptySlotImage;
+        saveImage.sprite = emptySlotImage;
         saveTitleText.text = "Empty Slot";
         playerNameText.text = "";
         playChapterText.text = "";
