@@ -21,6 +21,7 @@ public class GameTitle : MonoBehaviour
     }
 
     public void LoadPrologueScene() {
+        GameManager.Instance.CreateNewSaveSlot();
         SceneManager.LoadScene("Prologue");
     }
 }

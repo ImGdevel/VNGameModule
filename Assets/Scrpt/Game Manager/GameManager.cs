@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour
         return defaultData;
     }
 
-    private void CreateNewSaveSlot() {
+    public void CreateNewSaveSlot() {
         SaveData newSaveData = new SaveData();
         newSaveData.playerName = "";
         newSaveData.chapter = "";
