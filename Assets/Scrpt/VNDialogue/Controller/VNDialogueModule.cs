@@ -204,27 +204,21 @@ public class VNDialogueModule : MonoBehaviour
                     characterController.DismissCharacter(data.name, data.time);
                     break;
                 case "ShowBackground":
-                    Debug.Log("배경 출력");
+
                     
                     break;
                 case "ShowEventScene":
-                    Debug.Log("이벤트 씬 출력");
-                    // 이벤트 씬 출력
+
                     break;
                 case "ShakeScreen":
                     Camera camera = Camera.main;
                     VNCameraController cameraController = camera.GetComponent<VNCameraController>();
-                    
-                    Debug.Log("화면 흔들림");
+                
                     cameraController.StartShake(data.time, data.number);
                     break;
                 case "PlayVoice":
-                    Debug.Log("음성 출력");
-                    // 음성 출력
                     break;
                 case "PlaySound":
-                    Debug.Log("효과음 출력");
-                    // 효과음 출력
                     break;
                 case "PlayMusic":
                     if (onSceneSkipMove) break;
