@@ -18,4 +18,9 @@ public class SaveData
     public string dialogId;
 }
 
+[System.Serializable]
+public class VNSaveData : SaveData
+{
 
+
+}

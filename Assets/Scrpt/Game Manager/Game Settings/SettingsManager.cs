@@ -23,7 +23,7 @@ public class SettingsManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        LoadSettings(); // 게임 시작 시 설정 로드
+        LoadSettings();
     }
 
     private void LoadSettings() {
@@ -39,7 +39,7 @@ public class SettingsManager : MonoBehaviour
             GameSetting = InitSetting();
             SaveSettings();
         }
-        Debug.Log("불러온 설정:" + GameSetting);
+        Debug.Log("Load Setting:" + GameSetting);
         ScreenSetting();
         Debug.Log(Settings.GetInstanceCount());
     }

@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.IO;
-using System.Collections.Generic;
 
 public class SaveLoadManager
 {
@@ -16,7 +15,7 @@ public class SaveLoadManager
         string json = JsonUtility.ToJson(data);
         string savePath = GetSavePath(saveFileName);
         Debug.Log("SaveFile: " + savePath);
-        // Write JSON data to a .sav file
+
         File.WriteAllText(savePath, json);
     }
 
@@ -48,9 +47,20 @@ public class SaveLoadManager
     }
 
     // Get the full path to the save file
-    private string GetSavePath(string saveFileName) {
-        string saveDirectory = Application.persistentDataPath;
-        string savePath = Path.Combine(saveDirectory, saveFileName + fileExtension);
-        return savePath;
+    protected string GetSavePath(string saveFileName) {
+        return GetFilePath(saveFileName + fileExtension);
+    }
+
+    private string GetFilePath(params string[] paths) {
+        string directoryPath = GetRootPath();
+
+        foreach (string path in paths) {
+            directoryPath = Path.Combine(directoryPath ,path);
+        }
+        return directoryPath;
+    }
+
+    private string GetRootPath() {
+        return Application.persistentDataPath;
     }
 }
