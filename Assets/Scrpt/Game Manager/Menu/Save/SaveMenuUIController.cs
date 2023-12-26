@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class SaveMenuUIController : MenuModal
     [SerializeField] private int slotCount;
 
     private List<SaveSlotComponent> saveSlots;
+    private List<SaveData> saveDatas;
 
     void Awake()
     {
@@ -41,7 +43,7 @@ public class SaveMenuUIController : MenuModal
 
     public override void OpenMenu()
     {
-        List<SaveData> saveDatas = GameManager.userData.saveDatas;
+        saveDatas = GameManager.userData.saveDatas;
 
         for (int i = 0; i < slotCount; i++) {
             SaveSlotComponent slot = saveSlots[i];
@@ -64,9 +66,36 @@ public class SaveMenuUIController : MenuModal
     private void DoSaveEventHandler(SaveSlotComponent clickedSlot)
     {
         int index = saveSlots.IndexOf(clickedSlot);
-        if (index != -1) {
+        if (index == -1) {
             Debug.Log("Clicked on save slot at index: " + index);
+            return;
+        }
+        Debug.Log(index);
+        if (saveDatas[index] == null) {
+            SaveCurrentGameData(index);
+        }
+        else {
+            ShowOverwriteWarning();
         }
     }
+
+
+    private void SaveCurrentGameData(int slotIndex)
+    {
+        // 현재 게임 데이터를 저장하는 로직을 여기에 구현
+        // 예를 들어, GameManager에 있는 SaveGame 메서드 호출 등
+        //GameManager.SaveGame(slotIndex);
+        GameManager.Instance.OnSaveUserData();
+        // 저장 후 메뉴를 다시 열어 갱신
+        OpenMenu();
+    }
+
+    private void ShowOverwriteWarning()
+    {
+        // 세이브를 덮어씌울 때의 경고 메시지를 표시하는 로직을 여기에 구현
+        // 예를 들어, 다이얼로그를 띄우거나 UI를 업데이트하는 등의 동작
+        Debug.Log("Show Overwrite Warning");
+    }
+
 
 }
