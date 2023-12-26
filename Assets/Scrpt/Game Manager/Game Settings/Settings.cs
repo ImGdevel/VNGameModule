@@ -10,7 +10,8 @@ public class Settings
     public LanguageSettings languageSettings;
     public ControlSettings controlSettings;
 
-    public override string ToString() {
+    public override string ToString()
+    {
         return $"Graphics Settings:\n{graphicsSettings}\n\n" +
                $"Sound Settings:\n{soundSettings}\n\n" +
                $"Dialogue Settings:\n{dialogueSettings}\n\n" +
@@ -20,16 +21,18 @@ public class Settings
 
     private static int instanceCount = 0; // 클래스 인스턴스 개수를 추적하기 위한 정적 변수
 
-    public Settings() {
+    public Settings()
+    {
         instanceCount++; // 클래스의 생성자가 호출될 때마다 인스턴스 개수 증가
     }
-    
+
     ~Settings() // 소멸자 (파괴자)
     {
         instanceCount--; // 클래스의 인스턴스가 소멸될 때마다 인스턴스 개수 감소
     }
 
-    public static int GetInstanceCount() {
+    public static int GetInstanceCount()
+    {
         return instanceCount; // 현재 클래스 인스턴스 개수 반환
     }
 }
@@ -37,8 +40,7 @@ public class Settings
 [System.Serializable]
 public class GraphicsSettings
 {
-    public Resolution Resolution 
-    {
+    public Resolution Resolution {
         set {
             resolution = new();
             resolution.width = value.width;
@@ -57,7 +59,8 @@ public class GraphicsSettings
     public FullScreenMode fullScreenMode; //이제 fullScreen대신 FullScreenMode사용
     public int qualityLevel;
 
-    public override string ToString() {
+    public override string ToString()
+    {
         return $"Resolution: {Resolution.width}x{Resolution.height} @ {Resolution.refreshRate}Hz\n" +
                $"FullScreenMode: {fullScreenMode}\n" +
                $"Quality Level: {qualityLevel}";
@@ -80,7 +83,8 @@ public class SoundSettings
     public float dialogVolume;
     public float UIVolume;
 
-    public override string ToString() {
+    public override string ToString()
+    {
         return $"Master Volume: {masterVolume}\n" +
                $"Music Volume: {musicVolume}\n" +
                $"SFX Volume: {sfxVolume}\n" +
@@ -96,7 +100,8 @@ public class DialogueSettings
     public float dialogueDelay;
     public float dialogueBoxTransparency;
 
-    public override string ToString() {
+    public override string ToString()
+    {
         return $"Typing Speed: {typingSpeed}\n" +
                $"Dialogue Delay: {dialogueDelay}\n" +
                $"Dialogue Box Transparency: {dialogueBoxTransparency}";
@@ -108,7 +113,8 @@ public class LanguageSettings
 {
     public string selectedLanguage;
 
-    public override string ToString() {
+    public override string ToString()
+    {
         return $"Selected Language: {selectedLanguage}";
     }
 }
@@ -125,7 +131,8 @@ public class ControlSettings
     public KeyCode LoadKeyCode;
     public KeyCode ShowLogKeyCode;
 
-    public override string ToString() {
+    public override string ToString()
+    {
         return $"Skip Key: {SkipKeyCode}\n" +
                $"Next Dialog Key: {NextDialogKeyCode}\n" +
                $"Auto Dialog Key: {AutoDialogKeyCode}\n" +

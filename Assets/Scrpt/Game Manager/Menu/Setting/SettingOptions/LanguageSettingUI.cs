@@ -10,13 +10,15 @@ public class LanguageSettingUI : SettingOption
 {
     public TMP_Dropdown languageDropdown; // UI Dropdown 컴포넌트
 
-    private void Start() {
+    private void Start()
+    {
         Debug.Log("언어설정");
         InitializeDropdown(); // 먼저 Dropdown을 초기화합니다.
     }
 
     // Dropdown을 초기화하고 지원되는 언어 목록을 설정
-    private void InitializeDropdown() {
+    private void InitializeDropdown()
+    {
         if (languageDropdown == null) {
             Debug.LogError("Language Dropdown is not assigned.");
             return;
@@ -35,7 +37,8 @@ public class LanguageSettingUI : SettingOption
     }
 
     // 사용자가 언어를 선택했을 때 호출되는 함수
-    private void OnLanguageDropdownValueChanged(int index) {
+    private void OnLanguageDropdownValueChanged(int index)
+    {
         string selectedLanguage = languageDropdown.options[index].text;
 
         // 선택한 언어로 언어 변경
@@ -47,13 +50,15 @@ public class LanguageSettingUI : SettingOption
         //SettingsManager.SaveSettings(settings);
     }
 
-    public override void LoadSettingsToUI(Settings settings) {
+    public override void LoadSettingsToUI(Settings settings)
+    {
         // 저장된 언어 설정을 UI에 적용
         int selectedLanguageIndex = languageDropdown.options.FindIndex(option => option.text == settings.languageSettings.selectedLanguage);
         languageDropdown.value = selectedLanguageIndex;
     }
 
-    public override void ApplyUIToSettings(Settings settings) {
+    public override void ApplyUIToSettings(Settings settings)
+    {
         // 사용자가 선택한 언어로 언어 설정을 변경
         int selectedLanguageIndex = languageDropdown.value;
         string selectedLanguage = languageDropdown.options[selectedLanguageIndex].text;

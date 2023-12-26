@@ -18,7 +18,8 @@ public class SaveSlotComponent : MonoBehaviour, IPointerClickHandler
     public delegate void ClickEventHandler(SaveSlotComponent clickedSlot);
     public event ClickEventHandler OnClick;
 
-    public void SetSaveSlot(Sprite sprite, string title, string name, string chapter, float playtime) {
+    public void SetSaveSlot(Sprite sprite, string title, string name, string chapter, float playtime)
+    {
         //Debug.Log("tmffht");
         saveImage.sprite = sprite;
         saveTitleText.text = title;
@@ -27,7 +28,8 @@ public class SaveSlotComponent : MonoBehaviour, IPointerClickHandler
         playTimeText.text = playtime.ToString();
     }
 
-    public void SetEmptySaveSlot() {
+    public void SetEmptySaveSlot()
+    {
         //Debug.Log("tmffht");
         saveImage.sprite = emptySlotImage;
         saveTitleText.text = "Empty Slot";
@@ -35,7 +37,6 @@ public class SaveSlotComponent : MonoBehaviour, IPointerClickHandler
         playChapterText.text = "";
         playTimeText.text = "";
     }
-
 
     public void OnPointerClick(PointerEventData eventData)
     {

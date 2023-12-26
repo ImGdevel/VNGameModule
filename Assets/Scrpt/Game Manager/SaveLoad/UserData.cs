@@ -8,7 +8,7 @@ public class UserData
 {
     public string uid;
     public List<SaveData> saveDatas = new();
-} 
+}
 
 [System.Serializable]
 public class SaveData
