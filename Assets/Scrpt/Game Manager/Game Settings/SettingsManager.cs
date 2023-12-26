@@ -23,13 +23,12 @@ public class SettingsManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        LoadSettings(); // 게임 시작 시 설정 로드
+        LoadSettings();
     }
 
     private void LoadSettings() {
         AvailableResolutions = Screen.resolutions;
         System.Array.Reverse(AvailableResolutions);
-        Debug.Log(Settings.GetInstanceCount());
         if (File.Exists(settingsFilePath)) {
 
             string json = File.ReadAllText(settingsFilePath);
@@ -40,7 +39,7 @@ public class SettingsManager : MonoBehaviour
             GameSetting = InitSetting();
             SaveSettings();
         }
-        Debug.Log("불러온 설정:" + GameSetting);
+        Debug.Log("Load Setting:" + GameSetting);
         ScreenSetting();
         Debug.Log(Settings.GetInstanceCount());
     }
@@ -103,8 +102,6 @@ public class SettingsManager : MonoBehaviour
         }
         GameSetting = gameSettings;
         OnSettingsChanged?.Invoke(GameSetting);
-        Debug.Log(Settings.GetInstanceCount());
-
         SaveSettings(); 
     }
 }

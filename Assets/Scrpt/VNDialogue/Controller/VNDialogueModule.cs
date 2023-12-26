@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -32,6 +33,8 @@ public class VNDialogueModule : MonoBehaviour
     private KeyCode autoDialogueKey = KeyCode.A;
     private KeyCode hideDialogueKey = KeyCode.Tab;
 
+    public static event Action EndDialogue;
+
     void Awake() {
         currentSceneName = SceneManager.GetActiveScene().name;
         dialogController = FindObjectOfType<VNDialogController>();
@@ -63,10 +66,11 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     private void RegisterEventListeners() {
-        dialogController.OnTypingEnd += NextScene;
+        dialogController.OnTypingEnd += NextDialogue;
         choiceController.ChoiceScene += JumpScene;
         SettingsManager.OnSettingsChanged += ApplySettings;
         MenuController.OnMenuOpened += ToggleGamePause;
+        GameManager.SaveUserData += SaveDialogueData;
     }
 
     private void OnDestroy() {
@@ -74,10 +78,11 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     private void UnregisterEventListeners() {
-        dialogController.OnTypingEnd -= NextScene;
+        dialogController.OnTypingEnd -= NextDialogue;
         choiceController.ChoiceScene -= JumpScene;
         SettingsManager.OnSettingsChanged -= ApplySettings;
         MenuController.OnMenuOpened -= ToggleGamePause;
+        GameManager.SaveUserData -= SaveDialogueData;
     }
 
     private IEnumerator StartDialogueAfterDelay(float delay) {
@@ -148,9 +153,10 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
-    public void NextScene() {
+    public void NextDialogue() {
         currentDialogueIndex = (currentDialogueIndex + 1) % dialogueList.Count;
         waitingForNextScene = false;
+        EndDialogue?.Invoke();
     }
 
     private void PlayScene(DialogData dialog) {
@@ -192,33 +198,27 @@ public class VNDialogueModule : MonoBehaviour
                     characterController.ShowCharacter(data.name, data.number, data.time);
                     break;
                 case "MoveCharacter":
-                    characterController.MoveCharacter(data.name, new Vector2(data.position.x, data.position.y), data.time);
+                    characterController.MoveCharacter(data.name, new Vector3(data.position.x, data.position.y), data.time);
                     break;
                 case "DismissCharacter":
                     characterController.DismissCharacter(data.name, data.time);
                     break;
-                case "ChangeBackground":
-                    Debug.Log("배경 출력");
-                    // 배경 변경 이벤트 처리 추가
+                case "ShowBackground":
+
+                    
                     break;
                 case "ShowEventScene":
-                    Debug.Log("이벤트 씬 출력");
-                    // 이벤트 씬 출력
+
                     break;
                 case "ShakeScreen":
                     Camera camera = Camera.main;
                     VNCameraController cameraController = camera.GetComponent<VNCameraController>();
-                    
-                    Debug.Log("화면 흔들림");
+                
                     cameraController.StartShake(data.time, data.number);
                     break;
                 case "PlayVoice":
-                    Debug.Log("음성 출력");
-                    // 음성 출력
                     break;
                 case "PlaySound":
-                    Debug.Log("효과음 출력");
-                    // 효과음 출력
                     break;
                 case "PlayMusic":
                     if (onSceneSkipMove) break;
@@ -287,6 +287,11 @@ public class VNDialogueModule : MonoBehaviour
     private void ToggleDialogueUI() {
         isDialogueVisible = !isDialogueVisible;
         dialogueUI.SetActive(isDialogueVisible);
+    }
+
+    public void SaveDialogueData(SaveData saveData) {
+        saveData.chapter = currentSceneName;
+        saveData.dialogId = dialogueList[currentDialogueIndex].id;
     }
 
 }

@@ -10,10 +10,6 @@ public class Settings
     public LanguageSettings languageSettings;
     public ControlSettings controlSettings;
 
-    private void Save() {
-        SettingsManager.Instance.ApplySetting(this);
-    }
-
     public override string ToString() {
         return $"Graphics Settings:\n{graphicsSettings}\n\n" +
                $"Sound Settings:\n{soundSettings}\n\n" +
@@ -25,7 +21,6 @@ public class Settings
     private static int instanceCount = 0; // 클래스 인스턴스 개수를 추적하기 위한 정적 변수
 
     public Settings() {
-        Debug.Log("생성됨");
         instanceCount++; // 클래스의 생성자가 호출될 때마다 인스턴스 개수 증가
     }
     

@@ -2,15 +2,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingsUIManager : MonoBehaviour
+public class SettingsUIManager : MenuModal
 {
     [SerializeField] List<SettingOption> SettingOptions;
 
     private Settings settings;
 
-    public void OpenSettingMenu() {
+    private void OnEnable() {
+        OpenMenu();
+    }
+
+    public override void OpenMenu() {
         settings = SettingsManager.GameSetting;
         ShowSettingPanel(SettingOptions[0]);
+    }
+
+    private void OnDisable() {
+        CloseMenu();
+    }
+
+    public override void CloseMenu() {
+        SettingsManager.Instance.ApplySetting(settings);
     }
 
     public void ShowSettingPanel(SettingOption settingPanel) {
@@ -27,13 +39,9 @@ public class SettingsUIManager : MonoBehaviour
         }
     }
 
-    private void SaveSettings() {
+    public void SaveSettings() {
         foreach (SettingOption settingOption in SettingOptions) {
             settingOption.ApplyUIToSettings(settings);
         }
-    }
-
-    private void OnDisable() {
-        SettingsManager.Instance.ApplySetting(settings);
     }
 }

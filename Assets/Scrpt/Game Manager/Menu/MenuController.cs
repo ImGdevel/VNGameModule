@@ -8,29 +8,38 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
     [SerializeField] GameObject menuUI;
-    [SerializeField] GameObject settingUI;
-    [SerializeField] GameObject saveUI;
-    [SerializeField] GameObject loadUI;
-
     [SerializeField] Image MenuBackScreen;
-    
+
+    [SerializeField] List<ModalData> ModalWindows;
+
     private GameManager gameManager;
 
-    public static UnityAction<bool> OnMenuOpened; // 직접 이벤트를 정의
+    public static UnityAction<bool> OnMenuOpened;
 
     private bool isMenuOpen = false;
-    private bool isSettingMenuOpen = false;
+    private bool isModalWindowOpen = false;
+    private int currentOpenModalWindowIndex;
 
     void Start()
     {
         gameManager = GameManager.Instance;
+        InitializeModalWindow();
         CloseMenu();
+    }
+
+    private void InitializeModalWindow() {
+        foreach (ModalData modal in ModalWindows) {
+            foreach (Button button in modal.button) {
+                button.onClick.RemoveAllListeners();
+                button.onClick.AddListener(() => ToggleModalWindows(ModalWindows.IndexOf(modal)));
+            }
+        }
     }
 
     private void Update() {
         if (Input.GetKeyDown(KeyCode.Escape)) {
-            if (isMenuOpen && isSettingMenuOpen) {
-                ToggleSettingMenu();
+            if (isMenuOpen && isModalWindowOpen) {
+                ToggleModalWindows(currentOpenModalWindowIndex);
             }
             else {
                 ToggleMenu();
@@ -49,17 +58,6 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    public void ToggleSettingMenu() {
-        isSettingMenuOpen = !isSettingMenuOpen;
-
-        if (isSettingMenuOpen) {
-            OpenSettingMenu();
-        }
-        else {
-            CloseSettingMenu();
-        }
-    }
-
     private void OpenMenu() {
         OnMenuOpened?.Invoke(true);
         Time.timeScale = 0;
@@ -68,21 +66,35 @@ public class MenuController : MonoBehaviour
     }
 
     private void CloseMenu() {
-        Time.timeScale = 1; // 일시 정지 해제
+        Time.timeScale = 1;
         OnMenuOpened?.Invoke(false);
         menuUI.SetActive(false);
         MenuBackScreen.enabled = false;
     }
 
-    private void OpenSettingMenu() {
-        settingUI.SetActive(true);
-        settingUI.GetComponent<SettingsUIManager>().OpenSettingMenu();
-        menuUI.SetActive(false);
+    public void ToggleModalWindows(int index) {
+        ModalData modal = ModalWindows[index];
+        modal.isOpen = !modal.isOpen; 
+
+        if (modal.isOpen) {
+            currentOpenModalWindowIndex = index;
+            OpenModalWindow(modal);
+        }
+        else {
+            CloseModalWindow(modal);
+        }
     }
 
-    private void CloseSettingMenu() {
-        settingUI.SetActive(false);
-        menuUI.SetActive(true);
+    private void OpenModalWindow(ModalData modal) {
+        modal.window.SetActive(true);
+        menuUI?.SetActive(false);
+        isModalWindowOpen = true;
+    }
+
+    private void CloseModalWindow(ModalData modal) {
+        modal.window.SetActive(false);
+        menuUI?.SetActive(true);
+        isModalWindowOpen = false;
     }
 
     public void GotoTitle() {
@@ -93,4 +105,18 @@ public class MenuController : MonoBehaviour
     public void QuitGame() {
         gameManager.QuitGame();
     }
+}
+
+[System.Serializable]
+class ModalData
+{
+    [Header("Button Settings")]
+    public Button[] button; 
+
+    [Header("Window Settings")]
+    public GameObject window; 
+    public bool isOpenByDefault = false;
+
+    [HideInInspector]
+    public bool isOpen;
 }
