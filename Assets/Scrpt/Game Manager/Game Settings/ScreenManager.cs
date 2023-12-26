@@ -14,7 +14,7 @@ public class ScreenManager : MonoBehaviour
         Instance = this;
     }
 
-    [System.Obsolete]
+
     public static void ChangeResolution(int width, int height) {
         Resolution newResolution = new Resolution {
             width = width,
@@ -25,12 +25,11 @@ public class ScreenManager : MonoBehaviour
         Screen.SetResolution(newResolution.width, newResolution.height, Screen.fullScreen);
     }
 
-    [System.Obsolete]
     public static void ChangeResolution(Resolution resolution) {
         Resolution newResolution = new Resolution {
             width = resolution.width,
             height = resolution.height,
-            refreshRate = Screen.currentResolution.refreshRate
+            refreshRate = Screen.currentResolution.refreshRate 
         };
 
         Screen.SetResolution(newResolution.width, newResolution.height, Screen.fullScreen);

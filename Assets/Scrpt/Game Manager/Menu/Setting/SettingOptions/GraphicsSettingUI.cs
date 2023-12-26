@@ -5,7 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[Obsolete]
 public class GraphicsSettingUI : SettingOption
 {
     [SerializeField] private TMP_Dropdown resolutionDropdown; // 해상도 설정을 위한 TMP Dropdown 메뉴
