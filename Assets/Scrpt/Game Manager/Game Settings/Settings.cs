@@ -4,6 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class Settings
 {
+    
     public GraphicsSettings graphicsSettings;
     public SoundSettings soundSettings;
     public DialogueSettings dialogueSettings;
@@ -48,7 +49,6 @@ public class GraphicsSettings
             return new Resolution {
                 width = resolution.width,
                 height = resolution.height,
-                refreshRate = Screen.currentResolution.refreshRate // 현재 리프레시 속도 사용
             };
         }
     }
@@ -58,8 +58,7 @@ public class GraphicsSettings
     public int qualityLevel;
 
     public override string ToString() {
-        return $"Resolution: {Resolution.width}x{Resolution.height} @ {Resolution.refreshRate}Hz\n" +
-               $"FullScreenMode: {fullScreenMode}\n" +
+        return $"FullScreenMode: {fullScreenMode}\n" +
                $"Quality Level: {qualityLevel}";
     }
 }
