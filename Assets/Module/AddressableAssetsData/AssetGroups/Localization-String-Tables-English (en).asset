@@ -23,14 +23,12 @@ MonoBehaviour:
     m_SerializedLabels:
     - Locale-en
     - Preload
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 87bee39fd1b53ca45bde0c06367d1133
     m_Address: GameTitle_en
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale-en
     - Preload
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 67713addb40f61d4b984e825eeb606ef, type: 2}
   m_SchemaSet:
