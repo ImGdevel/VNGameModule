@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class SaveSlotComponent : MonoBehaviour
+public class SaveSlotComponent : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] Image saveImage;
     [SerializeField] TMP_Text saveTitleText;
@@ -14,8 +15,11 @@ public class SaveSlotComponent : MonoBehaviour
 
     [SerializeField] private Sprite emptySlotImage;
 
+    public delegate void ClickEventHandler(SaveSlotComponent clickedSlot);
+    public event ClickEventHandler OnClick;
+
     public void SetSaveSlot(Sprite sprite, string title, string name, string chapter, float playtime) {
-        Debug.Log("tmffht");
+        //Debug.Log("tmffht");
         saveImage.sprite = sprite;
         saveTitleText.text = title;
         playerNameText.text = name;
@@ -24,12 +28,18 @@ public class SaveSlotComponent : MonoBehaviour
     }
 
     public void SetEmptySaveSlot() {
-        Debug.Log("tmffht");
+        //Debug.Log("tmffht");
         saveImage.sprite = emptySlotImage;
         saveTitleText.text = "Empty Slot";
         playerNameText.text = "";
         playChapterText.text = "";
         playTimeText.text = "";
+    }
+
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        OnClick?.Invoke(this);
     }
 }
 
