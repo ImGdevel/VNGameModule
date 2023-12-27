@@ -13,7 +13,5 @@ public class GameData
     {
         this.gameSaveSlotCount = gameSaveSlotCount;
     }
-    
-    
 }
 

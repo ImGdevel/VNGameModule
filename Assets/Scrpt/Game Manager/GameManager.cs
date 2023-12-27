@@ -10,8 +10,8 @@ public class GameManager : MonoBehaviour
 
     public SaveData quickSaveSlot;
 
-    public static event Action<SaveData> SaveUserData;
-    public static event Action<SaveData> LoadUserData;
+    //public static event Action<SaveData> SaveUserData;
+    //public static event Action<SaveData> LoadUserData;
 
     private void Awake() {
         if (Instance != null) {
@@ -56,24 +56,27 @@ public class GameManager : MonoBehaviour
         userData.saveDatas.Add(newSaveData);
     }
 
+
     private void PrintUserData() {
+        /*
         Debug.Log("Loaded UID: " + userData.uid);
         foreach (SaveData save in userData.saveDatas) {
             Debug.Log("Player Name: " + save.playerName);
             Debug.Log("Chapter: " + save.chapter);
             Debug.Log("Dialog ID: " + save.dialogId);
         }
+        */
     }
 
     public void OnSaveUserData() {
-        SaveUserData?.Invoke(userData.saveDatas[0]);
+        //SaveUserData?.Invoke(userData.saveDatas[0]);
         PrintUserData();
         saveLoadManager.SaveUserData(userData, "userdata");
     }
 
     public void OnLoadUserData() {
         userData = saveLoadManager.LoadUserData("userdata");
-        LoadUserData?.Invoke(userData.saveDatas[0]);
+        //LoadUserData?.Invoke(userData.saveDatas[0]);
     }
 
     //

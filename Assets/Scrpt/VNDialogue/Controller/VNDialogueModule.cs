@@ -70,7 +70,7 @@ public class VNDialogueModule : MonoBehaviour
         choiceController.ChoiceScene += JumpScene;
         SettingsManager.OnSettingsChanged += ApplySettings;
         MenuController.OnMenuOpened += ToggleGamePause;
-        GameManager.SaveUserData += SaveDialogueData;
+        //GameManager.SaveUserData += SaveDialogueData;
     }
 
     private void OnDestroy() {
@@ -82,7 +82,7 @@ public class VNDialogueModule : MonoBehaviour
         choiceController.ChoiceScene -= JumpScene;
         SettingsManager.OnSettingsChanged -= ApplySettings;
         MenuController.OnMenuOpened -= ToggleGamePause;
-        GameManager.SaveUserData -= SaveDialogueData;
+        //GameManager.SaveUserData -= SaveDialogueData;
     }
 
     private IEnumerator StartDialogueAfterDelay(float delay) {
