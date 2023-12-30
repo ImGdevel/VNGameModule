@@ -11,7 +11,7 @@ public class SaveMenuUIController : MenuModal
     [SerializeField] private int slotCount;
 
     private List<SaveSlotComponent> saveSlots;
-    private List<SaveData> saveDatas;
+    private List<GameData> saveDatas;
 
     void Awake()
     {
@@ -43,13 +43,16 @@ public class SaveMenuUIController : MenuModal
 
     public override void OpenMenu()
     {
-        saveDatas = GameManager.userData.saveDatas;
+        saveDatas = new List<GameData> {
+            GameDataManager.Instance.GameData
+        };
+        
 
         for (int i = 0; i < slotCount; i++) {
             SaveSlotComponent slot = saveSlots[i];
             if (saveDatas.Count > i) {
-                SaveData data = saveDatas[i];
-                slot.SetSaveSlot(null, "", data.chapter, data.dialogId, 0);
+
+
             }
             else {
                 slot.SetEmptySaveSlot();
@@ -71,7 +74,7 @@ public class SaveMenuUIController : MenuModal
             return;
         }
         Debug.Log(index);
-        if (saveDatas[index] == null) {
+        if (true) {
             SaveCurrentGameData(index);
         }
         else {
@@ -85,7 +88,7 @@ public class SaveMenuUIController : MenuModal
         // 현재 게임 데이터를 저장하는 로직을 여기에 구현
         // 예를 들어, GameManager에 있는 SaveGame 메서드 호출 등
         //GameManager.SaveGame(slotIndex);
-        GameManager.Instance.OnSaveUserData();
+        GameDataManager.Instance.SaveData();
         // 저장 후 메뉴를 다시 열어 갱신
         OpenMenu();
     }

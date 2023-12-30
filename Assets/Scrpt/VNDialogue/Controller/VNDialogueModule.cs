@@ -35,7 +35,8 @@ public class VNDialogueModule : MonoBehaviour
 
     public static event Action EndDialogue;
 
-    void Awake() {
+    void Awake()
+    {
         currentSceneName = SceneManager.GetActiveScene().name;
         dialogController = FindObjectOfType<VNDialogController>();
         if (dialogController == null) {
@@ -59,45 +60,55 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
-    void Start() {
+    void Start()
+    {
         isGamePaused = true;
         RegisterEventListeners();
         StartCoroutine(StartDialogueAfterDelay(2.0f));
     }
 
-    private void RegisterEventListeners() {
+    private void RegisterEventListeners()
+    {
         dialogController.OnTypingEnd += NextDialogue;
         choiceController.ChoiceScene += JumpScene;
         SettingsManager.OnSettingsChanged += ApplySettings;
         MenuController.OnMenuOpened += ToggleGamePause;
-        //GameManager.SaveUserData += SaveDialogueData;
+        GameDataManager.Instance.OnGameDataSaved += SaveDialogueData;
+        GameDataManager.Instance.OnGameDataLoaded += LoadDialogueData;
+
     }
 
-    private void OnDestroy() {
+    private void OnDestroy()
+    {
         UnregisterEventListeners();
     }
 
-    private void UnregisterEventListeners() {
+    private void UnregisterEventListeners()
+    {
         dialogController.OnTypingEnd -= NextDialogue;
         choiceController.ChoiceScene -= JumpScene;
         SettingsManager.OnSettingsChanged -= ApplySettings;
         MenuController.OnMenuOpened -= ToggleGamePause;
-        //GameManager.SaveUserData -= SaveDialogueData;
+        GameDataManager.Instance.OnGameDataSaved -= SaveDialogueData;
+        GameDataManager.Instance.OnGameDataLoaded -= LoadDialogueData;
     }
 
-    private IEnumerator StartDialogueAfterDelay(float delay) {
+    private IEnumerator StartDialogueAfterDelay(float delay)
+    {
         yield return new WaitForSeconds(delay);
         StartDialogue();
     }
 
-    private void StartDialogue() {
+    private void StartDialogue()
+    {
         ToggleDialogueUI();
         ApplySettings(SettingsManager.GameSetting);
         LoadDialogue(currentSceneName);
         isGamePaused = false;
     }
 
-    private void LoadDialogue(string loadName) {
+    private void LoadDialogue(string loadName)
+    {
         if (dialogManager == null) {
             Debug.LogError("VNDialogManager is not assigned.");
             return;
@@ -120,7 +131,8 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
-    void Update() {
+    void Update()
+    {
         if (isGamePaused) {
             return;
         }
@@ -153,13 +165,15 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
-    public void NextDialogue() {
+    public void NextDialogue()
+    {
         currentDialogueIndex = (currentDialogueIndex + 1) % dialogueList.Count;
         waitingForNextScene = false;
         EndDialogue?.Invoke();
     }
 
-    private void PlayScene(DialogData dialog) {
+    private void PlayScene(DialogData dialog)
+    {
         Debug.Log("Current dialogue number: " + currentSceneName + "(" + dialog.id + ")");
         if (dialog.choices.Count == 0) {
             if (sceneEvents.ContainsKey(dialog.id)) {
@@ -173,7 +187,8 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
-    private void SkipScene(DialogData dialog) {
+    private void SkipScene(DialogData dialog)
+    {
         if (dialog.choices.Count == 0) {
             if (Input.GetKeyDown(KeyCode.LeftControl)) {
                 dialogController.CurrentDialogueSkip();
@@ -190,7 +205,8 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
-    private void PlaySceneEvent(List<EventData> eventDatas) {
+    private void PlaySceneEvent(List<EventData> eventDatas)
+    {
         foreach (EventData eventData in eventDatas) {
             Data data = eventData.data;
             switch (eventData.type) {
@@ -205,7 +221,7 @@ public class VNDialogueModule : MonoBehaviour
                     break;
                 case "ShowBackground":
 
-                    
+
                     break;
                 case "ShowEventScene":
 
@@ -213,7 +229,7 @@ public class VNDialogueModule : MonoBehaviour
                 case "ShakeScreen":
                     Camera camera = Camera.main;
                     VNCameraController cameraController = camera.GetComponent<VNCameraController>();
-                
+
                     cameraController.StartShake(data.time, data.number);
                     break;
                 case "PlayVoice":
@@ -235,18 +251,21 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
-    private void SceneChange(string sceneName) {
+    private void SceneChange(string sceneName)
+    {
         SceneManager.LoadScene(sceneName);
     }
 
-    private void ChoiceScene(DialogData dialog) {
+    private void ChoiceScene(DialogData dialog)
+    {
         isGamePaused = true;
         choiceController.transform.gameObject.SetActive(true);
         choiceController.ShowChoices(dialog.choices);
         dialogController.ClearDialogue();
     }
 
-    public void JumpScene(string jump_id) {
+    public void JumpScene(string jump_id)
+    {
         choiceController.transform.gameObject.SetActive(false);
         isGamePaused = false;
 
@@ -260,7 +279,8 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
-    private IEnumerator AutoPlayScene() {
+    private IEnumerator AutoPlayScene()
+    {
         while (autoScrollEnabled) {
             PlayScene(dialogueList[currentDialogueIndex]);
 
@@ -270,11 +290,13 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
-    public void ToggleGamePause(bool state) {
+    public void ToggleGamePause(bool state)
+    {
         isGamePaused = state;
     }
 
-    public void ApplySettings(Settings settings) {
+    public void ApplySettings(Settings settings)
+    {
         typingSpeed = settings.dialogueSettings.typingSpeed;
         autoScrollDelay = settings.dialogueSettings.dialogueDelay;
 
@@ -284,14 +306,24 @@ public class VNDialogueModule : MonoBehaviour
         hideDialogueKey = settings.controlSettings.HideUIKeyCode;
     }
 
-    private void ToggleDialogueUI() {
+    private void ToggleDialogueUI()
+    {
         isDialogueVisible = !isDialogueVisible;
         dialogueUI.SetActive(isDialogueVisible);
     }
 
-    public void SaveDialogueData(SaveData saveData) {
-        saveData.chapter = currentSceneName;
-        saveData.dialogId = dialogueList[currentDialogueIndex].id;
+    public void SaveDialogueData(GameData saveData)
+    {
+        Debug.Log("대화 데이터 저장");
+        //saveData.chapter = currentSceneName;
+        //saveData.dialogId = dialogueList[currentDialogueIndex].id;
+    }
+
+    public void LoadDialogueData(GameData saveData)
+    {
+        Debug.Log("대화 데이터 불러오기 적용");
+        //currentSceneName = saveData.chapter;
+        //dialogueList[currentDialogueIndex].id = saveData.dialogId;
     }
 
 }

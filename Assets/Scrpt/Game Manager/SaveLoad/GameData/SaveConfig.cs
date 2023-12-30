@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SaveConfig : MonoBehaviour
+[System.Serializable]
+public class SaveConfig
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public string saveFile;
+    public string saveName;
+    public string savePath;
+    public string saveType;
+    public string saveVersion;
+    public string saveTime;
+    public string saveSnapshotImage;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public string gamePlayTime;
 }

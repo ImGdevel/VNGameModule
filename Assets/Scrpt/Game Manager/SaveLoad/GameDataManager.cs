@@ -4,58 +4,73 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+
+[System.Serializable]
+public class GameSaveData
+{
+    public int uid;
+    public int saveSlotCount;
+    public GameData[] gameDatas;
+}
+
 public class GameDataManager : MonoBehaviour
 {
     public static GameDataManager Instance { get; private set; }
 
-    private SaveFileManager saveLoadManager;
+    private FileManager<GameData> saveFileManager;
+    
     private GameData gameData;
+    public GameData GameData {  get { return gameData; } }
 
-    // GameDataManager를 사용하여 데이터 관리 
+    private GameSaveData saveData;
+    private int courrnetSlot = 0;
+
+    public event Action<GameData> OnGameDataSaved;
+    public event Action<GameData> OnGameDataLoaded;
+
     private void Awake()
     {
         if (Instance != null) {
             Destroy(gameObject);
             return;
         }
-        gameData = new GameData();
-        saveLoadManager = new SaveFileManager();
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        gameData = new GameData();
+        saveFileManager = new FileManager<GameData>("Save");
+
+        LoadAllData();
+
     }
 
     public void SaveData()
     {
-        string saveFileName = "Save/save01";
-        // 데이터 저장 
+        string saveFileName = "save01.save";
 
-        // 현제 게임 데이터 업데이트
+        OnGameDataSaved?.Invoke(gameData);
 
-        if (saveLoadManager != null) {
-            saveLoadManager.SaveDataToLocal(saveFileName, gameData);
+        if (saveFileManager != null) {
+            saveFileManager.SaveDataToLocal(saveFileName, saveData.gameDatas[courrnetSlot]);
         }
-
     }
 
     public void LoadData()
     {
-        string saveFileName = "Save/save01";
-        // 데이터 불러오기 시도
+        string saveFileName = "save01.save";
 
-        // 불러온 데이터 게임에 적용
+        if (saveFileManager != null) {
+            saveData.gameDatas[courrnetSlot] = saveFileManager.LoadDataToLocal(saveFileName);
+        }
 
-        if (saveLoadManager != null) {
-            gameData = saveLoadManager.LoadDataToLocal(saveFileName);
+        OnGameDataLoaded?.Invoke(gameData);
+    }
+
+    public void LoadAllData()
+    {
+        if (saveFileManager != null) {
+            saveData.gameDatas = saveFileManager.LoadAllFilesWithExtension("save");
         }
     }
 
-    public void LoadSaveConfig()
-    {
-
-    }
-
-    public void UpdateSaveConfig()
-    {
-
-    }
 }

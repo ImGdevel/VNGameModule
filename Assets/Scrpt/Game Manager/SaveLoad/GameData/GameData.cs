@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [System.Serializable]
 public class GameData
 {
-    int gameSaveSlotCount;
-    public string uid;
-    public List<SaveData> saveDatas = new();
+    // Essential save data
+    public SaveConfig saveConfig;
 
-    public GameData(int gameSaveSlotCount = 0)
-    {
-        this.gameSaveSlotCount = gameSaveSlotCount;
-    }
+    // Organize the data to be saved in your game
+    public VNGameData VNGameData;
+
 }
-

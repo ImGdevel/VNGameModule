@@ -777,6 +777,7 @@ GameObject:
   - component: {fileID: 1428703333}
   - component: {fileID: 1428703339}
   - component: {fileID: 1428703340}
+  - component: {fileID: 1428703341}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -811,10 +812,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 732e4e67c72c47549bcdf3502af798fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  quickSaveSlot:
-    playerName: 
-    chapter: 
-    dialogId: 
 --- !u!114 &1428703340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -825,6 +822,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 441739567632949458eb92bfeb0528f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1428703341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428703331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc04534749342c4585147cb1c13e51a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1879772379
