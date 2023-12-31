@@ -50,7 +50,6 @@ public class GraphicsSettings
             return new Resolution {
                 width = resolution.width,
                 height = resolution.height,
-                refreshRate = Screen.currentResolution.refreshRate // 현재 리프레시 속도 사용
             };
         }
     }
@@ -61,7 +60,7 @@ public class GraphicsSettings
 
     public override string ToString()
     {
-        return $"Resolution: {Resolution.width}x{Resolution.height} @ {Resolution.refreshRate}Hz\n" +
+        return $"Resolution: {Resolution.width}x{Resolution.height}\n" +
                $"FullScreenMode: {fullScreenMode}\n" +
                $"Quality Level: {qualityLevel}";
     }

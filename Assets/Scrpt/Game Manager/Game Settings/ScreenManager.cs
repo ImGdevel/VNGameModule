@@ -21,7 +21,6 @@ public class ScreenManager : MonoBehaviour
         Resolution newResolution = new Resolution {
             width = width,
             height = height,
-            refreshRate = Screen.currentResolution.refreshRate
         };
 
         Screen.SetResolution(newResolution.width, newResolution.height, Screen.fullScreen);
@@ -32,7 +31,6 @@ public class ScreenManager : MonoBehaviour
         Resolution newResolution = new Resolution {
             width = resolution.width,
             height = resolution.height,
-            refreshRate = Screen.currentResolution.refreshRate
         };
 
         Screen.SetResolution(newResolution.width, newResolution.height, Screen.fullScreen);
