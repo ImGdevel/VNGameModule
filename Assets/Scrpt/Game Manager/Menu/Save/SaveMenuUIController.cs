@@ -44,7 +44,7 @@ public class SaveMenuUIController : MenuModal
     public override void OpenMenu()
     {
         saveDatas = new List<GameData> {
-            GameDataManager.Instance.GameData
+            
         };
         
 
@@ -74,7 +74,7 @@ public class SaveMenuUIController : MenuModal
             return;
         }
         Debug.Log(index);
-        if (true) {
+        if (index < slotCount) {
             SaveCurrentGameData(index);
         }
         else {
@@ -87,8 +87,7 @@ public class SaveMenuUIController : MenuModal
     {
         // 현재 게임 데이터를 저장하는 로직을 여기에 구현
         // 예를 들어, GameManager에 있는 SaveGame 메서드 호출 등
-        //GameManager.SaveGame(slotIndex);
-        GameDataManager.Instance.SaveData();
+        //GameDataManager.Instance.SaveData(slotIndex);
         // 저장 후 메뉴를 다시 열어 갱신
         OpenMenu();
     }

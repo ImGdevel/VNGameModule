@@ -1,25 +1,27 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor.Build.Pipeline;
 using UnityEngine;
 
 
 internal class FileManager<T>
 {
     private string rootFolder; // 폴더 이름
+    private string fileExtension;
 
-    public FileManager(string rootFolder = "Temp")
+    public FileManager(string rootFolder = "Temp", string fileExtension = null)
     {
+        this.fileExtension = (fileExtension != null) ? "." + fileExtension : "";
         this.rootFolder = rootFolder;
-
         // Save 폴더가 없으면 생성
         if (!Directory.Exists(GetFolderPath())) {
             Directory.CreateDirectory(GetFolderPath());
         }
     }
 
-    // Save game data to a file
-    public void SaveDataToLocal(string saveFileName, T data, bool isEncryption = false)
+    // File Save
+    public void WriteFileToJson(string saveFileName, T data, bool isEncryption = false)
     {
         try {
             string savefile = JsonUtility.ToJson(data);
@@ -37,8 +39,8 @@ internal class FileManager<T>
         }
     }
 
-    // Load game data from a file
-    public T LoadDataToLocal(string saveFileName, bool isEncryption = false)
+    // File Load
+    public T OpenFileToJson(string saveFileName, bool isEncryption = false)
     {
         try {
             string savepath = GetFilePath(saveFileName);
@@ -65,8 +67,25 @@ internal class FileManager<T>
         }
     }
 
+    public void DeleteFile(string saveFileName)
+    {
+        try {
+            string savepath = GetFilePath(saveFileName);
+            // 파일이 존재하는지 확인 후 삭제
+            if (File.Exists(savepath)) {
+                File.Delete(savepath);
+                Debug.Log("File deleted successfully: " + savepath);
+            }
+            else {
+                Debug.LogWarning("File does not exist: " + savepath);
+            }
+        }
+        catch (Exception e) {
+            Debug.LogError("Error deleting file: " + e.Message);
+        }
+    }
 
-    public T[] LoadAllFilesWithExtension(string extension = null, bool isEncryption = false)
+    public T[] OpenFileInFolder(string extension = null, bool isEncryption = false)
     {
         try {
             string folderPath = GetFolderPath();
@@ -104,6 +123,11 @@ internal class FileManager<T>
         }
     }
 
+    public bool IsFileExist(string saveFileName)
+    {
+        return File.Exists(GetFilePath(saveFileName));
+    }
+
     private string GetFolderPath()
     {
         return Path.Combine(Application.persistentDataPath, rootFolder);
@@ -111,6 +135,6 @@ internal class FileManager<T>
 
     private string GetFilePath(string fileName)
     {
-        return Path.Combine(GetFolderPath(), fileName);
+        return Path.Combine(GetFolderPath(), fileName + fileExtension);
     }
 }
