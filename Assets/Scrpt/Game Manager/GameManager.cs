@@ -21,6 +21,13 @@ public class GameManager : MonoBehaviour
 
     private void Update() {
 
+        if (Input.GetKeyDown(KeyCode.S)) {
+            GameDataManager.Instance.SaveData(2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.L)) {
+            GameDataManager.Instance.LoadData(2);
+        }
     }
 
     public void QuitGame() {

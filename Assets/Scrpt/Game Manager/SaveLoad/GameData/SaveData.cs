@@ -5,15 +5,33 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
-    public string saveNumber;
+    public int saveNumber;
     public string saveName;
-    public string saveFileName;
-    public string savePath;
-    public string saveType;
+    public string saveCreateTime;
     public string saveTime;
-    public string saveVersion;
     public string saveSnapshotImage;
-    public string gamePlayTime;
+    public int gamePlayTime;
+    public GameData gameData;
 
-    GameData gameData;
+    public SaveData(GameData gameData = default) {
+        this.saveNumber = 0;
+        this.saveName = "save";
+        this.saveCreateTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        this.saveTime = saveCreateTime;
+        this.saveSnapshotImage = "";
+        this.gamePlayTime = 0;
+        this.gameData = gameData;
+    }
+
+    public SaveData(int saveNumber = 1, GameData gameData = default) 
+    {
+        this.saveNumber = saveNumber;
+        this.saveName = "save" + ((saveNumber != 0) ? "_" + saveNumber.ToString("D2") : "");
+        this.saveCreateTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        this.saveTime = saveCreateTime;
+        this.saveSnapshotImage = "";
+        this.gamePlayTime = 0;
+        this.gameData = gameData;
+    }
+
 }

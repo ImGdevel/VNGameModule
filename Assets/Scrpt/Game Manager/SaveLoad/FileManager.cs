@@ -28,7 +28,7 @@ internal class FileManager<T>
             string savepath = GetFilePath(saveFileName);
 
             if (isEncryption) {
-                savefile = EncryptionManager.Encrypt(savefile);
+                savefile = EncryptionManager.EncryptAES(savefile);
             }
 
             File.WriteAllText(savepath, savefile);
@@ -55,7 +55,7 @@ internal class FileManager<T>
             string savefile = File.ReadAllText(savepath);
 
             if (isEncryption) {
-                savefile = EncryptionManager.Decrypt(savefile);
+                savefile = EncryptionManager.DecryptAES(savefile);
             }
 
             T data = JsonUtility.FromJson<T>(savefile);
@@ -107,7 +107,7 @@ internal class FileManager<T>
                 Debug.Log(filePath);
 
                 if (isEncryption) {
-                    fileContent = EncryptionManager.Decrypt(fileContent);
+                    fileContent = EncryptionManager.DecryptAES(fileContent);
                 }
 
                 T data = JsonUtility.FromJson<T>(fileContent);

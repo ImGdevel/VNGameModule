@@ -7,7 +7,7 @@ public class GameData
 {
     // Organize the data to be saved in your game
 
-    int playerName;
-    int dialogId;
-    int chapter;
+    public int playerName;
+    public int dialogId;
+    public int chapter;
 }

@@ -1,10 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class GameDataManager : MonoBehaviour
 {
@@ -14,11 +10,12 @@ public class GameDataManager : MonoBehaviour
     private FileManager<SaveDataConfig> saveDataConfigFileManager;
     private List<SaveData> saveDatas;
 
+    private SaveData saveData;
     private GameData gameData;
-    const int maxSaveSlots = 20;
 
-    public List<SaveData> SaveDatas { get { return saveDatas; } }
-    public GameData GameData { get { return gameData; } }
+
+    [SerializeField]
+    private int maxSaveSlots = 1;
 
     public event Action<GameData> OnGameDataSaved;
     public event Action<GameData> OnGameDataLoaded;
@@ -34,43 +31,51 @@ public class GameDataManager : MonoBehaviour
 
         gameData = new GameData();
         saveDatas = new List<SaveData>();
-        saveFileManager = new FileManager<SaveData>("Save", "save");
+        saveFileManager = new FileManager<SaveData>("Save", "json");
         saveDataConfigFileManager = new FileManager<SaveDataConfig>("Save", "json");
 
         LoadAllData();
     }
 
-    public GameData NewGameData = new GameData();
+    public GameData defaultNewGameData = new GameData();
 
-    public void CreateNewGameData()
+    public void CreateNewGameData(GameData newData = default)
     {
-        GameData GameData = new GameData();
-        
-
-
+        gameData = (newData == default) ? defaultNewGameData : newData;
     }
 
     public void SaveData(int saveFileNumber = 0)
     {
-        //saveNumber에 대한 Data저장 후 저장        
-
+        //saveNumber에 대한 Data저장 후 저장
         OnGameDataSaved?.Invoke(gameData);
 
+        // 세이브 파일이 없는 경우 새로운 세이브 파일 생성
+        if (this.saveData == null) {
+            saveData = new SaveData(saveFileNumber, gameData);
+        }
+        saveData.saveTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
-
-
+        saveFileManager.WriteFileToJson(saveData.saveName, saveData);
     }
 
     public void LoadData(int saveFileNumber = 0)
     {
-        
+        LoadAllData();
+
+        foreach (var save in saveDatas)
+        {
+            if(save.saveNumber == saveFileNumber) {
+                saveData = save;
+                gameData = saveData.gameData;
+            }
+        }
 
         OnGameDataLoaded?.Invoke(gameData);
     }
 
     public void DeleteData(int saveFileNumber = 0)
     {
-            
+        
     }
 
 
@@ -87,6 +92,11 @@ public class GameDataManager : MonoBehaviour
         }
     }
 
+    public List<SaveData> GetSaveDataList()
+    {
+        return saveDatas;
+    }
+
     private void UpdateSaveConfig()
     {
         // todo: 현재 saveDatas에 있는 Savefile목록을 saveconfig에 저장?
@@ -97,6 +107,9 @@ public class GameDataManager : MonoBehaviour
     {
         if (!saveDataConfigFileManager.IsFileExist("save_config")) {
             SaveDataConfig defalutSaveConfig = new SaveDataConfig();
+            defalutSaveConfig.maxSaveSlots = maxSaveSlots;
+            defalutSaveConfig.uid = EncryptionManager.EncryptHash(SystemInfo.deviceUniqueIdentifier);
+            defalutSaveConfig.gameId = Application.productName;
             saveDataConfigFileManager.WriteFileToJson("save_config", defalutSaveConfig);
         }
         return saveDataConfigFileManager.OpenFileToJson("save_config");

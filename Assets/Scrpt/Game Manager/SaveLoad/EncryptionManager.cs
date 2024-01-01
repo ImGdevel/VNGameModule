@@ -8,7 +8,7 @@ public class EncryptionManager
     private readonly static string key = "GameSecretKey"; // 16, 24, or 32 bytes key for AES-128, AES-192, or AES-256
     private readonly static string iv = "GameInitializationVector"; // 16 bytes IV for AES
 
-    public static string Encrypt(string plainText)
+    public static string EncryptAES(string plainText)
     {
         using (AesManaged aesAlg = new AesManaged()) {
             aesAlg.Key = Encoding.UTF8.GetBytes(key);
@@ -27,7 +27,7 @@ public class EncryptionManager
         }
     }
 
-    public static string Decrypt(string cipherText)
+    public static string DecryptAES(string cipherText)
     {
         using (AesManaged aesAlg = new AesManaged()) {
             aesAlg.Key = Encoding.UTF8.GetBytes(key);
@@ -42,6 +42,26 @@ public class EncryptionManager
                     }
                 }
             }
+        }
+    }
+
+    public static string EncryptHash(string input)
+    {
+        // SHA-256 해시 알고리즘 사용
+        using (SHA256 sha256 = SHA256.Create()) {
+            // 문자열을 바이트 배열로 변환
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+
+            // 해시 계산
+            byte[] hashBytes = sha256.ComputeHash(inputBytes);
+
+            // 바이트 배열을 문자열로 변환
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < hashBytes.Length; i++) {
+                builder.Append(hashBytes[i].ToString("x2")); // x2는 16진수 표현을 의미
+            }
+
+            return builder.ToString();
         }
     }
 }
