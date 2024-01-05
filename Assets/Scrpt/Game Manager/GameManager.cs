@@ -15,18 +15,19 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void Start() {
-       
-    }
 
     private void Update() {
 
         if (Input.GetKeyDown(KeyCode.S)) {
-            GameDataManager.Instance.SaveData(2);
+            GameDataManager.Instance.SaveGameData(2);
         }
 
         if (Input.GetKeyDown(KeyCode.L)) {
-            GameDataManager.Instance.LoadData(2);
+            GameDataManager.Instance.LoadGameData(2);
+        }
+
+        if (Input.GetKeyDown(KeyCode.D)) {
+            GameDataManager.Instance.DeleteData(2);
         }
     }
 

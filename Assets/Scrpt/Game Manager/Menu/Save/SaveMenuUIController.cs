@@ -26,11 +26,6 @@ public class SaveMenuUIController : MenuModal
         }
     }
 
-    void Start()
-    {
-
-    }
-
     private void OnEnable()
     {
         OpenMenu();

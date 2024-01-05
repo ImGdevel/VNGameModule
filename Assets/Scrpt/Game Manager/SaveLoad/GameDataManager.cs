@@ -44,21 +44,20 @@ public class GameDataManager : MonoBehaviour
         gameData = (newData == default) ? defaultNewGameData : newData;
     }
 
-    public void SaveData(int saveFileNumber = 0)
+    public void SaveGameData(int saveFileNumber = 0)
     {
-        //saveNumber에 대한 Data저장 후 저장
         OnGameDataSaved?.Invoke(gameData);
 
-        // 세이브 파일이 없는 경우 새로운 세이브 파일 생성
         if (this.saveData == null) {
             saveData = new SaveData(saveFileNumber, gameData);
         }
-        saveData.saveTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        saveData.saveLastTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
 
+        UpdateSaveConfig(saveData);
         saveFileManager.WriteFileToJson(saveData.saveName, saveData);
     }
 
-    public void LoadData(int saveFileNumber = 0)
+    public void LoadGameData(int saveFileNumber = 0)
     {
         LoadAllData();
 
@@ -75,7 +74,13 @@ public class GameDataManager : MonoBehaviour
 
     public void DeleteData(int saveFileNumber = 0)
     {
-        
+        foreach (var save in saveDatas) {
+            if (save.saveNumber == saveFileNumber) {
+                UpdateDeleteSaveConfig(save);
+                saveFileManager.DeleteFile(save.saveName);
+                break;
+            }
+        }
     }
 
 
@@ -97,22 +102,44 @@ public class GameDataManager : MonoBehaviour
         return saveDatas;
     }
 
-    private void UpdateSaveConfig()
+    private void UpdateSaveConfig(SaveData saveData)
     {
-        // todo: 현재 saveDatas에 있는 Savefile목록을 saveconfig에 저장?
-        // 그보다 저장하려는 파일 목록만 업데이트
+        SaveDataConfig loadSaveConfig = saveDataConfigFileManager.OpenFileToJson("save_config");
+        int matchingIndex = loadSaveConfig.saveConfigs.FindIndex(save => save.saveNumber == saveData.saveNumber);
+
+        if (matchingIndex == -1) {
+            loadSaveConfig.AddSaveConfig(saveData.saveName, saveData.saveNumber);
+        }
+        saveDataConfigFileManager.WriteFileToJson("save_config", loadSaveConfig);
+    }
+
+    private void UpdateDeleteSaveConfig(SaveData saveData)
+    {
+        SaveDataConfig loadSaveConfig = saveDataConfigFileManager.OpenFileToJson("save_config");
+        int matchingIndex = loadSaveConfig.saveConfigs.FindIndex(save => save.saveNumber == saveData.saveNumber);
+
+        if (matchingIndex != -1) {
+            loadSaveConfig.RemoveSaveConfig(saveData.saveName, saveData.saveNumber);
+        }
+        saveDataConfigFileManager.WriteFileToJson("save_config", loadSaveConfig);
     }
 
     private SaveDataConfig LoadSaveDataConfig()
     {
         if (!saveDataConfigFileManager.IsFileExist("save_config")) {
-            SaveDataConfig defalutSaveConfig = new SaveDataConfig();
-            defalutSaveConfig.maxSaveSlots = maxSaveSlots;
-            defalutSaveConfig.uid = EncryptionManager.EncryptHash(SystemInfo.deviceUniqueIdentifier);
-            defalutSaveConfig.gameId = Application.productName;
+            SaveDataConfig defalutSaveConfig = CreateSaveDataConfig();
             saveDataConfigFileManager.WriteFileToJson("save_config", defalutSaveConfig);
         }
         return saveDataConfigFileManager.OpenFileToJson("save_config");
+    }
+
+    private SaveDataConfig CreateSaveDataConfig()
+    {
+        SaveDataConfig defalutSaveConfig = new SaveDataConfig();
+        defalutSaveConfig.maxSaveSlots = maxSaveSlots;
+        defalutSaveConfig.uid = EncryptionManager.EncryptHash(SystemInfo.deviceUniqueIdentifier);
+        defalutSaveConfig.gameId = Application.productName;
+        return defalutSaveConfig;
     }
 
 }
