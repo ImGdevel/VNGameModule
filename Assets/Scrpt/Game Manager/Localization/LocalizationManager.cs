@@ -9,14 +9,16 @@ public class LocalizationManager : MonoBehaviour
 
     public static List<string> SupportedLanguages { get; internal set; }
 
-    public void ChangeLocalization(int index) {
+    public void ChangeLocalization(int index)
+    {
         if (isChange) {
             return;
         }
         StartCoroutine(ChangeLanguage(index));
     }
 
-    IEnumerator ChangeLanguage(int index) {
+    IEnumerator ChangeLanguage(int index)
+    {
         isChange = true;
 
         yield return LocalizationSettings.InitializationOperation;

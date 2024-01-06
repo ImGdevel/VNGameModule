@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class ControlSeetingUI : SettingOption
 {
-    public override void LoadSettingsToUI(Settings settings) {
+    public override void LoadSettingsToUI(Settings settings)
+    {
 
     }
 
-    public override void ApplyUIToSettings(Settings settings) {
+    public override void ApplyUIToSettings(Settings settings)
+    {
 
     }
 

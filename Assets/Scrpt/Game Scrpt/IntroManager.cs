@@ -11,7 +11,8 @@ public class IntroManager : MonoBehaviour
 
     private float timer = 0.0f;
 
-    void Update() {
+    void Update()
+    {
         timer += Time.deltaTime;
 
         if (timer >= introLogoDuration + startFadeInDuration) {

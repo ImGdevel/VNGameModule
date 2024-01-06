@@ -10,7 +10,8 @@ public class SoundSettingUI : SettingOption
 
     SoundSettings soundSetting;
 
-    private void Start() {
+    private void Start()
+    {
         for (int i = 0; i < volumeElements.Count; i++) {
             int sliderIndex = i;
 
@@ -26,7 +27,8 @@ public class SoundSettingUI : SettingOption
         }
     }
 
-    public override void LoadSettingsToUI(Settings settings) {
+    public override void LoadSettingsToUI(Settings settings)
+    {
         soundSetting = settings.soundSettings;
         for (int i = 0; i < volumeElements.Count; i++) {
             Slider slider = volumeElements[i].GetComponentInChildren<Slider>();
@@ -37,12 +39,14 @@ public class SoundSettingUI : SettingOption
         }
     }
 
-    public override void ApplyUIToSettings(Settings settings) {
+    public override void ApplyUIToSettings(Settings settings)
+    {
         settings.soundSettings = soundSetting;
     }
 
     // UI에 값을 표시할 때 0 ~ 100으로 변환
-    private void UpdateValueText(int sliderIndex) {
+    private void UpdateValueText(int sliderIndex)
+    {
         if (sliderIndex >= 0 && sliderIndex < volumeElements.Count) {
             TMP_Text textMeshPro = volumeElements[sliderIndex].GetComponentInChildren<TMP_Text>();
             if (textMeshPro != null) {
@@ -53,7 +57,8 @@ public class SoundSettingUI : SettingOption
     }
 
     // 사용할 때는 0 ~ 1로 변환
-    public void SetVolume(int sliderIndex) {
+    public void SetVolume(int sliderIndex)
+    {
         if (soundSetting != null && sliderIndex >= 0 && sliderIndex < volumeElements.Count) {
             Slider slider = volumeElements[sliderIndex].GetComponentInChildren<Slider>();
             float normalizedValue = slider.value / 100f;
@@ -80,7 +85,8 @@ public class SoundSettingUI : SettingOption
         }
     }
 
-    float GetVolume(int sliderIndex) {
+    float GetVolume(int sliderIndex)
+    {
         if (soundSetting != null) {
             switch (sliderIndex) {
                 case 0:

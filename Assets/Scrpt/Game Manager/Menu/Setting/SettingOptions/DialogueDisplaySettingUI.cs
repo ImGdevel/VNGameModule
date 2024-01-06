@@ -14,7 +14,8 @@ public class DialogueDisplaySettingUI : SettingOption
     [SerializeField] private TMP_Text delayText; // Dialogue Delay 값을 나타내는 텍스트
     [SerializeField] private TMP_Text transparencyText; // Dialogue Box Transparency 값을 나타내는 텍스트
 
-    public override void LoadSettingsToUI(Settings settings) {
+    public override void LoadSettingsToUI(Settings settings)
+    {
         typingSpeedSlider.value = settings.dialogueSettings.typingSpeed;
         UpdateValueText(typingSpeedText, typingSpeedSlider.value);
 
@@ -25,25 +26,30 @@ public class DialogueDisplaySettingUI : SettingOption
         UpdateValueText(transparencyText, transparencySlider.value);
     }
 
-    public override void ApplyUIToSettings(Settings settings) {
+    public override void ApplyUIToSettings(Settings settings)
+    {
         settings.dialogueSettings.typingSpeed = typingSpeedSlider.value;
         settings.dialogueSettings.dialogueDelay = delaySlider.value;
         settings.dialogueSettings.dialogueBoxTransparency = transparencySlider.value;
     }
 
-    public void SetTypingSpeed(float value) {
+    public void SetTypingSpeed(float value)
+    {
         UpdateValueText(typingSpeedText, value);
     }
 
-    public void SetDelay(float value) {
+    public void SetDelay(float value)
+    {
         UpdateValueText(delayText, value);
     }
 
-    public void SetTransparency(float value) {
+    public void SetTransparency(float value)
+    {
         UpdateValueText(transparencyText, value);
     }
 
-    void UpdateValueText(TMP_Text textMeshPro, float value) {
+    void UpdateValueText(TMP_Text textMeshPro, float value)
+    {
         if (textMeshPro != null) {
             textMeshPro.text = value.ToString();
         }

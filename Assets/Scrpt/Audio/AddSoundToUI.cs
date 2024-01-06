@@ -16,7 +16,8 @@ public class AddSoundToUI : MonoBehaviour
     [Range(0f, 1f)]
     public float volume = 1.0f;
 
-    private void Start() {
+    private void Start()
+    {
         soundPlayer = GetComponent<AudioSource>();
         if (soundPlayer == null) {
             soundPlayer = gameObject.AddComponent<AudioSource>();
@@ -52,17 +53,20 @@ public class AddSoundToUI : MonoBehaviour
         }
     }
 
-    private void PlayClickSound() {
+    private void PlayClickSound()
+    {
         soundPlayer.clip = clickSound;
         soundPlayer.PlayOneShot(clickSound);
     }
 
-    private void PlayHighlightSound() {
+    private void PlayHighlightSound()
+    {
         soundPlayer.clip = highlightSound;
         soundPlayer.PlayOneShot(highlightSound);
     }
 
-    private void StopHighlightSound() {
+    private void StopHighlightSound()
+    {
         soundPlayer.Stop();
     }
 }

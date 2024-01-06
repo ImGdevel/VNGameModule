@@ -22,13 +22,11 @@ MonoBehaviour:
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: cea7ca666020d6a43aaa620449835240
     m_Address: Korean (ko)
     m_ReadOnly: 1
     m_SerializedLabels:
     - Locale
-    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 67713addb40f61d4b984e825eeb606ef, type: 2}
   m_SchemaSet:

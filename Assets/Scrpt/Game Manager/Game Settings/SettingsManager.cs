@@ -15,7 +15,8 @@ public class SettingsManager : MonoBehaviour
     [SerializeField]
     private string settingsFilePath = "settings.json";
 
-    private void Awake() {
+    private void Awake()
+    {
         if (Instance != null && Instance != this) {
             Destroy(gameObject);
             return;
@@ -26,14 +27,15 @@ public class SettingsManager : MonoBehaviour
         LoadSettings();
     }
 
-    private void LoadSettings() {
+    private void LoadSettings()
+    {
         AvailableResolutions = Screen.resolutions;
         System.Array.Reverse(AvailableResolutions);
         if (File.Exists(settingsFilePath)) {
 
             string json = File.ReadAllText(settingsFilePath);
             GameSetting = JsonUtility.FromJson<Settings>(json);
-            
+
         }
         else {
             GameSetting = InitSetting();
@@ -44,11 +46,13 @@ public class SettingsManager : MonoBehaviour
         Debug.Log(Settings.GetInstanceCount());
     }
 
-    private void ScreenSetting() {
+    private void ScreenSetting()
+    {
         ScreenManager.ChangeResolution(GameSetting.graphicsSettings.Resolution);
     }
 
-    private Settings InitSetting() {
+    private Settings InitSetting()
+    {
         Settings settings = new();
 
         GraphicsSettings currentGraphicsSettings = new();
@@ -89,12 +93,14 @@ public class SettingsManager : MonoBehaviour
         return settings;
     }
 
-    private void SaveSettings() {
+    private void SaveSettings()
+    {
         string json = JsonUtility.ToJson(GameSetting);
         File.WriteAllText(settingsFilePath, json);
     }
 
-    public void ApplySetting(Settings gameSettings) {
+    public void ApplySetting(Settings gameSettings)
+    {
 
         if (gameSettings == null) {
             Debug.LogError("Setting Error: gameSettings is null");
@@ -102,6 +108,6 @@ public class SettingsManager : MonoBehaviour
         }
         GameSetting = gameSettings;
         OnSettingsChanged?.Invoke(GameSetting);
-        SaveSettings(); 
+        SaveSettings();
     }
 }
