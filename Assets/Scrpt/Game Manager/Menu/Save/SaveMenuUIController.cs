@@ -10,12 +10,14 @@ public class SaveMenuUIController : MenuModal
     [SerializeField] private Transform slotTransform;
     [SerializeField] private int slotCount;
 
+    private GameDataManager gameDataManager;
     private List<SaveSlotComponent> saveSlots;
-    private List<GameData> saveDatas;
+    private List<SaveData> saveDatas;
 
     void Awake()
     {
         saveSlots = new List<SaveSlotComponent>();
+        gameDataManager = GameDataManager.Instance;
         for (int i = 0; i < slotCount; i++) {
             GameObject slotObj = Instantiate(saveSlotPrefep, slotTransform.position, Quaternion.identity);
             SaveSlotComponent saveSlotController = slotObj.GetComponent<SaveSlotComponent>();
@@ -24,6 +26,11 @@ public class SaveMenuUIController : MenuModal
 
             saveSlotController.OnClick += DoSaveEventHandler;
         }
+    }
+
+    void Start()
+    {
+        //gameDataManager = GameDataManager.Instance; 
     }
 
     private void OnEnable()
@@ -38,16 +45,15 @@ public class SaveMenuUIController : MenuModal
 
     public override void OpenMenu()
     {
-        saveDatas = new List<GameData> {
-            
-        };
-        
+        saveDatas = gameDataManager.GetSaveDataList();
 
         for (int i = 0; i < slotCount; i++) {
             SaveSlotComponent slot = saveSlots[i];
-            if (saveDatas.Count > i) {
 
+            int index = saveDatas.FindIndex(save => save.saveNumber == (i+1));
 
+            if (index != -1) {
+                slot.SetSaveSlot(saveDatas[index]);
             }
             else {
                 slot.SetEmptySaveSlot();
@@ -80,11 +86,13 @@ public class SaveMenuUIController : MenuModal
 
     private void SaveCurrentGameData(int slotIndex)
     {
-        // 현재 게임 데이터를 저장하는 로직을 여기에 구현
-        // 예를 들어, GameManager에 있는 SaveGame 메서드 호출 등
-        //GameDataManager.Instance.SaveData(slotIndex);
-        // 저장 후 메뉴를 다시 열어 갱신
+        GameDataManager.Instance.SaveGameData(slotIndex);
         OpenMenu();
+    }
+
+    private void DeleteCurrentGameData(int slotIndex)
+    {
+
     }
 
     private void ShowOverwriteWarning()

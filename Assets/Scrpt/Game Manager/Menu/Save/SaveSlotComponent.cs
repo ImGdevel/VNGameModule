@@ -18,13 +18,13 @@ public class SaveSlotComponent : MonoBehaviour, IPointerClickHandler
     public delegate void ClickEventHandler(SaveSlotComponent clickedSlot);
     public event ClickEventHandler OnClick;
 
-    public void SetSaveSlot(Sprite sprite, string title, string name, string chapter, float playtime)
+    public void SetSaveSlot(SaveData saveData)
     {
-        saveImage.sprite = sprite;
-        saveTitleText.text = title;
-        playerNameText.text = name;
-        playChapterText.text = chapter;
-        playTimeText.text = playtime.ToString();
+        saveImage.sprite = emptySlotImage;
+        saveTitleText.text = saveData.saveName;
+        playerNameText.text = saveData.saveNumber.ToString();
+        playChapterText.text = "0";
+        playTimeText.text = saveData.gamePlayTime.ToString();
     }
 
     public void SetEmptySaveSlot()
