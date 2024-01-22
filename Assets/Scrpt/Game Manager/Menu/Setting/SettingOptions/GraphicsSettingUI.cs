@@ -19,14 +19,16 @@ public class GraphicsSettingUI : SettingOption
         Windowed,
     }
 
-    private void Start() {
+    private void Start()
+    {
         InitializeResolutionDropdown();
         InitializeFullScreenModeDropdown();
         InitializeQualityDropdown();
     }
 
     // 해상도 드롭다운을 초기화
-    private void InitializeResolutionDropdown() {
+    private void InitializeResolutionDropdown()
+    {
         resolutionDropdown.ClearOptions();
         List<string> resolutionOptions = new List<string>();
         Resolution[] availableResolutions = SettingsManager.AvailableResolutions;
@@ -38,7 +40,8 @@ public class GraphicsSettingUI : SettingOption
     }
 
     // 전체 화면 모드 Dropdown을 초기화하는 메서드
-    private void InitializeFullScreenModeDropdown() {
+    private void InitializeFullScreenModeDropdown()
+    {
         string[] fullScreenModeOptions = System.Enum.GetNames(typeof(FullScreenModeEnum));
 
         fullscreenModeDropdown.ClearOptions();
@@ -46,7 +49,8 @@ public class GraphicsSettingUI : SettingOption
         fullscreenModeDropdown.onValueChanged.AddListener(OnFullScreenModeDropdownValueChanged);
     }
 
-    private void InitializeQualityDropdown() {
+    private void InitializeQualityDropdown()
+    {
         qualityDropdown.ClearOptions();
 
         List<string> qualityOptions = new List<string>(QualitySettings.names);
@@ -54,7 +58,8 @@ public class GraphicsSettingUI : SettingOption
         qualityDropdown.onValueChanged.AddListener(QualityDropdownValueChanged);
     }
 
-    public int GetResolutionIndex(Resolution resolution) {
+    public int GetResolutionIndex(Resolution resolution)
+    {
         Resolution currentResolution = resolution;
         Resolution[] availableResolutions = SettingsManager.AvailableResolutions;
         for (int i = 0; i < availableResolutions.Length; i++) {
@@ -67,7 +72,8 @@ public class GraphicsSettingUI : SettingOption
         return 0;
     }
 
-    public override void LoadSettingsToUI(Settings loadSettings) {
+    public override void LoadSettingsToUI(Settings loadSettings)
+    {
         if (loadSettings == null || loadSettings.graphicsSettings == null) {
             Debug.LogWarning("No SerchDatas");
             return;
@@ -79,12 +85,14 @@ public class GraphicsSettingUI : SettingOption
         qualityDropdown.value = loadSettings.graphicsSettings.qualityLevel;
     }
 
-    public override void ApplyUIToSettings(Settings settings) {
+    public override void ApplyUIToSettings(Settings settings)
+    {
         graphicsSettings = settings.graphicsSettings;
     }
 
     // 사용자가 해상도를 선택했을 때 호출되는 메서드
-    private void ResolutionDropdownValueChanged(int value) {
+    private void ResolutionDropdownValueChanged(int value)
+    {
         Resolution[] availableResolutions = SettingsManager.AvailableResolutions;
         Resolution selectedResolution = availableResolutions[value];
 
@@ -93,7 +101,8 @@ public class GraphicsSettingUI : SettingOption
     }
 
     // 사용자가 전체 화면 모드를 선택했을 때 호출되는 메서드
-    public void OnFullScreenModeDropdownValueChanged(int value) {
+    public void OnFullScreenModeDropdownValueChanged(int value)
+    {
         string selectedModeString = fullscreenModeDropdown.options[value].text;
         FullScreenModeEnum selectedMode = (FullScreenModeEnum)System.Enum.Parse(typeof(FullScreenModeEnum), selectedModeString);
 
@@ -102,7 +111,8 @@ public class GraphicsSettingUI : SettingOption
     }
 
     // FullScreenModeEnum을 Unity의 FullScreenMode로 변환
-    private FullScreenMode ConvertFullScreenMode(FullScreenModeEnum mode) {
+    private FullScreenMode ConvertFullScreenMode(FullScreenModeEnum mode)
+    {
         switch (mode) {
             case FullScreenModeEnum.FullScreen:
                 return FullScreenMode.FullScreenWindow;
@@ -113,7 +123,8 @@ public class GraphicsSettingUI : SettingOption
         }
     }
 
-    private void QualityDropdownValueChanged(int value) {
+    private void QualityDropdownValueChanged(int value)
+    {
         graphicsSettings.qualityLevel = value;
         QualitySettings.SetQualityLevel(value);
     }

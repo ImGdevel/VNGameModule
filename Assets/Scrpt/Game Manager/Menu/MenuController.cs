@@ -27,7 +27,8 @@ public class MenuController : MonoBehaviour
         CloseMenu();
     }
 
-    private void InitializeModalWindow() {
+    private void InitializeModalWindow()
+    {
         foreach (ModalData modal in ModalWindows) {
             foreach (Button button in modal.button) {
                 button.onClick.RemoveAllListeners();
@@ -36,7 +37,8 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    private void Update() {
+    private void Update()
+    {
         if (Input.GetKeyDown(KeyCode.Escape)) {
             if (isMenuOpen && isModalWindowOpen) {
                 ToggleModalWindows(currentOpenModalWindowIndex);
@@ -47,7 +49,8 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    public void ToggleMenu() {
+    public void ToggleMenu()
+    {
         isMenuOpen = !isMenuOpen;
 
         if (isMenuOpen) {
@@ -58,23 +61,26 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    private void OpenMenu() {
+    private void OpenMenu()
+    {
         OnMenuOpened?.Invoke(true);
         Time.timeScale = 0;
         menuUI.SetActive(true);
         MenuBackScreen.enabled = true;
     }
 
-    private void CloseMenu() {
+    private void CloseMenu()
+    {
         Time.timeScale = 1;
         OnMenuOpened?.Invoke(false);
         menuUI.SetActive(false);
         MenuBackScreen.enabled = false;
     }
 
-    public void ToggleModalWindows(int index) {
+    public void ToggleModalWindows(int index)
+    {
         ModalData modal = ModalWindows[index];
-        modal.isOpen = !modal.isOpen; 
+        modal.isOpen = !modal.isOpen;
 
         if (modal.isOpen) {
             currentOpenModalWindowIndex = index;
@@ -85,24 +91,28 @@ public class MenuController : MonoBehaviour
         }
     }
 
-    private void OpenModalWindow(ModalData modal) {
+    private void OpenModalWindow(ModalData modal)
+    {
         modal.window.SetActive(true);
         menuUI?.SetActive(false);
         isModalWindowOpen = true;
     }
 
-    private void CloseModalWindow(ModalData modal) {
+    private void CloseModalWindow(ModalData modal)
+    {
         modal.window.SetActive(false);
         menuUI?.SetActive(true);
         isModalWindowOpen = false;
     }
 
-    public void GotoTitle() {
+    public void GotoTitle()
+    {
         Time.timeScale = 1;
         SceneManager.LoadScene("GameTitle");
     }
 
-    public void QuitGame() {
+    public void QuitGame()
+    {
         gameManager.QuitGame();
     }
 }
@@ -111,10 +121,10 @@ public class MenuController : MonoBehaviour
 class ModalData
 {
     [Header("Button Settings")]
-    public Button[] button; 
+    public Button[] button;
 
     [Header("Window Settings")]
-    public GameObject window; 
+    public GameObject window;
     public bool isOpenByDefault = false;
 
     [HideInInspector]

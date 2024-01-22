@@ -4,7 +4,8 @@ using System.IO;
 
 public class CSVFileLoader
 {
-    public static List<string[]> DialogueFileLoad(string language) {
+    public static List<string[]> DialogueFileLoad(string language)
+    {
         string filePath;
 #if UNITY_EDITOR
         filePath = Path.Combine(Application.dataPath, "Language", language, "dialogue.csv");
@@ -17,7 +18,8 @@ public class CSVFileLoader
         return FileLoad(filePath);
     }
 
-    public static List<string[]> FileLoad(string filePath) {
+    public static List<string[]> FileLoad(string filePath)
+    {
         List<string[]> csvData = new List<string[]>();
         try {
             using (StreamReader reader = new StreamReader(filePath)) {

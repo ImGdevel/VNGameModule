@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,35 +10,50 @@ public class SaveMenuUIController : MenuModal
     [SerializeField] private Transform slotTransform;
     [SerializeField] private int slotCount;
 
+    private GameDataManager gameDataManager;
     private List<SaveSlotComponent> saveSlots;
-    
+    private List<SaveData> saveDatas;
 
-    void Awake() {
+    void Awake()
+    {
         saveSlots = new List<SaveSlotComponent>();
-        for (int i=0; i<slotCount; i++) {
+        gameDataManager = GameDataManager.Instance;
+        for (int i = 0; i < slotCount; i++) {
             GameObject slotObj = Instantiate(saveSlotPrefep, slotTransform.position, Quaternion.identity);
             SaveSlotComponent saveSlotController = slotObj.GetComponent<SaveSlotComponent>();
             slotObj.transform.SetParent(slotTransform);
             saveSlots.Add(saveSlotController);
+
+            saveSlotController.OnClick += DoSaveEventHandler;
         }
     }
 
-    void Start() {
-        
+    void Start()
+    {
+        //gameDataManager = GameDataManager.Instance; 
     }
 
-    private void OnEnable() {
+    private void OnEnable()
+    {
         OpenMenu();
     }
 
-    public override void OpenMenu() {
-        List<SaveData> saveDatas = GameManager.userData.saveDatas;
+    private void OnDisable()
+    {
+        CloseMenu();
+    }
+
+    public override void OpenMenu()
+    {
+        saveDatas = gameDataManager.GetSaveDataList();
 
         for (int i = 0; i < slotCount; i++) {
             SaveSlotComponent slot = saveSlots[i];
-            if (saveDatas.Count > i) {
-                SaveData data = saveDatas[i];
-                slot.SetSaveSlot(null, "", data.chapter, data.dialogId, 0);
+
+            int index = saveDatas.FindIndex(save => save.saveNumber == (i+1));
+
+            if (index != -1) {
+                slot.SetSaveSlot(saveDatas[index]);
             }
             else {
                 slot.SetEmptySaveSlot();
@@ -45,12 +61,46 @@ public class SaveMenuUIController : MenuModal
         }
     }
 
-    private void OnDisable() {
-        CloseMenu();
+    public override void CloseMenu()
+    {
+        //todo : close event
     }
 
-    public override void CloseMenu() {
+    // Handle the click event
+    private void DoSaveEventHandler(SaveSlotComponent clickedSlot)
+    {
+        int index = saveSlots.IndexOf(clickedSlot);
+        if (index == -1) {
+            Debug.Log("Clicked on save slot at index: " + index);
+            return;
+        }
+        Debug.Log(index);
+        if (index < slotCount) {
+            SaveCurrentGameData(index);
+        }
+        else {
+            ShowOverwriteWarning();
+        }
+    }
+
+
+    private void SaveCurrentGameData(int slotIndex)
+    {
+        GameDataManager.Instance.SaveGameData(slotIndex);
+        OpenMenu();
+    }
+
+    private void DeleteCurrentGameData(int slotIndex)
+    {
 
     }
+
+    private void ShowOverwriteWarning()
+    {
+        // 세이브를 덮어씌울 때의 경고 메시지를 표시하는 로직을 여기에 구현
+        // 예를 들어, 다이얼로그를 띄우거나 UI를 업데이트하는 등의 동작
+        Debug.Log("Show Overwrite Warning");
+    }
+
 
 }
