@@ -5,15 +5,23 @@ using UnityEngine;
 
 public class VNSceneEditor : MonoBehaviour
 {
+    public static VNSceneEditor Instance { private set; get; }
+
     public string chapter = "chapter01";
 
     [ArrayElementTitle("sceneId")]
     public List<VNScene> sceneList;
 
-    void Start()
+    private void Awake()
     {
-        
+        if (Instance == null) {
+            Instance = this;
+        }
+        else {
+            Destroy(Instance);
+        }
     }
+
 
     public void AddNewScene()
     {
