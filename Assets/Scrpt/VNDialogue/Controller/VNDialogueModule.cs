@@ -1,11 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class VNDialogueModule : MonoBehaviour
 {
+    public static VNDialogueModule Instance { private set; get; }
+
+
     [SerializeField] GameObject dialogueUI;
     [SerializeField] VNDialogController dialogController;
     [SerializeField] VNChoiceController choiceController;
@@ -37,6 +41,13 @@ public class VNDialogueModule : MonoBehaviour
 
     void Awake()
     {
+        if(Instance != null) {
+            Destroy(this);
+        }
+        else {
+            Instance = this;
+        }
+
         currentSceneName = SceneManager.GetActiveScene().name;
         dialogController = FindObjectOfType<VNDialogController>();
         if (dialogController == null) {
@@ -195,6 +206,7 @@ public class VNDialogueModule : MonoBehaviour
             }
             else {
                 if (sceneEvents.ContainsKey(dialog.id)) {
+                    Debug.Log("Event!");
                     PlaySceneEvent(sceneEvents[dialog.id]);
                 }
                 dialogController.SkipDialogue(dialog.character, dialog.content);
