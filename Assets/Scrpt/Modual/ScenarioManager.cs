@@ -9,11 +9,18 @@ namespace VisualNovelGame
 
     public class ScenarioManager : MonoBehaviour
     {
-        private Dictionary<int, Scenario> scenarios = new Dictionary<int, Scenario>();
-        
+        private Dictionary<int, Scenario> scenarios;
+        private DataManager<Dictionary<int, Scenario>> scenariosDataManager;
+
+        void Start()
+        {
+            scenarios = new Dictionary<int, Scenario>();
+            scenariosDataManager = new DataManager<Dictionary<int, Scenario>>("scenarios_index");
+        }
+
         public void LoadScenarios(string path)
         {
-            
+            scenarios = scenariosDataManager.LoadData();
         }
 
         public Scenario GetScenario(int id)
@@ -24,9 +31,9 @@ namespace VisualNovelGame
             return null;
         }
 
-        public void SaveScenario(Scenario scenario, string path)
+        public void SaveScenario()
         {
-            // Save scenario to a file or resource
+            scenariosDataManager.SaveData(scenarios);
         }
 
         // 에디터를 열기 위한 메서드
