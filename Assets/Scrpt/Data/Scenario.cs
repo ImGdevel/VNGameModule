@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class Scenario
 {
     public int id;
+    
     public List<Dialogue> dialogues;
     // 추가적으로 필요에 따라 선택지, 이벤트 등 추가
 }
