@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System;
 using System.Linq;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 namespace VisualNovelGame
 {
@@ -20,6 +21,8 @@ namespace VisualNovelGame
             var grid = new GridBackground();
             Insert(0, grid);
             grid.StretchToParentSize();
+
+            CreateEdgeConnectorListener(); // 연결 리스너 생성
 
             AddElement(GenerateEntryPointNode());
         }
@@ -121,27 +124,46 @@ namespace VisualNovelGame
         {
             var listener = new EdgeConnectorListener();
             this.graphViewChanged += listener.OnGraphViewChanged;
+            this.graphViewChanged += listener.OnEdgeCreationRequested; // 연결 요청 리스너 추가
         }
 
-        private class EdgeConnectorListener : IEdgeConnectorListener
+        private class EdgeConnectorListener : IGraphViewChange
         {
-            public void OnDropOutsidePort(Edge edge, Vector2 position) { }
-
-            public void OnDrop(GraphView graphView, Edge edge)
+            public void OnGraphViewChanged(GraphViewChange graphViewChange)
             {
-                graphView.AddElement(edge);
+                // Implement graph view changes if needed
             }
 
-            public GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
+            public void OnEdgeCreationRequested(GraphViewChange graphViewChange)
             {
-                graphViewChange.edgesToCreate.ForEach(edge => {
-                    if (edge.input.capacity == Port.Capacity.Multi || edge.output.capacity == Port.Capacity.Multi) {
-                        graphViewChange.movedElements.Add(edge.input.node);
-                        graphViewChange.movedElements.Add(edge.output.node);
-                    }
-                });
+                // Iterate through the edges to be created
+                foreach (var edge in graphViewChange.edgesToCreate) {
+                    // Ensure that only compatible ports can be connected
+                    if (edge.input.node != null && edge.output.node != null) {
+                        var inputPort = edge.input as Port;
+                        var outputPort = edge.output as Port;
 
-                return graphViewChange;
+                        // Check if the connection is valid (example: Next to Input)
+                        if (IsValidConnection(inputPort, outputPort)) {
+                            // Create the edge
+                            edge.input.Connect(edge.output);
+                            edge.input.edgeConnector.edgeControl.edgeDragHelper.OnDrop(new Edge());
+
+                            // Notify graph view change
+                            graphViewChange.edgesToCreate.Remove(edge);
+                            graphViewChange.edgesToCreate.Add(edge);
+                        }
+                    }
+                }
+            }
+
+            private bool IsValidConnection(Port inputPort, Port outputPort)
+            {
+                // Example validation: allow connection from Next to Input
+                if (outputPort.portName == "Next" && inputPort.portName == "Input") {
+                    return true;
+                }
+                return false;
             }
         }
     }
