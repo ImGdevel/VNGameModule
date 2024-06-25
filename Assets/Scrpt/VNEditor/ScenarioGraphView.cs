@@ -32,23 +32,13 @@ namespace VisualNovelGame
             AddElement(GenerateEntryPointNode());
         }
 
-        private DialogueNode GenerateEntryPointNode()
+        private StartNode GenerateEntryPointNode()
         {
-            var node = new DialogueNode {
+            var node = new StartNode {
                 title = "Start",
-                GUID = Guid.NewGuid().ToString(),
-                EntryPoint = true
+                GUID = Guid.NewGuid().ToString()
             };
 
-            var port = GeneratePort(node, Direction.Output);
-            port.portName = "Next";
-            node.outputContainer.Add(port);
-
-            node.capabilities &= ~Capabilities.Movable;
-            node.capabilities &= ~Capabilities.Deletable;
-
-            node.RefreshExpandedState();
-            node.RefreshPorts();
             node.SetPosition(new Rect(100, 200, 150, 200));
 
             return node;
@@ -68,34 +58,24 @@ namespace VisualNovelGame
             AddElement(node);
         }
 
-        private DialogueNode CreateDialogueNodeInstance(string nodeName)
+        private DialogueNode CreateDialogueNodeInstance(string nodeName, string dialogueText = "")
         {
-            var node = new DialogueNode {
-                title = nodeName,
-                GUID = Guid.NewGuid().ToString(), // GUID 생성 및 설정
-            };
+            var node = new DialogueNode();
+            node.title = nodeName; // 노드의 제목 설정
 
-            var inputPort = GeneratePort(node, Direction.Input, Port.Capacity.Multi);
-            inputPort.portName = "Input";
-            node.inputContainer.Add(inputPort);
+            // 대화 내용을 입력하는 TextField에 초기값 설정
+            node.dialogueText = dialogueText;
 
-            var outputPort = GeneratePort(node, Direction.Output);
-            outputPort.portName = "Next";
-            node.outputContainer.Add(outputPort);
-
-            var contentContainer = new Foldout();
-            contentContainer.text = "Content 영역";
-
-            var dialogueField = new TextField("대화 내용");
-            dialogueField.multiline = true;
-            dialogueField.RegisterValueChangedCallback(evt => node.DialogueText = evt.newValue);
-            contentContainer.Add(dialogueField);
-
-            node.mainContainer.Add(contentContainer);
+            // 대화 내용을 입력하는 TextField의 초기값 설정
+            var textField = node.mainContainer.Q<TextField>();
+            if (textField != null)
+            {
+                textField.SetValueWithoutNotify(dialogueText);
+            }
 
             node.RefreshExpandedState();
             node.RefreshPorts();
-            node.SetPosition(new Rect(Vector2.zero, new Vector2(200, 150)));
+            node.SetPosition(new Rect(Vector2.zero, new Vector2(300, 400)));
 
             return node;
         }
@@ -117,7 +97,7 @@ namespace VisualNovelGame
 
             node.RefreshExpandedState();
             node.RefreshPorts();
-            node.SetPosition(new Rect(Vector2.zero, new Vector2(200, 150)));
+            node.SetPosition(new Rect(Vector2.zero, new Vector2(300, 400)));
 
             return node;
         }
@@ -225,8 +205,6 @@ namespace VisualNovelGame
             }
         }
 
-
-
         public void SaveScenario(string path)
         {
             var scenario = new Scenario();
@@ -234,7 +212,7 @@ namespace VisualNovelGame
             foreach (var dialogueNode in dialogueNodes) {
                 scenario.dialogues.Add(new Dialogue(
                     dialogueNode.GUID,
-                    dialogueNode.DialogueText
+                    dialogueNode.dialogueText
                 ));
             }
 
@@ -261,23 +239,4 @@ namespace VisualNovelGame
             //scenarioManager.SaveScenario(path, scenario);
         }
     }
-}
-
-// 대화 노드 클래스
-public class DialogueNode : Node
-{
-    public string GUID;
-    public bool EntryPoint = false;
-    public string DialogueText;
-    public string characterName;
-    public string text;
-    public string emotion;
-}
-
-
-// 선택 노드 클래스
-public class ChoiceNode : Node
-{
-    public string GUID;
-    public string ChoiceText;
 }
