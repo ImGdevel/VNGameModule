@@ -9,6 +9,7 @@ namespace VisualNovelGame
     public class ScenarioEditorWindow : EditorWindow
     {
         private ScenarioGraphView graphView;
+        private ScenarioManager scenarioManager;
 
         [MenuItem("Window/Visual Novel Scenario Editor")]
         public static void ShowWindow()
@@ -19,13 +20,19 @@ namespace VisualNovelGame
 
         private void OnEnable()
         {
+            scenarioManager = FindObjectOfType<ScenarioManager>();
+            if (scenarioManager == null) {
+                Debug.LogError("ScenarioManager not found in the scene.");
+                return;
+            }
+
             ConstructGraphView();
             GenerateToolbar();
         }
 
         private void ConstructGraphView()
         {
-            graphView = new ScenarioGraphView {
+            graphView = new ScenarioGraphView(scenarioManager) {
                 name = "Scenario Graph"
             };
 

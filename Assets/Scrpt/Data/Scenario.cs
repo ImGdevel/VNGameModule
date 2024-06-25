@@ -1,19 +1,39 @@
 using System.Collections.Generic;
+using System;
 
-
-[System.Serializable]
-public class Scenario
+namespace VisualNovelGame
 {
-    public int id;
-    
-    public List<Dialogue> dialogues;
-    // 추가적으로 필요에 따라 선택지, 이벤트 등 추가
-}
+    [Serializable]
+    public class Scenario
+    {
+        public List<Dialogue> dialogues = new List<Dialogue>();
+        public List<Choice> choices = new List<Choice>();
+    }
 
-[System.Serializable]
-public class Dialogue
-{
-    public string characterName;
-    public string text;
-    public string emotion; // 캐릭터의 감정 상태
+    [Serializable]
+    public class Dialogue
+    {
+        public string GUID;
+        public string text;
+
+        public Dialogue(string guid, string text)
+        {
+            GUID = guid;
+            this.text = text;
+        }
+    }
+
+    [Serializable]
+    public class Choice
+    {
+        public string GUID;
+        public string ChoiceText;
+        public List<string> nextDialogueGUIDs = new List<string>();
+
+        public Choice(string guid, string choiceText)
+        {
+            GUID = guid;
+            ChoiceText = choiceText;
+        }
+    }
 }

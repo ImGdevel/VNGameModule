@@ -3,34 +3,35 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace VisualNovelGame
 {
     public class ScenarioGraphView : GraphView
     {
-        public ScenarioGraphView()
+        public List<DialogueNode> dialogueNodes = new List<DialogueNode>();
+        public List<ChoiceNode> choiceNodes = new List<ChoiceNode>();
+        private ScenarioManager scenarioManager;
+
+        public ScenarioGraphView(ScenarioManager manager)
         {
+            scenarioManager = manager;
             styleSheets.Add(Resources.Load<StyleSheet>("ScenarioGraph"));
             SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
 
-            // 그래프 뷰에 기본 조작기를 추가합니다.
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
 
-            // 그리드 배경을 추가합니다.
             var grid = new GridBackground();
             Insert(0, grid);
             grid.StretchToParentSize();
 
-            // 엣지 커넥터 리스너를 생성합니다.
             this.graphViewChanged += OnGraphViewChanged;
 
-            // 시작 노드를 추가합니다.
             AddElement(GenerateEntryPointNode());
         }
 
-        // 시작 노드를 생성합니다.
         private DialogueNode GenerateEntryPointNode()
         {
             var node = new DialogueNode {
@@ -53,24 +54,25 @@ namespace VisualNovelGame
             return node;
         }
 
-        // 대화 노드를 생성하고 그래프 뷰에 추가합니다.
         public void CreateDialogueNode(string nodeName)
         {
-            AddElement(CreateDialogueNodeInstance(nodeName));
+            var node = CreateDialogueNodeInstance(nodeName);
+            dialogueNodes.Add(node);
+            AddElement(node);
         }
 
-        // 선택 노드를 생성하고 그래프 뷰에 추가합니다.
         public void CreateChoiceNode(string nodeName)
         {
-            AddElement(CreateChoiceNodeInstance(nodeName));
+            var node = CreateChoiceNodeInstance(nodeName);
+            choiceNodes.Add(node);
+            AddElement(node);
         }
 
-        // 대화 노드 인스턴스를 생성합니다.
         private DialogueNode CreateDialogueNodeInstance(string nodeName)
         {
             var node = new DialogueNode {
                 title = nodeName,
-                GUID = Guid.NewGuid().ToString()
+                GUID = Guid.NewGuid().ToString(), // GUID 생성 및 설정
             };
 
             var inputPort = GeneratePort(node, Direction.Input, Port.Capacity.Multi);
@@ -81,6 +83,16 @@ namespace VisualNovelGame
             outputPort.portName = "Next";
             node.outputContainer.Add(outputPort);
 
+            var contentContainer = new Foldout();
+            contentContainer.text = "Content 영역";
+
+            var dialogueField = new TextField("대화 내용");
+            dialogueField.multiline = true;
+            dialogueField.RegisterValueChangedCallback(evt => node.DialogueText = evt.newValue);
+            contentContainer.Add(dialogueField);
+
+            node.mainContainer.Add(contentContainer);
+
             node.RefreshExpandedState();
             node.RefreshPorts();
             node.SetPosition(new Rect(Vector2.zero, new Vector2(200, 150)));
@@ -88,7 +100,6 @@ namespace VisualNovelGame
             return node;
         }
 
-        // 선택 노드 인스턴스를 생성합니다.
         private ChoiceNode CreateChoiceNodeInstance(string nodeName)
         {
             var node = new ChoiceNode {
@@ -111,7 +122,6 @@ namespace VisualNovelGame
             return node;
         }
 
-        // 포트를 생성합니다.
         private Port GeneratePort(Node node, Direction portDirection, Port.Capacity capacity = Port.Capacity.Single)
         {
             var port = node.InstantiatePort(Orientation.Horizontal, portDirection, capacity, typeof(float));
@@ -120,7 +130,21 @@ namespace VisualNovelGame
             return port;
         }
 
-        // 선택 노드에 선택 포트를 추가합니다.
+        public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
+        {
+            var compatiblePorts = new List<Port>();
+
+            ports.ForEach((port) => {
+                if (startPort != port && startPort.node != port.node) {
+                    if (IsValidConnection(startPort, port)) {
+                        compatiblePorts.Add(port);
+                    }
+                }
+            });
+
+            return compatiblePorts;
+        }
+
         private void AddChoicePort(ChoiceNode node)
         {
             var generatedPort = GeneratePort(node, Direction.Output);
@@ -133,73 +157,127 @@ namespace VisualNovelGame
             node.RefreshPorts();
         }
 
-        // 그래프 뷰 변경 시 호출되는 메서드
+
+
         private GraphViewChange OnGraphViewChanged(GraphViewChange graphViewChange)
         {
-            // 생성된 엣지를 순회합니다.
-            if (graphViewChange.edgesToCreate != null) {
-                foreach (var edge in graphViewChange.edgesToCreate) {
-                    if (edge.input.node != null && edge.output.node != null) {
-                        var inputPort = edge.input as Port;
-                        var outputPort = edge.output as Port;
+            // edgesToCreate가 null이거나 비어 있는 경우 처리
+            if (graphViewChange.edgesToCreate == null || !graphViewChange.edgesToCreate.Any()) {
+                return graphViewChange;
+            }
 
-                        // 연결이 유효한지 확인합니다. (예: Next에서 Input으로)
-                        if (!IsValidConnection(inputPort, outputPort)) {
-                            // 유효하지 않은 엣지를 제거합니다.
-                            graphViewChange.edgesToCreate.Remove(edge);
-                        }
+            // 리스트를 복사하여 안전하게 순회하도록 합니다.
+            var edgesToCreateCopy = graphViewChange.edgesToCreate.ToList();
+
+            foreach (var edge in edgesToCreateCopy) {
+                if (edge.input.node != null && edge.output.node != null) {
+                    var inputPort = edge.input as Port;
+                    var outputPort = edge.output as Port;
+
+                    if (!IsValidConnection(inputPort, outputPort)) {
+                        // 유효하지 않은 연결을 제거합니다.
+                        graphViewChange.edgesToCreate.Remove(edge);
                     }
                 }
             }
+
             return graphViewChange;
         }
 
-        // 연결이 유효한지 확인하는 메서드
-        private bool IsValidConnection(Port inputPort, Port outputPort)
+
+        private bool IsValidConnection(Port startPort, Port otherPort)
         {
-            // 예시 유효성 검사: Next에서 Input으로 연결 허용
-            return (outputPort.portName == "Next" && inputPort.portName == "Input");
+            // 포트 방향이 반대인지 확인
+            if (startPort.direction == otherPort.direction) {
+                return false;
+            }
+
+            // 포트 타입이 동일한지 확인
+            if (startPort.portType != otherPort.portType) {
+                return false;
+            }
+
+            // 포트 이름에 따라 연결 유효성 검사
+            if (startPort.portName == "Next" && otherPort.portName == "Input") {
+                return true;
+            }
+
+            return false;
         }
 
-        // EdgeConnectorListener 클래스 추가
         private class EdgeConnectorListener : IEdgeConnectorListener
         {
             public void OnDropOutsidePort(Edge edge, Vector2 position)
             {
-                // 포트 외부에 드롭했을 때의 동작 (필요에 따라 구현)
-                Debug.Log("?");
-
+                // 포트 외부에 드롭했을 때의 동작
             }
 
             public void OnDrop(GraphView graphView, Edge edge)
             {
-                Debug.Log("!@");
-                // 드롭했을 때의 동작
                 var inputPort = edge.input as Port;
                 var outputPort = edge.output as Port;
 
                 if (inputPort != null && outputPort != null && inputPort.node != outputPort.node) {
-                    // 유효한 연결인지 확인합니다.
                     if ((outputPort.portName == "Next" && inputPort.portName == "Input")) {
                         graphView.AddElement(edge);
                     }
                 }
             }
         }
-    }
 
-    // 대화 노드 클래스
-    public class DialogueNode : Node
-    {
-        public string GUID;
-        public bool EntryPoint = false;
-        public string DialogueText;
-    }
 
-    // 선택 노드 클래스
-    public class ChoiceNode : Node
-    {
-        public string GUID;
-        public string ChoiceText;
+
+        public void SaveScenario(string path)
+        {
+            var scenario = new Scenario();
+
+            foreach (var dialogueNode in dialogueNodes) {
+                scenario.dialogues.Add(new Dialogue(
+                    dialogueNode.GUID,
+                    dialogueNode.DialogueText
+                ));
+            }
+
+            foreach (var choiceNode in choiceNodes) {
+                var choice = new Choice(
+                    choiceNode.GUID,
+                    choiceNode.ChoiceText
+                );
+
+                var ports = choiceNode.outputContainer.Query<Port>().ToList();
+                foreach (var port in ports) {
+                    if (port.connections.Count() > 0) {
+                        var connectedEdge = port.connections.First();
+                        var nextNode = connectedEdge.input.node as DialogueNode;
+                        if (nextNode != null) {
+                            choice.nextDialogueGUIDs.Add(nextNode.GUID);
+                        }
+                    }
+                }
+
+                scenario.choices.Add(choice);
+            }
+
+            //scenarioManager.SaveScenario(path, scenario);
+        }
     }
+}
+
+// 대화 노드 클래스
+public class DialogueNode : Node
+{
+    public string GUID;
+    public bool EntryPoint = false;
+    public string DialogueText;
+    public string characterName;
+    public string text;
+    public string emotion;
+}
+
+
+// 선택 노드 클래스
+public class ChoiceNode : Node
+{
+    public string GUID;
+    public string ChoiceText;
 }
