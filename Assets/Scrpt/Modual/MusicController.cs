@@ -6,7 +6,7 @@ using UnityEngine;
 namespace VisualNovelGame
 {
 
-    public class AudioController : MonoBehaviour, IController
+    public class MusicController : MonoBehaviour, IController
     {
         public void SetScenario(Scenario scenario)
         {
