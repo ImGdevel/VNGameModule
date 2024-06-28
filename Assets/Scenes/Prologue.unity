@@ -772,8 +772,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1112171701}
-  - component: {fileID: 1112171700}
-  - component: {fileID: 1112171699}
+  - component: {fileID: 1112171702}
   m_Layer: 0
   m_Name: GameObject (1)
   m_TagString: Untagged
@@ -781,76 +780,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1112171699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112171698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fdf5cc450fc49644a7ba8a02cdca968, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showSeparateName: 0
-  nameTextBox: {fileID: 0}
-  textBox: {fileID: 0}
-  dialogueCanvas: {fileID: 0}
-  TimerSlider: {fileID: 0}
-  SkipButton: {fileID: 0}
-  SpriteLeft: {fileID: 0}
-  SpriteRight: {fileID: 0}
-  ButtonPrefab: {fileID: 0}
-  ButtonContainer: {fileID: 0}
-  prefixText: 
-  fullText: 
---- !u!114 &1112171700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112171698}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66c6d44e6e0c6ec4fbf315458a3d4bec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dialogueContainer: {fileID: 0}
-  localizationManager: {fileID: 0}
-  dialogueUIManager: {fileID: 0}
-  audioSource: {fileID: 0}
-  StartDialogueEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  EndDialogueEvent:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!4 &1112171701
 Transform:
   m_ObjectHideFlags: 0
@@ -866,6 +795,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1112171702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112171698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86e039068dba64346ac5190f355b28f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1208623083 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8583317177668614664, guid: abc00c0dadc446e42b8f3688791c8422, type: 3}
