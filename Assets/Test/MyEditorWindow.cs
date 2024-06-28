@@ -54,6 +54,7 @@ public class MyEditorWindow : EditorWindow
 
     private void LoadSettings()
     {
+
         settings = AssetDatabase.LoadAssetAtPath<MyEditorSettings>(settingsPath);
         if (settings == null) {
             Debug.LogWarning("Settings file not found, creating default settings.");

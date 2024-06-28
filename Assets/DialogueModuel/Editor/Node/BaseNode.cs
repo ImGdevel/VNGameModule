@@ -86,7 +86,7 @@ namespace MeetAndTalk.Nodes
         public void Validate()
         {
             SetValidation();
-            var settings = Resources.Load<MeetAndTalkSettings>("MeetAndTalkSettings");
+            var settings = Resources.Load<DialogueEditorSettings>("DialogueEditorSettings");
             if (!settings.ShowErrors) ErrorList.Clear();
             if (!settings.ShowWarnings) WarningList.Clear();
 

@@ -8,6 +8,7 @@ using UnityEditor.Callbacks;
 using MeetAndTalk.Nodes;
 using MeetAndTalk.Localization;
 using MeetAndTalk.Settings;
+using System.IO;
 
 namespace MeetAndTalk.Editor
 {
@@ -44,13 +45,14 @@ namespace MeetAndTalk.Editor
         public static bool ShowWindow(int _instanceId, int line)
         {
             UnityEngine.Object item = EditorUtility.InstanceIDToObject(_instanceId);
-
+            LoadSettings();
             if (item is DialogueContainerSO && !Application.isPlaying) {
                 DialogueEditorWindow window = (DialogueEditorWindow)GetWindow(typeof(DialogueEditorWindow));
                 window.titleContent = new GUIContent("Dialogue Editor", EditorGUIUtility.FindTexture("d_Favorite Icon"));
                 window.currentDialogueContainer = item as DialogueContainerSO;
                 window.minSize = new Vector2(500, 250);
                 window.Load();
+                
             }
             else if (Application.isPlaying) {
                 EditorUtility.DisplayDialog("Can't Open a Dialogue", "Dialogue Editor can only be opened when the project is not on!\nTurn off Play Mode to open the Editor", "I understand");
@@ -59,14 +61,30 @@ namespace MeetAndTalk.Editor
             return false;
         }
 
+        private static void LoadSettings()
+        {
+            DialogueEditorSettings settings;
+            var settingsPath = "Assets/Resources/DialogueEditorSettings.asset";
+            settings = AssetDatabase.LoadAssetAtPath<DialogueEditorSettings>(settingsPath);
+
+            if (settings == null) {
+                Debug.LogWarning("Settings file not found, creating default settings.");
+                settings = ScriptableObject.CreateInstance<DialogueEditorSettings>();
+                AssetDatabase.CreateAsset(settings, settingsPath);
+                AssetDatabase.SaveAssets();
+            }
+        }
+
         // 에디터 윈도우가 활성화될 때 호출되는 메서드
         private void OnEnable()
         {
-            AutoSave = Resources.Load<MeetAndTalkSettings>("MeetAndTalkSettings").AutoSave;
+            AutoSave = Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").AutoSave;
             ContructGraphView();
             GenerateToolbar();
             Load();
         }
+
+
 
         // 에디터 윈도우가 비활성화될 때 호출되는 메서드
         private void OnDisable()
@@ -99,7 +117,7 @@ namespace MeetAndTalk.Editor
             };
             saveBtn.clicked += () => {
                 Save();
-                if (Resources.Load<MeetAndTalkSettings>("MeetAndTalkSettings").ManualSaveLogs) Debug.Log("Manual Save");
+                if (Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").ManualSaveLogs) Debug.Log("Manual Save");
             };
             toolbar.Add(saveBtn);
 
@@ -148,7 +166,7 @@ namespace MeetAndTalk.Editor
             };
             autoSaveToggle.RegisterValueChangedCallback(evt => {
                 AutoSave = evt.newValue;
-                Resources.Load<MeetAndTalkSettings>("MeetAndTalkSettings").AutoSave = evt.newValue;
+                Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").AutoSave = evt.newValue;
                 Save();
             });
             toolbar.Add(autoSaveToggle);
@@ -201,11 +219,13 @@ namespace MeetAndTalk.Editor
         // 매 프레임 호출되는 메서드
         private void OnGUI()
         {
-            if (AutoSave && EditorApplication.timeSinceStartup - lastUpdateTime >= Resources.Load<MeetAndTalkSettings>("MeetAndTalkSettings").AutoSaveInterval && !Application.isPlaying) {
+            
+            if (AutoSave && EditorApplication.timeSinceStartup - lastUpdateTime >= Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").AutoSaveInterval && !Application.isPlaying) {
                 lastUpdateTime = (float)EditorApplication.timeSinceStartup;
                 Save();
-                if (Resources.Load<MeetAndTalkSettings>("MeetAndTalkSettings").AutoSaveLogs) Debug.Log($"Auto Save [{DateTime.Now.ToString("HH:mm:ss")}]");
+                if (Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").AutoSaveLogs) Debug.Log($"Auto Save [{DateTime.Now.ToString("HH:mm:ss")}]");
             }
+            
 
             if (!Application.isPlaying) {
                 _NoEditInfo = false;
@@ -246,11 +266,11 @@ namespace MeetAndTalk.Editor
         {
             if (currentDialogueContainer != null && !Application.isPlaying) {
                 Language(LocalizationEnum.English, toolbarMenu);
-                ChangeTheme(Resources.Load<MeetAndTalkSettings>("MeetAndTalkSettings").Theme, toolbarTheme);
+                ChangeTheme(Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").Theme, toolbarTheme);
                 nameOfDialogueContainer.text = "" + currentDialogueContainer.name;
                 saveAndLoad.Load(currentDialogueContainer);
 
-                if (Resources.Load<MeetAndTalkSettings>("MeetAndTalkSettings").LoadLogs) Debug.Log($"Load {currentDialogueContainer.name}");
+                if (Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").LoadLogs) Debug.Log($"Load {currentDialogueContainer.name}");
             }
         }
 
@@ -274,7 +294,7 @@ namespace MeetAndTalk.Editor
         private void ChangeTheme(MeetAndTalkTheme _theme, ToolbarMenu _toolbarMenu)
         {
             toolbarTheme.text = _theme.ToString() + "";
-            Resources.Load<MeetAndTalkSettings>("MeetAndTalkSettings").Theme = _theme;
+            Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").Theme = _theme;
 
             rootVisualElement.styleSheets.Remove(rootVisualElement.styleSheets[rootVisualElement.styleSheets.count - 1]);
             rootVisualElement.styleSheets.Add(Resources.Load<StyleSheet>($"Themes/{_theme.ToString()}Theme"));

@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa07278fff332541a1b1db0eba2a883, type: 3}
+  m_Name: New Dialogue Container SO
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: dbdc9314-3b4b-456e-a64b-15e718585813
+    TargetNodeGuid: 597ecd33-7006-4974-9f81-9a1be6dde8e8
+  DialogueChoiceNodeDatas: []
+  DialogueNodeDatas:
+  - NodeGuid: 597ecd33-7006-4974-9f81-9a1be6dde8e8
+    Position: {x: 361, y: 256}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    - languageEnum: 1
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: 
+    - languageEnum: 1
+      LanguageGenericType: 
+    Duration: 10
+  EndNodeDatas: []
+  StartNodeDatas:
+  - NodeGuid: dbdc9314-3b4b-456e-a64b-15e718585813
+    Position: {x: 234, y: 255}
+    startID: 
+  TimerChoiceNodeDatas: []
+  EventNodeDatas: []
+  RandomNodeDatas: []
+  CommandNodeDatas: []
+  IFNodeDatas: []

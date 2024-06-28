@@ -9,8 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d51da14252eef04fb2e70ec7629140e, type: 3}
-  m_Name: Languages
+  m_Script: {fileID: 11500000, guid: 21890a3aac12bbd46857fa8f044f7e05, type: 3}
+  m_Name: DialogueEditorSettings
   m_EditorClassIdentifier: 
-  lang: 1b000000
-  selectedLang: 10
+  Theme: 0
+  AutoSave: 1
+  AutoSaveInterval: 15
+  AutoSaveLogs: 1
+  ManualSaveLogs: 1
+  LoadLogs: 1
+  ShowErrors: 1
+  ShowWarnings: 1
