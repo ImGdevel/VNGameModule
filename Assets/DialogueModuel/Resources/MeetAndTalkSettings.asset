@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 866af43f4336d64419717ac521f5ed7e, type: 3}
+  m_Name: MeetAndTalkSettings
+  m_EditorClassIdentifier: 
+  DialoguePrefab: {fileID: 621406110542854864, guid: 519a7a2455505124ba913f8e9fad7cff, type: 3}
+  Theme: 0
+  AutoSave: 1
+  AutoSaveInterval: 15
+  AutoSaveLogs: 1
+  ManualSaveLogs: 1
+  LoadLogs: 1
+  ShowErrors: 1
+  ShowWarnings: 1

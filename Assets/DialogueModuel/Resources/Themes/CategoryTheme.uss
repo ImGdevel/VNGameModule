@@ -1,0 +1,512 @@
+GridBackground {
+	--grid-background-color: #282828;
+	--line-color: rgba(193, 196, 192, 0.1);
+	--thick-line-color: rgba(193, 196, 192, 0.1);
+	--spacing: 10;
+}
+
+/* Toolbar Start */
+#save_btn, #load_btn{
+     width: 60px;
+     -unity-text-align: middle-center;
+     padding-bottom: 2px;
+}
+ #localization_enum{
+     width: 75px;
+}
+ #localization_enum .unity-text-element, #theme_enum .unity-text-element{
+     -unity-text-align: middle-center;
+     padding-bottom: 2px;
+}
+ #theme_enum{
+     width: 100px;
+}
+ .nameOfDialogueContainer{
+     -unity-font-style: bold;
+     min-width: 150px;
+     -unity-text-align: middle-center;
+}
+ #autosave_toogle{
+     flex-direction: row-reverse;
+     -unity-text-align: middle-left;
+}
+ #autosave_toogle .unity-text-element{
+     width: 75px;
+     min-width: 75px;
+}
+ .unity-toolbar{
+     height: 30px;
+}
+ #import_btn, #export_btn{
+     width: 100px;
+     -unity-text-align: middle-center;
+}
+ #import_btn, #export_btn, #localization_enum, #theme_enum, #save_btn, #load_btn{
+	  cursor: link;
+ }
+ #version_text{
+	  position: absolute;
+	  bottom: 8px;
+	  left: 8px;
+ }
+ /* Toolbar End */
+
+
+ #ValidationContainer{
+	  position:absolute !important;
+	bottom: 48px;
+ }
+ #ErrorContainer,
+ #WarningContainer{
+	background-color: #282828;
+	padding: 8px;
+	border-radius: 8px;
+	-unity-font-style: bold;
+ }
+ #TimerChoice #ValidationContainer,
+  #Choice #ValidationContainer,
+  #Event #ValidationContainer{
+	  width: 292px;
+ }
+
+  #Start #ValidationContainer
+  {
+	  width: 192px;
+	  left: -62px;
+ }
+  #End #ValidationContainer
+  {
+	  width: 192px;
+	  left: -40px;
+ }
+
+   #Random #ValidationContainer,
+  #IF #ValidationContainer
+  {
+	  width: 192px;
+ }
+
+   #Dialog #ValidationContainer{
+	  width: 242px;
+	  left: -25px;
+ }
+
+
+.node #title{
+	background-color: #923842;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	min-height: 36px;
+}
+
+#node-border{
+	background-color: #383838;
+}
+#node-border{
+	flex-shrink: 0;
+}
+
+.Label{
+	margin-top: 5px;
+	margin-left: 4px;
+}
+.TextBox{
+	white-space: Normal;
+}
+
+#title-label {
+	color: #ffffff;
+}
+
+.Colorfield
+{
+	width: 200px; 
+}
+.TextTime
+{
+	padding-bottom: 2px;
+}
+.TextDuration
+{
+	padding-bottom: 2px;
+}
+
+.unity-object-field
+{
+	padding-bottom: 2px;
+}
+.unity-enum-field
+{
+	padding-bottom: 2px;
+}
+#collapse-button
+{
+	height: 0px;
+	width: 0px;
+}
+
+.node .ChoiceLabel{
+	width: 75px;
+	max-width: 75px;
+}
+.node .ChoiceLabel .unity-text-field__input{
+	-unity-text-align: middle-right;
+}
+
+#Choice {
+	max-width: 300px; 
+	width: 300px; 
+}
+#Choice #output{
+	width: 200px;
+}
+#Choice #output .port{
+	max-width: 215px; 
+	width: 215px;
+}
+#Choice #output .port .ChoiceLabel{
+	max-width: 145px; 
+	width: 145px;
+}
+
+#TimerChoice {
+	max-width: 300px; 
+	width: 300px; 
+}
+#TimerChoice #output{
+	width: 200px;
+}
+#TimerChoice #output .port{
+	max-width: 215px; 
+	width: 215px;
+}
+#TimerChoice #output .port .ChoiceLabel{
+	max-width: 145px; 
+	width: 145px;
+}
+#TimerChoice #output .FirstPort .unity-label{
+	margin-right: 18px;
+}
+
+#Event {
+	max-width: 300px; 
+	width: 300px; 
+}
+
+#Dialog {
+	max-width: 200px; 
+	width: 200px; 
+}
+
+
+
+#Event #node-border #title {
+	background-color: #54B65C;
+}
+
+#Event #node-border #contents #top #output .port {
+	--port-color: #54B65C;
+}
+
+#Event #node-border #contents #top #input .port {
+	--port-color: #54B65C;
+}
+
+#Event .unity-toolbar-menu{
+	background-color: #4AAD52 !important;
+	border-width: 0px !important;
+	padding: 5px;
+}
+
+#Event .EventBox .unity-label{
+	min-width: 75px !important;
+}
+
+#Event #unity-x-input .unity-label,
+#Event #unity-y-input .unity-label,
+#Event #unity-z-input .unity-label,
+#Event #unity-w-input .unity-label{
+	display: none;
+}
+
+.EventBox {
+	flex-direction: row;
+}
+
+.EventSO {
+	width: 260px;
+	max-width: 260px;
+	margin-left: 2px;
+	margin-right: 0px;
+	height: 20px;
+}
+
+.EventBtn{
+	background-color: #3F3F3F !important;
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
+
+
+#Start #node-border #title {
+	background-color: #ECA72C;
+}
+#Start #node-border #title #title-label{
+	color: #222;
+	-unity-text-style: bold;
+}
+#Start #node-border #contents #top #output .port {
+	--port-color: #ECA72C;
+}
+
+#Start #node-border #contents #top #input .port {
+	--port-color: #ECA72C;
+}
+
+#Start .unity-base-field .unity-text-element{
+	width: 25px;
+	min-width: 25px;
+}
+
+
+#Dialog #node-border #title {
+	background-color: #255C99;
+}
+
+#Dialog #node-border #title #title-label{
+	color: #fff;
+}
+
+#Dialog #node-border #contents #top #output .port {
+	--port-color: #255C99;
+}
+
+#Dialog #node-border #contents #top #input .port {
+	--port-color: #255C99;
+}
+
+
+#Choice #node-border #title {
+	background-color: #255C99;
+}
+
+#Choice #node-border #title .unity-button {
+	background-color: #204E83;
+	border-width: 0px;
+}
+
+#Choice #node-border #contents #top #output .port {
+	--port-color: #255C99;
+}
+
+#Choice #node-border #contents #top #input .port {
+	--port-color: #255C99;
+}
+
+
+
+#End #node-border #title {
+	background-color: #ECA72C;
+}
+#End #node-border #title #title-label{
+	color: #222;
+	-unity-text-style: bold;
+}
+#End #node-border #contents #top #output .port {
+	--port-color: #ECA72C;
+}
+
+#End #node-border #contents #top #input .port {
+	--port-color: #ECA72C;
+}
+#End #input{
+	width: 112px !important;
+}
+
+#End{
+	width: 120px;
+}
+
+
+
+#TimerChoice #node-border #title {
+	background-color: #255C99;
+}
+
+#TimerChoice #node-border #title .unity-button {
+	background-color: #204E83;
+	border-width: 0px;
+}
+#TimerChoice #node-border #title #title-label{
+	color: #fff;
+}
+#TimerChoice #node-border #contents #top #output .port {
+	--port-color: #255C99;
+}
+#TimerChoice #node-border #contents #top #input .port {
+	--port-color: #255C99;
+}
+#TimerChoice .TextDuration {
+	padding-bottom: 0px;
+}
+
+#Random{
+	width:200px;
+}
+#Random #title{
+	background-color: #54B65C;
+}
+#Random .port{
+	--port-color: #54B65C;
+}
+#Random #node-border #title .unity-button {
+	background-color: #4AAD52;
+	border-width: 0px;
+}
+#Random .output .unity-base-field{
+	display: None !important;	
+}
+
+#Command{
+	width: 300px;
+}
+#Command #title{
+	background-color: #FFC857;
+	color: #222;
+}
+#Command #node-border #title #title-label{
+	color: #222;
+	-unity-font-style: bold;
+}
+#Command #contents{
+	display: None;
+}
+#Command #node-border{
+	background-color: #FFD685;
+}
+
+#Command #unity-text-input{
+	background-color: #FFD685;
+	color: #444 !important;
+	border-left-width: 0px !important;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	white-space: Normal;
+}
+
+
+.port .unity-button{
+	background-color: #3F3F3F !important;
+}
+
+#Dialog .unity-enum-field .unity-text-element,
+#Choice .unity-enum-field .unity-text-element,
+#TimerChoice .unity-enum-field .unity-text-element{
+	width: 85px;
+	min-width: 85px;
+}
+
+#IF{
+	width: 200px;
+}
+#IF #title{
+	background-color: #54B65C;
+	/*215382*/
+}
+#IF .port{
+	--port-color:#54B65C;
+}
+#IF .True{
+	--port-color: #54B65C;
+}
+#IF .False{
+	--port-color:#54B65C;
+}
+#IF .unity-base-text-field__label,
+#IF .unity-enum-field__label,
+#IF .unity-popup-field__label
+{
+	width: 75px !important;
+	min-width: 75px !important;
+}
+
+
+/* Selection Color */
+#IF #selection-border{
+	border-bottom-color: #54B65C;
+	border-top-color: #54B65C;
+	border-left-color: #54B65C;
+	border-right-color: #54B65C;
+}
+
+#Command #selection-border{
+	border-bottom-color: #FFC857;
+	border-top-color: #FFC857;
+	border-left-color: #FFC857;
+	border-right-color: #FFC857;
+}
+
+#Random #selection-border{
+	border-bottom-color: #54B65C;
+	border-top-color: #54B65C;
+	border-left-color: #54B65C;
+	border-right-color: #54B65C;
+}
+
+#TimerChoice #selection-border{
+	border-bottom-color:#255C99;
+	border-top-color: #255C99;
+	border-left-color:#255C99;
+	border-right-color: #255C99;
+}
+
+#End #selection-border{
+	border-bottom-color: #ECA72C;
+	border-top-color: #ECA72C;
+	border-left-color: #ECA72C;
+	border-right-color: #ECA72C;
+}
+
+#Choice #selection-border{
+	border-bottom-color: #255C99;
+	border-top-color: #255C99;
+	border-left-color: #255C99;
+	border-right-color: #255C99;
+}
+
+#Start #selection-border{
+	border-bottom-color: #ECA72C;
+	border-top-color: #ECA72C;
+	border-left-color: #ECA72C;
+	border-right-color: #ECA72C;
+}
+
+#Dialog #selection-border{
+	border-bottom-color: #255C99;
+	border-top-color: #255C99;
+	border-left-color:#255C99;
+	border-right-color: #255C99;
+}
+
+#Event #selection-border{
+	border-bottom-color: #54B65C;
+	border-top-color: #54B65C;
+	border-left-color: #54B65C;
+	border-right-color: #54B65C;
+}
+
+#IF:hover #selection-border,
+#Command:hover #selection-border,
+#Random:hover #selection-border,
+#TimerChoice:hover #selection-border,
+#End:hover #selection-border,
+#Choice:hover #selection-border,
+#Start:hover #selection-border,
+#Dialog:hover #selection-border,
+#Event:hover #selection-border{
+	border-bottom-width: 4px;
+	border-top-width: 4px;
+	border-left-width: 4px;
+	border-right-width: 4px;
+}

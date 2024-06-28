@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +16,11 @@ public class LocalizationManager : MonoBehaviour
             return;
         }
         StartCoroutine(ChangeLanguage(index));
+    }
+
+    internal LocalizationEnum SelectedLang()
+    {
+        throw new NotImplementedException();
     }
 
     IEnumerator ChangeLanguage(int index)
