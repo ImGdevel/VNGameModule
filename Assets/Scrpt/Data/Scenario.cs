@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System;
+using UnityEngine;
 
 namespace VisualNovelGame
 {
@@ -15,6 +16,7 @@ namespace VisualNovelGame
     {
         public string GUID;
         public string text;
+        public string nextDialog;
 
         public Dialogue(string guid, string text)
         {
@@ -36,4 +38,19 @@ namespace VisualNovelGame
             ChoiceText = choiceText;
         }
     }
+
+    [System.Serializable]
+    public class Character
+    {
+        public string name;
+        public Sprite portrait;
+    }
+
+    [System.Serializable]
+    public class Background
+    {
+        public string name;
+        public Sprite portrait;
+    }
+
 }

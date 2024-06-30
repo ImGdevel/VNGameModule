@@ -804,9 +804,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1112171698}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86e039068dba64346ac5190f355b28f9, type: 3}
+  m_Script: {fileID: 11500000, guid: a67fda31d16168d4994b9d143a582cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dialogueContainerSO: {fileID: 0}
 --- !u!114 &1208623083 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8583317177668614664, guid: abc00c0dadc446e42b8f3688791c8422, type: 3}
