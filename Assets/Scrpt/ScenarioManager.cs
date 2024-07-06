@@ -1,17 +1,27 @@
 using MeetAndTalk;
+using SaveSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VisualNovelGame;
+using MeetAndTalk.Localization;
 
 namespace VisualNovelGame
 {
     public class ScenarioManagers : MonoBehaviour
     {
-
         public DialogueContainerSO dialogueContainerSO;
+        public LocalizationManager localizationManager;
 
+        private Dictionary<int, Scenario> scenarios;
+        private DataManager<Dictionary<int, Scenario>> scenariosDataManager;
+
+
+        private void Start()
+        {
+            ConvertData();
+        }
 
         public void ScenarioSave()
         {
@@ -20,7 +30,24 @@ namespace VisualNovelGame
 
         private void ConvertData()
         {
-            CheckNodeType(GetNextNode(dialogueContainerSO, dialogueContainerSO.StartNodeDatas[0]));
+            Debug.Log("Content");
+
+            Debug.Log(dialogueContainerSO.StartNodeDatas.Count);
+
+            BaseNodeData startNode = GetNextNode(dialogueContainerSO, dialogueContainerSO.StartNodeDatas[0]);
+
+            
+
+            BaseNodeData node = GetNextNode(dialogueContainerSO, startNode);
+            CheckNodeType(node);
+            BaseNodeData node2 = GetNextNode(dialogueContainerSO, node);
+            CheckNodeType(node2);
+
+            BaseNodeData node3 = GetNextNode(dialogueContainerSO, node2);
+            CheckNodeType(node3);
+
+            BaseNodeData node4 = GetNextNode(dialogueContainerSO, node3);
+            CheckNodeType(node4);
 
 
 
@@ -28,13 +55,26 @@ namespace VisualNovelGame
 
         public void CheckNodeType(BaseNodeData _baseNodeData)
         {
+
             // 노드 타입에 따라 실행할 함수 선택
+
+            Debug.Log("Current Node:" + _baseNodeData.NodeGuid);
+
             switch (_baseNodeData) {
                 case StartNodeData nodeData:
+
                     break;
                 case DialogueNodeData nodeData:
+                    Debug.Log("Current Text:" + $"{nodeData.TextType.Find(text => text.languageEnum == localizationManager.SelectedLang()).LanguageGenericType}");
+                    Debug.Log("Next Node:" + $"{nodeData.DialogueNodePorts.Count}");
+
                     break;
                 case DialogueChoiceNodeData nodeData:
+                    Debug.Log("Current Node:" + $"{nodeData.TextType.Find(text => text.languageEnum == localizationManager.SelectedLang()).LanguageGenericType}");
+                    Debug.Log("Next Node:" + $"{nodeData.DialogueNodePorts[0].InputGuid}");
+                    Debug.Log("Next Node:" + $"{nodeData.DialogueNodePorts[1].InputGuid}");
+                    Debug.Log("Next Node:" + $"{nodeData.DialogueNodePorts[2].InputGuid}");
+
                     break;
                 case EndNodeData nodeData:
                     break;

@@ -55,16 +55,17 @@ namespace MeetAndTalk
     [System.Serializable]
     public class NodeLinkData
     {
-        public string BaseNodeGuid; // 기준 노드의 GUID
-        public string TargetNodeGuid; // 대상 노드의 GUID
+        public string BaseNodeGuid; // 기준 노드의 id
+        public string TargetNodeGuid; // 대상 노드의 id
     }
 
     // 모든 노드의 기본 클래스
     [System.Serializable]
     public class BaseNodeData
     {
-        public string NodeGuid; // 노드의 GUID
+        public string NodeGuid; // 노드의 id
         public Vector2 Position; // 노드의 위치
+
     }
 
     // 대화 선택 노드 데이터를 저장하는 클래스
@@ -157,8 +158,8 @@ namespace MeetAndTalk
         public GlobalValueIFOperations Operations; // 조건 연산자
         public string OperationValue; // 조건 값
 
-        public string TrueGUID; // 조건이 참일 때 연결되는 노드 GUID
-        public string FalseGUID; // 조건이 거짓일 때 연결되는 노드 GUID
+        public string TrueGUID; // 조건이 참일 때 연결되는 노드 id
+        public string FalseGUID; // 조건이 거짓일 때 연결되는 노드 id
     }
 
     // 언어별 제네릭 타입을 저장하는 클래스
@@ -173,8 +174,8 @@ namespace MeetAndTalk
     [System.Serializable]
     public class DialogueNodePort
     {
-        public string InputGuid; // 입력 GUID
-        public string OutputGuid; // 출력 GUID
+        public string InputGuid; // 입력 id
+        public string OutputGuid; // 출력 id
 
 #if UNITY_EDITOR
         [HideInInspector] public Port MyPort; // 에디터 전용 포트

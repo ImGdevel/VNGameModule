@@ -1,0 +1,177 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa07278fff332541a1b1db0eba2a883, type: 3}
+  m_Name: Prolog
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: a7c9c46a-8742-4fe0-a2b1-a9e2241cfa2f
+    TargetNodeGuid: 3d0eabec-8e1c-4718-b525-0465b0eb903a
+  - BaseNodeGuid: 3d0eabec-8e1c-4718-b525-0465b0eb903a
+    TargetNodeGuid: e7d5cf6c-a1a8-4218-86b5-b0ba1c4ef3ee
+  - BaseNodeGuid: e7d5cf6c-a1a8-4218-86b5-b0ba1c4ef3ee
+    TargetNodeGuid: b0f92699-7b00-4621-9ff6-74423b636b22
+  - BaseNodeGuid: 30fd986c-f25a-4921-a802-1f928b844456
+    TargetNodeGuid: c67af14b-4ac7-4cd4-8de9-f1c72443ed9b
+  - BaseNodeGuid: 1f0deab6-d669-4f64-a422-36cf696aa37d
+    TargetNodeGuid: e69e50d4-2bb8-4127-90b1-3125d4b92f60
+  - BaseNodeGuid: 89de61bd-7251-46fa-800a-cbb370ac6fd3
+    TargetNodeGuid: f229460f-d539-438f-9c8f-57909e3449ff
+  - BaseNodeGuid: b0f92699-7b00-4621-9ff6-74423b636b22
+    TargetNodeGuid: 1f0deab6-d669-4f64-a422-36cf696aa37d
+  - BaseNodeGuid: b0f92699-7b00-4621-9ff6-74423b636b22
+    TargetNodeGuid: 30fd986c-f25a-4921-a802-1f928b844456
+  - BaseNodeGuid: b0f92699-7b00-4621-9ff6-74423b636b22
+    TargetNodeGuid: 89de61bd-7251-46fa-800a-cbb370ac6fd3
+  DialogueChoiceNodeDatas:
+  - NodeGuid: b0f92699-7b00-4621-9ff6-74423b636b22
+    Position: {x: 787, y: 248}
+    DialogueNodePorts:
+    - InputGuid: 1f0deab6-d669-4f64-a422-36cf696aa37d
+      OutputGuid: b0f92699-7b00-4621-9ff6-74423b636b22
+      TextLanguage:
+      - languageEnum: 0
+        LanguageGenericType: "\uC2E0\uC774\uB2E4"
+      - languageEnum: 1
+        LanguageGenericType: Choice 01
+    - InputGuid: 30fd986c-f25a-4921-a802-1f928b844456
+      OutputGuid: b0f92699-7b00-4621-9ff6-74423b636b22
+      TextLanguage:
+      - languageEnum: 0
+        LanguageGenericType: "\uD574\uB9AC\uB77C\uACE0 \uD574"
+      - languageEnum: 1
+        LanguageGenericType: Choice 02
+    - InputGuid: 89de61bd-7251-46fa-800a-cbb370ac6fd3
+      OutputGuid: b0f92699-7b00-4621-9ff6-74423b636b22
+      TextLanguage:
+      - languageEnum: 0
+        LanguageGenericType: "\uADF8\uAC78 \uC65C \uC54C\uACE0 \uC2F6\uC9C0?"
+      - languageEnum: 1
+        LanguageGenericType: Choice 03
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    - languageEnum: 1
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: "\uB098\uB294..."
+    - languageEnum: 1
+      LanguageGenericType: 
+    Duration: 5
+  DialogueNodeDatas:
+  - NodeGuid: 3d0eabec-8e1c-4718-b525-0465b0eb903a
+    Position: {x: 271, y: 248}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    - languageEnum: 1
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: "\uC548\uB155 \uBC18\uAC00\uC6CC"
+    - languageEnum: 1
+      LanguageGenericType: 
+    Duration: 10
+  - NodeGuid: e7d5cf6c-a1a8-4218-86b5-b0ba1c4ef3ee
+    Position: {x: 542, y: 248}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    - languageEnum: 1
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: "\uB10C \uB204\uAD6C\uB2C8?"
+    - languageEnum: 1
+      LanguageGenericType: 
+    Duration: 10
+  - NodeGuid: 30fd986c-f25a-4921-a802-1f928b844456
+    Position: {x: 1191, y: 274}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    - languageEnum: 1
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: "\uC548\uB155 \uBC18\uAC00\uC6CC \uB09C \uC560\uB9AC\uC57C"
+    - languageEnum: 1
+      LanguageGenericType: 
+    Duration: 10
+  - NodeGuid: 1f0deab6-d669-4f64-a422-36cf696aa37d
+    Position: {x: 1186, y: -1}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    - languageEnum: 1
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: "\uBBF8\uCE5C\uB188"
+    - languageEnum: 1
+      LanguageGenericType: 
+    Duration: 10
+  - NodeGuid: 89de61bd-7251-46fa-800a-cbb370ac6fd3
+    Position: {x: 1190, y: 537}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    - languageEnum: 1
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: "\uC544 \uADF8\uB798..."
+    - languageEnum: 1
+      LanguageGenericType: 
+    Duration: 10
+  EndNodeDatas:
+  - NodeGuid: f229460f-d539-438f-9c8f-57909e3449ff
+    Position: {x: 1449, y: 536}
+    EndNodeType: 0
+  - NodeGuid: c67af14b-4ac7-4cd4-8de9-f1c72443ed9b
+    Position: {x: 1439, y: 274}
+    EndNodeType: 0
+  - NodeGuid: e69e50d4-2bb8-4127-90b1-3125d4b92f60
+    Position: {x: 1437, y: -1}
+    EndNodeType: 0
+  StartNodeDatas:
+  - NodeGuid: a7c9c46a-8742-4fe0-a2b1-a9e2241cfa2f
+    Position: {x: 100, y: 248}
+    startID: 
+  TimerChoiceNodeDatas: []
+  EventNodeDatas: []
+  RandomNodeDatas: []
+  CommandNodeDatas: []
+  IFNodeDatas: []

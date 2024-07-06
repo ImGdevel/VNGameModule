@@ -9,7 +9,6 @@ namespace VisualNovelGame
     public class VisualNovelModule : MonoBehaviour
     {
         public ScenarioManager scenarioManager;
-        public ScenarioController scenarioController;
         public CharacterController characterController;
         public BackgroundController backgroundController;
         public MusicController musicController;
@@ -26,7 +25,6 @@ namespace VisualNovelGame
             Scenario scenario = scenarioManager.GetScenario(scenarioId);
             if (scenario != null) {
                 currentScenarioId = scenarioId;
-                scenarioController.SetScenario(scenario);
                 characterController.SetScenario(scenario);
                 backgroundController.SetScenario(scenario);
                 musicController.SetScenario(scenario);
@@ -37,7 +35,6 @@ namespace VisualNovelGame
         {
             // 클릭으로 대사 넘기기 등 플레이어와의 상호작용 관리
             if (Input.GetMouseButtonDown(0)) {
-                scenarioController.NextDialogue();
             }
         }
     }

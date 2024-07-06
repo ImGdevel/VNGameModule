@@ -172,6 +172,10 @@ public class VNDialogueModule : MonoBehaviour
         EndDialogue?.Invoke();
     }
 
+    /// <summary>
+    /// 해당 씬을 실행함
+    /// </summary>
+    /// <param name="dialog">대화 데이터를 시행함</param>
     private void PlayScene(DialogData dialog)
     {
         Debug.Log("Current dialogue number: " + currentSceneName + "(" + dialog.id + ")");
@@ -256,6 +260,10 @@ public class VNDialogueModule : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    /// <summary>
+    /// 씬 선택
+    /// </summary>
+    /// <param name="dialog"></param>
     private void ChoiceScene(DialogData dialog)
     {
         isGamePaused = true;
@@ -264,6 +272,10 @@ public class VNDialogueModule : MonoBehaviour
         dialogController.ClearDialogue();
     }
 
+    /// <summary>
+    /// 씬 건너뛰기
+    /// </summary>
+    /// <param name="jump_id">이동할 씬 id </param>
     public void JumpScene(string jump_id)
     {
         choiceController.transform.gameObject.SetActive(false);
@@ -279,6 +291,10 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 자동으로 씬을 넘긴다
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator AutoPlayScene()
     {
         while (autoScrollEnabled) {
@@ -315,15 +331,13 @@ public class VNDialogueModule : MonoBehaviour
     public void SaveDialogueData(GameData saveData)
     {
         Debug.Log("대화 데이터 저장");
-        //saveData.chapter = currentSceneName;
-        //saveData.dialogId = dialogueList[currentDialogueIndex].id;
+
     }
 
     public void LoadDialogueData(GameData saveData)
     {
         Debug.Log("대화 데이터 불러오기 적용");
-        //currentSceneName = saveData.chapter;
-        //dialogueList[currentDialogueIndex].id = saveData.dialogId;
+
     }
 
 }

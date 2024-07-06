@@ -10,9 +10,10 @@ using UnityEngine.UIElements;
 #else
 namespace MeetAndTalk.Localization
 {
+    [CreateAssetMenu(fileName = "Languages", menuName = "Dialog/Languages", order = 0)]
     public class LocalizationManager : ScriptableObject
     {
-        public const string k_LocalizationManagerPath = "Assets/Meet and Talk/Resources/Languages.asset";
+        public const string k_LocalizationManagerPath = "Assets/Resources/Languages.asset";
 
         private static MeetAndTalk.Localization.LocalizationManager _instance;
         public static MeetAndTalk.Localization.LocalizationManager Instance

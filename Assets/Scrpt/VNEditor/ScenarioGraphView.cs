@@ -207,36 +207,7 @@ namespace VisualNovelGame
 
         public void SaveScenario(string path)
         {
-            var scenario = new Scenario();
 
-            foreach (var dialogueNode in dialogueNodes) {
-                scenario.dialogues.Add(new Dialogue(
-                    dialogueNode.GUID,
-                    dialogueNode.dialogueText
-                ));
-            }
-
-            foreach (var choiceNode in choiceNodes) {
-                var choice = new Choice(
-                    choiceNode.GUID,
-                    choiceNode.ChoiceText
-                );
-
-                var ports = choiceNode.outputContainer.Query<Port>().ToList();
-                foreach (var port in ports) {
-                    if (port.connections.Count() > 0) {
-                        var connectedEdge = port.connections.First();
-                        var nextNode = connectedEdge.input.node as DialogueNode;
-                        if (nextNode != null) {
-                            choice.nextDialogueGUIDs.Add(nextNode.GUID);
-                        }
-                    }
-                }
-
-                scenario.choices.Add(choice);
-            }
-
-            //scenarioManager.SaveScenario(path, scenario);
         }
     }
 }
