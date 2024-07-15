@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
-using MeetAndTalk.Nodes;
+using DialogueSystem.Nodes;
 
-namespace MeetAndTalk.Editor
+namespace DialogueSystem.Editor
 {
     [ExecuteInEditMode] // 이 클래스가 에디터 모드에서도 실행되도록 합니다.
     public class DialogueGraphView : GraphView

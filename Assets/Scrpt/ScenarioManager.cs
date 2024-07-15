@@ -1,11 +1,11 @@
-using MeetAndTalk;
+using DialogueSystem;
 using SaveSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VisualNovelGame;
-using MeetAndTalk.Localization;
+using DialogueSystem.Localization;
 
 namespace VisualNovelGame
 {

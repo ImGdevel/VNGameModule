@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 using System.Text.RegularExpressions;
-using MeetAndTalk.GlobalValue;
+using DialogueSystem.GlobalValue;
 
-namespace MeetAndTalk
+namespace DialogueSystem
 {
     public class DialogueUIManager : MonoBehaviour
     {

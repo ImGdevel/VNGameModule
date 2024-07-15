@@ -8,7 +8,7 @@ using TMPro;
 using System;
 using UnityEngine.UIElements;
 
-namespace MeetAndTalk.GlobalValue
+namespace DialogueSystem.GlobalValue
 {
     public class GlobalValueManager : ScriptableObject
     {

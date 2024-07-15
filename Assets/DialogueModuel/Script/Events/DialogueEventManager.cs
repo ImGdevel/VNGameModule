@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace MeetAndTalk.Event
+namespace DialogueSystem.Event
 {
     public class DialogueEventManager : MonoBehaviour
     {

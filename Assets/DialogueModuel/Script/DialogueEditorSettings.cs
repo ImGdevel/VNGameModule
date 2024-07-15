@@ -6,13 +6,13 @@ using UnityEngine;
 using UnityEngine.UIElements;
 
 
-namespace MeetAndTalk.Settings
+namespace DialogueSystem.Settings
 {
     public class DialogueEditorSettings : ScriptableObject
     {
         public const string k_CampaingPath = "Assets/Resources/DialogueEditorSettings.asset";
 
-        [SerializeField] public MeetAndTalkTheme Theme;
+        [SerializeField] public EditorTheme Theme;
         // Auto Save Option
         [SerializeField] public bool AutoSave = true;
         [SerializeField] public float AutoSaveInterval = 15f;
@@ -32,9 +32,7 @@ namespace MeetAndTalk.Settings
 
     }
 
-
-
-    public enum MeetAndTalkTheme
+    public enum EditorTheme
     {
         Dark = 0, PureDark = 1,
     }

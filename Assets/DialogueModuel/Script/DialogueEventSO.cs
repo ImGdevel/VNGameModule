@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-namespace MeetAndTalk.Event
+namespace DialogueSystem.Event
 {
     [System.Serializable]
     public class DialogueEventSO : ScriptableObject

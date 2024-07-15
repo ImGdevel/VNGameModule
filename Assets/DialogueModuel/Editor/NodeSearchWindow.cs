@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
-using MeetAndTalk.Nodes;
+using DialogueSystem.Nodes;
 
-namespace MeetAndTalk.Editor
+namespace DialogueSystem.Editor
 {
     public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
     {

@@ -2,6 +2,5 @@
 public enum LocalizationEnum
 {
 	English,
-	Polish,
 }
 #endif

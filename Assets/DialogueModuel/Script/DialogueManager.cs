@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using MeetAndTalk.GlobalValue;
-using MeetAndTalk.Localization;
+using DialogueSystem.GlobalValue;
+using DialogueSystem.Localization;
 
-namespace MeetAndTalk
+namespace DialogueSystem
 {
     public class DialogueManager : DialogueGetData
     {

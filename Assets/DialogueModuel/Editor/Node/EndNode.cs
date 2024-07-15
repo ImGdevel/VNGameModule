@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
-using MeetAndTalk.Editor;
+using DialogueSystem.Editor;
 
-namespace MeetAndTalk.Nodes
+namespace DialogueSystem.Nodes
 {
     public class EndNode : BaseNode
     {

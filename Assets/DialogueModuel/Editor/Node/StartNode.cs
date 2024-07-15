@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
-using MeetAndTalk.Editor;
+using DialogueSystem.Editor;
 
-namespace MeetAndTalk.Nodes
+namespace DialogueSystem.Nodes
 {
     public class StartNode : BaseNode
     {

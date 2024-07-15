@@ -13,31 +13,32 @@ MonoBehaviour:
   m_Name: New Dialogue Container SO
   m_EditorClassIdentifier: 
   NodeLinkDatas:
-  - BaseNodeGuid: dbdc9314-3b4b-456e-a64b-15e718585813
-    TargetNodeGuid: 597ecd33-7006-4974-9f81-9a1be6dde8e8
+  - BaseNodeGuid: 94ea4ebb-c947-411e-a10b-c6f85f2e244f
+    TargetNodeGuid: c2e3a899-c1ff-4656-90c8-7f0dc23d6b5f
+  - BaseNodeGuid: c2e3a899-c1ff-4656-90c8-7f0dc23d6b5f
+    TargetNodeGuid: e7f98958-a5e5-4207-9c49-bc91749f63aa
   DialogueChoiceNodeDatas: []
   DialogueNodeDatas:
-  - NodeGuid: 597ecd33-7006-4974-9f81-9a1be6dde8e8
-    Position: {x: 361, y: 256}
+  - NodeGuid: c2e3a899-c1ff-4656-90c8-7f0dc23d6b5f
+    Position: {x: 347, y: 247}
     DialogueNodePorts: []
     AudioClips:
     - languageEnum: 0
-      LanguageGenericType: {fileID: 0}
-    - languageEnum: 1
       LanguageGenericType: {fileID: 0}
     Character: {fileID: 0}
     AvatarPos: 0
     AvatarType: 0
     TextType:
     - languageEnum: 0
-      LanguageGenericType: 
-    - languageEnum: 1
-      LanguageGenericType: 
+      LanguageGenericType: "\uC548\uB155\uD558\uC138\uC694"
     Duration: 10
-  EndNodeDatas: []
+  EndNodeDatas:
+  - NodeGuid: e7f98958-a5e5-4207-9c49-bc91749f63aa
+    Position: {x: 644, y: 247}
+    EndNodeType: 0
   StartNodeDatas:
-  - NodeGuid: dbdc9314-3b4b-456e-a64b-15e718585813
-    Position: {x: 234, y: 255}
+  - NodeGuid: 94ea4ebb-c947-411e-a10b-c6f85f2e244f
+    Position: {x: 183, y: 247}
     startID: 
   TimerChoiceNodeDatas: []
   EventNodeDatas: []

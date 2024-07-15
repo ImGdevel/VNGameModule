@@ -5,12 +5,12 @@ using UnityEngine.UIElements;
 using UnityEditor.UIElements;
 using UnityEditor;
 using UnityEditor.Callbacks;
-using MeetAndTalk.Nodes;
-using MeetAndTalk.Localization;
-using MeetAndTalk.Settings;
+using DialogueSystem.Nodes;
+using DialogueSystem.Localization;
+using DialogueSystem.Settings;
 using System.IO;
 
-namespace MeetAndTalk.Editor
+namespace DialogueSystem.Editor
 {
     [ExecuteInEditMode]
     public class DialogueEditorWindow : EditorWindow
@@ -40,6 +40,9 @@ namespace MeetAndTalk.Editor
         // LanguageEnum 프로퍼티
         public LocalizationEnum LanguageEnum { get => languageEnum; set => languageEnum = value; }
 
+        // DialogueEditor 설정 정보
+        private const string settingsPath = "Assets/Resources/DialogueEditorSettings.asset";
+
         // 에셋이 열릴 때 호출되는 콜백 메서드
         [OnOpenAsset(1)]
         public static bool ShowWindow(int _instanceId, int line)
@@ -64,7 +67,6 @@ namespace MeetAndTalk.Editor
         private static void LoadSettings()
         {
             DialogueEditorSettings settings;
-            var settingsPath = "Assets/Resources/DialogueEditorSettings.asset";
             settings = AssetDatabase.LoadAssetAtPath<DialogueEditorSettings>(settingsPath);
 
             if (settings == null) {
@@ -150,7 +152,7 @@ namespace MeetAndTalk.Editor
             // 테마 메뉴 생성
             toolbarTheme = new ToolbarMenu();
             toolbarTheme.name = "theme_enum";
-            foreach (MeetAndTalkTheme theme in (MeetAndTalkTheme[])Enum.GetValues(typeof(MeetAndTalkTheme))) {
+            foreach (EditorTheme theme in (EditorTheme[])Enum.GetValues(typeof(EditorTheme))) {
                 toolbarTheme.menu.AppendAction(theme.ToString(), new Action<DropdownMenuAction>(x => ChangeTheme(theme, toolbarTheme)));
             }
             toolbar.Add(toolbarTheme);
@@ -291,7 +293,7 @@ namespace MeetAndTalk.Editor
         }
 
         // 테마 변경 메서드
-        private void ChangeTheme(MeetAndTalkTheme _theme, ToolbarMenu _toolbarMenu)
+        private void ChangeTheme(EditorTheme _theme, ToolbarMenu _toolbarMenu)
         {
             toolbarTheme.text = _theme.ToString() + "";
             Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").Theme = _theme;

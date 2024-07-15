@@ -9,11 +9,11 @@ using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-using MeetAndTalk.GlobalValue;
-using MeetAndTalk.Localization;
-using MeetAndTalk.Event;
+using DialogueSystem.GlobalValue;
+using DialogueSystem.Localization;
+using DialogueSystem.Event;
 
-namespace MeetAndTalk
+namespace DialogueSystem
 {
     // 대화 컨테이너를 생성할 수 있는 ScriptableObject
     [CreateAssetMenu(menuName = "Dialogue/New Dialogue")]

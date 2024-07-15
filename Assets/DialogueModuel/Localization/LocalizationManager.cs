@@ -8,15 +8,15 @@ using UnityEngine.UIElements;
 #if HellishBattle
 /// If Hellish Battle Installed
 #else
-namespace MeetAndTalk.Localization
+namespace DialogueSystem.Localization
 {
     [CreateAssetMenu(fileName = "Languages", menuName = "Dialog/Languages", order = 0)]
     public class LocalizationManager : ScriptableObject
     {
         public const string k_LocalizationManagerPath = "Assets/Resources/Languages.asset";
 
-        private static MeetAndTalk.Localization.LocalizationManager _instance;
-        public static MeetAndTalk.Localization.LocalizationManager Instance
+        private static DialogueSystem.Localization.LocalizationManager _instance;
+        public static DialogueSystem.Localization.LocalizationManager Instance
         {
             get { return _instance; }
         }
@@ -27,12 +27,12 @@ namespace MeetAndTalk.Localization
         public SystemLanguage selectedLang = SystemLanguage.English;
 
 #if UNITY_EDITOR
-        internal static MeetAndTalk.Localization.LocalizationManager GetOrCreateSettings()
+        internal static DialogueSystem.Localization.LocalizationManager GetOrCreateSettings()
         {
-            var settings = AssetDatabase.LoadAssetAtPath<MeetAndTalk.Localization.LocalizationManager>(k_LocalizationManagerPath);
+            var settings = AssetDatabase.LoadAssetAtPath<DialogueSystem.Localization.LocalizationManager>(k_LocalizationManagerPath);
             if (settings == null)
             {
-                settings = ScriptableObject.CreateInstance<MeetAndTalk.Localization.LocalizationManager>();
+                settings = ScriptableObject.CreateInstance<DialogueSystem.Localization.LocalizationManager>();
 
                 settings.lang = new List<SystemLanguage>() { SystemLanguage.Polish, SystemLanguage.Spanish };
                 settings.selectedLang = SystemLanguage.English;
@@ -178,7 +178,7 @@ namespace MeetAndTalk.Localization
                 guiHandler = (searchContext) =>
                 {
                     EditorGUILayout.HelpBox("    English is the primary language and you don't need to add it as an additional language", MessageType.Info, true);
-                    var settings = MeetAndTalk.Localization.LocalizationManager.GetSerializedSettings();
+                    var settings = DialogueSystem.Localization.LocalizationManager.GetSerializedSettings();
                     EditorGUILayout.PropertyField(settings.FindProperty("lang"), new GUIContent("Available Language"));
                     EditorGUILayout.PropertyField(settings.FindProperty("selectedLang"), new GUIContent("Base Language"));
                 //EditorGUILayout.LabelField("Language");
@@ -189,7 +189,7 @@ namespace MeetAndTalk.Localization
                     {
                         List<string> enumEntries = new List<string>();
                         enumEntries.Add(SystemLanguage.English.ToString());
-                        MeetAndTalk.Localization.LocalizationManager tmp = Resources.Load<MeetAndTalk.Localization.LocalizationManager>("Languages");
+                        DialogueSystem.Localization.LocalizationManager tmp = Resources.Load<DialogueSystem.Localization.LocalizationManager>("Languages");
                         for (int i = 0; i < tmp.lang.Count; i++)
                         {
                             enumEntries.Add(tmp.lang[i].ToString());
@@ -242,7 +242,7 @@ namespace MeetAndTalk.Localization
 
         public override void OnActivate(string searchContext, VisualElement rootElement)
         {
-            m_CustomSettings = MeetAndTalk.Localization.LocalizationManager.GetSerializedSettings();
+            m_CustomSettings = DialogueSystem.Localization.LocalizationManager.GetSerializedSettings();
         }
 
         public override void OnGUI(string searchContext)

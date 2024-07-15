@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MeetAndTalk.Event
+namespace DialogueSystem.Event
 {
     [CreateAssetMenu(menuName = "Dialogue/Event/Console Log")]
     [System.Serializable]

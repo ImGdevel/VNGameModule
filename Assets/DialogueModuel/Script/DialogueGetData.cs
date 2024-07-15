@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MeetAndTalk
+namespace DialogueSystem
 {
     public class DialogueGetData : MonoBehaviour
     {

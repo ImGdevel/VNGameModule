@@ -250,7 +250,7 @@ GridBackground {
 
 
 #Start #node-border #title {
-	background-color: #515151;
+	background-color: #149A3E;
 }
 
 #Start #node-border #contents #top #output .port {
@@ -298,7 +298,7 @@ GridBackground {
 
 
 #End #node-border #title {
-	background-color: #515151;
+	background-color: #A8323F;
 }
 
 #End #node-border #contents #top #output .port {
@@ -401,45 +401,45 @@ GridBackground {
 
 /* Selection Color */
 #IF #selection-border{
-	border-bottom-color: #235789;
-	border-top-color: #235789;
-	border-left-color: #235789;
-	border-right-color: #235789;
+	border-bottom-color: #2C5D87;
+	border-top-color: #2C5D87;
+	border-left-color: #2C5D87;
+	border-right-color: #2C5D87;
 }
 
 #Command #selection-border{
-	border-bottom-color: #0a5c36;
-	border-top-color: #0a5c36;
-	border-left-color: #0a5c36;
-	border-right-color: #0a5c36;
+	border-bottom-color: #2C5D87;
+	border-top-color: #2C5D87;
+	border-left-color: #2C5D87;
+	border-right-color: #2C5D87;
 }
 
 #Random #selection-border{
-	border-bottom-color: #80234A;
-	border-top-color: #80234A;
-	border-left-color: #80234A;
-	border-right-color: #80234A;
+	border-bottom-color: #2C5D87;
+	border-top-color: #2C5D87;
+	border-left-color: #2C5D87;
+	border-right-color: #2C5D87;
 }
 
 #TimerChoice #selection-border{
-	border-bottom-color: #ff7700;
-	border-top-color: #ff7700;
-	border-left-color: #ff7700;
-	border-right-color: #ff7700;
+	border-bottom-color: #2C5D87;
+	border-top-color: #2C5D87;
+	border-left-color: #2C5D87;
+	border-right-color: #2C5D87;
 }
 
 #End #selection-border{
-	border-bottom-color: #A8323F;
-	border-top-color: #A8323F;
-	border-left-color: #A8323F;
-	border-right-color: #A8323F;
+	border-bottom-color: #2C5D87;
+	border-top-color: #2C5D87;
+	border-left-color: #2C5D87;
+	border-right-color: #2C5D87;
 }
 
 #Choice #selection-border{
-	border-bottom-color: #22AED1;
-	border-top-color: #22AED1;
-	border-left-color: #22AED1;
-	border-right-color: #22AED1;
+	border-bottom-color: #2C5D87;
+	border-top-color: #2C5D87;
+	border-left-color: #2C5D87;
+	border-right-color: #2C5D87;
 }
 
 #Start #selection-border{
@@ -450,17 +450,17 @@ GridBackground {
 }
 
 #Dialog #selection-border{
-	border-bottom-color: #F9C22E;
-	border-top-color: #F9C22E;
-	border-left-color: #F9C22E;
-	border-right-color: #F9C22E;
+	border-bottom-color: #2C5D87;
+	border-top-color: #2C5D87;
+	border-left-color: #2C5D87;
+	border-right-color: #2C5D87;
 }
 
 #Event #selection-border{
-	border-bottom-color: #9649CB;
-	border-top-color: #9649CB;
-	border-left-color: #9649CB;
-	border-right-color: #9649CB;
+	border-bottom-color: #2C5D87;
+	border-top-color: #2C5D87;
+	border-left-color: #2C5D87;
+	border-right-color: #2C5D87;
 }
 
 #IF:hover #selection-border,
@@ -472,8 +472,8 @@ GridBackground {
 #Start:hover #selection-border,
 #Dialog:hover #selection-border,
 #Event:hover #selection-border{
-	border-bottom-width: 4px;
-	border-top-width: 4px;
-	border-left-width: 4px;
-	border-right-width: 4px;
+	border-bottom-width: 2px;
+	border-top-width: 2px;
+	border-left-width: 2px;
+	border-right-width: 2px;
 }

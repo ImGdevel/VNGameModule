@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor;
-using MeetAndTalk.Nodes;
+using DialogueSystem.Nodes;
 
-namespace MeetAndTalk.Editor
+namespace DialogueSystem.Editor
 {
 #if UNITY_EDITOR
 

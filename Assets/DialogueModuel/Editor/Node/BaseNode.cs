@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
-using MeetAndTalk.Editor;
-using MeetAndTalk.Settings;
+using DialogueSystem.Editor;
+using DialogueSystem.Settings;
 
-namespace MeetAndTalk.Nodes
+namespace DialogueSystem.Nodes
 {
     // 기본 노드 클래스
     public class BaseNode : Node

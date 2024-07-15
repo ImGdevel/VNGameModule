@@ -5,11 +5,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
-using MeetAndTalk.Editor;
-using MeetAndTalk.Localization;
-using MeetAndTalk.Event;
+using DialogueSystem.Editor;
+using DialogueSystem.Localization;
+using DialogueSystem.Event;
 
-namespace MeetAndTalk.Nodes
+namespace DialogueSystem.Nodes
 {
     public class DialogueNode : BaseNode
     {
