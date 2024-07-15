@@ -7,47 +7,47 @@ using DialogueSystem.Nodes;
 
 namespace DialogueSystem.Editor
 {
-    [ExecuteInEditMode] // ÀÌ Å¬·¡½º°¡ ¿¡µğÅÍ ¸ğµå¿¡¼­µµ ½ÇÇàµÇµµ·Ï ÇÕ´Ï´Ù.
+    [ExecuteInEditMode]
     public class DialogueGraphView : GraphView
     {
-        private DialogueEditorWindow editorWindow; // ´ëÈ­ ÆíÁı±â Ã¢À» ÂüÁ¶ÇÕ´Ï´Ù.
-        private NodeSearchWindow searchWindow; // ³ëµå °Ë»ö Ã¢À» ÂüÁ¶ÇÕ´Ï´Ù.
+        private DialogueEditorWindow editorWindow; // ëŒ€í™” í¸ì§‘ê¸° ì°½ì„ ì°¸ì¡°í•©ë‹ˆë‹¤.
+        private NodeSearchWindow searchWindow; // ë…¸ë“œ ê²€ìƒ‰ ì°½ì„ ì°¸ì¡°í•©ë‹ˆë‹¤.
 
-        // »ı¼ºÀÚ: GraphViewÀÇ ÃÊ±â ¼³Á¤À» ¼öÇàÇÕ´Ï´Ù.
+        // ìƒì„±ì: GraphViewì˜ ì´ˆê¸° ì„¤ì •ì„ ìˆ˜í–‰í•©ë‹ˆë‹¤.
         public DialogueGraphView(DialogueEditorWindow _editorWindow)
         {
             editorWindow = _editorWindow;
 
-            // ´ÙÅ© Å×¸¶ ½ºÅ¸ÀÏ½ÃÆ®¸¦ ·ÎµåÇÏ°í Ãß°¡ÇÕ´Ï´Ù.
+            // ë‹¤í¬ í…Œë§ˆ ìŠ¤íƒ€ì¼ì‹œíŠ¸ë¥¼ ë¡œë“œí•˜ê³  ì¶”ê°€í•©ë‹ˆë‹¤.
             StyleSheet tmpStyleSheet = Resources.Load<StyleSheet>("Themes/DarkTheme");
             styleSheets.Add(tmpStyleSheet);
 
-            // ÁÜ ¼³Á¤À» ÇÕ´Ï´Ù.
-            SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale);
+            // ì¤Œ ì„¤ì •ì„ í•©ë‹ˆë‹¤.
+            SetupZoom(ContentZoomer.DefaultMinScale, ContentZoomer.DefaultMaxScale * 1.5f);
 
-            // ±×·¡ÇÁ¿¡ ´Ù¾çÇÑ Á¶ÀÛ±â¸¦ Ãß°¡ÇÕ´Ï´Ù.
+            // ê·¸ë˜í”„ì— ë‹¤ì–‘í•œ ì¡°ì‘ê¸°ë¥¼ ì¶”ê°€í•©ë‹ˆë‹¤.
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new SelectionDragger());
             this.AddManipulator(new RectangleSelector());
             this.AddManipulator(new FreehandSelector());
 
-            // ±×¸®µå ¹è°æÀ» Ãß°¡ÇÏ°í ºÎ¸ğ Å©±â¿¡ ¸ÂÃä´Ï´Ù.
+            // ê·¸ë¦¬ë“œ ë°°ê²½ì„ ì¶”ê°€í•˜ê³  ë¶€ëª¨ í¬ê¸°ì— ë§ì¶¥ë‹ˆë‹¤.
             GridBackground grid = new GridBackground();
             Insert(0, grid);
             grid.StretchToParentSize();
 
-            // °Ë»ö Ã¢À» Ãß°¡ÇÕ´Ï´Ù.
+            // ê²€ìƒ‰ ì°½ì„ ì¶”ê°€í•©ë‹ˆë‹¤.
             AddSearchWindow();
         }
 
-        // ´ëÈ­ ±×·¡ÇÁÀÇ À¯È¿¼ºÀ» °Ë»çÇÕ´Ï´Ù.
+        // ëŒ€í™” ê·¸ë˜í”„ì˜ ìœ íš¨ì„±ì„ ê²€ì‚¬í•©ë‹ˆë‹¤.
         public void ValidateDialogue()
         {
             List<BaseNode> bases = nodes.ToList().Where(node => node is BaseNode).Cast<BaseNode>().ToList();
             foreach (BaseNode node in bases) { node.Validate(); }
         }
 
-        // Å×¸¶¸¦ ¾÷µ¥ÀÌÆ®ÇÕ´Ï´Ù.
+        // í…Œë§ˆë¥¼ ì—…ë°ì´íŠ¸í•©ë‹ˆë‹¤.
         public void UpdateTheme(string name)
         {
             styleSheets.Remove(styleSheets[styleSheets.count - 1]);
@@ -57,7 +57,7 @@ namespace DialogueSystem.Editor
             foreach (BaseNode node in bases) { node.UpdateTheme(name); }
         }
 
-        // ³ëµå °Ë»ö Ã¢À» Ãß°¡ÇÕ´Ï´Ù.
+        // ë…¸ë“œ ê²€ìƒ‰ ì°½ì„ ì¶”ê°€í•©ë‹ˆë‹¤.
         private void AddSearchWindow()
         {
             searchWindow = ScriptableObject.CreateInstance<NodeSearchWindow>();
@@ -65,7 +65,7 @@ namespace DialogueSystem.Editor
             nodeCreationRequest = context => SearchWindow.Open(new SearchWindowContext(context.screenMousePosition), searchWindow);
         }
 
-        // ½ÃÀÛ Æ÷Æ®¿Í È£È¯µÇ´Â Æ÷Æ®¸¦ ¹İÈ¯ÇÕ´Ï´Ù.
+        // ì‹œì‘ í¬íŠ¸ì™€ í˜¸í™˜ë˜ëŠ” í¬íŠ¸ë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.
         public override List<Port> GetCompatiblePorts(Port startPort, NodeAdapter nodeAdapter)
         {
             List<Port> compatiblePorts = new List<Port>();
@@ -74,7 +74,7 @@ namespace DialogueSystem.Editor
             ports.ForEach((port) => {
                 Port portView = port;
 
-                // ½ÃÀÛ Æ÷Æ®°¡ µ¿ÀÏ ³ëµå¿¡ ÀÖÁö ¾Ê°í ¹æÇâÀÌ ´Ù¸¥ Æ÷Æ®¸¦ Ã£½À´Ï´Ù.
+                // ì‹œì‘ í¬íŠ¸ê°€ ë™ì¼ ë…¸ë“œì— ìˆì§€ ì•Šê³  ë°©í–¥ì´ ë‹¤ë¥¸ í¬íŠ¸ë¥¼ ì°¾ìŠµë‹ˆë‹¤.
                 if (startPortView != portView && startPortView.node != portView.node && startPortView.direction != port.direction) {
                     compatiblePorts.Add(port);
                 }
@@ -83,7 +83,7 @@ namespace DialogueSystem.Editor
             return compatiblePorts;
         }
 
-        // ¾ğ¾î¸¦ ´Ù½Ã ·ÎµåÇÕ´Ï´Ù.
+        // ì–¸ì–´ë¥¼ ë‹¤ì‹œ ë¡œë“œí•©ë‹ˆë‹¤.
         public void LanguageReload()
         {
             List<DialogueChoiceNode> dialogueChoiceNodes = nodes.ToList().Where(node => node is DialogueChoiceNode).Cast<DialogueChoiceNode>().ToList();
@@ -97,7 +97,7 @@ namespace DialogueSystem.Editor
             }
         }
 
-        // ½ÃÀÛ ³ëµå¸¦ »ı¼ºÇÕ´Ï´Ù.
+        // ì‹œì‘ ë…¸ë“œë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
         public StartNode CreateStartNode(Vector2 _pos)
         {
             StartNode tmp = new StartNode(_pos, editorWindow, this);
@@ -106,7 +106,7 @@ namespace DialogueSystem.Editor
             return tmp;
         }
 
-        // Á¾·á ³ëµå¸¦ »ı¼ºÇÕ´Ï´Ù.
+        // ì¢…ë£Œ ë…¸ë“œë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
         public EndNode CreateEndNode(Vector2 _pos)
         {
             EndNode tmp = new EndNode(_pos, editorWindow, this);
@@ -115,7 +115,7 @@ namespace DialogueSystem.Editor
             return tmp;
         }
 
-        // ´ëÈ­ ¼±ÅÃ ³ëµå¸¦ »ı¼ºÇÕ´Ï´Ù.
+        // ëŒ€í™” ì„ íƒ ë…¸ë“œë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
         public DialogueChoiceNode CreateDialogueChoiceNode(Vector2 _pos)
         {
             DialogueChoiceNode tmp = new DialogueChoiceNode(_pos, editorWindow, this);
@@ -125,7 +125,7 @@ namespace DialogueSystem.Editor
             return tmp;
         }
 
-        // ´ëÈ­ ³ëµå¸¦ »ı¼ºÇÕ´Ï´Ù.
+        // ëŒ€í™” ë…¸ë“œë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
         public DialogueNode CreateDialogueNode(Vector2 _pos)
         {
             DialogueNode tmp = new DialogueNode(_pos, editorWindow, this);

@@ -15,35 +15,35 @@ namespace DialogueSystem.Editor
     [ExecuteInEditMode]
     public class DialogueEditorWindow : EditorWindow
     {
-        // ÇöÀç ÆíÁı ÁßÀÎ ´ëÈ­ ÄÁÅ×ÀÌ³Ê¸¦ ÀúÀåÇÏ´Â º¯¼ö
+        // í˜„ì¬ í¸ì§‘ ì¤‘ì¸ ëŒ€í™” ì»¨í…Œì´ë„ˆë¥¼ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
         private DialogueContainerSO currentDialogueContainer;
 
-        // ±×·¡ÇÁ ºä¿Í ÀúÀå/·Îµå µµ±¸¸¦ ÀúÀåÇÏ´Â º¯¼ö
+        // ê·¸ë˜í”„ ë·°ì™€ ì €ì¥/ë¡œë“œ ë„êµ¬ë¥¼ ì €ì¥í•˜ëŠ” ë³€ìˆ˜
         private DialogueGraphView graphView;
         private DialogueSaveAndLoad saveAndLoad;
 
-        // ·ÎÄÃ¶óÀÌÁ¦ÀÌ¼Ç ¹× UI ¿ä¼Òµé
+        // ë¡œì»¬ë¼ì´ì œì´ì…˜ ë° UI ìš”ì†Œë“¤
         private LocalizationEnum languageEnum = LocalizationEnum.English;
         private Label nameOfDialogueContainer;
         private ToolbarMenu toolbarMenu;
         private ToolbarMenu toolbarTheme;
 
-        // ÀÚµ¿ ÀúÀå ¼³Á¤°ú ¸¶Áö¸· ¾÷µ¥ÀÌÆ® ½Ã°£
+        // ìë™ ì €ì¥ ì„¤ì •ê³¼ ë§ˆì§€ë§‰ ì—…ë°ì´íŠ¸ ì‹œê°„
         private bool AutoSave = true;
         private float lastUpdateTime = 0f;
 
-        // °ËÁõ °ü·Ã UI ¿ä¼Ò
+        // ê²€ì¦ ê´€ë ¨ UI ìš”ì†Œ
         private Box _box;
         private HelpBox _infoBox;
         private bool _NoEditInfo = false;
 
-        // LanguageEnum ÇÁ·ÎÆÛÆ¼
+        // LanguageEnum í”„ë¡œí¼í‹°
         public LocalizationEnum LanguageEnum { get => languageEnum; set => languageEnum = value; }
 
-        // DialogueEditor ¼³Á¤ Á¤º¸
+        // DialogueEditor ì„¤ì • ì •ë³´
         private const string settingsPath = "Assets/Resources/DialogueEditorSettings.asset";
 
-        // ¿¡¼ÂÀÌ ¿­¸± ¶§ È£ÃâµÇ´Â Äİ¹é ¸Ş¼­µå
+        // ì—ì…‹ì´ ì—´ë¦´ ë•Œ í˜¸ì¶œë˜ëŠ” ì½œë°± ë©”ì„œë“œ
         [OnOpenAsset(1)]
         public static bool ShowWindow(int _instanceId, int line)
         {
@@ -77,7 +77,7 @@ namespace DialogueSystem.Editor
             }
         }
 
-        // ¿¡µğÅÍ À©µµ¿ì°¡ È°¼ºÈ­µÉ ¶§ È£ÃâµÇ´Â ¸Ş¼­µå
+        // ì—ë””í„° ìœˆë„ìš°ê°€ í™œì„±í™”ë  ë•Œ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
         private void OnEnable()
         {
             AutoSave = Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").AutoSave;
@@ -88,13 +88,13 @@ namespace DialogueSystem.Editor
 
 
 
-        // ¿¡µğÅÍ À©µµ¿ì°¡ ºñÈ°¼ºÈ­µÉ ¶§ È£ÃâµÇ´Â ¸Ş¼­µå
+        // ì—ë””í„° ìœˆë„ìš°ê°€ ë¹„í™œì„±í™”ë  ë•Œ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
         private void OnDisable()
         {
             rootVisualElement.Remove(graphView);
         }
 
-        // ±×·¡ÇÁ ºä¸¦ »ı¼ºÇÏ´Â ¸Ş¼­µå
+        // ê·¸ë˜í”„ ë·°ë¥¼ ìƒì„±í•˜ëŠ” ë©”ì„œë“œ
         private void ContructGraphView()
         {
             graphView = new DialogueGraphView(this);
@@ -104,7 +104,7 @@ namespace DialogueSystem.Editor
             saveAndLoad = new DialogueSaveAndLoad(graphView);
         }
 
-        // Åø¹Ù¸¦ »ı¼ºÇÏ´Â ¸Ş¼­µå
+        // íˆ´ë°”ë¥¼ ìƒì„±í•˜ëŠ” ë©”ì„œë“œ
         private void GenerateToolbar()
         {
             StyleSheet styleSheet = Resources.Load<StyleSheet>("Themes/DarkTheme");
@@ -112,7 +112,7 @@ namespace DialogueSystem.Editor
 
             Toolbar toolbar = new Toolbar();
 
-            // ÀúÀå ¹öÆ° »ı¼º ¹× ÀÌº¥Æ® ÇÚµé·¯ µî·Ï
+            // ì €ì¥ ë²„íŠ¼ ìƒì„± ë° ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬ ë“±ë¡
             ToolbarButton saveBtn = new ToolbarButton() {
                 text = "Save",
                 name = "save_btn"
@@ -123,7 +123,7 @@ namespace DialogueSystem.Editor
             };
             toolbar.Add(saveBtn);
 
-            // ·Îµå ¹öÆ° »ı¼º ¹× ÀÌº¥Æ® ÇÚµé·¯ µî·Ï
+            // ë¡œë“œ ë²„íŠ¼ ìƒì„± ë° ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬ ë“±ë¡
             ToolbarButton loadBtn = new ToolbarButton() {
                 text = "Load",
                 name = "load_btn"
@@ -141,7 +141,7 @@ namespace DialogueSystem.Editor
             toolbar.Add(nameOfDialogueContainer);
             nameOfDialogueContainer.AddToClassList("nameOfDialogueContainer");
 
-            // ·ÎÄÃ¶óÀÌÁ¦ÀÌ¼Ç ¸Ş´º »ı¼º
+            // ë¡œì»¬ë¼ì´ì œì´ì…˜ ë©”ë‰´ ìƒì„±
             toolbarMenu = new ToolbarMenu();
             toolbarMenu.name = "localization_enum";
             foreach (LocalizationEnum language in (LocalizationEnum[])Enum.GetValues(typeof(LocalizationEnum))) {
@@ -149,7 +149,7 @@ namespace DialogueSystem.Editor
             }
             toolbar.Add(toolbarMenu);
 
-            // Å×¸¶ ¸Ş´º »ı¼º
+            // í…Œë§ˆ ë©”ë‰´ ìƒì„±
             toolbarTheme = new ToolbarMenu();
             toolbarTheme.name = "theme_enum";
             foreach (EditorTheme theme in (EditorTheme[])Enum.GetValues(typeof(EditorTheme))) {
@@ -157,11 +157,11 @@ namespace DialogueSystem.Editor
             }
             toolbar.Add(toolbarTheme);
 
-            // Åø¹Ù ±¸ºĞÀÚ Ãß°¡
+            // íˆ´ë°” êµ¬ë¶„ì ì¶”ê°€
             ToolbarSpacer sep_3 = new ToolbarSpacer();
             toolbar.Add(sep_3);
 
-            // ÀÚµ¿ ÀúÀå Åä±Û ¹öÆ° »ı¼º ¹× ÀÌº¥Æ® ÇÚµé·¯ µî·Ï
+            // ìë™ ì €ì¥ í† ê¸€ ë²„íŠ¼ ìƒì„± ë° ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬ ë“±ë¡
             Toggle autoSaveToggle = new Toggle("   Auto Save") {
                 value = AutoSave,
                 name = "autosave_toogle"
@@ -177,7 +177,8 @@ namespace DialogueSystem.Editor
             sep_2.style.flexGrow = 1;
             toolbar.Add(sep_2);
 
-            // ÀÓÆ÷Æ® ¹öÆ° »ı¼º ¹× ÀÌº¥Æ® ÇÚµé·¯ µî·Ï
+
+            // ì„í¬íŠ¸ ë²„íŠ¼ ìƒì„± ë° ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬ ë“±ë¡
             ToolbarButton importBtn = new ToolbarButton() {
                 text = "Import Text",
                 name = "import_btn"
@@ -192,7 +193,7 @@ namespace DialogueSystem.Editor
             importBtn.SetEnabled(false);
             toolbar.Add(importBtn);
 
-            // ÀÍ½ºÆ÷Æ® ¹öÆ° »ı¼º ¹× ÀÌº¥Æ® ÇÚµé·¯ µî·Ï
+            // ìµìŠ¤í¬íŠ¸ ë²„íŠ¼ ìƒì„± ë° ì´ë²¤íŠ¸ í•¸ë“¤ëŸ¬ ë“±ë¡
             ToolbarButton exportBtn = new ToolbarButton() {
                 text = "Export Text",
                 name = "export_btn"
@@ -209,16 +210,16 @@ namespace DialogueSystem.Editor
 
             rootVisualElement.Add(toolbar);
 
-            // ¹öÀü ¶óº§ »ı¼º
+            // ë²„ì „ ë¼ë²¨ ìƒì„±
             Label version = new Label() {
                 name = "version_text",
-                text = "Meet and Talk - Free Version"
+                text = ""
             };
             version.pickingMode = PickingMode.Ignore;
             rootVisualElement.Add(version);
         }
 
-        // ¸Å ÇÁ·¹ÀÓ È£ÃâµÇ´Â ¸Ş¼­µå
+        // ë§¤ í”„ë ˆì„ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
         private void OnGUI()
         {
             
@@ -263,7 +264,7 @@ namespace DialogueSystem.Editor
             }
         }
 
-        // ´ëÈ­ µ¥ÀÌÅÍ¸¦ ·ÎµåÇÏ´Â ¸Ş¼­µå
+        // ëŒ€í™” ë°ì´í„°ë¥¼ ë¡œë“œí•˜ëŠ” ë©”ì„œë“œ
         private void Load()
         {
             if (currentDialogueContainer != null && !Application.isPlaying) {
@@ -276,7 +277,7 @@ namespace DialogueSystem.Editor
             }
         }
 
-        // ´ëÈ­ µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¸Ş¼­µå
+        // ëŒ€í™” ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” ë©”ì„œë“œ
         private void Save()
         {
             if (currentDialogueContainer != null && !Application.isPlaying) {
@@ -284,7 +285,7 @@ namespace DialogueSystem.Editor
             }
         }
 
-        // ·ÎÄÃ¶óÀÌÁ¦ÀÌ¼Ç º¯°æ ¸Ş¼­µå
+        // ë¡œì»¬ë¼ì´ì œì´ì…˜ ë³€ê²½ ë©”ì„œë“œ
         private void Language(LocalizationEnum _language, ToolbarMenu _toolbarMenu)
         {
             toolbarMenu.text = _language.ToString() + "";
@@ -292,7 +293,7 @@ namespace DialogueSystem.Editor
             graphView.LanguageReload();
         }
 
-        // Å×¸¶ º¯°æ ¸Ş¼­µå
+        // í…Œë§ˆ ë³€ê²½ ë©”ì„œë“œ
         private void ChangeTheme(EditorTheme _theme, ToolbarMenu _toolbarMenu)
         {
             toolbarTheme.text = _theme.ToString() + "";

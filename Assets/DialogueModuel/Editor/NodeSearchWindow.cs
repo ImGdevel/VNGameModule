@@ -9,26 +9,25 @@ namespace DialogueSystem.Editor
 {
     public class NodeSearchWindow : ScriptableObject, ISearchWindowProvider
     {
-        private DialogueEditorWindow editorWindow; // ´ëÈ­ ÆíÁı±â Ã¢À» ÂüÁ¶ÇÕ´Ï´Ù.
-        private DialogueGraphView graphView; // ´ëÈ­ ±×·¡ÇÁ ºä¸¦ ÂüÁ¶ÇÕ´Ï´Ù.
+        private DialogueEditorWindow editorWindow; // ëŒ€í™” í¸ì§‘ê¸° ì°½ì„ ì°¸ì¡°í•©ë‹ˆë‹¤.
+        private DialogueGraphView graphView; // ëŒ€í™” ê·¸ë˜í”„ ë·°ë¥¼ ì°¸ì¡°í•©ë‹ˆë‹¤.
 
-        // ¼³Á¤ ¸Ş¼­µå: ¿¡µğÅÍ Ã¢°ú ±×·¡ÇÁ ºä¸¦ ÃÊ±âÈ­ÇÕ´Ï´Ù.
+        // ì„¤ì • ë©”ì„œë“œ: ì—ë””í„° ì°½ê³¼ ê·¸ë˜í”„ ë·°ë¥¼ ì´ˆê¸°í™”í•©ë‹ˆë‹¤.
         public void Configure(DialogueEditorWindow _editorWindow, DialogueGraphView _graphView)
         {
             editorWindow = _editorWindow;
             graphView = _graphView;
         }
 
-        // °Ë»ö Æ®¸®¸¦ »ı¼ºÇÕ´Ï´Ù.
+        // ê²€ìƒ‰ íŠ¸ë¦¬ë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
         public List<SearchTreeEntry> CreateSearchTree(SearchWindowContext context)
         {
-            // °Ë»ö Æ®¸® ¿£Æ®¸® ¸®½ºÆ®¸¦ »ı¼ºÇÕ´Ï´Ù.
+            // ê²€ìƒ‰ íŠ¸ë¦¬ ì—”íŠ¸ë¦¬ ë¦¬ìŠ¤íŠ¸ë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
             List<SearchTreeEntry> tree = new List<SearchTreeEntry>
             {
-                new SearchTreeGroupEntry(new GUIContent("Dialogue Node"), 0), // ÃÖ»óÀ§ ±×·ì ¿£Æ®¸®
-                new SearchTreeGroupEntry(new GUIContent("Dialogue", EditorGUIUtility.FindTexture("d_FilterByType")), 1), // µÎ ¹øÂ° ±×·ì ¿£Æ®¸®
+                new SearchTreeGroupEntry(new GUIContent("Dialogue Node", EditorGUIUtility.FindTexture("d_FilterByType")), 0), // ë‘ ë²ˆì§¸ ê·¸ë£¹ ì—”íŠ¸ë¦¬
 
-                // ´Ù¾çÇÑ ³ëµå¸¦ ±×·ì¿¡ Ãß°¡ÇÕ´Ï´Ù.
+                // ë‹¤ì–‘í•œ ë…¸ë“œë¥¼ ê·¸ë£¹ì— ì¶”ê°€í•©ë‹ˆë‹¤.
                 AddNodeSearchToGroup("Start Node", new StartNode(), "d_Animation.Play"),
                 AddNodeSearchToGroup("Dialogue Node", new DialogueNode(), "d_UnityEditor.HierarchyWindow"),
                 AddNodeSearchToGroup("Choice Node", new DialogueChoiceNode(), "d_TreeEditor.Distribution"),
@@ -38,34 +37,34 @@ namespace DialogueSystem.Editor
             return tree;
         }
 
-        // ³ëµå¸¦ ±×·ì¿¡ Ãß°¡ÇÏ´Â ÇïÆÛ ¸Ş¼­µå
+        // ë…¸ë“œë¥¼ ê·¸ë£¹ì— ì¶”ê°€í•˜ëŠ” í—¬í¼ ë©”ì„œë“œ
         private SearchTreeEntry AddNodeSearchToGroup(string _name, BaseNode _baseNode, string IconName)
         {
             Texture2D _icon = EditorGUIUtility.FindTexture(IconName) as Texture2D;
             SearchTreeEntry tmp = new SearchTreeEntry(new GUIContent(_name, _icon)) {
-                level = 2, // µÎ ¹øÂ° ·¹º§
-                userData = _baseNode // »ç¿ëÀÚ µ¥ÀÌÅÍ¸¦ ³ëµå·Î ¼³Á¤
+                level = 1, // ë‘ ë²ˆì§¸ ë ˆë²¨
+                userData = _baseNode // ì‚¬ìš©ì ë°ì´í„°ë¥¼ ë…¸ë“œë¡œ ì„¤ì •
             };
 
             return tmp;
         }
 
-        // ³ëµå¸¦ Ãß°¡ÇÏ´Â ÇïÆÛ ¸Ş¼­µå
+        // ë…¸ë“œë¥¼ ì¶”ê°€í•˜ëŠ” í—¬í¼ ë©”ì„œë“œ
         private SearchTreeEntry AddNodeSearch(string _name, BaseNode _baseNode, string IconName)
         {
             Texture2D _icon = EditorGUIUtility.FindTexture(IconName) as Texture2D;
             SearchTreeEntry tmp = new SearchTreeEntry(new GUIContent(_name, _icon)) {
-                level = 1, // Ã¹ ¹øÂ° ·¹º§
-                userData = _baseNode // »ç¿ëÀÚ µ¥ÀÌÅÍ¸¦ ³ëµå·Î ¼³Á¤
+                level = 0, // ì²« ë²ˆì§¸ ë ˆë²¨
+                userData = _baseNode // ì‚¬ìš©ì ë°ì´í„°ë¥¼ ë…¸ë“œë¡œ ì„¤ì •
             };
 
             return tmp;
         }
 
-        // ¿£Æ®¸® ¼±ÅÃ ½Ã È£ÃâµÇ´Â ¸Ş¼­µå
+        // ì—”íŠ¸ë¦¬ ì„ íƒ ì‹œ í˜¸ì¶œë˜ëŠ” ë©”ì„œë“œ
         public bool OnSelectEntry(SearchTreeEntry _searchTreeEntry, SearchWindowContext _context)
         {
-            // ¸¶¿ì½º À§Ä¡¸¦ ±×·¡ÇÁ ºäÀÇ ÁÂÇ¥·Î º¯È¯
+            // ë§ˆìš°ìŠ¤ ìœ„ì¹˜ë¥¼ ê·¸ë˜í”„ ë·°ì˜ ì¢Œí‘œë¡œ ë³€í™˜
             Vector2 mousePosition = editorWindow.rootVisualElement.ChangeCoordinatesTo(
                 editorWindow.rootVisualElement.parent,
                 _context.screenMousePosition - editorWindow.position.position
@@ -75,7 +74,7 @@ namespace DialogueSystem.Editor
             return CheckForNodeType(_searchTreeEntry, graphMousePosition);
         }
 
-        // ³ëµå Å¸ÀÔ¿¡ µû¶ó ±×·¡ÇÁ ºä¿¡ ³ëµå¸¦ Ãß°¡ÇÏ´Â ¸Ş¼­µå
+        // ë…¸ë“œ íƒ€ì…ì— ë”°ë¼ ê·¸ë˜í”„ ë·°ì— ë…¸ë“œë¥¼ ì¶”ê°€í•˜ëŠ” ë©”ì„œë“œ
         private bool CheckForNodeType(SearchTreeEntry _searchTreeEntry, Vector2 _pos)
         {
             switch (_searchTreeEntry.userData) {

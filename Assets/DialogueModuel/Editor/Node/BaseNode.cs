@@ -7,25 +7,25 @@ using DialogueSystem.Settings;
 
 namespace DialogueSystem.Nodes
 {
-    // ±âº» ³ëµå Å¬·¡½º
+    // ê¸°ë³¸ ë…¸ë“œ í´ë˜ìŠ¤
     public class BaseNode : Node
     {
-        public string nodeGuid; // ³ëµå °íÀ¯ ½Äº°ÀÚ
-        protected DialogueGraphView graphView; // ´ëÈ­ ±×·¡ÇÁ ºä ÂüÁ¶
-        protected DialogueEditorWindow editorWindow; // ´ëÈ­ ¿¡µğÅÍ Ã¢ ÂüÁ¶
-        protected Vector2 defualtNodeSize = new Vector2(200, 250); // ±âº» ³ëµå Å©±â
+        public string nodeGuid; // ë…¸ë“œ ê³ ìœ  ì‹ë³„ì
+        protected DialogueGraphView graphView; // ëŒ€í™” ê·¸ë˜í”„ ë·° ì°¸ì¡°
+        protected DialogueEditorWindow editorWindow; // ëŒ€í™” ì—ë””í„° ì°½ ì°¸ì¡°
+        protected Vector2 defualtNodeSize = new Vector2(200, 250); // ê¸°ë³¸ ë…¸ë“œ í¬ê¸°
 
-        public List<string> ErrorList = new List<string>(); // ¿À·ù ¸ñ·Ï
-        public List<string> WarningList = new List<string>(); // °æ°í ¸ñ·Ï
+        public List<string> ErrorList = new List<string>(); // ì˜¤ë¥˜ ëª©ë¡
+        public List<string> WarningList = new List<string>(); // ê²½ê³  ëª©ë¡
 
-        protected string NodeGrid { get => NodeGrid; set => nodeGuid = value; } // ³ëµå ±×¸®µå (ÇöÀç ÄÚµå¿¡¼­´Â Àß¸øµÈ ±¸Çö)
+        protected string NodeGrid { get => NodeGrid; set => nodeGuid = value; } // ë…¸ë“œ ê·¸ë¦¬ë“œ (í˜„ì¬ ì½”ë“œì—ì„œëŠ” ì˜ëª»ëœ êµ¬í˜„)
 
-        // ±âº» »ı¼ºÀÚ
+        // ê¸°ë³¸ ìƒì„±ì
         public BaseNode()
         {
         }
 
-        // Ãâ·Â Æ÷Æ®¸¦ Ãß°¡ÇÏ´Â ¸Ş¼­µå
+        // ì¶œë ¥ í¬íŠ¸ë¥¼ ì¶”ê°€í•˜ëŠ” ë©”ì„œë“œ
         public void AddOutputPort(string name, Port.Capacity capality = Port.Capacity.Single)
         {
             Port outputPort = GetPortInstance(Direction.Output, capality);
@@ -33,7 +33,7 @@ namespace DialogueSystem.Nodes
             outputContainer.Add(outputPort);
         }
 
-        // ÀÔ·Â Æ÷Æ®¸¦ Ãß°¡ÇÏ´Â ¸Ş¼­µå
+        // ì…ë ¥ í¬íŠ¸ë¥¼ ì¶”ê°€í•˜ëŠ” ë©”ì„œë“œ
         public void AddInputPort(string name, Port.Capacity capality = Port.Capacity.Single)
         {
             Port inputPort = GetPortInstance(Direction.Input, capality);
@@ -41,16 +41,16 @@ namespace DialogueSystem.Nodes
             inputContainer.Add(inputPort);
         }
 
-        // Æ÷Æ® ÀÎ½ºÅÏ½º¸¦ »ı¼ºÇÏ´Â ¸Ş¼­µå
+        // í¬íŠ¸ ì¸ìŠ¤í„´ìŠ¤ë¥¼ ìƒì„±í•˜ëŠ” ë©”ì„œë“œ
         public Port GetPortInstance(Direction nodeDirection, Port.Capacity capacity = Port.Capacity.Single)
         {
             return InstantiatePort(Orientation.Horizontal, nodeDirection, capacity, typeof(float));
         }
 
-        // ÇÊµå¿¡ °ªÀ» ·ÎµåÇÏ´Â °¡»ó ¸Ş¼­µå (»ó¼Ó¹ŞÀº Å¬·¡½º¿¡¼­ ±¸Çö)
+        // í•„ë“œì— ê°’ì„ ë¡œë“œí•˜ëŠ” ê°€ìƒ ë©”ì„œë“œ (ìƒì†ë°›ì€ í´ë˜ìŠ¤ì—ì„œ êµ¬í˜„)
         public virtual void LoadValueInToField(){}
 
-        // Å×¸¶¸¦ ¾÷µ¥ÀÌÆ®ÇÏ´Â ¸Ş¼­µå
+        // í…Œë§ˆë¥¼ ì—…ë°ì´íŠ¸í•˜ëŠ” ë©”ì„œë“œ
         public void UpdateTheme(string name)
         {
             if (styleSheets[styleSheets.count - 1].name != "Node")
@@ -58,31 +58,31 @@ namespace DialogueSystem.Nodes
             styleSheets.Add(Resources.Load<StyleSheet>($"Themes/{name}Theme"));
         }
 
-        // À¯È¿¼º °Ë»ç ÄÁÅ×ÀÌ³Ê¸¦ Ãß°¡ÇÏ´Â ¸Ş¼­µå
+        // ìœ íš¨ì„± ê²€ì‚¬ ì»¨í…Œì´ë„ˆë¥¼ ì¶”ê°€í•˜ëŠ” ë©”ì„œë“œ
         public void AddValidationContainer()
         {
-            // ÄÁÅ×ÀÌ³Ê »ı¼º
+            // ì»¨í…Œì´ë„ˆ ìƒì„±
             VisualElement container = new VisualElement();
             container.name = "ValidationContainer";
 
-            // ¿À·ù ÄÁÅ×ÀÌ³Ê »ı¼º
+            // ì˜¤ë¥˜ ì»¨í…Œì´ë„ˆ ìƒì„±
             HelpBox ErrorContainer = new HelpBox("Empty Error", HelpBoxMessageType.Error);
             ErrorContainer.name = "ErrorContainer";
             ErrorContainer.style.display = DisplayStyle.None;
             container.Add(ErrorContainer);
 
-            // °æ°í ÄÁÅ×ÀÌ³Ê »ı¼º
+            // ê²½ê³  ì»¨í…Œì´ë„ˆ ìƒì„±
             HelpBox WarningContainer = new HelpBox("Empty Warning", HelpBoxMessageType.Warning);
             WarningContainer.name = "WarningContainer";
             WarningContainer.style.display = DisplayStyle.None;
             container.Add(WarningContainer);
 
-            // ÄÁÅ×ÀÌ³Ê Ãß°¡
+            // ì»¨í…Œì´ë„ˆ ì¶”ê°€
             titleContainer.Add(container);
             mainContainer.style.overflow = Overflow.Visible;
         }
 
-        // ³ëµå¸¦ À¯È¿¼º °Ë»çÇÏ´Â ¸Ş¼­µå
+        // ë…¸ë“œë¥¼ ìœ íš¨ì„± ê²€ì‚¬í•˜ëŠ” ë©”ì„œë“œ
         public void Validate()
         {
             SetValidation();
@@ -90,7 +90,7 @@ namespace DialogueSystem.Nodes
             if (!settings.ShowErrors) ErrorList.Clear();
             if (!settings.ShowWarnings) WarningList.Clear();
 
-            // ¿À·ù ¹Ú½º ¾÷µ¥ÀÌÆ®
+            // ì˜¤ë¥˜ ë°•ìŠ¤ ì—…ë°ì´íŠ¸
             HelpBox errorBox = titleContainer.Query<HelpBox>("ErrorContainer").First();
             if (errorBox != null) {
                 if (ErrorList.Count < 1) {
@@ -108,7 +108,7 @@ namespace DialogueSystem.Nodes
                 }
             }
 
-            // °æ°í ¹Ú½º ¾÷µ¥ÀÌÆ®
+            // ê²½ê³  ë°•ìŠ¤ ì—…ë°ì´íŠ¸
             HelpBox warningBox = titleContainer.Query<HelpBox>("WarningContainer").First();
             if (warningBox != null) {
                 if (WarningList.Count < 1) {
@@ -127,7 +127,7 @@ namespace DialogueSystem.Nodes
             }
         }
 
-        // À¯È¿¼º °Ë»ç¸¦ ¼³Á¤ÇÏ´Â °¡»ó ¸Ş¼­µå (»ó¼Ó¹ŞÀº Å¬·¡½º¿¡¼­ ±¸Çö)
+        // ìœ íš¨ì„± ê²€ì‚¬ë¥¼ ì„¤ì •í•˜ëŠ” ê°€ìƒ ë©”ì„œë“œ (ìƒì†ë°›ì€ í´ë˜ìŠ¤ì—ì„œ êµ¬í˜„)
         public virtual void SetValidation() { }
     }
 }

@@ -13,49 +13,49 @@ namespace DialogueSystem.Nodes
 {
     public class DialogueNode : BaseNode
     {
-        // ´ëÈ­ ÅØ½ºÆ®¿Í ¿Àµğ¿À Å¬¸³À» ÀúÀåÇÒ ¸®½ºÆ®
+        // ëŒ€í™” í…ìŠ¤íŠ¸ì™€ ì˜¤ë””ì˜¤ í´ë¦½ì„ ì €ì¥í•  ë¦¬ìŠ¤íŠ¸
         private List<LanguageGeneric<string>> texts = new List<LanguageGeneric<string>>();
         private List<LanguageGeneric<AudioClip>> audioClip = new List<LanguageGeneric<AudioClip>>();
 
-        // ´ëÈ­ Ä³¸¯ÅÍ¿Í Ç¥½Ã ½Ã°£À» ÀúÀåÇÒ º¯¼ö
+        // ëŒ€í™” ìºë¦­í„°ì™€ í‘œì‹œ ì‹œê°„ì„ ì €ì¥í•  ë³€ìˆ˜
         private DialogueCharacterSO character = ScriptableObject.CreateInstance<DialogueCharacterSO>();
         private float durationShow = 10;
 
-        // ´ëÈ­ ³ëµå Æ÷Æ®¸¦ ÀúÀåÇÒ ¸®½ºÆ®
+        // ëŒ€í™” ë…¸ë“œ í¬íŠ¸ë¥¼ ì €ì¥í•  ë¦¬ìŠ¤íŠ¸
         public List<DialogueNodePort> dialogueNodePorts = new List<DialogueNodePort>();
 
-        // ÇÁ·ÎÆÛÆ¼ Á¤ÀÇ
+        // í”„ë¡œí¼í‹° ì •ì˜
         public List<LanguageGeneric<string>> Texts { get => texts; set => texts = value; }
         public List<LanguageGeneric<AudioClip>> AudioClip { get => audioClip; set => audioClip = value; }
         public DialogueCharacterSO Character { get => character; set => character = value; }
         public float DurationShow { get => durationShow; set => durationShow = value; }
 
-        // UI ¿ä¼Ò¸¦ À§ÇÑ ÇÊµå Á¤ÀÇ
+        // UI ìš”ì†Œë¥¼ ìœ„í•œ í•„ë“œ ì •ì˜
         private TextField texts_Field;
         private ObjectField audioClips_Field;
         private TextField name_Field;
         private ObjectField character_Field;
         private FloatField duration_Field;
 
-        // ±âº» »ı¼ºÀÚ
+        // ê¸°ë³¸ ìƒì„±ì
         public DialogueNode()
         {
         }
 
-        // Ä¿½ºÅÒ »ı¼ºÀÚ: ³ëµåÀÇ ÃÊ±â À§Ä¡, ¿¡µğÅÍ Ã¢, ±×·¡ÇÁ ºä¸¦ ¼³Á¤
+        // ì»¤ìŠ¤í…€ ìƒì„±ì: ë…¸ë“œì˜ ì´ˆê¸° ìœ„ì¹˜, ì—ë””í„° ì°½, ê·¸ë˜í”„ ë·°ë¥¼ ì„¤ì •
         public DialogueNode(Vector2 _position, DialogueEditorWindow _editorWindow, DialogueGraphView _graphView)
         {
             editorWindow = _editorWindow;
             graphView = _graphView;
 
-            title = "Dialogue"; // ³ëµå Á¦¸ñ ¼³Á¤
-            SetPosition(new Rect(_position, defualtNodeSize)); // ³ëµå À§Ä¡ ¼³Á¤
-            nodeGuid = Guid.NewGuid().ToString(); // °íÀ¯ ½Äº°ÀÚ »ı¼º
+            title = "Dialogue"; // ë…¸ë“œ ì œëª© ì„¤ì •
+            SetPosition(new Rect(_position, defualtNodeSize)); // ë…¸ë“œ ìœ„ì¹˜ ì„¤ì •
+            nodeGuid = Guid.NewGuid().ToString(); // ê³ ìœ  ì‹ë³„ì ìƒì„±
 
-            AddInputPort("Input", Port.Capacity.Multi); // ÀÔ·Â Æ÷Æ® Ãß°¡
-            AddOutputPort("Output", Port.Capacity.Single); // Ãâ·Â Æ÷Æ® Ãß°¡
+            AddInputPort("Input", Port.Capacity.Multi); // ì…ë ¥ í¬íŠ¸ ì¶”ê°€
+            AddOutputPort("Output", Port.Capacity.Single); // ì¶œë ¥ í¬íŠ¸ ì¶”ê°€
 
-            // °¢ ¾ğ¾î¿¡ ´ëÇØ ÅØ½ºÆ®¿Í ¿Àµğ¿À Å¬¸³ ÃÊ±âÈ­
+            // ê° ì–¸ì–´ì— ëŒ€í•´ í…ìŠ¤íŠ¸ì™€ ì˜¤ë””ì˜¤ í´ë¦½ ì´ˆê¸°í™”
             foreach (LocalizationEnum language in (LocalizationEnum[])Enum.GetValues(typeof(LocalizationEnum))) {
                 texts.Add(new LanguageGeneric<string> {
                     languageEnum = language,
@@ -67,7 +67,7 @@ namespace DialogueSystem.Nodes
                 });
             }
 
-            // ¿Àµğ¿À Å¬¸³ ÇÊµå ¼³Á¤
+            // ì˜¤ë””ì˜¤ í´ë¦½ í•„ë“œ ì„¤ì •
             Label label_audio = new Label("Voice Audio Clip");
             label_audio.AddToClassList("label_audio");
             label_audio.AddToClassList("Label");
@@ -83,7 +83,7 @@ namespace DialogueSystem.Nodes
             audioClips_Field.SetValueWithoutNotify(audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType);
             mainContainer.Add(audioClips_Field);
 
-            // Ä³¸¯ÅÍ ÇÊµå ¼³Á¤
+            // ìºë¦­í„° í•„ë“œ ì„¤ì •
             Label label_character = new Label("Character SO");
             label_character.AddToClassList("label_name");
             label_character.AddToClassList("Label");
@@ -98,7 +98,7 @@ namespace DialogueSystem.Nodes
             character_Field.SetValueWithoutNotify(character);
             mainContainer.Add(character_Field);
 
-            // ÅØ½ºÆ® ÇÊµå ¼³Á¤
+            // í…ìŠ¤íŠ¸ í•„ë“œ ì„¤ì •
             Label label_texts = new Label("Displayed Text");
             label_texts.AddToClassList("label_texts");
             label_texts.AddToClassList("Label");
@@ -113,7 +113,7 @@ namespace DialogueSystem.Nodes
             texts_Field.AddToClassList("TextBox");
             mainContainer.Add(texts_Field);
 
-            // Ç¥½Ã ½Ã°£ ÇÊµå ¼³Á¤
+            // í‘œì‹œ ì‹œê°„ í•„ë“œ ì„¤ì •
             Label label_duration = new Label("Display Time");
             label_duration.AddToClassList("label_duration");
             label_duration.AddToClassList("Label");
@@ -127,11 +127,11 @@ namespace DialogueSystem.Nodes
             duration_Field.AddToClassList("TextDuration");
             mainContainer.Add(duration_Field);
 
-            // À¯È¿¼º °Ë»ç ÄÁÅ×ÀÌ³Ê Ãß°¡
+            // ìœ íš¨ì„± ê²€ì‚¬ ì»¨í…Œì´ë„ˆ ì¶”ê°€
             AddValidationContainer();
         }
 
-        // ¾ğ¾î¸¦ ´Ù½Ã ·ÎµåÇÏ´Â ¸Ş¼­µå
+        // ì–¸ì–´ë¥¼ ë‹¤ì‹œ ë¡œë“œí•˜ëŠ” ë©”ì„œë“œ
         public void ReloadLanguage()
         {
             texts_Field.RegisterValueChangedCallback(value => {
@@ -145,7 +145,7 @@ namespace DialogueSystem.Nodes
             audioClips_Field.SetValueWithoutNotify(audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType);
         }
 
-        // ÇÊµå¿¡ °ªÀ» ·ÎµåÇÏ´Â ¸Ş¼­µå
+        // í•„ë“œì— ê°’ì„ ë¡œë“œí•˜ëŠ” ë©”ì„œë“œ
         public override void LoadValueInToField()
         {
             texts_Field.SetValueWithoutNotify(texts.Find(language => language.languageEnum == editorWindow.LanguageEnum).LanguageGenericType);
@@ -154,7 +154,7 @@ namespace DialogueSystem.Nodes
             duration_Field.SetValueWithoutNotify(durationShow);
         }
 
-        // À¯È¿¼º °Ë»ç¸¦ ¼³Á¤ÇÏ´Â ¸Ş¼­µå
+        // ìœ íš¨ì„± ê²€ì‚¬ë¥¼ ì„¤ì •í•˜ëŠ” ë©”ì„œë“œ
         public override void SetValidation()
         {
             List<string> error = new List<string>();
