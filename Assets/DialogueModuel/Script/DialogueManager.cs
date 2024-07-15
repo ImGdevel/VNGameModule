@@ -10,77 +10,77 @@ namespace DialogueSystem
 {
     public class DialogueManager : DialogueGetData
     {
-        [HideInInspector] public static DialogueManager Instance; // ½Ì±ÛÅæ ÀÎ½ºÅÏ½º
-        public LocalizationManager localizationManager; // LocalizationManager ÀÎ½ºÅÏ½º
+        [HideInInspector] public static DialogueManager Instance; // ì‹±ê¸€í†¤ ì¸ìŠ¤í„´ìŠ¤
+        public LocalizationManager localizationManager; // LocalizationManager ì¸ìŠ¤í„´ìŠ¤
 
-        [HideInInspector] public DialogueUIManager dialogueUIManager; // DialogueUIManager ÀÎ½ºÅÏ½º
-        public AudioSource audioSource; // ¿Àµğ¿À ¼Ò½º ÄÄÆ÷³ÍÆ®
+        [HideInInspector] public DialogueUIManager dialogueUIManager; // DialogueUIManager ì¸ìŠ¤í„´ìŠ¤
+        public AudioSource audioSource; // ì˜¤ë””ì˜¤ ì†ŒìŠ¤ ì»´í¬ë„ŒíŠ¸
 
-        public UnityEvent StartDialogueEvent; // ´ëÈ­ ½ÃÀÛ ÀÌº¥Æ®
-        public UnityEvent EndDialogueEvent; // ´ëÈ­ Á¾·á ÀÌº¥Æ®
+        public UnityEvent StartDialogueEvent; // ëŒ€í™” ì‹œì‘ ì´ë²¤íŠ¸
+        public UnityEvent EndDialogueEvent; // ëŒ€í™” ì¢…ë£Œ ì´ë²¤íŠ¸
 
-        private BaseNodeData currentDialogueNodeData; // ÇöÀç ´ëÈ­ ³ëµå µ¥ÀÌÅÍ
-        private BaseNodeData lastDialogueNodeData; // ¸¶Áö¸· ´ëÈ­ ³ëµå µ¥ÀÌÅÍ
+        private BaseNodeData currentDialogueNodeData; // í˜„ì¬ ëŒ€í™” ë…¸ë“œ ë°ì´í„°
+        private BaseNodeData lastDialogueNodeData; // ë§ˆì§€ë§‰ ëŒ€í™” ë…¸ë“œ ë°ì´í„°
 
-        private TimerChoiceNodeData _nodeTimerInvoke; // Å¸ÀÌ¸Ó ¼±ÅÃ ³ëµå µ¥ÀÌÅÍ
-        private DialogueNodeData _nodeDialogueInvoke; // ´ëÈ­ ³ëµå µ¥ÀÌÅÍ
-        private DialogueChoiceNodeData _nodeChoiceInvoke; // ´ëÈ­ ¼±ÅÃ ³ëµå µ¥ÀÌÅÍ
+        private TimerChoiceNodeData _nodeTimerInvoke; // íƒ€ì´ë¨¸ ì„ íƒ ë…¸ë“œ ë°ì´í„°
+        private DialogueNodeData _nodeDialogueInvoke; // ëŒ€í™” ë…¸ë“œ ë°ì´í„°
+        private DialogueChoiceNodeData _nodeChoiceInvoke; // ëŒ€í™” ì„ íƒ ë…¸ë“œ ë°ì´í„°
 
-        float Timer; // Å¸ÀÌ¸Ó º¯¼ö
+        float Timer; // íƒ€ì´ë¨¸ ë³€ìˆ˜
 
         private void Awake()
         {
-            Instance = this; // ½Ì±ÛÅæ ÀÎ½ºÅÏ½º ¼³Á¤
-            dialogueUIManager = DialogueUIManager.Instance; // DialogueUIManager ÀÎ½ºÅÏ½º ¼³Á¤
-            audioSource = GetComponent<AudioSource>(); // ¿Àµğ¿À ¼Ò½º ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
+            Instance = this; // ì‹±ê¸€í†¤ ì¸ìŠ¤í„´ìŠ¤ ì„¤ì •
+            dialogueUIManager = DialogueUIManager.Instance; // DialogueUIManager ì¸ìŠ¤í„´ìŠ¤ ì„¤ì •
+            audioSource = GetComponent<AudioSource>(); // ì˜¤ë””ì˜¤ ì†ŒìŠ¤ ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
         }
 
         private void Update()
         {
-            Timer -= Time.deltaTime; // Å¸ÀÌ¸Ó °¨¼Ò
-            if (Timer > 0) dialogueUIManager.TimerSlider.value = Timer; // Å¸ÀÌ¸Ó ½½¶óÀÌ´õ ¾÷µ¥ÀÌÆ®
+            Timer -= Time.deltaTime; // íƒ€ì´ë¨¸ ê°ì†Œ
+            if (Timer > 0) dialogueUIManager.TimerSlider.value = Timer; // íƒ€ì´ë¨¸ ìŠ¬ë¼ì´ë” ì—…ë°ì´íŠ¸
         }
 
         public void SetupDialogue(DialogueContainerSO dialogue)
         {
-            dialogueContainer = dialogue; // ´ëÈ­ ÄÁÅ×ÀÌ³Ê ¼³Á¤
+            dialogueContainer = dialogue; // ëŒ€í™” ì»¨í…Œì´ë„ˆ ì„¤ì •
         }
 
         public void StartDialogue(DialogueContainerSO dialogue)
         {
-            dialogueUIManager = DialogueUIManager.Instance; // DialogueUIManager ÀÎ½ºÅÏ½º ¼³Á¤
-            dialogueContainer = dialogue; // ´ëÈ­ ÄÁÅ×ÀÌ³Ê ¼³Á¤
+            dialogueUIManager = DialogueUIManager.Instance; // DialogueUIManager ì¸ìŠ¤í„´ìŠ¤ ì„¤ì •
+            dialogueContainer = dialogue; // ëŒ€í™” ì»¨í…Œì´ë„ˆ ì„¤ì •
 
-            // ½ÃÀÛ ³ëµå µ¥ÀÌÅÍ°¡ ÇÏ³ªÀÏ °æ¿ì
+            // ì‹œì‘ ë…¸ë“œ ë°ì´í„°ê°€ í•˜ë‚˜ì¼ ê²½ìš°
             if (dialogueContainer.StartNodeDatas.Count == 1) CheckNodeType(GetNextNode(dialogueContainer.StartNodeDatas[0]));
-            // ½ÃÀÛ ³ëµå µ¥ÀÌÅÍ°¡ ¿©·¯ °³ÀÏ °æ¿ì ¹«ÀÛÀ§·Î ¼±ÅÃ
+            // ì‹œì‘ ë…¸ë“œ ë°ì´í„°ê°€ ì—¬ëŸ¬ ê°œì¼ ê²½ìš° ë¬´ì‘ìœ„ë¡œ ì„ íƒ
             else { CheckNodeType(GetNextNode(dialogueContainer.StartNodeDatas[Random.Range(0, dialogueContainer.StartNodeDatas.Count)])); }
 
-            dialogueUIManager.dialogueCanvas.SetActive(true); // ´ëÈ­ Äµ¹ö½º È°¼ºÈ­
-            StartDialogueEvent.Invoke(); // ´ëÈ­ ½ÃÀÛ ÀÌº¥Æ® È£Ãâ
+            dialogueUIManager.dialogueCanvas.SetActive(true); // ëŒ€í™” ìº”ë²„ìŠ¤ í™œì„±í™”
+            StartDialogueEvent.Invoke(); // ëŒ€í™” ì‹œì‘ ì´ë²¤íŠ¸ í˜¸ì¶œ
         }
 
         public void StartDialogue(string ID)
         {
-            StartDialogue(); // ID·Î ´ëÈ­ ½ÃÀÛ
+            StartDialogue(); // IDë¡œ ëŒ€í™” ì‹œì‘
         }
 
         public void StartDialogue()
         {
-            dialogueUIManager = DialogueUIManager.Instance; // DialogueUIManager ÀÎ½ºÅÏ½º ¼³Á¤
+            dialogueUIManager = DialogueUIManager.Instance; // DialogueUIManager ì¸ìŠ¤í„´ìŠ¤ ì„¤ì •
 
-            // ½ÃÀÛ ³ëµå µ¥ÀÌÅÍ°¡ ÇÏ³ªÀÏ °æ¿ì
+            // ì‹œì‘ ë…¸ë“œ ë°ì´í„°ê°€ í•˜ë‚˜ì¼ ê²½ìš°
             if (dialogueContainer.StartNodeDatas.Count == 1) CheckNodeType(GetNextNode(dialogueContainer.StartNodeDatas[0]));
-            // ½ÃÀÛ ³ëµå µ¥ÀÌÅÍ°¡ ¿©·¯ °³ÀÏ °æ¿ì ¹«ÀÛÀ§·Î ¼±ÅÃ
+            // ì‹œì‘ ë…¸ë“œ ë°ì´í„°ê°€ ì—¬ëŸ¬ ê°œì¼ ê²½ìš° ë¬´ì‘ìœ„ë¡œ ì„ íƒ
             else { CheckNodeType(GetNextNode(dialogueContainer.StartNodeDatas[Random.Range(0, dialogueContainer.StartNodeDatas.Count)])); }
 
-            dialogueUIManager.dialogueCanvas.SetActive(true); // ´ëÈ­ Äµ¹ö½º È°¼ºÈ­
-            StartDialogueEvent.Invoke(); // ´ëÈ­ ½ÃÀÛ ÀÌº¥Æ® È£Ãâ
+            dialogueUIManager.dialogueCanvas.SetActive(true); // ëŒ€í™” ìº”ë²„ìŠ¤ í™œì„±í™”
+            StartDialogueEvent.Invoke(); // ëŒ€í™” ì‹œì‘ ì´ë²¤íŠ¸ í˜¸ì¶œ
         }
 
         public void CheckNodeType(BaseNodeData _baseNodeData)
         {
-            // ³ëµå Å¸ÀÔ¿¡ µû¶ó ½ÇÇàÇÒ ÇÔ¼ö ¼±ÅÃ
+            // ë…¸ë“œ íƒ€ì…ì— ë”°ë¼ ì‹¤í–‰í•  í•¨ìˆ˜ ì„ íƒ
             switch (_baseNodeData) {
                 case StartNodeData nodeData:
                     RunNode(nodeData);
@@ -101,15 +101,15 @@ namespace DialogueSystem
 
         private void RunNode(StartNodeData _nodeData)
         {
-            CheckNodeType(GetNextNode(dialogueContainer.StartNodeDatas[0])); // ´ÙÀ½ ³ëµå ½ÇÇà
+            CheckNodeType(GetNextNode(dialogueContainer.StartNodeDatas[0])); // ë‹¤ìŒ ë…¸ë“œ ì‹¤í–‰
         }
 
         private void RunNode(DialogueNodeData _nodeData)
         {
-            lastDialogueNodeData = currentDialogueNodeData; // ¸¶Áö¸· ³ëµå µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®
-            currentDialogueNodeData = _nodeData; // ÇöÀç ³ëµå µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®
+            lastDialogueNodeData = currentDialogueNodeData; // ë§ˆì§€ë§‰ ë…¸ë“œ ë°ì´í„° ì—…ë°ì´íŠ¸
+            currentDialogueNodeData = _nodeData; // í˜„ì¬ ë…¸ë“œ ë°ì´í„° ì—…ë°ì´íŠ¸
 
-            // Ä³¸¯ÅÍ ÀÌ¸§°ú ´ëÈ­ ÅØ½ºÆ® ¼³Á¤
+            // ìºë¦­í„° ì´ë¦„ê³¼ ëŒ€í™” í…ìŠ¤íŠ¸ ì„¤ì •
             if (dialogueUIManager.showSeparateName && dialogueUIManager.nameTextBox != null && _nodeData.Character != null) {
                 dialogueUIManager.ResetText("");
                 dialogueUIManager.nameTextBox.text = $"<color={_nodeData.Character.HexColor()}>{_nodeData.Character.characterName.Find(text => text.languageEnum == localizationManager.SelectedLang()).LanguageGenericType}</color>";
@@ -124,29 +124,29 @@ namespace DialogueSystem
                 dialogueUIManager.ResetText("");
             }
 
-            // ÀüÃ¼ ´ëÈ­ ÅØ½ºÆ® ¼³Á¤
+            // ì „ì²´ ëŒ€í™” í…ìŠ¤íŠ¸ ì„¤ì •
             dialogueUIManager.fullText = $"{_nodeData.TextType.Find(text => text.languageEnum == localizationManager.SelectedLang()).LanguageGenericType}";
 
-            dialogueUIManager.SkipButton.SetActive(true); // ½ºÅµ ¹öÆ° È°¼ºÈ­
-            MakeButtons(new List<DialogueNodePort>()); // ¹öÆ° »ı¼º
+            dialogueUIManager.SkipButton.SetActive(true); // ìŠ¤í‚µ ë²„íŠ¼ í™œì„±í™”
+            MakeButtons(new List<DialogueNodePort>()); // ë²„íŠ¼ ìƒì„±
 
-            // ¿Àµğ¿À Å¬¸³ Àç»ı
+            // ì˜¤ë””ì˜¤ í´ë¦½ ì¬ìƒ
             if (_nodeData.AudioClips.Find(clip => clip.languageEnum == localizationManager.SelectedLang()).LanguageGenericType != null)
                 audioSource.PlayOneShot(_nodeData.AudioClips.Find(clip => clip.languageEnum == localizationManager.SelectedLang()).LanguageGenericType);
 
-            _nodeDialogueInvoke = _nodeData; // ´ëÈ­ ³ëµå µ¥ÀÌÅÍ ¼³Á¤
+            _nodeDialogueInvoke = _nodeData; // ëŒ€í™” ë…¸ë“œ ë°ì´í„° ì„¤ì •
 
-            // ³ëµå Áö¼Ó ½Ã°£ ÈÄ ´ÙÀ½ ³ëµå·Î ÀÌµ¿
+            // ë…¸ë“œ ì§€ì† ì‹œê°„ í›„ ë‹¤ìŒ ë…¸ë“œë¡œ ì´ë™
             IEnumerator tmp() { yield return new WaitForSeconds(_nodeData.Duration); DialogueNode_NextNode(); }
             if (_nodeData.Duration != 0) StartCoroutine(tmp());
         }
 
         private void RunNode(DialogueChoiceNodeData _nodeData)
         {
-            lastDialogueNodeData = currentDialogueNodeData; // ¸¶Áö¸· ³ëµå µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®
-            currentDialogueNodeData = _nodeData; // ÇöÀç ³ëµå µ¥ÀÌÅÍ ¾÷µ¥ÀÌÆ®
+            lastDialogueNodeData = currentDialogueNodeData; // ë§ˆì§€ë§‰ ë…¸ë“œ ë°ì´í„° ì—…ë°ì´íŠ¸
+            currentDialogueNodeData = _nodeData; // í˜„ì¬ ë…¸ë“œ ë°ì´í„° ì—…ë°ì´íŠ¸
 
-            // Ä³¸¯ÅÍ ÀÌ¸§°ú ´ëÈ­ ÅØ½ºÆ® ¼³Á¤
+            // ìºë¦­í„° ì´ë¦„ê³¼ ëŒ€í™” í…ìŠ¤íŠ¸ ì„¤ì •
             if (dialogueUIManager.showSeparateName && dialogueUIManager.nameTextBox != null && _nodeData.Character != null) {
                 dialogueUIManager.ResetText("");
                 dialogueUIManager.nameTextBox.text = $"<color={_nodeData.Character.HexColor()}>{_nodeData.Character.characterName.Find(text => text.languageEnum == localizationManager.SelectedLang()).LanguageGenericType}</color>";
@@ -161,39 +161,39 @@ namespace DialogueSystem
                 dialogueUIManager.ResetText("");
             }
 
-            // ÀüÃ¼ ´ëÈ­ ÅØ½ºÆ® ¼³Á¤
+            // ì „ì²´ ëŒ€í™” í…ìŠ¤íŠ¸ ì„¤ì •
             dialogueUIManager.fullText = $"{_nodeData.TextType.Find(text => text.languageEnum == localizationManager.SelectedLang()).LanguageGenericType}";
 
-            dialogueUIManager.SkipButton.SetActive(true); // ½ºÅµ ¹öÆ° È°¼ºÈ­
-            MakeButtons(new List<DialogueNodePort>()); // ¹öÆ° »ı¼º
+            dialogueUIManager.SkipButton.SetActive(true); // ìŠ¤í‚µ ë²„íŠ¼ í™œì„±í™”
+            MakeButtons(new List<DialogueNodePort>()); // ë²„íŠ¼ ìƒì„±
 
-            _nodeChoiceInvoke = _nodeData; // ´ëÈ­ ¼±ÅÃ ³ëµå µ¥ÀÌÅÍ ¼³Á¤
+            _nodeChoiceInvoke = _nodeData; // ëŒ€í™” ì„ íƒ ë…¸ë“œ ë°ì´í„° ì„¤ì •
 
-            // ³ëµå Áö¼Ó ½Ã°£ ÈÄ ¼±ÅÃÁö »ı¼º
+            // ë…¸ë“œ ì§€ì† ì‹œê°„ í›„ ì„ íƒì§€ ìƒì„±
             IEnumerator tmp() { yield return new WaitForSeconds(_nodeData.Duration); ChoiceNode_GenerateChoice(); }
             StartCoroutine(tmp());
 
-            // ¿Àµğ¿À Å¬¸³ Àç»ı
+            // ì˜¤ë””ì˜¤ í´ë¦½ ì¬ìƒ
             if (_nodeData.AudioClips.Find(clip => clip.languageEnum == localizationManager.SelectedLang()).LanguageGenericType != null)
                 audioSource.PlayOneShot(_nodeData.AudioClips.Find(clip => clip.languageEnum == localizationManager.SelectedLang()).LanguageGenericType);
         }
 
         private void RunNode(EndNodeData _nodeData)
         {
-            // ¿£µå ³ëµå Å¸ÀÔ¿¡ µû¶ó ´Ù¸¥ µ¿ÀÛ ¼öÇà
+            // ì—”ë“œ ë…¸ë“œ íƒ€ì…ì— ë”°ë¼ ë‹¤ë¥¸ ë™ì‘ ìˆ˜í–‰
             switch (_nodeData.EndNodeType) {
                 case EndNodeType.End:
-                    dialogueUIManager.dialogueCanvas.SetActive(false); // ´ëÈ­ Äµ¹ö½º ºñÈ°¼ºÈ­
-                    EndDialogueEvent.Invoke(); // ´ëÈ­ Á¾·á ÀÌº¥Æ® È£Ãâ
+                    dialogueUIManager.dialogueCanvas.SetActive(false); // ëŒ€í™” ìº”ë²„ìŠ¤ ë¹„í™œì„±í™”
+                    EndDialogueEvent.Invoke(); // ëŒ€í™” ì¢…ë£Œ ì´ë²¤íŠ¸ í˜¸ì¶œ
                     break;
                 case EndNodeType.Repeat:
-                    CheckNodeType(GetNodeByGuid(currentDialogueNodeData.NodeGuid)); // ÇöÀç ³ëµå ¹İº¹ ½ÇÇà
+                    CheckNodeType(GetNodeByGuid(currentDialogueNodeData.NodeGuid)); // í˜„ì¬ ë…¸ë“œ ë°˜ë³µ ì‹¤í–‰
                     break;
                 case EndNodeType.GoBack:
-                    CheckNodeType(GetNodeByGuid(lastDialogueNodeData.NodeGuid)); // ¸¶Áö¸· ³ëµå·Î µ¹¾Æ°¡±â
+                    CheckNodeType(GetNodeByGuid(lastDialogueNodeData.NodeGuid)); // ë§ˆì§€ë§‰ ë…¸ë“œë¡œ ëŒì•„ê°€ê¸°
                     break;
                 case EndNodeType.ReturnToStart:
-                    CheckNodeType(GetNextNode(dialogueContainer.StartNodeDatas[Random.Range(0, dialogueContainer.StartNodeDatas.Count)])); // ½ÃÀÛ ³ëµå·Î µ¹¾Æ°¡±â
+                    CheckNodeType(GetNextNode(dialogueContainer.StartNodeDatas[Random.Range(0, dialogueContainer.StartNodeDatas.Count)])); // ì‹œì‘ ë…¸ë“œë¡œ ëŒì•„ê°€ê¸°
                     break;
                 default:
                     break;
@@ -202,34 +202,34 @@ namespace DialogueSystem
 
         private void MakeButtons(List<DialogueNodePort> _nodePorts)
         {
-            List<string> texts = new List<string>(); // ¹öÆ° ÅØ½ºÆ® ¸®½ºÆ®
-            List<UnityAction> unityActions = new List<UnityAction>(); // ¹öÆ° ¾×¼Ç ¸®½ºÆ®
+            List<string> texts = new List<string>(); // ë²„íŠ¼ í…ìŠ¤íŠ¸ ë¦¬ìŠ¤íŠ¸
+            List<UnityAction> unityActions = new List<UnityAction>(); // ë²„íŠ¼ ì•¡ì…˜ ë¦¬ìŠ¤íŠ¸
 
-            // °¢ ³ëµå Æ÷Æ®¿¡ ´ëÇØ ¹öÆ° ÅØ½ºÆ®¿Í ¾×¼Ç ¼³Á¤
+            // ê° ë…¸ë“œ í¬íŠ¸ì— ëŒ€í•´ ë²„íŠ¼ í…ìŠ¤íŠ¸ì™€ ì•¡ì…˜ ì„¤ì •
             foreach (DialogueNodePort nodePort in _nodePorts) {
                 texts.Add(nodePort.TextLanguage.Find(text => text.languageEnum == localizationManager.SelectedLang()).LanguageGenericType);
                 UnityAction tempAction = null;
                 tempAction += () => {
-                    CheckNodeType(GetNodeByGuid(nodePort.InputGuid)); // ³ëµå Æ÷Æ®ÀÇ GUID¸¦ »ç¿ëÇÏ¿© ´ÙÀ½ ³ëµå·Î ÀÌµ¿
+                    CheckNodeType(GetNodeByGuid(nodePort.InputGuid)); // ë…¸ë“œ í¬íŠ¸ì˜ GUIDë¥¼ ì‚¬ìš©í•˜ì—¬ ë‹¤ìŒ ë…¸ë“œë¡œ ì´ë™
                 };
                 unityActions.Add(tempAction);
             }
 
-            dialogueUIManager.SetButtons(texts, unityActions, false); // ¹öÆ° ¼³Á¤
+            dialogueUIManager.SetButtons(texts, unityActions, false); // ë²„íŠ¼ ì„¤ì •
         }
 
-        void DialogueNode_NextNode() { CheckNodeType(GetNextNode(_nodeDialogueInvoke)); } // ´ÙÀ½ ´ëÈ­ ³ëµå ½ÇÇà
+        void DialogueNode_NextNode() { CheckNodeType(GetNextNode(_nodeDialogueInvoke)); } // ë‹¤ìŒ ëŒ€í™” ë…¸ë“œ ì‹¤í–‰
         void ChoiceNode_GenerateChoice()
         {
-            MakeButtons(_nodeChoiceInvoke.DialogueNodePorts); // ¼±ÅÃÁö »ı¼º
-            dialogueUIManager.SkipButton.SetActive(false); // ½ºÅµ ¹öÆ° ºñÈ°¼ºÈ­
+            MakeButtons(_nodeChoiceInvoke.DialogueNodePorts); // ì„ íƒì§€ ìƒì„±
+            dialogueUIManager.SkipButton.SetActive(false); // ìŠ¤í‚µ ë²„íŠ¼ ë¹„í™œì„±í™”
         }
 
         public void SkipDialogue()
         {
-            StopAllCoroutines(); // ¸ğµç ÄÚ·çÆ¾ ÁßÁö
+            StopAllCoroutines(); // ëª¨ë“  ì½”ë£¨í‹´ ì¤‘ì§€
 
-            // ÇöÀç ´ëÈ­ ³ëµå µ¥ÀÌÅÍ¿¡ µû¶ó ´ÙÀ½ µ¿ÀÛ ¼öÇà
+            // í˜„ì¬ ëŒ€í™” ë…¸ë“œ ë°ì´í„°ì— ë”°ë¼ ë‹¤ìŒ ë™ì‘ ìˆ˜í–‰
             switch (currentDialogueNodeData) {
                 case DialogueNodeData nodeData:
                     DialogueNode_NextNode();
@@ -244,8 +244,8 @@ namespace DialogueSystem
 
         public void ForceEndDialog()
         {
-            dialogueUIManager.dialogueCanvas.SetActive(false); // ´ëÈ­ Äµ¹ö½º ºñÈ°¼ºÈ­
-            EndDialogueEvent.Invoke(); // ´ëÈ­ Á¾·á ÀÌº¥Æ® È£Ãâ
+            dialogueUIManager.dialogueCanvas.SetActive(false); // ëŒ€í™” ìº”ë²„ìŠ¤ ë¹„í™œì„±í™”
+            EndDialogueEvent.Invoke(); // ëŒ€í™” ì¢…ë£Œ ì´ë²¤íŠ¸ í˜¸ì¶œ
         }
     }
 }

@@ -15,25 +15,24 @@ using DialogueSystem.Event;
 
 namespace DialogueSystem
 {
-    // ´ëÈ­ ÄÁÅ×ÀÌ³Ê¸¦ »ı¼ºÇÒ ¼ö ÀÖ´Â ScriptableObject
+    // ëŒ€í™” ì»¨í…Œì´ë„ˆë¥¼ ìƒì„±í•  ìˆ˜ ìˆëŠ” ScriptableObject
     [CreateAssetMenu(menuName = "Dialogue/New Dialogue")]
     [System.Serializable]
     public class DialogueContainerSO : ScriptableObject
     {
-        public List<NodeLinkData> NodeLinkDatas = new List<NodeLinkData>(); // ³ëµå °£ ¿¬°á µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
-        public List<DialogueChoiceNodeData> DialogueChoiceNodeDatas = new List<DialogueChoiceNodeData>(); // ´ëÈ­ ¼±ÅÃ ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
-        public List<DialogueNodeData> DialogueNodeDatas = new List<DialogueNodeData>(); // ´ëÈ­ ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
-        public List<EndNodeData> EndNodeDatas = new List<EndNodeData>(); // Á¾·á ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
-        public List<StartNodeData> StartNodeDatas = new List<StartNodeData>(); // ½ÃÀÛ ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
 
-        [Header("Pro Version Node")]
-        public List<TimerChoiceNodeData> TimerChoiceNodeDatas = new List<TimerChoiceNodeData>(); // Å¸ÀÌ¸Ó ¼±ÅÃ ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
-        public List<EventNodeData> EventNodeDatas = new List<EventNodeData>(); // ÀÌº¥Æ® ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
-        public List<RandomNodeData> RandomNodeDatas = new List<RandomNodeData>(); // ·£´ı ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
-        public List<CommandNodeData> CommandNodeDatas = new List<CommandNodeData>(); // ¸í·É ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
-        public List<IfNodeData> IFNodeDatas = new List<IfNodeData>(); // Á¶°Ç ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â ¸®½ºÆ®
+        [HideInInspector] public List<NodeLinkData> NodeLinkDatas = new List<NodeLinkData>();
+        [HideInInspector] public List<DialogueChoiceNodeData> DialogueChoiceNodeDatas = new List<DialogueChoiceNodeData>();
+        [HideInInspector] public List<DialogueNodeData> DialogueNodeDatas = new List<DialogueNodeData>();
+        [HideInInspector] public List<EndNodeData> EndNodeDatas = new List<EndNodeData>();
+        [HideInInspector] public List<StartNodeData> StartNodeDatas = new List<StartNodeData>();
+        [HideInInspector] public List<TimerChoiceNodeData> TimerChoiceNodeDatas = new List<TimerChoiceNodeData>();
+        [HideInInspector] public List<EventNodeData> EventNodeDatas = new List<EventNodeData>();
+        [HideInInspector] public List<RandomNodeData> RandomNodeDatas = new List<RandomNodeData>();
+        [HideInInspector] public List<CommandNodeData> CommandNodeDatas = new List<CommandNodeData>();
+        [HideInInspector] public List<IfNodeData> IFNodeDatas = new List<IfNodeData>();
 
-        // ¸ğµç ³ëµå µ¥ÀÌÅÍ¸¦ ¹İÈ¯ÇÏ´Â ÇÁ·ÎÆÛÆ¼
+        // ëª¨ë“  ë…¸ë“œ ë°ì´í„°ë¥¼ ë°˜í™˜í•˜ëŠ” í”„ë¡œí¼í‹°
         public List<BaseNodeData> AllNodes {
             get {
                 List<BaseNodeData> tmp = new List<BaseNodeData>();
@@ -51,146 +50,146 @@ namespace DialogueSystem
         }
     }
 
-    // ³ëµå °£ÀÇ ¿¬°á Á¤º¸¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
+    // ë…¸ë“œ ê°„ì˜ ì—°ê²° ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class NodeLinkData
     {
-        public string BaseNodeGuid; // ±âÁØ ³ëµåÀÇ id
-        public string TargetNodeGuid; // ´ë»ó ³ëµåÀÇ id
+        public string BaseNodeGuid; // ê¸°ì¤€ ë…¸ë“œì˜ id
+        public string TargetNodeGuid; // ëŒ€ìƒ ë…¸ë“œì˜ id
     }
 
-    // ¸ğµç ³ëµåÀÇ ±âº» Å¬·¡½º
+    // ëª¨ë“  ë…¸ë“œì˜ ê¸°ë³¸ í´ë˜ìŠ¤
     [System.Serializable]
     public class BaseNodeData
     {
-        public string NodeGuid; // ³ëµåÀÇ id
-        public Vector2 Position; // ³ëµåÀÇ À§Ä¡
+        public string NodeGuid; // ë…¸ë“œì˜ id
+        public Vector2 Position; // ë…¸ë“œì˜ ìœ„ì¹˜
 
     }
 
-    // ´ëÈ­ ¼±ÅÃ ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
+    // ëŒ€í™” ì„ íƒ ë…¸ë“œ ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class DialogueChoiceNodeData : BaseNodeData
     {
-        public List<DialogueNodePort> DialogueNodePorts; // ´ëÈ­ ³ëµå Æ÷Æ® ¸®½ºÆ®
-        public List<LanguageGeneric<AudioClip>> AudioClips; // ¿Àµğ¿À Å¬¸³ ¸®½ºÆ®
-        public DialogueCharacterSO Character; // ´ëÈ­ Ä³¸¯ÅÍ Á¤º¸
-        public AvatarPosition AvatarPos; // ¾Æ¹ÙÅ¸ À§Ä¡
-        public AvatarType AvatarType; // ¾Æ¹ÙÅ¸ Å¸ÀÔ
-        public List<LanguageGeneric<string>> TextType; // ´ëÈ­ ÅØ½ºÆ® ¸®½ºÆ®
-        public float Duration; // ³ëµå Áö¼Ó ½Ã°£
+        public List<DialogueNodePort> DialogueNodePorts; // ëŒ€í™” ë…¸ë“œ í¬íŠ¸ ë¦¬ìŠ¤íŠ¸
+        public List<LanguageGeneric<AudioClip>> AudioClips; // ì˜¤ë””ì˜¤ í´ë¦½ ë¦¬ìŠ¤íŠ¸
+        public DialogueCharacterSO Character; // ëŒ€í™” ìºë¦­í„° ì •ë³´
+        public AvatarPosition AvatarPos; // ì•„ë°”íƒ€ ìœ„ì¹˜
+        public AvatarType AvatarType; // ì•„ë°”íƒ€ íƒ€ì…
+        public List<LanguageGeneric<string>> TextType; // ëŒ€í™” í…ìŠ¤íŠ¸ ë¦¬ìŠ¤íŠ¸
+        public float Duration; // ë…¸ë“œ ì§€ì† ì‹œê°„
     }
 
-    // Å¸ÀÌ¸Ó ¼±ÅÃ ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
+    // íƒ€ì´ë¨¸ ì„ íƒ ë…¸ë“œ ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class TimerChoiceNodeData : BaseNodeData
     {
-        public List<DialogueNodePort> DialogueNodePorts; // ´ëÈ­ ³ëµå Æ÷Æ® ¸®½ºÆ®
-        public List<LanguageGeneric<AudioClip>> AudioClips; // ¿Àµğ¿À Å¬¸³ ¸®½ºÆ®
-        public DialogueCharacterSO Character; // ´ëÈ­ Ä³¸¯ÅÍ Á¤º¸
-        public AvatarPosition AvatarPos; // ¾Æ¹ÙÅ¸ À§Ä¡
-        public AvatarType AvatarType; // ¾Æ¹ÙÅ¸ Å¸ÀÔ
-        public List<LanguageGeneric<string>> TextType; // ´ëÈ­ ÅØ½ºÆ® ¸®½ºÆ®
-        public float Duration; // ³ëµå Áö¼Ó ½Ã°£
-        public float time; // Å¸ÀÌ¸Ó ½Ã°£
+        public List<DialogueNodePort> DialogueNodePorts; // ëŒ€í™” ë…¸ë“œ í¬íŠ¸ ë¦¬ìŠ¤íŠ¸
+        public List<LanguageGeneric<AudioClip>> AudioClips; // ì˜¤ë””ì˜¤ í´ë¦½ ë¦¬ìŠ¤íŠ¸
+        public DialogueCharacterSO Character; // ëŒ€í™” ìºë¦­í„° ì •ë³´
+        public AvatarPosition AvatarPos; // ì•„ë°”íƒ€ ìœ„ì¹˜
+        public AvatarType AvatarType; // ì•„ë°”íƒ€ íƒ€ì…
+        public List<LanguageGeneric<string>> TextType; // ëŒ€í™” í…ìŠ¤íŠ¸ ë¦¬ìŠ¤íŠ¸
+        public float Duration; // ë…¸ë“œ ì§€ì† ì‹œê°„
+        public float time; // íƒ€ì´ë¨¸ ì‹œê°„
     }
 
-    // ·£´ı ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
+    // ëœë¤ ë…¸ë“œ ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class RandomNodeData : BaseNodeData
     {
-        public List<DialogueNodePort> DialogueNodePorts; // ´ëÈ­ ³ëµå Æ÷Æ® ¸®½ºÆ®
+        public List<DialogueNodePort> DialogueNodePorts; // ëŒ€í™” ë…¸ë“œ í¬íŠ¸ ë¦¬ìŠ¤íŠ¸
     }
 
-    // ´ëÈ­ ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
+    // ëŒ€í™” ë…¸ë“œ ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class DialogueNodeData : BaseNodeData
     {
-        public List<DialogueNodePort> DialogueNodePorts; // ´ëÈ­ ³ëµå Æ÷Æ® ¸®½ºÆ®
-        public List<LanguageGeneric<AudioClip>> AudioClips; // ¿Àµğ¿À Å¬¸³ ¸®½ºÆ®
-        public DialogueCharacterSO Character; // ´ëÈ­ Ä³¸¯ÅÍ Á¤º¸
-        public AvatarPosition AvatarPos; // ¾Æ¹ÙÅ¸ À§Ä¡
-        public AvatarType AvatarType; // ¾Æ¹ÙÅ¸ Å¸ÀÔ
-        public List<LanguageGeneric<string>> TextType; // ´ëÈ­ ÅØ½ºÆ® ¸®½ºÆ®
-        public float Duration; // ³ëµå Áö¼Ó ½Ã°£
+        public List<DialogueNodePort> DialogueNodePorts; // ëŒ€í™” ë…¸ë“œ í¬íŠ¸ ë¦¬ìŠ¤íŠ¸
+        public List<LanguageGeneric<AudioClip>> AudioClips; // ì˜¤ë””ì˜¤ í´ë¦½ ë¦¬ìŠ¤íŠ¸
+        public DialogueCharacterSO Character; // ëŒ€í™” ìºë¦­í„° ì •ë³´
+        public AvatarPosition AvatarPos; // ì•„ë°”íƒ€ ìœ„ì¹˜
+        public AvatarType AvatarType; // ì•„ë°”íƒ€ íƒ€ì…
+        public List<LanguageGeneric<string>> TextType; // ëŒ€í™” í…ìŠ¤íŠ¸ ë¦¬ìŠ¤íŠ¸
+        public float Duration; // ë…¸ë“œ ì§€ì† ì‹œê°„
     }
 
-    // Á¾·á ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
+    // ì¢…ë£Œ ë…¸ë“œ ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class EndNodeData : BaseNodeData
     {
-        public EndNodeType EndNodeType; // Á¾·á ³ëµå Å¸ÀÔ (End, Repeat, GoBack, ReturnToStart)
+        public EndNodeType EndNodeType; // ì¢…ë£Œ ë…¸ë“œ íƒ€ì… (End, Repeat, GoBack, ReturnToStart)
     }
 
-    // ½ÃÀÛ ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
+    // ì‹œì‘ ë…¸ë“œ ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class StartNodeData : BaseNodeData
     {
-        public string startID; // ½ÃÀÛ ³ëµå ID
+        public string startID; // ì‹œì‘ ë…¸ë“œ ID
     }
 
-    // ÀÌº¥Æ® ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
+    // ì´ë²¤íŠ¸ ë…¸ë“œ ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class EventNodeData : BaseNodeData
     {
-        public List<EventScriptableObjectData> EventScriptableObjects; // ÀÌº¥Æ® ScriptableObject ¸®½ºÆ®
+        public List<EventScriptableObjectData> EventScriptableObjects; // ì´ë²¤íŠ¸ ScriptableObject ë¦¬ìŠ¤íŠ¸
     }
 
-    // ÀÌº¥Æ® ScriptableObject µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
+    // ì´ë²¤íŠ¸ ScriptableObject ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class EventScriptableObjectData
     {
-        public DialogueEventSO DialogueEventSO; // ´ëÈ­ ÀÌº¥Æ® ScriptableObject
+        public DialogueEventSO DialogueEventSO; // ëŒ€í™” ì´ë²¤íŠ¸ ScriptableObject
     }
 
-    // ¸í·É ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
+    // ëª…ë ¹ ë…¸ë“œ ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class CommandNodeData : BaseNodeData
     {
-        public string commmand; // ¸í·É ¹®ÀÚ¿­
+        public string commmand; // ëª…ë ¹ ë¬¸ìì—´
     }
 
-    // Á¶°Ç ³ëµå µ¥ÀÌÅÍ¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
+    // ì¡°ê±´ ë…¸ë“œ ë°ì´í„°ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class IfNodeData : BaseNodeData
     {
-        public string ValueName; // Á¶°Ç °ª ÀÌ¸§
-        public GlobalValueIFOperations Operations; // Á¶°Ç ¿¬»êÀÚ
-        public string OperationValue; // Á¶°Ç °ª
+        public string ValueName; // ì¡°ê±´ ê°’ ì´ë¦„
+        public GlobalValueIFOperations Operations; // ì¡°ê±´ ì—°ì‚°ì
+        public string OperationValue; // ì¡°ê±´ ê°’
 
-        public string TrueGUID; // Á¶°ÇÀÌ ÂüÀÏ ¶§ ¿¬°áµÇ´Â ³ëµå id
-        public string FalseGUID; // Á¶°ÇÀÌ °ÅÁşÀÏ ¶§ ¿¬°áµÇ´Â ³ëµå id
+        public string TrueGUID; // ì¡°ê±´ì´ ì°¸ì¼ ë•Œ ì—°ê²°ë˜ëŠ” ë…¸ë“œ id
+        public string FalseGUID; // ì¡°ê±´ì´ ê±°ì§“ì¼ ë•Œ ì—°ê²°ë˜ëŠ” ë…¸ë“œ id
     }
 
-    // ¾ğ¾îº° Á¦³×¸¯ Å¸ÀÔÀ» ÀúÀåÇÏ´Â Å¬·¡½º
+    // ì–¸ì–´ë³„ ì œë„¤ë¦­ íƒ€ì…ì„ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class LanguageGeneric<T>
     {
-        public LocalizationEnum languageEnum; // ¾ğ¾î Enum
-        public T LanguageGenericType; // ¾ğ¾îº° Á¦³×¸¯ Å¸ÀÔ
+        public LocalizationEnum languageEnum; // ì–¸ì–´ Enum
+        public T LanguageGenericType; // ì–¸ì–´ë³„ ì œë„¤ë¦­ íƒ€ì…
     }
 
-    // ´ëÈ­ ³ëµå Æ÷Æ®¸¦ ÀúÀåÇÏ´Â Å¬·¡½º
+    // ëŒ€í™” ë…¸ë“œ í¬íŠ¸ë¥¼ ì €ì¥í•˜ëŠ” í´ë˜ìŠ¤
     [System.Serializable]
     public class DialogueNodePort
     {
-        public string InputGuid; // ÀÔ·Â id
-        public string OutputGuid; // Ãâ·Â id
+        public string InputGuid; // ì…ë ¥ id
+        public string OutputGuid; // ì¶œë ¥ id
 
 #if UNITY_EDITOR
-        [HideInInspector] public Port MyPort; // ¿¡µğÅÍ Àü¿ë Æ÷Æ®
+        [HideInInspector] public Port MyPort; // ì—ë””í„° ì „ìš© í¬íŠ¸
 #endif
-        public TextField TextField; // ÅØ½ºÆ® ÇÊµå
-        public List<LanguageGeneric<string>> TextLanguage = new List<LanguageGeneric<string>>(); // ¾ğ¾îº° ÅØ½ºÆ® ¸®½ºÆ®
+        public TextField TextField; // í…ìŠ¤íŠ¸ í•„ë“œ
+        public List<LanguageGeneric<string>> TextLanguage = new List<LanguageGeneric<string>>(); // ì–¸ì–´ë³„ í…ìŠ¤íŠ¸ ë¦¬ìŠ¤íŠ¸
     }
 
-    // Á¾·á ³ëµå Å¸ÀÔ Enum
+    // ì¢…ë£Œ ë…¸ë“œ íƒ€ì… Enum
     [System.Serializable]
     public enum EndNodeType
     {
-        End, // Á¾·á
-        Repeat, // ¹İº¹
-        GoBack, // µ¹¾Æ°¡±â
-        ReturnToStart // ½ÃÀÛÀ¸·Î µ¹¾Æ°¡±â
+        End, // ì¢…ë£Œ
+        Repeat, // ë°˜ë³µ
+        GoBack, // ëŒì•„ê°€ê¸°
+        ReturnToStart // ì‹œì‘ìœ¼ë¡œ ëŒì•„ê°€ê¸°
     }
 }

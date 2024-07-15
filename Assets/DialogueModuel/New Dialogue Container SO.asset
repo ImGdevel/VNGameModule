@@ -16,7 +16,10 @@ MonoBehaviour:
   DialogueChoiceNodeDatas: []
   DialogueNodeDatas: []
   EndNodeDatas: []
-  StartNodeDatas: []
+  StartNodeDatas:
+  - NodeGuid: 19060742-9f21-494c-8d5c-d878d85784ee
+    Position: {x: 159, y: 268}
+    startID: 
   TimerChoiceNodeDatas: []
   EventNodeDatas: []
   RandomNodeDatas: []

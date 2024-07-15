@@ -87,7 +87,6 @@ namespace DialogueSystem.Editor
         }
 
 
-
         // 에디터 윈도우가 비활성화될 때 호출되는 메서드
         private void OnDisable()
         {
@@ -112,34 +111,17 @@ namespace DialogueSystem.Editor
 
             Toolbar toolbar = new Toolbar();
 
-            // 저장 버튼 생성 및 이벤트 핸들러 등록
-            ToolbarButton saveBtn = new ToolbarButton() {
-                text = "Save",
-                name = "save_btn"
-            };
-            saveBtn.clicked += () => {
-                Save();
-                if (Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").ManualSaveLogs) Debug.Log("Manual Save");
-            };
-            toolbar.Add(saveBtn);
-
-            // 로드 버튼 생성 및 이벤트 핸들러 등록
-            ToolbarButton loadBtn = new ToolbarButton() {
-                text = "Load",
-                name = "load_btn"
-            };
-            loadBtn.clicked += () => {
-                bool confirmed = EditorUtility.DisplayDialog("Load the Dialogue Save?", "Are you sure you want to load the dialogue saving?\nThis will delete all unsaved dialogue changes", "Confirm", "Cancel");
-
-                if (confirmed) {
-                    Load();
-                }
-            };
-            toolbar.Add(loadBtn);
+            
+            ToolbarSpacer sep = new ToolbarSpacer();
+            toolbar.Add(sep);
 
             nameOfDialogueContainer = new Label("");
             toolbar.Add(nameOfDialogueContainer);
             nameOfDialogueContainer.AddToClassList("nameOfDialogueContainer");
+
+            ToolbarSpacer sep1 = new ToolbarSpacer();
+            sep1.style.flexGrow = 1;
+            toolbar.Add(sep1);
 
             // 로컬라이제이션 메뉴 생성
             toolbarMenu = new ToolbarMenu();
@@ -155,28 +137,6 @@ namespace DialogueSystem.Editor
             foreach (EditorTheme theme in (EditorTheme[])Enum.GetValues(typeof(EditorTheme))) {
                 toolbarTheme.menu.AppendAction(theme.ToString(), new Action<DropdownMenuAction>(x => ChangeTheme(theme, toolbarTheme)));
             }
-            toolbar.Add(toolbarTheme);
-
-            // 툴바 구분자 추가
-            ToolbarSpacer sep_3 = new ToolbarSpacer();
-            toolbar.Add(sep_3);
-
-            // 자동 저장 토글 버튼 생성 및 이벤트 핸들러 등록
-            Toggle autoSaveToggle = new Toggle("   Auto Save") {
-                value = AutoSave,
-                name = "autosave_toogle"
-            };
-            autoSaveToggle.RegisterValueChangedCallback(evt => {
-                AutoSave = evt.newValue;
-                Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").AutoSave = evt.newValue;
-                Save();
-            });
-            toolbar.Add(autoSaveToggle);
-
-            ToolbarSpacer sep_2 = new ToolbarSpacer();
-            sep_2.style.flexGrow = 1;
-            toolbar.Add(sep_2);
-
 
             // 임포트 버튼 생성 및 이벤트 핸들러 등록
             ToolbarButton importBtn = new ToolbarButton() {
@@ -208,15 +168,21 @@ namespace DialogueSystem.Editor
             exportBtn.SetEnabled(false);
             toolbar.Add(exportBtn);
 
+
+            // 저장 버튼 생성 및 이벤트 핸들러 등록
+            ToolbarButton saveBtn = new ToolbarButton() {
+                text = "Apply",
+                name = "save_btn"
+            };
+            saveBtn.clicked += () => {
+                Save();
+                //if (Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").ManualSaveLogs) Debug.Log("Manual Save");
+            };
+            toolbar.Add(saveBtn);
+
+
             rootVisualElement.Add(toolbar);
 
-            // 버전 라벨 생성
-            Label version = new Label() {
-                name = "version_text",
-                text = ""
-            };
-            version.pickingMode = PickingMode.Ignore;
-            rootVisualElement.Add(version);
         }
 
         // 매 프레임 호출되는 메서드

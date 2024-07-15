@@ -1,8 +1,8 @@
 GridBackground {
 	--grid-background-color: #282828;
-	--line-color: rgba(193, 196, 192, 0.1);
-	--thick-line-color: rgba(193, 196, 192, 0.1);
-	--spacing: 10;
+	--line-color: rgba(193, 196, 192, 0.05);
+	--thick-line-color: rgba(193, 196, 192, 0.05);
+	--spacing: 15;
 }
 
 .edge{
@@ -16,7 +16,7 @@ GridBackground {
      padding-bottom: 2px;
 }
  #localization_enum{
-     width: 75px;
+     width: 100px;
 }
  #localization_enum .unity-text-element, #theme_enum .unity-text-element{
      -unity-text-align: middle-center;
@@ -27,8 +27,8 @@ GridBackground {
 }
  .nameOfDialogueContainer{
      -unity-font-style: bold;
-     min-width: 150px;
-     -unity-text-align: middle-center;
+     min-width: 200px;
+     -unity-text-align: middle-left;
 }
  #autosave_toogle{
      flex-direction: row-reverse;
@@ -39,7 +39,7 @@ GridBackground {
      min-width: 75px;
 }
  .unity-toolbar{
-     height: 30px;
+     height: 25px;
 }
  #import_btn, #export_btn{
      width: 100px;
