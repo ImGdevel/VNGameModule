@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435ed16438110684bb8912c1a15abe4b, type: 3}
+  m_Name: New Dialogue Script
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: 4a4dd0f0-e927-4628-a7a1-8cda0141a453
+    TargetNodeGuid: a37c66d0-02ff-451c-bd40-7542200c60ad
+  - BaseNodeGuid: 05b2962d-df63-43c7-bb64-a1f6cd5256ce
+    TargetNodeGuid: 4b09089e-6bcf-4d11-85ed-f84d9800b3c5
+  - BaseNodeGuid: a37c66d0-02ff-451c-bd40-7542200c60ad
+    TargetNodeGuid: 05b2962d-df63-43c7-bb64-a1f6cd5256ce
+  DialogueChoiceNodeDatas:
+  - NodeGuid: bbcf0e2a-b44d-442f-8c80-045daf35b5cf
+    Position: {x: 874, y: 263}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: 
+    Duration: 5
+  DialogueNodeDatas:
+  - NodeGuid: a37c66d0-02ff-451c-bd40-7542200c60ad
+    Position: {x: 319, y: 256}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: 
+    Duration: 10
+  - NodeGuid: 05b2962d-df63-43c7-bb64-a1f6cd5256ce
+    Position: {x: 597, y: 256}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: 
+    Duration: 10
+  EndNodeDatas:
+  - NodeGuid: 4b09089e-6bcf-4d11-85ed-f84d9800b3c5
+    Position: {x: 1287, y: 254}
+    EndNodeType: 0
+  StartNodeDatas:
+  - NodeGuid: 4a4dd0f0-e927-4628-a7a1-8cda0141a453
+    Position: {x: 203, y: 256}
+    startID: 
+  TimerChoiceNodeDatas: []
+  EventNodeDatas: []
+  RandomNodeDatas: []
+  CommandNodeDatas: []
+  IFNodeDatas: []

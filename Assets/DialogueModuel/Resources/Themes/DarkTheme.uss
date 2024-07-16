@@ -2,99 +2,95 @@ GridBackground {
 	--grid-background-color: #282828;
 	--line-color: rgba(193, 196, 192, 0.05);
 	--thick-line-color: rgba(193, 196, 192, 0.05);
-	--spacing: 15;
+	--spacing: 20;
 }
 
 .edge{
 	--edge-width: 10px !important;
 }
 
-/* Toolbar Start */
+/* Toolbar Styles */
+.unity-toolbar{
+    height: 25px;
+}
 #save_btn, #load_btn{
-     width: 60px;
-     -unity-text-align: middle-center;
-     padding-bottom: 2px;
+    width: 60px;
+    -unity-text-align: middle-center;
+    padding-bottom: 2px;
 }
- #localization_enum{
-     width: 100px;
+#localization_enum{
+    width: 100px;
 }
- #localization_enum .unity-text-element, #theme_enum .unity-text-element{
-     -unity-text-align: middle-center;
-     padding-bottom: 2px;
+#localization_enum .unity-text-element, #theme_enum .unity-text-element{
+    -unity-text-align: middle-center;
+    padding-bottom: 2px;
 }
- #theme_enum{
-     width: 100px;
+#theme_enum{
+    width: 100px;
 }
- .nameOfDialogueContainer{
-     -unity-font-style: bold;
-     min-width: 200px;
-     -unity-text-align: middle-left;
+.nameOfDialogueContainer{
+    -unity-font-style: bold;
+    min-width: 200px;
+    -unity-text-align: middle-left;
 }
- #autosave_toogle{
-     flex-direction: row-reverse;
-     -unity-text-align: middle-left;
-}
- #autosave_toogle .unity-text-element{
-     width: 75px;
-     min-width: 75px;
-}
- .unity-toolbar{
-     height: 25px;
-}
- #import_btn, #export_btn{
-     width: 100px;
-     -unity-text-align: middle-center;
-}
- #import_btn, #export_btn, #localization_enum, #theme_enum, #save_btn, #load_btn{
-	  cursor: link;
- }
- #version_text{
-	  position: absolute;
-	  bottom: 8px;
-	  left: 8px;
- }
- /* Toolbar End */
 
 
-  #ValidationContainer{
-	  position:absolute !important;
+#import_btn, #export_btn{
+    width: 100px;
+    -unity-text-align: middle-center;
+}
+#import_btn, #export_btn, #localization_enum, #theme_enum, #save_btn, #load_btn{
+	cursor: link;
+}
+#version_text{
+	position: absolute;
+	bottom: 8px;
+	left: 8px;
+}
+
+
+
+/*Container Styles*/
+#ValidationContainer{
+	position:absolute !important;
 	bottom: 48px;
- }
- #ErrorContainer,
- #WarningContainer{
-	background-color: rgba(0, 0, 0, 0.55);
+}
+
+#Dialog #ValidationContainer{
+	width: 242px;
+	left: -25px;
+}
+
+#Start #ValidationContainer
+{
+	  width: 192px;
+	  left: -62px;
+}
+#End #ValidationContainer
+{
+	  width: 192px;
+	  left: -40px;
+}
+
+#Random #ValidationContainer,
+#IF #ValidationContainer
+{
+	  width: 192px;
+}
+
+#TimerChoice #ValidationContainer,
+#Choice #ValidationContainer,
+#Event #ValidationContainer{
+	  width: 292px;
+}
+
+#ErrorContainer,
+#WarningContainer{
+	background-color: rgba(10, 10, 10, 0.45);
 	padding: 8px;
 	border-radius: 8px;
 	-unity-font-style: bold;
- }
-
- #TimerChoice #ValidationContainer,
-  #Choice #ValidationContainer,
-  #Event #ValidationContainer{
-	  width: 292px;
- }
-
-  #Start #ValidationContainer
-  {
-	  width: 192px;
-	  left: -62px;
- }
-  #End #ValidationContainer
-  {
-	  width: 192px;
-	  left: -40px;
- }
-
-   #Random #ValidationContainer,
-  #IF #ValidationContainer
-  {
-	  width: 192px;
- }
-
-   #Dialog #ValidationContainer{
-	  width: 242px;
-	  left: -25px;
- }
+}
 
 .node #title{
 	background-color: #923842;
@@ -113,11 +109,17 @@ GridBackground {
 	margin-top: 5px;
 	margin-left: 4px;
 }
+
 .TextBox{
 	white-space: Normal;
+	min-height: 35px;
 }
 
 #title-label {
+	color: #ffffff;
+}
+
+#node-border #title #title-label{
 	color: #ffffff;
 }
 
@@ -148,6 +150,68 @@ GridBackground {
 	width: 0px;
 }
 
+#node-border #contents #top #input .port {
+	--port-color: rgba(83, 179, 203, 1.0);
+}
+
+#node-border #contents #top #output .port {
+	--port-color: rgba(83, 179, 203, 1.0);
+}
+
+/* Start NODE STYLE*/
+#Start{
+	width: 76px;
+}
+
+#Start #node-border #title {
+	background-color: #1C871D;
+}
+
+
+#Start .unity-base-field .unity-text-element{
+	width: 25px;
+	min-width: 25px;
+}
+#Start #node-border #contents #top #output{
+	background-color: #383838 !important;
+}
+
+
+/*End NODE STYLE*/
+#End{
+	width: 120px;
+}
+
+#End #node-border #title {
+	background-color: #982727;
+}
+
+#End #input{
+	width: 112px !important;
+}
+
+
+/* Dialog NODE STYLE*/
+#Dialog {
+	max-width: 200px; 
+	width: 200px; 
+}
+
+#Dialog #node-border #title {
+	background-color: #D18522;
+}
+
+#Choice #node-border #title {
+	background-color: #9522D1;
+}
+
+#Choice #node-border #title .unity-button {
+	background-color: #9522D1;
+	border-color: #7D12B4;
+	border-width: 1px;
+}
+
+/* Choice NODE STYLE*/
 .node .ChoiceLabel{
 	width: 75px;
 	max-width: 75px;
@@ -172,6 +236,24 @@ GridBackground {
 	width: 145px;
 }
 
+#Choice #output .DeleteButton {
+    background-color: #303030;
+    color: #ffffff;
+    border-radius: 5px;
+    font-size: 10px;
+	height: 17px;
+	width: 17px;
+    border-color: #222222;
+    cursor: pointer;
+}
+
+#Choice #output .DeleteButton:hover {
+    background-color: #2A2A2A;
+	border-color: #666666;
+}
+
+
+/* TimerChoice NODE STYLE*/
 #TimerChoice {
 	max-width: 300px; 
 	width: 300px; 
@@ -191,33 +273,14 @@ GridBackground {
 	margin-right: 18px;
 }
 
+/* Event NODE STYLE*/
 #Event {
 	max-width: 300px; 
 	width: 300px; 
 }
 
-#Dialog {
-	max-width: 200px; 
-	width: 200px; 
-}
-#Start{
-	width: 76px;
-}
-#End{
-	width: 120px;
-}
-
-
 #Event #node-border #title {
 	background-color: #9649CB;
-}
-
-#Event #node-border #contents #top #output .port {
-	--port-color: rgba(150, 73, 203, 1.0);
-}
-
-#Event #node-border #contents #top #input .port {
-	--port-color: rgba(150, 73, 203, 1.0);
 }
 
 #Event .unity-toolbar-menu{
@@ -255,80 +318,7 @@ GridBackground {
 	margin-bottom: 1px;
 }
 
-
-#Start #node-border #title {
-	background-color: #149A3E;
-}
-
-#Start #node-border #contents #top #output .port {
-	--port-color: rgba(34, 153, 71, 1.0);
-}
-
-#Start #node-border #contents #top #input .port {
-	--port-color: rgba(34, 153, 71, 1.0);
-}
-
-#Start .unity-base-field .unity-text-element{
-	width: 25px;
-	min-width: 25px;
-}
-#Start #node-border #contents #top #output{
-	background-color: #383838 !important;
-}
-
-#Dialog #node-border #title {
-	background-color: #F9C22E;
-}
-
-#Dialog #node-border #title #title-label{
-	color: #000000;
-}
-
-#Dialog #node-border #contents #top #output .port {
-	--port-color: rgba(249, 194, 46, 1.0);
-}
-
-#Dialog #node-border #contents #top #input .port {
-	--port-color: rgba(249, 194, 46, 1.0);
-}
-
-
-#Choice #node-border #title {
-	background-color: #22AED1;
-}
-
-#Choice #node-border #title .unity-button {
-	background-color: #1f9dbc;
-	border-width: 0px;
-}
-
-#Choice #node-border #contents #top #output .port {
-	--port-color: rgba(83, 179, 203, 1.0);
-}
-
-#Choice #node-border #contents #top #input .port {
-	--port-color: rgba(83, 179, 203, 1.0);
-}
-
-
-
-#End #node-border #title {
-	background-color: #A8323F;
-}
-
-#End #node-border #contents #top #output .port {
-	--port-color: rgba(204, 61, 77, 1.0);
-}
-
-#End #node-border #contents #top #input .port {
-	--port-color: rgba(204, 61, 77, 1.0);
-}
-#End #input{
-	width: 112px !important;
-}
-
-
-
+/* TimerChoice NODE STYLE*/
 #TimerChoice #node-border #title {
 	background-color: #ff7700;
 }
@@ -340,24 +330,16 @@ GridBackground {
 #TimerChoice #node-border #title #title-label{
 	color: #4c2400;
 }
-#TimerChoice #node-border #contents #top #output .port {
-	--port-color: rgba(255, 119, 0, 1.0);
-}
-#TimerChoice #node-border #contents #top #input .port {
-	--port-color: rgba(255, 119, 0, 1.0);
-}
 #TimerChoice .TextDuration {
 	padding-bottom: 0px;
 }
 
+/* Random NODE STYLE*/
 #Random{
 	width:200px;
 }
 #Random #title{
 	background-color: #80234A;
-}
-#Random .port{
-	--port-color: #80234A;
 }
 #Random #node-border #title .unity-button {
 	background-color: #701F41;
@@ -367,6 +349,7 @@ GridBackground {
 	display: None !important;	
 }
 
+/* Command NODE STYLE*/
 #Command{
 	width: 300px;
 }
@@ -382,13 +365,28 @@ GridBackground {
 
 #Command #unity-text-input{
 	background-color: #0a5c36;
-		border-left-width: 0px !important;
+	border-left-width: 0px !important;
 	border-right-width: 0px;
 	border-top-width: 0px;
 	border-bottom-width: 0px;
 	white-space: Normal;
 }
 
+/*IF NODE STYLE */
+#IF{
+	width: 200px;
+}
+#IF #title{
+	background-color: #235789;
+	/*215382*/
+}
+#IF .unity-base-text-field__label,
+#IF .unity-enum-field__label,
+#IF .unity-popup-field__label
+{
+	width: 75px !important;
+	min-width: 75px !important;
+}
 
 .port .unity-button{
 	background-color: #3F3F3F !important;
@@ -401,6 +399,38 @@ GridBackground {
 	min-width: 85px;
 }
 
+#IF #selection-border,
+#Commandr #selection-border,
+#Random #selection-border,
+#TimerChoice #selection-border,
+#End #selection-border,
+#Choice #selection-border,
+#Start #selection-border,
+#Dialog #selection-border,
+#Event #selection-border{
+	border-bottom-color: #3184CA;
+	border-top-color: #3184CA;
+	border-left-color: #3184CA;
+	border-right-color: #3184CA;
+}
+
+/* BASE NODE SETTINGS */
+#IF:hover #selection-border,
+#Command:hover #selection-border,
+#Random:hover #selection-border,
+#TimerChoice:hover #selection-border,
+#End:hover #selection-border,
+#Choice:hover #selection-border,
+#Start:hover #selection-border,
+#Dialog:hover #selection-border,
+#Event:hover #selection-border{
+	border-bottom-width: 2px;
+	border-top-width: 2px;
+	border-left-width: 2px;
+	border-right-width: 2px;
+}
+
+	/*
 #Command #selection-border{
 	border-bottom-color: #0a5c36;
 	border-top-color: #0a5c36;
@@ -423,17 +453,17 @@ GridBackground {
 }
 
 #End #selection-border{
-	border-bottom-color: #A8323F;
-	border-top-color: #A8323F;
-	border-left-color: #A8323F;
-	border-right-color: #A8323F;
+	border-bottom-color: #982727;
+	border-top-color: #982727;
+	border-left-color: #982727;
+	border-right-color: #982727;
 }
 
 #Choice #selection-border{
-	border-bottom-color: #22AED1;
-	border-top-color: #22AED1;
-	border-left-color: #22AED1;
-	border-right-color: #22AED1;
+	border-bottom-color: #9522D1;
+	border-top-color: #9522D1;
+	border-left-color: #9522D1;
+	border-right-color: #9522D1;
 }
 
 #Start #selection-border{
@@ -444,10 +474,10 @@ GridBackground {
 }
 
 #Dialog #selection-border{
-	border-bottom-color: #F9C22E;
-	border-top-color: #F9C22E;
-	border-left-color: #F9C22E;
-	border-right-color: #F9C22E;
+	border-bottom-color: #D69E27;
+	border-top-color: #D69E27;
+	border-left-color: #D69E27;
+	border-right-color: #D69E27;
 }
 
 #Event #selection-border{
@@ -456,53 +486,4 @@ GridBackground {
 	border-left-color: #9649CB;
 	border-right-color: #9649CB;
 }
-/*IF NODE STYLE */
-
-#IF{
-	width: 200px;
-}
-#IF #title{
-	background-color: #235789;
-	/*215382*/
-}
-#IF .port{
-	--port-color: #515151;
-}
-#IF .True{
-	--port-color: #3D9537;
-}
-#IF .False{
-	--port-color: #931F1D;
-}
-#IF .unity-base-text-field__label,
-#IF .unity-enum-field__label,
-#IF .unity-popup-field__label
-{
-	width: 75px !important;
-	min-width: 75px !important;
-}
-#IF #selection-border{
-	border-bottom-color: #235789;
-	border-top-color: #235789;
-	border-left-color: #235789;
-	border-right-color: #235789;
-}
-
-
-
-/* BASE NODE SETTINGS */
-
-#IF:hover #selection-border,
-#Command:hover #selection-border,
-#Random:hover #selection-border,
-#TimerChoice:hover #selection-border,
-#End:hover #selection-border,
-#Choice:hover #selection-border,
-#Start:hover #selection-border,
-#Dialog:hover #selection-border,
-#Event:hover #selection-border{
-	border-bottom-width: 4px;
-	border-top-width: 4px;
-	border-left-width: 4px;
-	border-right-width: 4px;
-}
+*/

@@ -22,7 +22,7 @@ namespace DialogueSystem.Editor
             graphView = _graphView;
         }
 
-        public void Save(DialogueContainerSO _dialogueContainerSO)
+        public void Save(DialogueScript _dialogueContainerSO)
         {
             SaveEdges(_dialogueContainerSO);
             SaveNodes(_dialogueContainerSO);
@@ -30,7 +30,7 @@ namespace DialogueSystem.Editor
             EditorUtility.SetDirty(_dialogueContainerSO);
             AssetDatabase.SaveAssets();
         }
-        public void Load(DialogueContainerSO _dialogueContainerSO)
+        public void Load(DialogueScript _dialogueContainerSO)
         {
             ClearGraph();
             GenerateNodes(_dialogueContainerSO);
@@ -39,7 +39,7 @@ namespace DialogueSystem.Editor
 
         #region Save
 
-        public void SaveEdges(DialogueContainerSO _dialogueContainerSO)
+        public void SaveEdges(DialogueScript _dialogueContainerSO)
         {
             _dialogueContainerSO.NodeLinkDatas.Clear();
 
@@ -57,7 +57,7 @@ namespace DialogueSystem.Editor
             }
         }
 
-        private void SaveNodes(DialogueContainerSO _dialogueContainerSO)
+        private void SaveNodes(DialogueScript _dialogueContainerSO)
         {
             _dialogueContainerSO.DialogueChoiceNodeDatas.Clear();
             _dialogueContainerSO.DialogueNodeDatas.Clear();
@@ -166,7 +166,7 @@ namespace DialogueSystem.Editor
             }
         }
 
-        private void GenerateNodes(DialogueContainerSO _dialogueContainer)
+        private void GenerateNodes(DialogueScript _dialogueContainer)
         {
             /* Start Node */
             foreach (StartNodeData node in _dialogueContainer.StartNodeDatas)
@@ -241,7 +241,7 @@ namespace DialogueSystem.Editor
             }
         }
 
-        private void ConnectNodes(DialogueContainerSO _dialogueContainer)
+        private void ConnectNodes(DialogueScript _dialogueContainer)
         {
             for (int i = 0; i < nodes.Count; i++)
             {

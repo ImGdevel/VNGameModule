@@ -7,7 +7,7 @@ using DialogueSystem.Localization;
 namespace DialogueSystem
 {
     [CreateAssetMenu(menuName = "Dialogue/New Dialogue Character")]
-    public class DialogueCharacterSO : ScriptableObject
+    public class DialogueCharacter : ScriptableObject
     {
         public List<LanguageGeneric<string>> characterName;
         public Color textColor = new Color(.8f, .8f, .8f, 1);

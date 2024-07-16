@@ -16,9 +16,9 @@ using DialogueSystem.Event;
 namespace DialogueSystem
 {
     // 대화 컨테이너를 생성할 수 있는 ScriptableObject
-    [CreateAssetMenu(menuName = "Dialogue/New Dialogue")]
+    [CreateAssetMenu(menuName = "Dialogue/New Dialogue Script")]
     [System.Serializable]
-    public class DialogueContainerSO : ScriptableObject
+    public class DialogueScript : ScriptableObject
     {
 
         [HideInInspector] public List<NodeLinkData> NodeLinkDatas = new List<NodeLinkData>();
@@ -54,17 +54,16 @@ namespace DialogueSystem
     [System.Serializable]
     public class NodeLinkData
     {
-        public string BaseNodeGuid; // 기준 노드의 id
-        public string TargetNodeGuid; // 대상 노드의 id
+        public string BaseNodeGuid;
+        public string TargetNodeGuid;
     }
 
     // 모든 노드의 기본 클래스
     [System.Serializable]
     public class BaseNodeData
     {
-        public string NodeGuid; // 노드의 id
-        public Vector2 Position; // 노드의 위치
-
+        public string NodeGuid;
+        public Vector2 Position;
     }
 
     // 대화 선택 노드 데이터를 저장하는 클래스
@@ -73,7 +72,7 @@ namespace DialogueSystem
     {
         public List<DialogueNodePort> DialogueNodePorts; // 대화 노드 포트 리스트
         public List<LanguageGeneric<AudioClip>> AudioClips; // 오디오 클립 리스트
-        public DialogueCharacterSO Character; // 대화 캐릭터 정보
+        public DialogueCharacter Character; // 대화 캐릭터 정보
         public AvatarPosition AvatarPos; // 아바타 위치
         public AvatarType AvatarType; // 아바타 타입
         public List<LanguageGeneric<string>> TextType; // 대화 텍스트 리스트
@@ -86,7 +85,7 @@ namespace DialogueSystem
     {
         public List<DialogueNodePort> DialogueNodePorts; // 대화 노드 포트 리스트
         public List<LanguageGeneric<AudioClip>> AudioClips; // 오디오 클립 리스트
-        public DialogueCharacterSO Character; // 대화 캐릭터 정보
+        public DialogueCharacter Character; // 대화 캐릭터 정보
         public AvatarPosition AvatarPos; // 아바타 위치
         public AvatarType AvatarType; // 아바타 타입
         public List<LanguageGeneric<string>> TextType; // 대화 텍스트 리스트
@@ -107,7 +106,7 @@ namespace DialogueSystem
     {
         public List<DialogueNodePort> DialogueNodePorts; // 대화 노드 포트 리스트
         public List<LanguageGeneric<AudioClip>> AudioClips; // 오디오 클립 리스트
-        public DialogueCharacterSO Character; // 대화 캐릭터 정보
+        public DialogueCharacter Character; // 대화 캐릭터 정보
         public AvatarPosition AvatarPos; // 아바타 위치
         public AvatarType AvatarType; // 아바타 타입
         public List<LanguageGeneric<string>> TextType; // 대화 텍스트 리스트
@@ -139,7 +138,7 @@ namespace DialogueSystem
     [System.Serializable]
     public class EventScriptableObjectData
     {
-        public DialogueEventSO DialogueEventSO; // 대화 이벤트 ScriptableObject
+        public DialogueEvent DialogueEventSO; // 대화 이벤트 ScriptableObject
     }
 
     // 명령 노드 데이터를 저장하는 클래스

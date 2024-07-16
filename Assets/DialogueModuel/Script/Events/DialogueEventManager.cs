@@ -21,7 +21,7 @@ namespace DialogueSystem.Event
             if (type == LogType.Error) Debug.LogError(content);
         }
 
-        public void CharacterEvent(DialogueCharacterSO character)
+        public void CharacterEvent(DialogueCharacter character)
         {
             Debug.LogFormat($"<color=#{ColorUtility.ToHtmlStringRGBA(character.textColor)}>{character.GetName()}");
         }

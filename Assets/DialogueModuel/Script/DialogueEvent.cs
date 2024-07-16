@@ -6,7 +6,7 @@ using UnityEditor;
 namespace DialogueSystem.Event
 {
     [System.Serializable]
-    public class DialogueEventSO : ScriptableObject
+    public class DialogueEvent : ScriptableObject
     {
         public virtual void RunEvent()
         {

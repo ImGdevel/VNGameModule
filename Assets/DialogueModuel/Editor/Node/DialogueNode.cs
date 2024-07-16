@@ -18,7 +18,7 @@ namespace DialogueSystem.Nodes
         private List<LanguageGeneric<AudioClip>> audioClip = new List<LanguageGeneric<AudioClip>>();
 
         // 대화 캐릭터와 표시 시간을 저장할 변수
-        private DialogueCharacterSO character = ScriptableObject.CreateInstance<DialogueCharacterSO>();
+        private DialogueCharacter character = ScriptableObject.CreateInstance<DialogueCharacter>();
         private float durationShow = 10;
 
         // 대화 노드 포트를 저장할 리스트
@@ -27,7 +27,7 @@ namespace DialogueSystem.Nodes
         // 프로퍼티 정의
         public List<LanguageGeneric<string>> Texts { get => texts; set => texts = value; }
         public List<LanguageGeneric<AudioClip>> AudioClip { get => audioClip; set => audioClip = value; }
-        public DialogueCharacterSO Character { get => character; set => character = value; }
+        public DialogueCharacter Character { get => character; set => character = value; }
         public float DurationShow { get => durationShow; set => durationShow = value; }
 
         // UI 요소를 위한 필드 정의
@@ -35,7 +35,7 @@ namespace DialogueSystem.Nodes
         private ObjectField audioClips_Field;
         private TextField name_Field;
         private ObjectField character_Field;
-        private FloatField duration_Field;
+        //private FloatField duration_Field;
 
         // 기본 생성자
         public DialogueNode()
@@ -67,33 +67,17 @@ namespace DialogueSystem.Nodes
                 });
             }
 
-            // 오디오 클립 필드 설정
-            Label label_audio = new Label("Voice Audio Clip");
-            label_audio.AddToClassList("label_audio");
-            label_audio.AddToClassList("Label");
-            mainContainer.Add(label_audio);
-            audioClips_Field = new ObjectField() {
-                objectType = typeof(AudioClip),
-                allowSceneObjects = false,
-                value = audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType,
-            };
-            audioClips_Field.RegisterValueChangedCallback(value => {
-                audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType = value.newValue as AudioClip;
-            });
-            audioClips_Field.SetValueWithoutNotify(audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType);
-            mainContainer.Add(audioClips_Field);
-
             // 캐릭터 필드 설정
-            Label label_character = new Label("Character SO");
+            Label label_character = new Label("Character CG");
             label_character.AddToClassList("label_name");
             label_character.AddToClassList("Label");
             mainContainer.Add(label_character);
             character_Field = new ObjectField() {
-                objectType = typeof(DialogueCharacterSO),
+                objectType = typeof(DialogueCharacter),
                 allowSceneObjects = false,
             };
             character_Field.RegisterValueChangedCallback(value => {
-                character = value.newValue as DialogueCharacterSO;
+                character = value.newValue as DialogueCharacter;
             });
             character_Field.SetValueWithoutNotify(character);
             mainContainer.Add(character_Field);
@@ -113,7 +97,25 @@ namespace DialogueSystem.Nodes
             texts_Field.AddToClassList("TextBox");
             mainContainer.Add(texts_Field);
 
+            // 오디오 클립 필드 설정
+            Label label_audio = new Label("Voice Audio Clip");
+            label_audio.AddToClassList("label_audio");
+            label_audio.AddToClassList("Label");
+            mainContainer.Add(label_audio);
+            audioClips_Field = new ObjectField() {
+                objectType = typeof(AudioClip),
+                allowSceneObjects = false,
+                value = audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType,
+            };
+            audioClips_Field.RegisterValueChangedCallback(value => {
+                audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType = value.newValue as AudioClip;
+            });
+            audioClips_Field.SetValueWithoutNotify(audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType);
+            mainContainer.Add(audioClips_Field);
+
+
             // 표시 시간 필드 설정
+            /*
             Label label_duration = new Label("Display Time");
             label_duration.AddToClassList("label_duration");
             label_duration.AddToClassList("Label");
@@ -126,6 +128,7 @@ namespace DialogueSystem.Nodes
             duration_Field.SetValueWithoutNotify(durationShow);
             duration_Field.AddToClassList("TextDuration");
             mainContainer.Add(duration_Field);
+            */
 
             // 유효성 검사 컨테이너 추가
             AddValidationContainer();
@@ -151,7 +154,7 @@ namespace DialogueSystem.Nodes
             texts_Field.SetValueWithoutNotify(texts.Find(language => language.languageEnum == editorWindow.LanguageEnum).LanguageGenericType);
             audioClips_Field.SetValueWithoutNotify(audioClip.Find(language => language.languageEnum == editorWindow.LanguageEnum).LanguageGenericType);
             character_Field.SetValueWithoutNotify(character);
-            duration_Field.SetValueWithoutNotify(durationShow);
+            //duration_Field.SetValueWithoutNotify(durationShow);
         }
 
         // 유효성 검사를 설정하는 메서드

@@ -16,7 +16,7 @@ namespace DialogueSystem.Editor
     public class DialogueEditorWindow : EditorWindow
     {
         // 현재 편집 중인 대화 컨테이너를 저장하는 변수
-        private DialogueContainerSO currentDialogueContainer;
+        private DialogueScript currentDialogueContainer;
 
         // 그래프 뷰와 저장/로드 도구를 저장하는 변수
         private DialogueGraphView graphView;
@@ -49,10 +49,10 @@ namespace DialogueSystem.Editor
         {
             UnityEngine.Object item = EditorUtility.InstanceIDToObject(_instanceId);
             LoadSettings();
-            if (item is DialogueContainerSO && !Application.isPlaying) {
+            if (item is DialogueScript && !Application.isPlaying) {
                 DialogueEditorWindow window = (DialogueEditorWindow)GetWindow(typeof(DialogueEditorWindow));
                 window.titleContent = new GUIContent("Dialogue Editor", EditorGUIUtility.FindTexture("d_Favorite Icon"));
-                window.currentDialogueContainer = item as DialogueContainerSO;
+                window.currentDialogueContainer = item as DialogueScript;
                 window.minSize = new Vector2(500, 250);
                 window.Load();
                 

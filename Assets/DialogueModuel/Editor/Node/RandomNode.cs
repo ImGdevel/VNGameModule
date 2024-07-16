@@ -11,7 +11,7 @@ using DialogueSystem.Event;
 
 namespace DialogueSystem.Nodes
 {
-    public class DialogueChoiceNode : BaseNode
+    public class RandomNode : BaseNode
     {
         private List<LanguageGeneric<string>> texts = new List<LanguageGeneric<string>>();
         private List<LanguageGeneric<AudioClip>> audioClip = new List<LanguageGeneric<AudioClip>>();
@@ -26,16 +26,16 @@ namespace DialogueSystem.Nodes
         public float DurationShow { get => durationShow; set => durationShow = value; }
 
         private TextField texts_Field;
-        private ObjectField character_Field;
         private ObjectField audioClips_Field;
-        //private FloatField duration_Field;
+        private FloatField duration_Field;
+        private ObjectField character_Field;
 
-        public DialogueChoiceNode()
+        public RandomNode()
         {
 
         }
 
-        public DialogueChoiceNode(Vector2 _position, DialogueEditorWindow _editorWindow, DialogueGraphView _graphView)
+        public RandomNode(Vector2 _position, DialogueEditorWindow _editorWindow, DialogueGraphView _graphView)
         {
             editorWindow = _editorWindow;
             graphView = _graphView;
@@ -59,9 +59,22 @@ namespace DialogueSystem.Nodes
                     LanguageGenericType = null
                 });
             }
+            /* AUDIO CLIPS */
+            audioClips_Field = new ObjectField()
+            {
+                objectType = typeof(AudioClip),
+                allowSceneObjects = false,
+                value = audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType,
+            };
+            audioClips_Field.RegisterValueChangedCallback(value =>
+            {
+                audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType = value.newValue as AudioClip;
+            });
+            audioClips_Field.SetValueWithoutNotify(audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType);
+            mainContainer.Add(audioClips_Field);
 
             /* Character CLIPS */
-            Label label_character = new Label("Character CG");
+            Label label_character = new Label("Character SO");
             label_character.AddToClassList("label_name");
             label_character.AddToClassList("Label");
             mainContainer.Add(label_character);
@@ -95,24 +108,7 @@ namespace DialogueSystem.Nodes
             texts_Field.AddToClassList("TextBox");
             mainContainer.Add(texts_Field);
 
-            /* AUDIO CLIPS */
-            Label label_audio = new Label("Voice Audio Clip");
-            label_audio.AddToClassList("label_audio");
-            label_audio.AddToClassList("Label");
-            mainContainer.Add(label_audio);
-            audioClips_Field = new ObjectField() {
-                objectType = typeof(AudioClip),
-                allowSceneObjects = false,
-                value = audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType,
-            };
-            audioClips_Field.RegisterValueChangedCallback(value => {
-                audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType = value.newValue as AudioClip;
-            });
-            audioClips_Field.SetValueWithoutNotify(audioClip.Find(audioClips => audioClips.languageEnum == editorWindow.LanguageEnum).LanguageGenericType);
-            mainContainer.Add(audioClips_Field);
-
             /* DIALOGUE DURATION */
-            /*
             Label label_duration = new Label("Time to Display Options");
             label_duration.AddToClassList("label_duration");
             label_duration.AddToClassList("Label");
@@ -127,7 +123,6 @@ namespace DialogueSystem.Nodes
 
             duration_Field.AddToClassList("TextDuration");
             mainContainer.Add(duration_Field);
-            */
 
             Button button = new Button()
             {
@@ -171,7 +166,7 @@ namespace DialogueSystem.Nodes
             texts_Field.SetValueWithoutNotify(texts.Find(language => language.languageEnum == editorWindow.LanguageEnum).LanguageGenericType);
             character_Field.SetValueWithoutNotify(character);
             audioClips_Field.SetValueWithoutNotify(audioClip.Find(language => language.languageEnum == editorWindow.LanguageEnum).LanguageGenericType);
-            //duration_Field.SetValueWithoutNotify(durationShow);
+            duration_Field.SetValueWithoutNotify(durationShow);
         }
 
         public Port AddChoicePort(BaseNode _basenote, DialogueNodePort _dialogueNodePort = null)
@@ -217,15 +212,10 @@ namespace DialogueSystem.Nodes
             dialogueNodePort.TextField.AddToClassList("ChoiceLabel");
             port.contentContainer.Add(dialogueNodePort.TextField);
 
-            Button deleteButton = new Button(() => DeleteButton(_basenote, port)) {
-                text = "X" // 텍스트는 비워둡니다.
+            Button deleteButton = new Button(() => DeleteButton(_basenote, port))
+            {
+                text = "X"
             };
-
-            // 아이콘 추가
-            //var icon = EditorGUIUtility.IconContent("TreeEditor.Trash").image as Texture2D;
-            //deleteButton.style.backgroundImage = new StyleBackground(icon);
-            deleteButton.AddToClassList("DeleteButton");
-
             port.contentContainer.Add(deleteButton);
 
 #if UNITY_EDITOR

@@ -41,12 +41,12 @@ namespace DialogueSystem
             if (Timer > 0) dialogueUIManager.TimerSlider.value = Timer; // 타이머 슬라이더 업데이트
         }
 
-        public void SetupDialogue(DialogueContainerSO dialogue)
+        public void SetupDialogue(DialogueScript dialogue)
         {
             dialogueContainer = dialogue; // 대화 컨테이너 설정
         }
 
-        public void StartDialogue(DialogueContainerSO dialogue)
+        public void StartDialogue(DialogueScript dialogue)
         {
             dialogueUIManager = DialogueUIManager.Instance; // DialogueUIManager 인스턴스 설정
             dialogueContainer = dialogue; // 대화 컨테이너 설정

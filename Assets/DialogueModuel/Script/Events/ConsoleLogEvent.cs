@@ -6,7 +6,7 @@ namespace DialogueSystem.Event
 {
     [CreateAssetMenu(menuName = "Dialogue/Event/Console Log")]
     [System.Serializable]
-    public class ConsoleLogEvent : DialogueEventSO
+    public class ConsoleLogEvent : DialogueEvent
     {
         public LogType logType;
         public string Content;

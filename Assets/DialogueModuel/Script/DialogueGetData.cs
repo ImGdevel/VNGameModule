@@ -6,7 +6,7 @@ namespace DialogueSystem
 {
     public class DialogueGetData : MonoBehaviour
     {
-        [HideInInspector] public DialogueContainerSO dialogueContainer;
+        [HideInInspector] public DialogueScript dialogueContainer;
 
         protected BaseNodeData GetNodeByGuid(string _targetNodeGuid)
         {

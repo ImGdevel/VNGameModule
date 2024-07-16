@@ -11,7 +11,7 @@ namespace VisualNovelGame
 {
     public class ScenarioManagers : MonoBehaviour
     {
-        public DialogueContainerSO dialogueContainerSO;
+        public DialogueScript dialogueContainerSO;
         public LocalizationManager localizationManager;
 
         private Dictionary<int, Scenario> scenarios;
@@ -85,17 +85,17 @@ namespace VisualNovelGame
 
 
 
-        public BaseNodeData GetNodeByGuid(DialogueContainerSO dialogueContainer, string _targetNodeGuid)
+        public BaseNodeData GetNodeByGuid(DialogueScript dialogueContainer, string _targetNodeGuid)
         {
             return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _targetNodeGuid);
         }
 
-        public BaseNodeData GetNodeByNodePort(DialogueContainerSO dialogueContainer, DialogueNodePort _nodePort)
+        public BaseNodeData GetNodeByNodePort(DialogueScript dialogueContainer, DialogueNodePort _nodePort)
         {
             return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _nodePort.InputGuid);
         }
 
-        public BaseNodeData GetNextNode(DialogueContainerSO dialogueContainer, BaseNodeData _baseNodeData)
+        public BaseNodeData GetNextNode(DialogueScript dialogueContainer, BaseNodeData _baseNodeData)
         {
             NodeLinkData nodeLinkData = dialogueContainer.NodeLinkDatas.Find(edge => edge.BaseNodeGuid == _baseNodeData.NodeGuid);
 
@@ -113,17 +113,17 @@ namespace VisualNovelGame
     class Mapper
     {
 
-        public static BaseNodeData GetNodeByGuid(DialogueContainerSO dialogueContainer, string _targetNodeGuid)
+        public static BaseNodeData GetNodeByGuid(DialogueScript dialogueContainer, string _targetNodeGuid)
         {
             return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _targetNodeGuid);
         }
 
-        public static BaseNodeData GetNodeByNodePort(DialogueContainerSO dialogueContainer, DialogueNodePort _nodePort)
+        public static BaseNodeData GetNodeByNodePort(DialogueScript dialogueContainer, DialogueNodePort _nodePort)
         {
             return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _nodePort.InputGuid);
         }
 
-        public static BaseNodeData GetNextNode(DialogueContainerSO dialogueContainer, BaseNodeData _baseNodeData)
+        public static BaseNodeData GetNextNode(DialogueScript dialogueContainer, BaseNodeData _baseNodeData)
         {
             NodeLinkData nodeLinkData = dialogueContainer.NodeLinkDatas.Find(edge => edge.BaseNodeGuid == _baseNodeData.NodeGuid);
 

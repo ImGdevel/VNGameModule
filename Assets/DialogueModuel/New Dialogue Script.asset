@@ -1,0 +1,92 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435ed16438110684bb8912c1a15abe4b, type: 3}
+  m_Name: New Dialogue Script
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: c07228ff-1185-4912-b819-ed134bda584b
+    TargetNodeGuid: ec6652d0-0a1a-4a47-8c49-e7e133213925
+  - BaseNodeGuid: ec6652d0-0a1a-4a47-8c49-e7e133213925
+    TargetNodeGuid: 60e10208-5491-4814-849f-f7baf484aca9
+  - BaseNodeGuid: 60e10208-5491-4814-849f-f7baf484aca9
+    TargetNodeGuid: 786d1e69-e993-4d9c-ade6-707882db5deb
+  - BaseNodeGuid: 786d1e69-e993-4d9c-ade6-707882db5deb
+    TargetNodeGuid: cf47f941-20a5-4a07-bd8f-ea0c7ed6220a
+  DialogueChoiceNodeDatas:
+  - NodeGuid: 60e10208-5491-4814-849f-f7baf484aca9
+    Position: {x: 373, y: 297}
+    DialogueNodePorts:
+    - InputGuid: 786d1e69-e993-4d9c-ade6-707882db5deb
+      OutputGuid: 60e10208-5491-4814-849f-f7baf484aca9
+      TextLanguage:
+      - languageEnum: 0
+        LanguageGenericType: Choice 01
+    - InputGuid: 
+      OutputGuid: 
+      TextLanguage:
+      - languageEnum: 0
+        LanguageGenericType: Choice 02
+    - InputGuid: 
+      OutputGuid: 
+      TextLanguage:
+      - languageEnum: 0
+        LanguageGenericType: Choice 03
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: 
+    Duration: 5
+  DialogueNodeDatas:
+  - NodeGuid: ec6652d0-0a1a-4a47-8c49-e7e133213925
+    Position: {x: 131, y: 298}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: 
+    Duration: 10
+  - NodeGuid: 786d1e69-e993-4d9c-ade6-707882db5deb
+    Position: {x: 714, y: 297}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: 
+    Duration: 10
+  EndNodeDatas:
+  - NodeGuid: cf47f941-20a5-4a07-bd8f-ea0c7ed6220a
+    Position: {x: 949, y: 297}
+    EndNodeType: 0
+  StartNodeDatas:
+  - NodeGuid: c07228ff-1185-4912-b819-ed134bda584b
+    Position: {x: 22, y: 299}
+    startID: 
+  TimerChoiceNodeDatas: []
+  EventNodeDatas: []
+  RandomNodeDatas: []
+  CommandNodeDatas: []
+  IFNodeDatas: []
