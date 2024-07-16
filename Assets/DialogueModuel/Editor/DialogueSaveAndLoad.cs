@@ -22,26 +22,26 @@ namespace DialogueSystem.Editor
             graphView = _graphView;
         }
 
-        public void Save(DialogueScript _dialogueContainerSO)
+        public void Save(DialogueScript _dialogueScript)
         {
-            SaveEdges(_dialogueContainerSO);
-            SaveNodes(_dialogueContainerSO);
+            SaveEdges(_dialogueScript);
+            SaveNodes(_dialogueScript);
 
-            EditorUtility.SetDirty(_dialogueContainerSO);
+            EditorUtility.SetDirty(_dialogueScript);
             AssetDatabase.SaveAssets();
         }
-        public void Load(DialogueScript _dialogueContainerSO)
+        public void Load(DialogueScript _dialogueScript)
         {
             ClearGraph();
-            GenerateNodes(_dialogueContainerSO);
-            ConnectNodes(_dialogueContainerSO);
+            GenerateNodes(_dialogueScript);
+            ConnectNodes(_dialogueScript);
         }
 
         #region Save
 
-        public void SaveEdges(DialogueScript _dialogueContainerSO)
+        public void SaveEdges(DialogueScript _dialogueScript)
         {
-            _dialogueContainerSO.NodeLinkDatas.Clear();
+            _dialogueScript.NodeLinkDatas.Clear();
 
             Edge[] connectedEdges = edges.Where(edge => edge.input.node != null).ToArray();
             for (int i = 0; i < connectedEdges.Count(); i++)
@@ -49,7 +49,7 @@ namespace DialogueSystem.Editor
                 BaseNode outputNode = (BaseNode)connectedEdges[i].output.node;
                 BaseNode inputNode = connectedEdges[i].input.node as BaseNode;
 
-                _dialogueContainerSO.NodeLinkDatas.Add(new NodeLinkData
+                _dialogueScript.NodeLinkDatas.Add(new NodeLinkData
                 {
                     BaseNodeGuid = outputNode.nodeGuid,
                     TargetNodeGuid = inputNode.nodeGuid
@@ -57,28 +57,28 @@ namespace DialogueSystem.Editor
             }
         }
 
-        private void SaveNodes(DialogueScript _dialogueContainerSO)
+        private void SaveNodes(DialogueScript _dialogueScript)
         {
-            _dialogueContainerSO.DialogueChoiceNodeDatas.Clear();
-            _dialogueContainerSO.DialogueNodeDatas.Clear();
-            _dialogueContainerSO.EndNodeDatas.Clear();
-            _dialogueContainerSO.StartNodeDatas.Clear();
+            _dialogueScript.DialogueChoiceNodeDatas.Clear();
+            _dialogueScript.DialogueNodeDatas.Clear();
+            _dialogueScript.EndNodeDatas.Clear();
+            _dialogueScript.StartNodeDatas.Clear();
 
             nodes.ForEach(node =>
             {
                 switch (node)
                 {
                     case DialogueChoiceNode dialogueChoiceNode:
-                        _dialogueContainerSO.DialogueChoiceNodeDatas.Add(SaveNodeData(dialogueChoiceNode));
+                        _dialogueScript.DialogueChoiceNodeDatas.Add(SaveNodeData(dialogueChoiceNode));
                         break;
                     case DialogueNode dialogueNode:
-                        _dialogueContainerSO.DialogueNodeDatas.Add(SaveNodeData(dialogueNode));
+                        _dialogueScript.DialogueNodeDatas.Add(SaveNodeData(dialogueNode));
                         break;
                     case StartNode startNode:
-                        _dialogueContainerSO.StartNodeDatas.Add(SaveNodeData(startNode));
+                        _dialogueScript.StartNodeDatas.Add(SaveNodeData(startNode));
                         break;
                     case EndNode endNode:
-                        _dialogueContainerSO.EndNodeDatas.Add(SaveNodeData(endNode));
+                        _dialogueScript.EndNodeDatas.Add(SaveNodeData(endNode));
                         break;
                     default:
                         break;
@@ -166,10 +166,10 @@ namespace DialogueSystem.Editor
             }
         }
 
-        private void GenerateNodes(DialogueScript _dialogueContainer)
+        private void GenerateNodes(DialogueScript _dialogueScript)
         {
             /* Start Node */
-            foreach (StartNodeData node in _dialogueContainer.StartNodeDatas)
+            foreach (StartNodeData node in _dialogueScript.StartNodeDatas)
             {
                 StartNode tempNode = graphView.CreateStartNode(node.Position);
                 tempNode.nodeGuid = node.NodeGuid;
@@ -179,7 +179,7 @@ namespace DialogueSystem.Editor
             }
 
             /* End Node */
-            foreach (EndNodeData node in _dialogueContainer.EndNodeDatas)
+            foreach (EndNodeData node in _dialogueScript.EndNodeDatas)
             {
                 EndNode tempNode = graphView.CreateEndNode(node.Position);
                 tempNode.nodeGuid = node.NodeGuid;
@@ -191,7 +191,7 @@ namespace DialogueSystem.Editor
 
 
             /* Dialogue Choice Node */
-            foreach (DialogueChoiceNodeData node in _dialogueContainer.DialogueChoiceNodeDatas)
+            foreach (DialogueChoiceNodeData node in _dialogueScript.DialogueChoiceNodeDatas)
             {
                 DialogueChoiceNode tempNode = graphView.CreateDialogueChoiceNode(node.Position);
                 tempNode.nodeGuid = node.NodeGuid;
@@ -218,7 +218,7 @@ namespace DialogueSystem.Editor
             }
 
             /* Dialogue Node */
-            foreach (DialogueNodeData node in _dialogueContainer.DialogueNodeDatas)
+            foreach (DialogueNodeData node in _dialogueScript.DialogueNodeDatas)
             {
                 DialogueNode tempNode = graphView.CreateDialogueNode(node.Position);
                 tempNode.nodeGuid = node.NodeGuid;
@@ -241,11 +241,11 @@ namespace DialogueSystem.Editor
             }
         }
 
-        private void ConnectNodes(DialogueScript _dialogueContainer)
+        private void ConnectNodes(DialogueScript _dialogueScript)
         {
             for (int i = 0; i < nodes.Count; i++)
             {
-                List<NodeLinkData> connections = _dialogueContainer.NodeLinkDatas.Where(edge => edge.BaseNodeGuid == nodes[i].nodeGuid).ToList();
+                List<NodeLinkData> connections = _dialogueScript.NodeLinkDatas.Where(edge => edge.BaseNodeGuid == nodes[i].nodeGuid).ToList();
 
                 for (int j = 0; j < connections.Count; j++)
                 {

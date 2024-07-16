@@ -55,7 +55,7 @@ namespace DialogueSystem.Editor
                 window.currentDialogueContainer = item as DialogueScript;
                 window.minSize = new Vector2(500, 250);
                 window.Load();
-                
+
             }
             else if (Application.isPlaying) {
                 EditorUtility.DisplayDialog("Can't Open a Dialogue", "Dialogue Editor can only be opened when the project is not on!\nTurn off Play Mode to open the Editor", "I understand");
@@ -111,7 +111,7 @@ namespace DialogueSystem.Editor
 
             Toolbar toolbar = new Toolbar();
 
-            
+
             ToolbarSpacer sep = new ToolbarSpacer();
             toolbar.Add(sep);
 
@@ -139,6 +139,7 @@ namespace DialogueSystem.Editor
             }
 
             // 임포트 버튼 생성 및 이벤트 핸들러 등록
+            /*
             ToolbarButton importBtn = new ToolbarButton() {
                 text = "Import Text",
                 name = "import_btn"
@@ -152,6 +153,7 @@ namespace DialogueSystem.Editor
             };
             importBtn.SetEnabled(false);
             toolbar.Add(importBtn);
+            */
 
             // 익스포트 버튼 생성 및 이벤트 핸들러 등록
             ToolbarButton exportBtn = new ToolbarButton() {
@@ -176,7 +178,7 @@ namespace DialogueSystem.Editor
             };
             saveBtn.clicked += () => {
                 Save();
-                //if (Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").ManualSaveLogs) Debug.Log("Manual Save");
+                if (Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").ManualSaveLogs) Debug.Log("Manual Save");
             };
             toolbar.Add(saveBtn);
 
@@ -188,13 +190,13 @@ namespace DialogueSystem.Editor
         // 매 프레임 호출되는 메서드
         private void OnGUI()
         {
-            
+
             if (AutoSave && EditorApplication.timeSinceStartup - lastUpdateTime >= Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").AutoSaveInterval && !Application.isPlaying) {
                 lastUpdateTime = (float)EditorApplication.timeSinceStartup;
                 Save();
                 if (Resources.Load<DialogueEditorSettings>("DialogueEditorSettings").AutoSaveLogs) Debug.Log($"Auto Save [{DateTime.Now.ToString("HH:mm:ss")}]");
             }
-            
+
 
             if (!Application.isPlaying) {
                 _NoEditInfo = false;
