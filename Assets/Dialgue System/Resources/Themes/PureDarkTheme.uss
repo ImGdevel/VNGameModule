@@ -1,0 +1,479 @@
+GridBackground {
+	--grid-background-color: #282828;
+	--line-color: rgba(193, 196, 192, 0.1);
+	--thick-line-color: rgba(193, 196, 192, 0.1);
+	--spacing: 10;
+}
+
+/* Toolbar Start */
+#save_btn, #load_btn{
+     width: 60px;
+     -unity-text-align: middle-center;
+     padding-bottom: 2px;
+}
+ #localization_enum{
+     width: 75px;
+}
+ #localization_enum .unity-text-element, #theme_enum .unity-text-element{
+     -unity-text-align: middle-center;
+     padding-bottom: 2px;
+}
+ #theme_enum{
+     width: 100px;
+}
+ .nameOfDialogueContainer{
+     -unity-font-style: bold;
+     min-width: 150px;
+     -unity-text-align: middle-center;
+}
+ #autosave_toogle{
+     flex-direction: row-reverse;
+     -unity-text-align: middle-left;
+}
+ #autosave_toogle .unity-text-element{
+     width: 75px;
+     min-width: 75px;
+}
+ .unity-toolbar{
+     height: 30px;
+}
+ #import_btn, #export_btn{
+     width: 100px;
+     -unity-text-align: middle-center;
+}
+ #import_btn, #export_btn, #localization_enum, #theme_enum, #save_btn, #load_btn{
+	  cursor: link;
+ }
+ #version_text{
+	  position: absolute;
+	  bottom: 8px;
+	  left: 8px;
+ }
+ /* Toolbar End */
+
+
+
+ #ValidationContainer{
+	  position:absolute !important;
+	bottom: 48px;
+ }
+ #ErrorContainer,
+ #WarningContainer{
+	padding: 8px;
+	border-radius: 8px;
+	-unity-font-style: bold;
+ }
+ #TimerChoice #ValidationContainer,
+  #Choice #ValidationContainer,
+  #Event #ValidationContainer{
+	  width: 292px;
+ }
+
+  #Start #ValidationContainer
+  {
+	  width: 192px;
+	  left: -62px;
+ }
+  #End #ValidationContainer
+  {
+	  width: 192px;
+	  left: -40px;
+ }
+
+   #Random #ValidationContainer,
+  #IF #ValidationContainer
+  {
+	  width: 192px;
+ }
+
+   #Dialog #ValidationContainer{
+	  width: 242px;
+	  left: -25px;
+ }
+
+
+
+.node #title{
+	background-color: #515151;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	min-height: 36px;
+}
+
+#node-border{
+	background-color: #383838;
+}
+#node-border{
+	flex-shrink: 0;
+}
+
+.Label{
+	margin-top: 5px;
+	margin-left: 4px;
+}
+.TextBox{
+	white-space: Normal;
+}
+
+#title-label {
+	color: #ffffff;
+}
+
+.Colorfield
+{
+	width: 200px; 
+}
+.TextTime
+{
+	padding-bottom: 2px;
+}
+.TextDuration
+{
+	padding-bottom: 2px;
+}
+
+.unity-object-field
+{
+	padding-bottom: 2px;
+}
+.unity-enum-field
+{
+	padding-bottom: 2px;
+}
+#collapse-button
+{
+	height: 0px;
+	width: 0px;
+}
+
+.node .ChoiceLabel{
+	width: 75px;
+	max-width: 75px;
+}
+.node .ChoiceLabel .unity-text-field__input{
+	-unity-text-align: middle-right;
+}
+
+#Choice {
+	max-width: 300px; 
+	width: 300px; 
+}
+#Choice #output{
+	width: 200px;
+}
+#Choice #output .port{
+	max-width: 215px; 
+	width: 215px;
+}
+#Choice #output .port .ChoiceLabel{
+	max-width: 145px; 
+	width: 145px;
+}
+
+#TimerChoice {
+	max-width: 300px; 
+	width: 300px; 
+}
+#TimerChoice #output{
+	width: 200px;
+}
+#TimerChoice #output .port{
+	max-width: 215px; 
+	width: 215px;
+}
+#TimerChoice #output .port .ChoiceLabel{
+	max-width: 145px; 
+	width: 145px;
+}
+#TimerChoice #output .FirstPort .unity-label{
+	margin-right: 18px;
+}
+
+#Event {
+	max-width: 300px; 
+	width: 300px; 
+}
+
+#Dialog {
+	max-width: 200px; 
+	width: 200px; 
+}
+
+
+
+#Event #node-border #title {
+	background-color: #515151;
+}
+
+#Event #node-border #contents #top #output .port {
+	--port-color: #999999;
+}
+
+#Event #node-border #contents #top #input .port {
+	--port-color: #999999;
+}
+
+#Event .unity-toolbar-menu{
+	background-color: #666666 !important;
+	border-width: 0px !important;
+	padding: 5px;
+}
+
+#Event .EventBox .unity-label{
+	min-width: 75px !important;
+}
+
+#Event #unity-x-input .unity-label,
+#Event #unity-y-input .unity-label,
+#Event #unity-z-input .unity-label,
+#Event #unity-w-input .unity-label{
+	display: none;
+}
+
+.EventBox {
+	flex-direction: row;
+}
+
+.EventSO {
+	width: 260px;
+	max-width: 260px;
+	margin-left: 2px;
+	margin-right: 0px;
+	height: 20px;
+}
+
+.EventBtn{
+	background-color: #515151 !important;
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
+
+
+#Start #node-border #title {
+	background-color: #515151;
+}
+
+#Start #node-border #contents #top #output .port {
+	--port-color: #999999;
+}
+
+#Start #node-border #contents #top #input .port {
+	--port-color: #999999;
+}
+#Start .unity-base-field .unity-text-element{
+	width: 25px;
+	min-width: 25px;
+}
+
+#Dialog #node-border #title {
+	background-color: #515151;
+}
+
+#Dialog #node-border #contents #top #output .port {
+	--port-color: #999999;
+}
+
+#Dialog #node-border #contents #top #input .port {
+	--port-color: #999999;
+}
+
+
+#Choice #node-border #title {
+	background-color: #515151;
+}
+
+#Choice #node-border #title .unity-button {
+	background-color: #666666;
+	border-width: 0px;
+}
+
+#Choice #node-border #contents #top #output .port {
+	--port-color: #999999;
+}
+
+#Choice #node-border #contents #top #input .port {
+	--port-color: #999999;
+}
+
+
+
+#End #node-border #title {
+	background-color: #515151;
+}
+
+#End #node-border #contents #top #output .port {
+	--port-color: #999999;
+}
+
+#End #node-border #contents #top #input .port {
+	--port-color: #999999;
+}
+#End #input{
+	width: 112px !important;
+}
+
+#End{
+	width: 120px;
+}
+
+
+
+#TimerChoice #node-border #title {
+	background-color: #515151;
+}
+
+#TimerChoice #node-border #title .unity-button {
+	background-color: #666666;
+	border-width: 0px;
+}
+
+#TimerChoice #node-border #contents #top #output .port {
+	--port-color: #999999;
+}
+#TimerChoice #node-border #contents #top #input .port {
+	--port-color: #999999;
+}
+#TimerChoice .TextDuration {
+	padding-bottom: 0px;
+}
+
+#Random{
+	width:200px;
+}
+#Random #title{
+	background-color: #515151;
+}
+#Random .port{
+	--port-color: #515151;
+}
+#Random .output .unity-base-field{
+	display: None !important;
+	
+}
+
+#Command{
+	width: 300px;
+}
+#Command #contents{
+	display: None;
+}
+
+#Command #unity-text-input{
+	border-left-width: 0px !important;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	white-space: Normal;
+	}
+
+
+.port .unity-button{
+	background-color: #3F3F3F !important;
+}
+
+#Dialog .unity-enum-field .unity-text-element,
+#Choice .unity-enum-field .unity-text-element,
+#TimerChoice .unity-enum-field .unity-text-element{
+	width: 85px;
+	min-width: 85px;
+}
+
+
+#IF{
+	width: 200px;
+}
+
+#IF .port{
+	--port-color: #999999;
+}
+#IF .True{
+	--port-color: #999999;
+}
+#IF .False{
+	--port-color: #999999;
+}
+#IF .unity-base-text-field__label,
+#IF .unity-enum-field__label{
+	width: 75px !important;
+	min-width: 75px !important;
+}
+
+
+/* Selection Color */
+#IF #selection-border{
+	border-bottom-color: #235789;
+	border-top-color: #235789;
+	border-left-color: #235789;
+	border-right-color: #235789;
+}
+
+#Command #selection-border{
+	border-bottom-color: #0a5c36;
+	border-top-color: #0a5c36;
+	border-left-color: #0a5c36;
+	border-right-color: #0a5c36;
+}
+
+#Random #selection-border{
+	border-bottom-color: #80234A;
+	border-top-color: #80234A;
+	border-left-color: #80234A;
+	border-right-color: #80234A;
+}
+
+#TimerChoice #selection-border{
+	border-bottom-color: #ff7700;
+	border-top-color: #ff7700;
+	border-left-color: #ff7700;
+	border-right-color: #ff7700;
+}
+
+#End #selection-border{
+	border-bottom-color: #A8323F;
+	border-top-color: #A8323F;
+	border-left-color: #A8323F;
+	border-right-color: #A8323F;
+}
+
+#Choice #selection-border{
+	border-bottom-color: #22AED1;
+	border-top-color: #22AED1;
+	border-left-color: #22AED1;
+	border-right-color: #22AED1;
+}
+
+#Start #selection-border{
+	border-bottom-color: #149A3E;
+	border-top-color: #149A3E;
+	border-left-color: #149A3E;
+	border-right-color: #149A3E;
+}
+
+#Dialog #selection-border{
+	border-bottom-color: #F9C22E;
+	border-top-color: #F9C22E;
+	border-left-color: #F9C22E;
+	border-right-color: #F9C22E;
+}
+
+#Event #selection-border{
+	border-bottom-color: #9649CB;
+	border-top-color: #9649CB;
+	border-left-color: #9649CB;
+	border-right-color: #9649CB;
+}
+
+#IF:hover #selection-border,
+#Command:hover #selection-border,
+#Random:hover #selection-border,
+#TimerChoice:hover #selection-border,
+#End:hover #selection-border,
+#Choice:hover #selection-border,
+#Start:hover #selection-border,
+#Dialog:hover #selection-border,
+#Event:hover #selection-border{
+	border-bottom-width: 4px;
+	border-top-width: 4px;
+	border-left-width: 4px;
+	border-right-width: 4px;
+}

@@ -1,0 +1,451 @@
+GridBackground {
+	--grid-background-color: #282828;
+	--line-color: rgba(193, 196, 192, 0.05);
+	--thick-line-color: rgba(193, 196, 192, 0.05);
+	--spacing: 50;
+}
+
+.edge{
+	--edge-width: 10px !important;
+}
+
+/* Toolbar Styles */
+.unity-toolbar{
+    height: 25px;
+}
+#save_btn, #load_btn{
+    width: 60px;
+    -unity-text-align: middle-center;
+    padding-bottom: 2px;
+}
+#localization_enum{
+    width: 100px;
+}
+#localization_enum .unity-text-element, #theme_enum .unity-text-element{
+    -unity-text-align: middle-center;
+    padding-bottom: 2px;
+}
+#theme_enum{
+    width: 100px;
+}
+.nameOfDialogueContainer{
+    -unity-font-style: bold;
+    min-width: 200px;
+    -unity-text-align: middle-left;
+}
+
+
+#import_btn, #export_btn{
+    width: 100px;
+    -unity-text-align: middle-center;
+}
+#import_btn, #export_btn, #localization_enum, #theme_enum, #save_btn, #load_btn{
+	cursor: link;
+}
+#version_text{
+	position: absolute;
+	bottom: 8px;
+	left: 8px;
+}
+
+
+
+/*Container Styles*/
+#ValidationContainer{
+	position:absolute !important;
+	bottom: 48px;
+}
+
+#Dialog #ValidationContainer{
+	width: 242px;
+	left: -25px;
+}
+
+#Start #ValidationContainer
+{
+	  width: 192px;
+	  left: -62px;
+}
+#End #ValidationContainer
+{
+	  width: 192px;
+	  left: -40px;
+}
+
+#Random #ValidationContainer,
+#IF #ValidationContainer
+{
+	  width: 192px;
+}
+
+#TimerChoice #ValidationContainer,
+#Choice #ValidationContainer,
+#Event #ValidationContainer{
+	  width: 292px;
+}
+
+#ErrorContainer,
+#WarningContainer{
+	background-color: rgba(10, 10, 10, 0.45);
+	padding: 8px;
+	border-radius: 8px;
+	-unity-font-style: bold;
+}
+
+.node #title{
+	background-color: #923842;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	min-height: 36px;
+}
+
+#node-border {
+    background-color: #383838;
+    overflow: visible !important;
+	flex-shrink: 0;
+}
+
+.Label{
+	margin-top: 5px;
+	margin-left: 4px;
+}
+
+.TextBox{
+	white-space: Normal;
+	min-height: 35px;
+}
+
+#title-label {
+	color: #ffffff;
+}
+
+#node-border #title #title-label{
+	color: #ffffff;
+}
+
+.Colorfield
+{
+	width: 200px; 
+}
+.TextTime
+{
+	padding-bottom: 2px;
+}
+.TextDuration
+{
+	padding-bottom: 2px;
+}
+
+.unity-object-field
+{
+	padding-bottom: 2px;
+}
+.unity-enum-field
+{
+	padding-bottom: 2px;
+}
+#collapse-button
+{
+	height: 0px;
+	width: 0px;
+}
+
+#node-border #contents #top #input .port {
+	--port-color: rgba(83, 179, 203, 1.0);
+}
+
+#node-border #contents #top #output .port {
+	--port-color: rgba(83, 179, 203, 1.0);
+}
+
+/* Start NODE STYLE*/
+#Start{
+	width: 108px;
+}
+
+#Start #node-border #title {
+	background-color: #1C871D;
+}
+
+
+#Start .unity-base-field .unity-text-element{
+	width: 25px;
+	min-width: 25px;
+}
+#Start #node-border #contents #top #output{
+	background-color: #383838 !important;
+}
+
+#Start #output{
+	width: 100px !important;
+	border-radius: 5px;
+}
+
+
+/*End NODE STYLE*/
+#End{
+	width: 108px;
+}
+
+#End #node-border #title {
+	background-color: #982727;
+}
+
+#End #input{
+	width: 100px !important;
+	border-radius: 5px;
+}
+
+
+/* Dialog NODE STYLE*/
+#Dialog {
+	max-width: 200px; 
+	width: 200px; 
+}
+
+#Dialog #node-border #title {
+	background-color: #D18522;
+}
+
+#Choice #node-border #title {
+	background-color: #9522D1;
+}
+
+#Choice #node-border #title .unity-button {
+	background-color: #9522D1;
+	border-color: #7D12B4;
+	border-width: 1px;
+}
+
+/* Choice NODE STYLE*/
+.node .ChoiceLabel{
+	width: 75px;
+	max-width: 75px;
+}
+.node .ChoiceLabel .unity-text-field__input{
+	-unity-text-align: middle-right;
+}
+
+#Choice {
+	max-width: 300px; 
+	width: 300px; 
+}
+#Choice #output{
+	width: 200px;
+}
+#Choice #output .port{
+	max-width: 215px; 
+	width: 215px;
+}
+#Choice #output .port .ChoiceLabel{
+	max-width: 145px; 
+	width: 145px;
+}
+
+#Choice #output .DeleteButton {
+    background-color: #303030;
+    color: #ffffff;
+    border-radius: 5px;
+    font-size: 10px;
+	height: 17px;
+	width: 17px;
+    border-color: #222222;
+    cursor: pointer;
+}
+
+#Choice #output .DeleteButton:hover {
+    background-color: #2A2A2A;
+	border-color: #666666;
+}
+
+
+/* TimerChoice NODE STYLE*/
+#TimerChoice {
+	max-width: 300px; 
+	width: 300px; 
+}
+#TimerChoice #output{
+	width: 200px;
+}
+#TimerChoice #output .port{
+	max-width: 215px; 
+	width: 215px;
+}
+#TimerChoice #output .port .ChoiceLabel{
+	max-width: 145px; 
+	width: 145px;
+}
+#TimerChoice #output .FirstPort .unity-label{
+	margin-right: 18px;
+}
+
+/* Event NODE STYLE*/
+#Event {
+	max-width: 300px; 
+	width: 300px; 
+}
+
+#Event #node-border #title {
+	background-color: #9649CB;
+}
+
+#Event .unity-toolbar-menu{
+	background-color: #8742b7 !important;
+	border-width: 0px !important;
+	padding: 5px;
+}
+
+#Event .EventBox .unity-label{
+	min-width: 75px !important;
+}
+
+#Event #unity-x-input .unity-label,
+#Event #unity-y-input .unity-label,
+#Event #unity-z-input .unity-label,
+#Event #unity-w-input .unity-label{
+	display: none;
+}
+
+.EventBox {
+	flex-direction: row;
+}
+
+.EventSO {
+	width: 260px;
+	max-width: 260px;
+	margin-left: 2px;
+	margin-right: 0px;
+	height: 20px;
+}
+
+.EventBtn{
+	background-color: #3F3F3F !important;
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
+
+/* TimerChoice NODE STYLE*/
+#TimerChoice #node-border #title {
+	background-color: #ff7700;
+}
+#TimerChoice #node-border #title .unity-button {
+	background-color: #cc5f00;
+	border-width: 0px;
+}
+#TimerChoice #node-border #title #title-label{
+	color: #4c2400;
+}
+#TimerChoice .TextDuration {
+	padding-bottom: 0px;
+}
+
+/* Random NODE STYLE*/
+#Random{
+	width:200px;
+}
+#Random #title{
+	background-color: #80234A;
+}
+#Random #node-border #title .unity-button {
+	background-color: #701F41;
+	border-width: 0px;
+}
+#Random .output .unity-base-field{
+	display: None !important;	
+}
+
+/* Command NODE STYLE*/
+#Command{
+	width: 300px;
+}
+#Command #title{
+	background-color: #14452f;
+}
+#Command #contents{
+	display: None;
+}
+#Command #node-border{
+	background-color: #0f5132;
+}
+#Command #unity-text-input{
+	background-color: #0a5c36;
+	border-left-width: 0px !important;
+	border-right-width: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 0px;
+	white-space: Normal;
+}
+
+/*IF NODE STYLE */
+#IF{
+	width: 200px;
+}
+#IF #title{
+	background-color: #235789;
+}
+#IF .unity-base-text-field__label,
+#IF .unity-enum-field__label,
+#IF .unity-popup-field__label
+{
+	width: 75px !important;
+	min-width: 75px !important;
+}
+
+.port .unity-button{
+	background-color: #3F3F3F !important;
+}
+
+#Dialog .unity-enum-field .unity-text-element,
+#Choice .unity-enum-field .unity-text-element,
+#TimerChoice .unity-enum-field .unity-text-element{
+	width: 100px;
+	min-width: 100px;
+}
+
+
+#IF #node-border #title,
+#Commandr #node-border #title,
+#Random #node-border #title,
+#TimerChoice #node-border #title,
+#Choice #node-border #title,
+#Dialog #node-border #title,
+#Event #node-border #title{
+	background-color: #383838;
+}
+
+#Choice #node-border #title .unity-button {
+	background-color: #383838;
+	border-color: #2A2A2A;
+	border-width: 1px;
+}
+
+#IF #selection-border,
+#Commandr #selection-border,
+#Random #selection-border,
+#TimerChoice #selection-border,
+#End #selection-border,
+#Choice #selection-border,
+#Start #selection-border,
+#Dialog #selection-border,
+#Event #selection-border{
+	border-bottom-color: #3184CA;
+	border-top-color: #3184CA;
+	border-left-color: #3184CA;
+	border-right-color: #3184CA;
+}
+
+/* BASE NODE SETTINGS */
+#IF:hover #selection-border,
+#Command:hover #selection-border,
+#Random:hover #selection-border,
+#TimerChoice:hover #selection-border,
+#End:hover #selection-border,
+#Choice:hover #selection-border,
+#Start:hover #selection-border,
+#Dialog:hover #selection-border,
+#Event:hover #selection-border{
+	border-bottom-width: 2px;
+	border-top-width: 2px;
+	border-left-width: 2px;
+	border-right-width: 2px;
+}

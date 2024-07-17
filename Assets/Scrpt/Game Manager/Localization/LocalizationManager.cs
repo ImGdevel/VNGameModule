@@ -20,11 +20,6 @@ namespace VisualNovelGame
             StartCoroutine(ChangeLanguage(index));
         }
 
-        internal LocalizationEnum SelectedLang()
-        {
-            throw new NotImplementedException();
-        }
-
         IEnumerator ChangeLanguage(int index)
         {
             isChange = true;
