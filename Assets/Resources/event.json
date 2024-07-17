@@ -5,50 +5,24 @@
       "id": "C10001",
       "events": [
         {
-          "type": "PlayMusic",
+          "type": "ShowCharacter",
           "data": {
-            "name": "JazzCafe"
+            "name": "CharacterA",
+            "number": "0",
+            "time": "0.1"
           }
-        },
+        }
+      ]
+    },
+    {
+      "id": "C10003",
+      "events": [
         {
           "type": "ShowCharacter",
           "data": {
-            "name": "heroine01",
-            "number": "0",
-            "time": "0.5"
-          }
-        }
-      ]
-    },
-    {
-      "id": "C10002",
-      "events": [
-        {
-          "type": "MoveCharacter",
-          "data": {
-            "name": "heroine01",
-            "position": {
-              "x": "1",
-              "y": "0"
-            },
-            "time": "0.5"
-          }
-        }
-      ]
-    },
-    {
-      "id": "C10004",
-      "events": [
-        {
-          "type": "ChangeBackground",
-          "data": {
-            "name": "0"
-          }
-        },
-        {
-          "type": "PlayMusic",
-          "data": {
-            "name": "GameTitle"
+            "name": "CharacterA",
+            "number": "1",
+            "time": "0"
           }
         }
       ]
@@ -65,15 +39,16 @@
       ]
     },
     {
-      "id": "P00004",
+      "id": "C10008",
       "events": [
         {
           "type": "SceneChange",
           "data": {
-            "name": "Chapter01"
+            "name": "Ending"
           }
         }
       ]
     }
+
   ]
 }

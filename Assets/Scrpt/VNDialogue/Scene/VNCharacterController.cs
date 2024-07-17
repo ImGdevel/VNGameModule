@@ -19,6 +19,7 @@ public class VNCharacterController : MonoBehaviour
             VNSpriteController spriteController = characterObj.AddComponent<VNSpriteController>();
             spriteController.SetSpriteList(character.spriteList);
             characterObj.transform.SetParent(transform);
+            characterObj.transform.position = new Vector3(0,-2,0);
 
             characters.Add(characterName, spriteController);
         }

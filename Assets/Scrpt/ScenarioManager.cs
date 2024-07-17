@@ -1,18 +1,18 @@
-using MeetAndTalk;
+using DialogueSystem;
 using SaveSystem;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VisualNovelGame;
-using MeetAndTalk.Localization;
+using DialogueSystem.Localization;
 
 namespace VisualNovelGame
 {
     public class ScenarioManagers : MonoBehaviour
     {
-        public DialogueContainerSO dialogueContainerSO;
-        public LocalizationManager localizationManager;
+        public DialogueScript dialogueContainerSO;
+        //public LocalizationManager localizationManager;
 
         private Dictionary<int, Scenario> scenarios;
         private DataManager<Dictionary<int, Scenario>> scenariosDataManager;
@@ -30,24 +30,24 @@ namespace VisualNovelGame
 
         private void ConvertData()
         {
-            Debug.Log("Content");
+            //Debug.Log("Content");
 
-            Debug.Log(dialogueContainerSO.StartNodeDatas.Count);
+            //Debug.Log(dialogueContainerSO.StartNodeDatas.Count);
 
-            BaseNodeData startNode = GetNextNode(dialogueContainerSO, dialogueContainerSO.StartNodeDatas[0]);
+            //BaseNodeData startNode = GetNextNode(dialogueContainerSO, dialogueContainerSO.StartNodeDatas[0]);
 
             
 
-            BaseNodeData node = GetNextNode(dialogueContainerSO, startNode);
-            CheckNodeType(node);
-            BaseNodeData node2 = GetNextNode(dialogueContainerSO, node);
-            CheckNodeType(node2);
+            //BaseNodeData node = GetNextNode(dialogueContainerSO, startNode);
+            //CheckNodeType(node);
+            //BaseNodeData node2 = GetNextNode(dialogueContainerSO, node);
+            //CheckNodeType(node2);
 
-            BaseNodeData node3 = GetNextNode(dialogueContainerSO, node2);
-            CheckNodeType(node3);
+            //BaseNodeData node3 = GetNextNode(dialogueContainerSO, node2);
+            //CheckNodeType(node3);
 
-            BaseNodeData node4 = GetNextNode(dialogueContainerSO, node3);
-            CheckNodeType(node4);
+            //BaseNodeData node4 = GetNextNode(dialogueContainerSO, node3);
+            //CheckNodeType(node4);
 
 
 
@@ -56,46 +56,22 @@ namespace VisualNovelGame
         public void CheckNodeType(BaseNodeData _baseNodeData)
         {
 
-            // ³ëµå Å¸ÀÔ¿¡ µû¶ó ½ÇÇàÇÒ ÇÔ¼ö ¼±ÅÃ
 
-            Debug.Log("Current Node:" + _baseNodeData.NodeGuid);
-
-            switch (_baseNodeData) {
-                case StartNodeData nodeData:
-
-                    break;
-                case DialogueNodeData nodeData:
-                    Debug.Log("Current Text:" + $"{nodeData.TextType.Find(text => text.languageEnum == localizationManager.SelectedLang()).LanguageGenericType}");
-                    Debug.Log("Next Node:" + $"{nodeData.DialogueNodePorts.Count}");
-
-                    break;
-                case DialogueChoiceNodeData nodeData:
-                    Debug.Log("Current Node:" + $"{nodeData.TextType.Find(text => text.languageEnum == localizationManager.SelectedLang()).LanguageGenericType}");
-                    Debug.Log("Next Node:" + $"{nodeData.DialogueNodePorts[0].InputGuid}");
-                    Debug.Log("Next Node:" + $"{nodeData.DialogueNodePorts[1].InputGuid}");
-                    Debug.Log("Next Node:" + $"{nodeData.DialogueNodePorts[2].InputGuid}");
-
-                    break;
-                case EndNodeData nodeData:
-                    break;
-                default:
-                    break;
-            }
         }
 
 
 
-        public BaseNodeData GetNodeByGuid(DialogueContainerSO dialogueContainer, string _targetNodeGuid)
+        public BaseNodeData GetNodeByGuid(DialogueScript dialogueContainer, string _targetNodeGuid)
         {
             return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _targetNodeGuid);
         }
 
-        public BaseNodeData GetNodeByNodePort(DialogueContainerSO dialogueContainer, DialogueNodePort _nodePort)
+        public BaseNodeData GetNodeByNodePort(DialogueScript dialogueContainer, DialogueNodePort _nodePort)
         {
             return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _nodePort.InputGuid);
         }
 
-        public BaseNodeData GetNextNode(DialogueContainerSO dialogueContainer, BaseNodeData _baseNodeData)
+        public BaseNodeData GetNextNode(DialogueScript dialogueContainer, BaseNodeData _baseNodeData)
         {
             NodeLinkData nodeLinkData = dialogueContainer.NodeLinkDatas.Find(edge => edge.BaseNodeGuid == _baseNodeData.NodeGuid);
 
@@ -105,7 +81,7 @@ namespace VisualNovelGame
 
 
 
-        // ½ºÅ©¸³Æ®·Î ÀúÀå(¹öÆ°)
+        // ìŠ¤í¬ë¦½íŠ¸ë¡œ ì €ìž¥(ë²„íŠ¼)
 
     }
 
@@ -113,17 +89,17 @@ namespace VisualNovelGame
     class Mapper
     {
 
-        public static BaseNodeData GetNodeByGuid(DialogueContainerSO dialogueContainer, string _targetNodeGuid)
+        public static BaseNodeData GetNodeByGuid(DialogueScript dialogueContainer, string _targetNodeGuid)
         {
             return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _targetNodeGuid);
         }
 
-        public static BaseNodeData GetNodeByNodePort(DialogueContainerSO dialogueContainer, DialogueNodePort _nodePort)
+        public static BaseNodeData GetNodeByNodePort(DialogueScript dialogueContainer, DialogueNodePort _nodePort)
         {
             return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _nodePort.InputGuid);
         }
 
-        public static BaseNodeData GetNextNode(DialogueContainerSO dialogueContainer, BaseNodeData _baseNodeData)
+        public static BaseNodeData GetNextNode(DialogueScript dialogueContainer, BaseNodeData _baseNodeData)
         {
             NodeLinkData nodeLinkData = dialogueContainer.NodeLinkDatas.Find(edge => edge.BaseNodeGuid == _baseNodeData.NodeGuid);
 

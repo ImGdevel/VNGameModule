@@ -37,40 +37,45 @@
       "dialogs": [
         {
           "id": "C10001",
-          "character": "NPCB",
-          "content": "Hey there! I heard you're the new adventurer in town."
+          "character": "CharacterA",
+          "content": "Hi! Nice to meet you. What's your name?"
         },
         {
           "id": "C10002",
           "character": "Player",
-          "content": "That's right! I'm excited to explore."
-        },
-        {
-          "id": "C10003",
-          "character": "NPCB",
           "choices": [
             {
-              "text": "Ask about the nearby forest.",
-              "nextDialog": "C10004"
+              "text": "My name is Player. Nice to meet you",
+              "nextDialog": "C10003"
             },
             {
-              "text": "Inquire about recent quests.",
-              "nextDialog": "C10005"
+              "text": " Go away",
+              "nextDialog": "C10006"
             }
           ]
         },
         {
+          "id": "C10003",
+          "character": "CharacterA",
+          "content": "Okay, let's hang out!"
+        },
+        {
           "id": "C10004",
-          "character": "NPCB",
-          "content": "The nearby forest is a dangerous place filled with monsters."
+          "character": "Player",
+          "content": "Yeah, thanks"
         },
         {
           "id": "C10005",
-          "character": "NPCB",
-          "content": "Lately, we've had many requests to clear out goblin camps."
+          "character": "",
+          "content": ""
         },
         {
           "id": "C10006",
+          "character": "CharacterA",
+          "content": "Alright... I'll leave"
+        },
+        {
+          "id": "C10007",
           "character": "",
           "content": ""
         }

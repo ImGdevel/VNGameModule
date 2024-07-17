@@ -73,8 +73,8 @@ public class VNDialogueModule : MonoBehaviour
         choiceController.ChoiceScene += JumpScene;
         SettingsManager.OnSettingsChanged += ApplySettings;
         MenuController.OnMenuOpened += ToggleGamePause;
-        GameDataManager.Instance.OnGameDataSaved += SaveDialogueData;
-        GameDataManager.Instance.OnGameDataLoaded += LoadDialogueData;
+        //GameDataManager.Instance.OnGameDataSaved += SaveDialogueData;
+       // GameDataManager.Instance.OnGameDataLoaded += LoadDialogueData;
 
     }
 
@@ -173,9 +173,9 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     /// <summary>
-    /// ÇØ´ç ¾ÀÀ» ½ÇÇàÇÔ
+    /// í•´ë‹¹ ì”¬ì„ ì‹¤í–‰í•¨
     /// </summary>
-    /// <param name="dialog">´ëÈ­ µ¥ÀÌÅÍ¸¦ ½ÃÇàÇÔ</param>
+    /// <param name="dialog">ëŒ€í™” ë°ì´í„°ë¥¼ ì‹œí–‰í•¨</param>
     private void PlayScene(DialogData dialog)
     {
         Debug.Log("Current dialogue number: " + currentSceneName + "(" + dialog.id + ")");
@@ -261,7 +261,7 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾À ¼±ÅÃ
+    /// ì”¬ ì„ íƒ
     /// </summary>
     /// <param name="dialog"></param>
     private void ChoiceScene(DialogData dialog)
@@ -273,9 +273,9 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     /// <summary>
-    /// ¾À °Ç³Ê¶Ù±â
+    /// ì”¬ ê±´ë„ˆë›°ê¸°
     /// </summary>
-    /// <param name="jump_id">ÀÌµ¿ÇÒ ¾À id </param>
+    /// <param name="jump_id">ì´ë™í•  ì”¬ id </param>
     public void JumpScene(string jump_id)
     {
         choiceController.transform.gameObject.SetActive(false);
@@ -292,7 +292,7 @@ public class VNDialogueModule : MonoBehaviour
     }
 
     /// <summary>
-    /// ÀÚµ¿À¸·Î ¾ÀÀ» ³Ñ±ä´Ù
+    /// ìë™ìœ¼ë¡œ ì”¬ì„ ë„˜ê¸´ë‹¤
     /// </summary>
     /// <returns></returns>
     private IEnumerator AutoPlayScene()
@@ -330,13 +330,13 @@ public class VNDialogueModule : MonoBehaviour
 
     public void SaveDialogueData(GameData saveData)
     {
-        Debug.Log("´ëÈ­ µ¥ÀÌÅÍ ÀúÀå");
+        Debug.Log("ëŒ€í™” ë°ì´í„° ì €ì¥");
 
     }
 
     public void LoadDialogueData(GameData saveData)
     {
-        Debug.Log("´ëÈ­ µ¥ÀÌÅÍ ºÒ·¯¿À±â Àû¿ë");
+        Debug.Log("ëŒ€í™” ë°ì´í„° ë¶ˆëŸ¬ì˜¤ê¸° ì ìš©");
 
     }
 

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cee5657e4059eab4a8ab45a8da98a19a, type: 3}
   m_Name: Character-01
   m_EditorClassIdentifier: 
-  listName: heroine01
+  listName: CharacterA
   spriteList:
-  - {fileID: 21300000, guid: 89d2bd10943239a42b7a1c0edf7da008, type: 3}
+  - {fileID: 21300000, guid: 0c4d70e159918844984a75be9ae7fe1d, type: 3}
+  - {fileID: 21300000, guid: 5a37ce2267b42e04f9dd619d64c8cede, type: 3}
