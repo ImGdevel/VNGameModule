@@ -19,5 +19,5 @@ MonoBehaviour:
   AutoSaveLogs: 1
   ManualSaveLogs: 1
   LoadLogs: 1
-  ShowErrors: 1
-  ShowWarnings: 1
+  ShowErrors: 0
+  ShowWarnings: 0

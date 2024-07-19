@@ -89,8 +89,8 @@ public class VNDialogueModule : MonoBehaviour
         choiceController.ChoiceScene -= JumpScene;
         SettingsManager.OnSettingsChanged -= ApplySettings;
         MenuController.OnMenuOpened -= ToggleGamePause;
-        GameDataManager.Instance.OnGameDataSaved -= SaveDialogueData;
-        GameDataManager.Instance.OnGameDataLoaded -= LoadDialogueData;
+        //GameDataManager.Instance.OnGameDataSaved -= SaveDialogueData;
+        //GameDataManager.Instance.OnGameDataLoaded -= LoadDialogueData;
     }
 
     private IEnumerator StartDialogueAfterDelay(float delay)
