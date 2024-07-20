@@ -1,7 +1,7 @@
 # Visual Novel Game Module
 
 **Visual Novel Game Module**에 오신 것을 환영합니다! 이 모듈은 Unity에서 몰입감 있는 비주얼 노벨 게임을 쉽게 만들 수 있도록 도와줍니다. <br> 
-**Visual Novel Game Module**의 궁극적인 목표는 개발자가 **코드 없이** 에디터만으로 쉽게 게임을 개발할 수 있는 유니티 게임 모듈을 개발하는 것입니다. <br>
+**Visual Novel Game Module**의 궁극적인 목표는 개발자가 **코드 없이** 에디터만으로 쉽게 게임을 개발할 수 있도록 지원하는 것 입니다. <br>
 대화 편집기, 기본 설정, 저장/불러오기 UI 등 다양한 기능을 제공합니다.
 
 
