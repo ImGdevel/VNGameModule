@@ -12,7 +12,7 @@ namespace DialogueSystem.Event
         #endregion
 
         /// <summary>.
-        /// The RunEvent function is called by the Event Node
+        /// The RunDialogue function is called by the Event Node
         /// It can also be called manually
         /// </summary>.
         public override void RunEvent()

@@ -63,8 +63,7 @@ namespace DialogueSystem
                             Avatars.Add(new CharacterSprite
                             {
                                 type = language,
-                                LeftPosition = null,
-                                RightPosition = null,
+                                Sprite = null,
                             });
                         }
                     }
@@ -92,15 +91,18 @@ namespace DialogueSystem
             }
         }
 
-        public Sprite GetAvatar(CharacterPosition position, CharacterType type)
+        public Sprite GetCharacterSprite(CharacterPosition position, CharacterType type)
         {
             CharacterSprite cs = Avatars[(int)type];
 
-            if (position == CharacterPosition.Left) return cs.LeftPosition;
-            if (position == CharacterPosition.Right) return cs.RightPosition;
-            if (position == CharacterPosition.Center) return cs.CenterPosition;
+            return cs.Sprite;
+        }
 
-            return null;
+        public Sprite GetCharacterSprite(CharacterType type)
+        {
+            CharacterSprite cs = Avatars[(int)type];
+
+            return cs.Sprite;
         }
     }
 }
@@ -109,13 +111,11 @@ namespace DialogueSystem
 public class CharacterSprite
 {
     public CharacterType type;
-    public Sprite LeftPosition;
-    public Sprite RightPosition;
-    public Sprite CenterPosition;
+    public Sprite Sprite;
 }
 
 [System.Serializable]
-public enum CharacterPosition { Center, Right, Left,  None, }
+public enum CharacterPosition { None, Center, Right, Left }
 
 [System.Serializable]
 public enum CharacterType { Normal = 0, Smile = 1, Suprized = 2, Disgust = 3, Crying = 4, Angry = 5 }

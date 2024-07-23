@@ -1,0 +1,173 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1946feaec865d344dabf0419b1c94973, type: 3}
+  m_Name: New Dialogue Script
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: 1edcd32b-379d-4ce0-9fdc-f83c0ee493ee
+    TargetNodeGuid: 7d47e731-3789-4ea6-8e3b-3f550d7989d8
+  - BaseNodeGuid: aa456104-cae2-4d1e-84a1-8b1cfe33229e
+    TargetNodeGuid: 7245e9de-28e5-48d6-b76e-feeaf0da609e
+  - BaseNodeGuid: aa456104-cae2-4d1e-84a1-8b1cfe33229e
+    TargetNodeGuid: b31678ec-8e5e-4ced-ab8c-e1b4667f0f78
+  - BaseNodeGuid: 7d47e731-3789-4ea6-8e3b-3f550d7989d8
+    TargetNodeGuid: c37ff8bd-1e45-4fe3-b4db-f2c0c985b0e1
+  - BaseNodeGuid: b1aca780-8872-4f08-8874-9c2fc43ae24a
+    TargetNodeGuid: 40397335-a8b3-47f5-8d07-8696d6d48668
+  - BaseNodeGuid: c37ff8bd-1e45-4fe3-b4db-f2c0c985b0e1
+    TargetNodeGuid: b1aca780-8872-4f08-8874-9c2fc43ae24a
+  - BaseNodeGuid: 7245e9de-28e5-48d6-b76e-feeaf0da609e
+    TargetNodeGuid: 628e97df-500e-40ae-a24e-f0281d055bf2
+  - BaseNodeGuid: b31678ec-8e5e-4ced-ab8c-e1b4667f0f78
+    TargetNodeGuid: 628e97df-500e-40ae-a24e-f0281d055bf2
+  - BaseNodeGuid: 40397335-a8b3-47f5-8d07-8696d6d48668
+    TargetNodeGuid: aa456104-cae2-4d1e-84a1-8b1cfe33229e
+  - BaseNodeGuid: 40397335-a8b3-47f5-8d07-8696d6d48668
+    TargetNodeGuid: af769d1b-a501-4a40-a9b9-ba6d55593b11
+  - BaseNodeGuid: af769d1b-a501-4a40-a9b9-ba6d55593b11
+    TargetNodeGuid: 628e97df-500e-40ae-a24e-f0281d055bf2
+  DialogueChoiceNodeDatas:
+  - NodeGuid: 40397335-a8b3-47f5-8d07-8696d6d48668
+    Position: {x: 895, y: 247}
+    DialogueNodePorts:
+    - PortGuid: 4726249a-6aef-4d5c-ae4a-2e84428b3be5
+      InputGuid: af769d1b-a501-4a40-a9b9-ba6d55593b11
+      OutputGuid: 40397335-a8b3-47f5-8d07-8696d6d48668
+      TextLanguage:
+      - languageEnum: 0
+        LanguageGenericType: Choice 01
+    - PortGuid: e28f190f-32d9-4400-b2b9-ebebf8dd4ec1
+      InputGuid: aa456104-cae2-4d1e-84a1-8b1cfe33229e
+      OutputGuid: 40397335-a8b3-47f5-8d07-8696d6d48668
+      TextLanguage:
+      - languageEnum: 0
+        LanguageGenericType: Choice 02
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    AvatarPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: No
+    Duration: 5
+  DialogueNodeDatas:
+  - NodeGuid: 7d47e731-3789-4ea6-8e3b-3f550d7989d8
+    Position: {x: 142, y: 247}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 11400000, guid: 517be96d5de20c841b23a59454ae7968, type: 2}
+    CharacterPos: 1
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: 'This is <b>red</b> and this is <size=20>blue</size> text.
+
+'
+    Duration: 10
+  - NodeGuid: b1aca780-8872-4f08-8874-9c2fc43ae24a
+    Position: {x: 637, y: 247}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 11400000, guid: 517be96d5de20c841b23a59454ae7968, type: 2}
+    CharacterPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: asd
+    Duration: 10
+  - NodeGuid: c37ff8bd-1e45-4fe3-b4db-f2c0c985b0e1
+    Position: {x: 394, y: 247}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 11400000, guid: 517be96d5de20c841b23a59454ae7968, type: 2}
+    CharacterPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: sss
+    Duration: 10
+  - NodeGuid: b31678ec-8e5e-4ced-ab8c-e1b4667f0f78
+    Position: {x: 1592, y: 569}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    CharacterPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: B
+    Duration: 10
+  - NodeGuid: 7245e9de-28e5-48d6-b76e-feeaf0da609e
+    Position: {x: 1592, y: 332}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    CharacterPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: A
+    Duration: 10
+  - NodeGuid: af769d1b-a501-4a40-a9b9-ba6d55593b11
+    Position: {x: 1592, y: 104}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    CharacterPos: 0
+    AvatarType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: ASDASD
+    Duration: 10
+  TimerChoiceNodeDatas: []
+  EndNodeDatas:
+  - NodeGuid: 628e97df-500e-40ae-a24e-f0281d055bf2
+    Position: {x: 2144, y: 247}
+    EndNodeType: 0
+    Dialogue: {fileID: 0}
+  EventNodeDatas: []
+  StartNodeDatas:
+  - NodeGuid: 1edcd32b-379d-4ce0-9fdc-f83c0ee493ee
+    Position: {x: -9, y: 310}
+    startID: 
+  RandomNodeDatas:
+  - NodeGuid: aa456104-cae2-4d1e-84a1-8b1cfe33229e
+    Position: {x: 1274, y: 366}
+    DialogueNodePorts:
+    - PortGuid: 
+      InputGuid: 7245e9de-28e5-48d6-b76e-feeaf0da609e
+      OutputGuid: aa456104-cae2-4d1e-84a1-8b1cfe33229e
+      TextLanguage:
+      - languageEnum: 0
+        LanguageGenericType: Choice 01
+    - PortGuid: 
+      InputGuid: b31678ec-8e5e-4ced-ab8c-e1b4667f0f78
+      OutputGuid: aa456104-cae2-4d1e-84a1-8b1cfe33229e
+      TextLanguage:
+      - languageEnum: 0
+        LanguageGenericType: Choice 02
+  CommandNodeDatas: []
+  IfNodeDatas: []

@@ -30,7 +30,7 @@ namespace DialogueSystem.Editor
             //AddNodeSearchToGroup("Timer Choice Node",new TimerChoiceNode(),"d_preAudioAutoPlayOff"),
             AddNodeSearchToGroup("Event Node",new EventNode(),"d_SceneViewFx"),
             AddNodeSearchToGroup("IF Node",new IFNode(),"d_preAudioLoopOff"),
-            AddNodeSearchToGroup("Random Node",new RandomNote(),"d_preAudioLoopOff"),
+            AddNodeSearchToGroup("Random Node",new RandomNode(),"d_preAudioLoopOff"),
             AddNodeSearchToGroup("End Node",new EndNode(),"d_winbtn_win_close_a@2x"),
 
         };
@@ -95,7 +95,7 @@ namespace DialogueSystem.Editor
                 case EndNode node:
                     graphView.AddElement(graphView.CreateEndNode(_pos));
                     return true;
-                case RandomNote node:
+                case RandomNode node:
                     graphView.AddElement(graphView.CreateRandomNode(_pos));
                     return true;
                 case IFNode node:

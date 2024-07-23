@@ -21,7 +21,7 @@ namespace DialogueSystem
     {
         [HideInInspector] public List<NodeLinkData> NodeLinkDatas = new List<NodeLinkData>();
 
-        [HideInInspector] public List<DialogueChoiceNodeData> DialogueChoiceNodeDatas = new List<DialogueChoiceNodeData>();
+        [HideInInspector] public List<ChoiceNodeData> DialogueChoiceNodeDatas = new List<ChoiceNodeData>();
         [HideInInspector] public List<DialogueNodeData> DialogueNodeDatas = new List<DialogueNodeData>();
         [HideInInspector] public List<TimerChoiceNodeData> TimerChoiceNodeDatas = new List<TimerChoiceNodeData>();
         [HideInInspector] public List<EndNodeData> EndNodeDatas = new List<EndNodeData>();
@@ -293,7 +293,7 @@ namespace DialogueSystem
     }
 
     [System.Serializable]
-    public class DialogueChoiceNodeData : BaseNodeData
+    public class ChoiceNodeData : BaseNodeData
     {
         public List<DialogueNodePort> DialogueNodePorts;
         public List<LanguageGeneric<AudioClip>> AudioClips;
@@ -329,7 +329,7 @@ namespace DialogueSystem
         public List<DialogueNodePort> DialogueNodePorts;
         public List<LanguageGeneric<AudioClip>> AudioClips;
         public DialogueCharacter Character;
-        public CharacterPosition AvatarPos;
+        public CharacterPosition CharacterPos;
         public CharacterType AvatarType;
         public List<LanguageGeneric<string>> TextType;
         public float Duration;
@@ -388,9 +388,9 @@ namespace DialogueSystem
     [System.Serializable]
     public class DialogueNodePort
     {
-        public string PortGuid;
-        public string InputGuid;
-        public string OutputGuid;
+        public string PortGuid; 
+        public string InputGuid; // 다음 노드
+        public string OutputGuid; // 이전 노드
 #if UNITY_EDITOR
         [HideInInspector] public Port MyPort;
 #endif

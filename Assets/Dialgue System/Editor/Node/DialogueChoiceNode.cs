@@ -305,16 +305,23 @@ namespace DialogueSystem.Nodes
             List<string> warning = new List<string>();
 
             Port input = inputContainer.Query<Port>().First();
-            if (!input.connected) warning.Add("Node cannot be called");
-            if (dialogueNodePorts.Count < 1) error.Add("You need to add more Choice");
-            else
-            {
-                for (int i = 0; i < dialogueNodePorts.Count; i++)
-                {
-                    if (!dialogueNodePorts[i].MyPort.connected) error.Add($"Choice ID:{i} does not lead to any node");
+            if (!input.connected) {
+                warning.Add("Node cannot be called");
+            }
+            if (dialogueNodePorts.Count < 1) {
+                error.Add("You need to add more Choice");
+            }
+            else {
+                for (int i = 0; i < dialogueNodePorts.Count; i++) {
+                    if (!dialogueNodePorts[i].MyPort.connected) {
+                        error.Add($"Choice ID:{i} does not lead to any node");
+                    }
                 }
             }
-            for (int i = 0; i < Texts.Count; i++) { if (Texts[i].LanguageGenericType == "") warning.Add($"No Text for {Texts[i].languageEnum} Language"); }
+            for (int i = 0; i < Texts.Count; i++) { 
+                if (Texts[i].LanguageGenericType == "") 
+                    warning.Add($"No Text for {Texts[i].languageEnum} Language"); 
+            }
 
             ErrorList = error;
             WarningList = warning;

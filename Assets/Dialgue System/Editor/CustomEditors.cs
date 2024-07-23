@@ -18,7 +18,6 @@ public class DialogueContainerSOEditor : Editor
     bool DialogueTimerChoiceNode = false;
     bool DialogueEventNode = false;
     bool RandomNode = false;
-    bool CommandNode = false;
     bool IFNode = false;
 
     public override void OnInspectorGUI()
@@ -34,7 +33,7 @@ public class DialogueContainerSOEditor : Editor
 
         if (GUILayout.Button("Import File", EditorStyles.miniButtonLeft))
         {
-            string path = EditorUtility.OpenFilePanel("Import Dialogue Localization File", Application.dataPath, "tsv");
+            string path = EditorUtility.OpenFilePanel("Import Dialogue Localization File", Application.dataPath, "csv");
             if (path.Length != 0)
             {
                 _target.ImportText(path, _target);
@@ -43,7 +42,7 @@ public class DialogueContainerSOEditor : Editor
         }
         if (GUILayout.Button("Export File", EditorStyles.miniButtonRight))
         {
-            string path = EditorUtility.SaveFilePanel("Export Dialogue Localization File", Application.dataPath, _target.name, "tsv");
+            string path = EditorUtility.SaveFilePanel("Export Dialogue Localization File", Application.dataPath, _target.name, "csv");
             if (path.Length != 0)
             {
                 _target.GenerateCSV(path, _target);
@@ -195,7 +194,7 @@ public class DialogueContainerSOEditor : Editor
 
                 _target.DialogueNodeDatas[i].Position = EditorGUILayout.Vector2Field("Position", _target.DialogueNodeDatas[i].Position);
                 _target.DialogueNodeDatas[i].Character = (DialogueCharacter)EditorGUILayout.ObjectField("Character", _target.DialogueNodeDatas[i].Character, typeof(DialogueCharacter), false);
-                _target.DialogueNodeDatas[i].AvatarPos = (CharacterPosition)EditorGUILayout.EnumPopup("Avatar Display", _target.DialogueNodeDatas[i].AvatarPos);
+                _target.DialogueNodeDatas[i].CharacterPos = (CharacterPosition)EditorGUILayout.EnumPopup("Avatar Display", _target.DialogueNodeDatas[i].CharacterPos);
                 _target.DialogueNodeDatas[i].AvatarType = (CharacterType)EditorGUILayout.EnumPopup("Avatar Emotion", _target.DialogueNodeDatas[i].AvatarType);
 
                 _target.DialogueNodeDatas[i].Duration = EditorGUILayout.FloatField("Display Time", _target.DialogueNodeDatas[i].Duration);
@@ -515,8 +514,7 @@ public class DialogueCharacterSOInspector : Editor
 
             EditorGUILayout.LabelField(" " + character.Avatars[i].type.ToString(), EditorStyles.boldLabel);
             EditorGUILayout.BeginHorizontal();
-            character.Avatars[i].LeftPosition = (Sprite)EditorGUILayout.ObjectField($"  Left Sprite", character.Avatars[i].LeftPosition, typeof(Sprite), false);
-            character.Avatars[i].RightPosition = (Sprite)EditorGUILayout.ObjectField($" Right Sprite", character.Avatars[i].RightPosition, typeof(Sprite), false);
+            character.Avatars[i].Sprite = (Sprite)EditorGUILayout.ObjectField($"  Sprite", character.Avatars[i].Sprite, typeof(Sprite), false);
             EditorGUILayout.EndHorizontal();
         }
 

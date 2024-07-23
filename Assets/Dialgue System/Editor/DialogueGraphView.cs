@@ -158,9 +158,9 @@ namespace DialogueSystem.Editor
             return tmp;
         }
 
-        public RandomNote CreateRandomNode(Vector2 _pos)
+        public RandomNode CreateRandomNode(Vector2 _pos)
         {
-            RandomNote tmp = new RandomNote(_pos, editorWindow, this);
+            RandomNode tmp = new RandomNode(_pos, editorWindow, this);
             tmp.name = "Random";
             tmp.ReloadLanguage();
 

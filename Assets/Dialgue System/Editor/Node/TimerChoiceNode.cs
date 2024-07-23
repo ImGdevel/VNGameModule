@@ -182,7 +182,7 @@ namespace DialogueSystem.Nodes
 
             titleButtonContainer.Add(button);
 
-            //if (outputContainer.Query("connector").ToList().Count() == 0) AddChoicePort(this);
+            //if (outputContainer.Query("connector").ToList().Count() == 0) AddOutputPort(this);
         }
 
         private void ToggleCharacterFields(bool show)

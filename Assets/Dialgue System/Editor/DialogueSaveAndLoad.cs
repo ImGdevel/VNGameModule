@@ -91,7 +91,7 @@ namespace DialogueSystem.Editor
                     case EventNode eventNode:
                         _dialogueScript.EventNodeDatas.Add(SaveNodeData(eventNode));
                         break;
-                    case RandomNote randomNode:
+                    case RandomNode randomNode:
                         _dialogueScript.RandomNodeDatas.Add(SaveNodeData(randomNode));
                         break;
                     case IFNode ifNode:
@@ -103,9 +103,9 @@ namespace DialogueSystem.Editor
             });
         }
 
-        private DialogueChoiceNodeData SaveNodeData(DialogueChoiceNode _node)
+        private ChoiceNodeData SaveNodeData(DialogueChoiceNode _node)
         {
-            DialogueChoiceNodeData dialogueNodeData = new DialogueChoiceNodeData
+            ChoiceNodeData dialogueNodeData = new ChoiceNodeData
             {
                 NodeGuid = _node.nodeGuid,
                 Position = _node.GetPosition().position,
@@ -135,7 +135,7 @@ namespace DialogueSystem.Editor
             return dialogueNodeData;
         }
 
-        private RandomNodeData SaveNodeData(RandomNote _node)
+        private RandomNodeData SaveNodeData(RandomNode _node)
         {
             RandomNodeData dialogueNodeData = new RandomNodeData
             {
@@ -232,7 +232,7 @@ namespace DialogueSystem.Editor
                 Position = _node.GetPosition().position,
                 TextType = _node.Texts,
                 Character = _node.Character,
-                AvatarPos = _node.characterPosition,
+                CharacterPos = _node.characterPosition,
                 AvatarType = _node.characterType,
                 AudioClips = _node.AudioClip,
                 DialogueNodePorts = _node.dialogueNodePorts,
@@ -339,7 +339,7 @@ namespace DialogueSystem.Editor
             }
 
             /* Dialogue Choice Node */
-            foreach (DialogueChoiceNodeData node in _dialogueContainer.DialogueChoiceNodeDatas)
+            foreach (ChoiceNodeData node in _dialogueContainer.DialogueChoiceNodeDatas)
             {
                 DialogueChoiceNode tempNode = graphView.CreateDialogueChoiceNode(node.Position);
                 tempNode.nodeGuid = node.NodeGuid;
@@ -370,12 +370,12 @@ namespace DialogueSystem.Editor
             /* Random Note */
             foreach (RandomNodeData node in _dialogueContainer.RandomNodeDatas)
             {
-                RandomNote tempNode = graphView.CreateRandomNode(node.Position);
+                RandomNode tempNode = graphView.CreateRandomNode(node.Position);
                 tempNode.nodeGuid = node.NodeGuid;
 
                 foreach (DialogueNodePort nodePort in node.DialogueNodePorts)
                 {
-                    tempNode.AddChoicePort(tempNode, nodePort);
+                    tempNode.AddOutputPort(tempNode, nodePort);
                 }
 
                 tempNode.LoadValueInToField();
@@ -428,7 +428,7 @@ namespace DialogueSystem.Editor
                 }
 
                 tempNode.Character = node.Character;
-                tempNode.characterPosition = node.AvatarPos;
+                tempNode.characterPosition = node.CharacterPos;
                 tempNode.characterType = node.AvatarType;
 
                 tempNode.DurationShow = node.Duration;

@@ -207,6 +207,8 @@ GridBackground {
 	background-color: #D18522;
 }
 
+
+/* Choice NODE STYLE*/
 #Choice #node-border #title {
 	background-color: #9522D1;
 }
@@ -217,7 +219,6 @@ GridBackground {
 	border-width: 1px;
 }
 
-/* Choice NODE STYLE*/
 .node .ChoiceLabel{
 	width: 75px;
 	max-width: 75px;
@@ -341,7 +342,7 @@ GridBackground {
 
 /* Random NODE STYLE*/
 #Random{
-	width:200px;
+	width:190px;
 }
 #Random #title{
 	background-color: #80234A;
@@ -413,6 +414,7 @@ GridBackground {
 	background-color: #383838;
 }
 
+#Random #node-border #title .unity-button,
 #Choice #node-border #title .unity-button {
 	background-color: #383838;
 	border-color: #2A2A2A;
