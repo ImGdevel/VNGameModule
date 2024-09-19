@@ -33,8 +33,7 @@
 
 - **기본 설정**: 오디오, 해상도 등 게임 설정을 구성할 수 있습니다.
   
-  <img src="https://github.com/user-attachments/assets/00c3ee42-affd-4f80-a951-0c12d815c963" width="600" height="300">
-  
+
 
   </br>
    </br>
