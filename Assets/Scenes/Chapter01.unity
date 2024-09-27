@@ -937,6 +937,7 @@ GameObject:
   - component: {fileID: 1428703341}
   - component: {fileID: 1428703340}
   - component: {fileID: 1428703342}
+  - component: {fileID: 1428703343}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -1007,7 +1008,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67fda31d16168d4994b9d143a582cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueContainerSO: {fileID: 11400000, guid: e1667a66f3e42fe4e94d451b3bf5365e, type: 2}
+  dialogueScript: {fileID: 11400000, guid: 2a70acb7e4d4066499a212123759ce38, type: 2}
+  localizationManager: {fileID: 11400000, guid: 51c878b637fd373488f12ef9a2aa37d5, type: 2}
+--- !u!114 &1428703343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428703331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954421b125427f545be476d81ca60ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenarioManager: {fileID: 1428703342}
 --- !u!224 &1932425235 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8583317177280912880, guid: abc00c0dadc446e42b8f3688791c8422, type: 3}

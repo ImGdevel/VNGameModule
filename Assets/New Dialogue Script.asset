@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1946feaec865d344dabf0419b1c94973, type: 3}
+  m_Name: New Dialogue Script
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: a3b80467-7694-4d4d-9a81-eaffbc52c961
+    TargetNodeGuid: 0190c730-fd7c-4d65-8f75-76b1498f4500
+  - BaseNodeGuid: 30ba21c2-9f40-4aa9-94b1-8f356a69d0bf
+    TargetNodeGuid: 223330b4-ee8a-4d53-9039-6ad74fee09b2
+  - BaseNodeGuid: 0190c730-fd7c-4d65-8f75-76b1498f4500
+    TargetNodeGuid: 30ba21c2-9f40-4aa9-94b1-8f356a69d0bf
+  DialogueChoiceNodeDatas: []
+  DialogueNodeDatas:
+  - NodeGuid: 30ba21c2-9f40-4aa9-94b1-8f356a69d0bf
+    Position: {x: 566, y: 260}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 11400000, guid: 56c48fda097d62446b17ccea5fce62f3, type: 2}
+    CharacterPos: 0
+    CharacterType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: What's YourName
+    Duration: 10
+  - NodeGuid: 0190c730-fd7c-4d65-8f75-76b1498f4500
+    Position: {x: 302, y: 260}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 11400000, guid: 56c48fda097d62446b17ccea5fce62f3, type: 2}
+    CharacterPos: 0
+    CharacterType: 0
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: Hi
+    Duration: 10
+  TimerChoiceNodeDatas: []
+  CharacterNodeDatas: []
+  EndNodeDatas:
+  - NodeGuid: 223330b4-ee8a-4d53-9039-6ad74fee09b2
+    Position: {x: 817, y: 260}
+    EndNodeType: 0
+    Dialogue: {fileID: 0}
+  EventNodeDatas: []
+  StartNodeDatas:
+  - NodeGuid: a3b80467-7694-4d4d-9a81-eaffbc52c961
+    Position: {x: 132, y: 260}
+    startID: 
+  RandomNodeDatas: []
+  CommandNodeDatas: []
+  IfNodeDatas: []

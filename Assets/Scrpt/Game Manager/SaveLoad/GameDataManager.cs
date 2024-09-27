@@ -2,6 +2,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 게임 데이터 관리자
+/// </summary>
 public class GameDataManager : MonoBehaviour
 {
     public static GameDataManager Instance { get; private set; }
