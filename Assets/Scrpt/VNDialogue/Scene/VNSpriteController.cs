@@ -31,7 +31,7 @@ public class VNSpriteController : MonoBehaviour
         changeSprite.sortingOrder = currentSprite.sortingOrder + 1;
         changeSprite.enabled = false;
 
-        VNDialogueModule.EndDialogue += EndSpriteEffect;
+        VNDialogueModule.EventEndScene += EndSpriteEffect;
     }
 
     // Set the list of sprites to be used
@@ -45,7 +45,7 @@ public class VNSpriteController : MonoBehaviour
     // Handle cleanup when the script is destroyed
     private void OnDestroy() {
         // Stop all running coroutines
-        VNDialogueModule.EndDialogue -= EndSpriteEffect;
+        VNDialogueModule.EventEndScene -= EndSpriteEffect;
         StopAllCoroutines();
     }
 

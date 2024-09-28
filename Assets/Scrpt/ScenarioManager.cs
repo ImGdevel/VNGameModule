@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace VisualNovelGame
 {
-    public class ScenarioManagers : DialogueGetData
+    public class ScenarioManager : DialogueGetData
     {
         public LocalizationManager localizationManager;
 
@@ -116,7 +116,7 @@ public class ScriptMapper
         string text = nodeData.TextType.Find(t => t.languageEnum == localization).LanguageGenericType;
         AudioClip audioClip = nodeData.AudioClips?.Find(clip => clip.languageEnum == localization)?.LanguageGenericType;
 
-        List<Choice> choices = null;
+        List<Choice> choices = new List<Choice>();
         foreach (DialogueNodePort nodePort in nodeData.DialogueNodePorts) {
             string choiceText = nodePort.TextLanguage.Find(text => text.languageEnum == localizationManager.SelectedLang()).LanguageGenericType;
             choices.Add(new Choice(nodePort.InputGuid, choiceText));
@@ -141,7 +141,7 @@ public class ScriptMapper
         string text = nodeData.TextType.Find(t => t.languageEnum == localization).LanguageGenericType;
         AudioClip audioClip = nodeData.AudioClips?.Find(clip => clip.languageEnum == localization)?.LanguageGenericType;
 
-        List<Choice> choices = null;
+        List<Choice> choices = new List<Choice>();
         foreach (DialogueNodePort nodePort in nodeData.DialogueNodePorts) {
             string choiceText = nodePort.TextLanguage.Find(text => text.languageEnum == localizationManager.SelectedLang()).LanguageGenericType;
             choices.Add(new Choice(nodePort.InputGuid, choiceText));
@@ -253,12 +253,12 @@ public class ChoiceScriptDTO : ScriptDTO
 [System.Serializable]
 public class TimerChoiceScriptDTO : ChoiceScriptDTO
 {
-    public float Time;
+    public float TimeLimit;
 
-    public TimerChoiceScriptDTO(string scriptId, string dialogueText, string characterName, List<Choice> choices, float time, AudioClip audioClips = null)
+    public TimerChoiceScriptDTO(string scriptId, string dialogueText, string characterName, List<Choice> choices, float timeLimits, AudioClip audioClips = null)
         : base(scriptId, dialogueText, characterName, choices, audioClips)
     {
-        this.Time = time;
+        this.TimeLimit = timeLimits;
     }
 }
 

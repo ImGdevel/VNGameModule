@@ -67,7 +67,7 @@ namespace DialogueSystem.Nodes
                 dialogue = value.newValue as DialogueScript;
             });
             dialogField.SetValueWithoutNotify(dialogue);
-            dialogField.AddToClassList("EndDialogue");
+            dialogField.AddToClassList("EventEndScene");
             //mainContainer.Add(dialogField);
 
         }

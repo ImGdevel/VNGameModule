@@ -5,7 +5,7 @@ using VisualNovelGame;
 
 public class TestCommander : MonoBehaviour
 {
-    public ScenarioManagers scenarioManager;
+    public ScenarioManager scenarioManager;
     string currentScene = null;
 
 

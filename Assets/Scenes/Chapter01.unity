@@ -700,6 +700,7 @@ MonoBehaviour:
   choiceController: {fileID: 1938770977}
   characterController: {fileID: 0}
   backgroundController: {fileID: 0}
+  scenarioManager: {fileID: 1428703344}
 --- !u!4 &598045503
 Transform:
   m_ObjectHideFlags: 0
@@ -936,8 +937,8 @@ GameObject:
   - component: {fileID: 1428703339}
   - component: {fileID: 1428703341}
   - component: {fileID: 1428703340}
-  - component: {fileID: 1428703342}
   - component: {fileID: 1428703343}
+  - component: {fileID: 1428703344}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -996,7 +997,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89a1f53774d78c445b1a7df4cd869152, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1428703342
+--- !u!114 &1428703343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428703331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 954421b125427f545be476d81ca60ef7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scenarioManager: {fileID: 1428703344}
+--- !u!114 &1428703344
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1010,19 +1024,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueScript: {fileID: 11400000, guid: 2a70acb7e4d4066499a212123759ce38, type: 2}
   localizationManager: {fileID: 11400000, guid: 51c878b637fd373488f12ef9a2aa37d5, type: 2}
---- !u!114 &1428703343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428703331}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 954421b125427f545be476d81ca60ef7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  scenarioManager: {fileID: 1428703342}
 --- !u!224 &1932425235 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8583317177280912880, guid: abc00c0dadc446e42b8f3688791c8422, type: 3}
