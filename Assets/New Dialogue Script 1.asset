@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1946feaec865d344dabf0419b1c94973, type: 3}
+  m_Name: New Dialogue Script 1
+  m_EditorClassIdentifier: 
+  NodeLinkDatas:
+  - BaseNodeGuid: 0947ee2f-855e-49b9-bd60-d0886ad67a19
+    TargetNodeGuid: a72b7e7d-7adf-4639-b20b-5bfc6d9ac891
+  - BaseNodeGuid: 7757d1ab-7d07-4209-8434-055dde1d9911
+    TargetNodeGuid: f441b9f5-be15-4b37-9c71-7167be6487f3
+  - BaseNodeGuid: a72b7e7d-7adf-4639-b20b-5bfc6d9ac891
+    TargetNodeGuid: 7757d1ab-7d07-4209-8434-055dde1d9911
+  DialogueChoiceNodeDatas: []
+  DialogueNodeDatas:
+  - NodeGuid: 7757d1ab-7d07-4209-8434-055dde1d9911
+    Position: {x: 574, y: 213}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 0}
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: ghgh
+    Duration: 0
+  TimerChoiceNodeDatas: []
+  CharacterNodeDatas:
+  - NodeGuid: a72b7e7d-7adf-4639-b20b-5bfc6d9ac891
+    Position: {x: 295, y: 213}
+    DialogueNodePorts: []
+    Character: {fileID: 0}
+    CharacterPos: 0
+    CharacterType: 0
+    Duration: 0
+  EndNodeDatas:
+  - NodeGuid: f441b9f5-be15-4b37-9c71-7167be6487f3
+    Position: {x: 865, y: 213}
+    EndNodeType: 0
+    Dialogue: {fileID: 0}
+  EventNodeDatas: []
+  StartNodeDatas:
+  - NodeGuid: 0947ee2f-855e-49b9-bd60-d0886ad67a19
+    Position: {x: 102, y: 213}
+    startID: 
+  RandomNodeDatas: []
+  CommandNodeDatas: []
+  IfNodeDatas: []

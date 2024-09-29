@@ -22,6 +22,10 @@ namespace DialogueSystem.Editor
             graphView = _graphView;
         }
 
+        /// <summary>
+        /// 저장
+        /// </summary>
+        /// <param name="_dialogueScript">스크립트</param>
         public void Save(DialogueScript _dialogueScript)
         {
             SaveEdges(_dialogueScript);
@@ -30,6 +34,11 @@ namespace DialogueSystem.Editor
             EditorUtility.SetDirty(_dialogueScript);
             AssetDatabase.SaveAssets();
         }
+
+        /// <summary>
+        /// 불러오기
+        /// </summary>
+        /// <param name="_dialogueScript">스크립트</param>
         public void Load(DialogueScript _dialogueScript)
         {
             ClearGraph();
@@ -57,6 +66,10 @@ namespace DialogueSystem.Editor
             }
         }
 
+        /// <summary>
+        /// 노드 저장
+        /// </summary>
+        /// <param name="_dialogueScript"></param>
         private void SaveNodes(DialogueScript _dialogueScript)
         {
             _dialogueScript.DialogueChoiceNodeDatas.Clear();
@@ -67,6 +80,7 @@ namespace DialogueSystem.Editor
             _dialogueScript.StartNodeDatas.Clear();
             _dialogueScript.RandomNodeDatas.Clear();
             _dialogueScript.CommandNodeDatas.Clear();
+            _dialogueScript.CharacterNodeDatas.Clear();
             _dialogueScript.IfNodeDatas.Clear();
 
             nodes.ForEach(node =>
@@ -81,6 +95,9 @@ namespace DialogueSystem.Editor
                         break;
                     case TimerChoiceNode timerChoiceNode:
                         _dialogueScript.TimerChoiceNodeDatas.Add(SaveNodeData(timerChoiceNode));
+                        break;
+                    case CharacterNode characterNode:
+                        _dialogueScript.CharacterNodeDatas.Add(SaveNodeData(characterNode));
                         break;
                     case StartNode startNode:
                         _dialogueScript.StartNodeDatas.Add(SaveNodeData(startNode));
@@ -105,7 +122,7 @@ namespace DialogueSystem.Editor
 
         private ChoiceNodeData SaveNodeData(DialogueChoiceNode _node)
         {
-            ChoiceNodeData dialogueNodeData = new ChoiceNodeData
+            ChoiceNodeData nodeData = new ChoiceNodeData
             {
                 NodeGuid = _node.nodeGuid,
                 Position = _node.GetPosition().position,
@@ -117,7 +134,7 @@ namespace DialogueSystem.Editor
                 DialogueNodePorts = _node.dialogueNodePorts,
                 Duration = _node.DurationShow
             };
-            foreach (DialogueNodePort nodePort in dialogueNodeData.DialogueNodePorts)
+            foreach (DialogueNodePort nodePort in nodeData.DialogueNodePorts)
             {
                 nodePort.OutputGuid = string.Empty;
                 nodePort.InputGuid = string.Empty;
@@ -132,18 +149,18 @@ namespace DialogueSystem.Editor
             }
 
 
-            return dialogueNodeData;
+            return nodeData;
         }
 
         private RandomNodeData SaveNodeData(RandomNode _node)
         {
-            RandomNodeData dialogueNodeData = new RandomNodeData
+            RandomNodeData nodeData = new RandomNodeData
             {
                 NodeGuid = _node.nodeGuid,
                 Position = _node.GetPosition().position,
                 DialogueNodePorts = _node.dialogueNodePorts,
             };
-            foreach (DialogueNodePort nodePort in dialogueNodeData.DialogueNodePorts)
+            foreach (DialogueNodePort nodePort in nodeData.DialogueNodePorts)
             {
                 nodePort.OutputGuid = string.Empty;
                 nodePort.InputGuid = string.Empty;
@@ -158,12 +175,12 @@ namespace DialogueSystem.Editor
             }
 
 
-            return dialogueNodeData;
+            return nodeData;
         }
 
         private TimerChoiceNodeData SaveNodeData(TimerChoiceNode _node)
         {
-            TimerChoiceNodeData dialogueNodeData = new TimerChoiceNodeData
+            TimerChoiceNodeData nodeData = new TimerChoiceNodeData
             {
                 NodeGuid = _node.nodeGuid,
                 Position = _node.GetPosition().position,
@@ -176,7 +193,7 @@ namespace DialogueSystem.Editor
                 DialogueNodePorts = _node.dialogueNodePorts,
                 Duration = _node.DurationShow
             };
-            foreach (DialogueNodePort nodePort in dialogueNodeData.DialogueNodePorts)
+            foreach (DialogueNodePort nodePort in nodeData.DialogueNodePorts)
             {
                 nodePort.OutputGuid = string.Empty;
                 nodePort.InputGuid = string.Empty;
@@ -190,9 +207,9 @@ namespace DialogueSystem.Editor
                 }
             }
 
-
-            return dialogueNodeData;
+            return nodeData;
         }
+
         private StartNodeData SaveNodeData(StartNode _node)
         {
             StartNodeData nodeData = new StartNodeData
@@ -203,6 +220,7 @@ namespace DialogueSystem.Editor
             };
             return nodeData;
         }
+
         private EndNodeData SaveNodeData(EndNode _node)
         {
             EndNodeData nodeData = new EndNodeData
@@ -214,6 +232,7 @@ namespace DialogueSystem.Editor
             };
             return nodeData;
         }
+
         private EventNodeData SaveNodeData(EventNode _node)
         {
             EventNodeData nodeData = new EventNodeData
@@ -224,26 +243,38 @@ namespace DialogueSystem.Editor
             };
             return nodeData;
         }
+
         private DialogueNodeData SaveNodeData(DialogueNode _node)
         {
-            DialogueNodeData dialogueNodeData = new DialogueNodeData
+            DialogueNodeData nodeData = new DialogueNodeData
             {
                 NodeGuid = _node.nodeGuid,
                 Position = _node.GetPosition().position,
                 TextType = _node.Texts,
                 Character = _node.Character,
-                CharacterPos = _node.characterPosition,
-                CharacterType = _node.characterType,
                 AudioClips = _node.AudioClip,
                 DialogueNodePorts = _node.dialogueNodePorts,
-                Duration = _node.DurationShow
             };
 
-            return dialogueNodeData;
+            return nodeData;
         }
+
+        private CharacterNodeData SaveNodeData(CharacterNode _node)
+        {
+            CharacterNodeData nodeData = new CharacterNodeData 
+            {
+                NodeGuid = _node.nodeGuid,
+                Position = _node.GetPosition().position,
+                Character = _node.Character,
+                DialogueNodePorts = _node.dialogueNodePorts,
+            };
+
+            return nodeData;
+        }
+
         private IfNodeData SaveNodeData(IFNode _node)
         {
-            IfNodeData dialogueNodeData = new IfNodeData
+            IfNodeData nodeData = new IfNodeData
             {
                 NodeGuid = _node.nodeGuid,
                 Position = _node.GetPosition().position,
@@ -264,15 +295,18 @@ namespace DialogueSystem.Editor
                 }
             }
 
-            if(tmp.Count > 0) { dialogueNodeData.TrueGUID = tmp[0]; }
-            if(tmp.Count > 1) { dialogueNodeData.FalseGUID = tmp[1]; }
+            if(tmp.Count > 0) { nodeData.TrueGUID = tmp[0]; }
+            if(tmp.Count > 1) { nodeData.FalseGUID = tmp[1]; }
 
-            return dialogueNodeData;
+            return nodeData;
         }
         #endregion
 
         #region Load
 
+        /// <summary>
+        /// 에디터 그래프 클리어
+        /// </summary>
         private void ClearGraph()
         {
             edges.ForEach(edge => graphView.RemoveElement(edge));
@@ -283,6 +317,10 @@ namespace DialogueSystem.Editor
             }
         }
 
+        /// <summary>
+        /// 노드 생성
+        /// </summary>
+        /// <param name="_dialogueContainer"></param>
         private void GenerateNodes(DialogueScript _dialogueContainer)
         {
             /* Start Node */
@@ -324,7 +362,7 @@ namespace DialogueSystem.Editor
                 graphView.AddElement(tempNode);
             }
 
-            /* Event Node */
+            /* IF Node */
             foreach (IfNodeData node in _dialogueContainer.IfNodeDatas)
             {
                 IFNode tempNode = graphView.CreateIFNode(node.Position);
@@ -430,10 +468,6 @@ namespace DialogueSystem.Editor
                 }
 
                 tempNode.Character = node.Character;
-                tempNode.characterPosition = node.CharacterPos;
-                tempNode.characterType = node.CharacterType;
-
-                tempNode.DurationShow = node.Duration;
 
                 tempNode.LoadValueInToField();
                 graphView.AddElement(tempNode);
@@ -447,7 +481,6 @@ namespace DialogueSystem.Editor
                 tempNode.Character = node.Character;
                 tempNode.characterPosition = node.CharacterPos;
                 tempNode.characterType = node.CharacterType;
-
                 tempNode.DurationShow = node.Duration;
 
                 tempNode.LoadValueInToField();

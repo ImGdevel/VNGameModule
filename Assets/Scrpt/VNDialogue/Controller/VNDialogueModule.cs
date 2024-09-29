@@ -270,7 +270,7 @@ public class VNDialogueModule : MonoBehaviour
         // 게임 종료 처리 또는 엔딩씬 로직 추가
         Debug.Log("End of the dialogue scene.");
         dialogController.ClearDialogue();
-        EventEndScene?.Invoke(); // 종료 이벤트 발생
+        EventEndScene?.Invoke();
     }
 
     /// <summary>
@@ -279,8 +279,7 @@ public class VNDialogueModule : MonoBehaviour
     /// <param name="script">스크립트</param>
     private void PlayIfScene(IfScriptDTO script)
     {
-        //string nextSceneId = scenarioManager.EvaluateCondition(script.Condition) ? script.TrueSceneId : script.FalseSceneId;
-        //PlayScene(nextSceneId);
+
     }
 
 

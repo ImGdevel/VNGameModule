@@ -55,7 +55,7 @@ namespace DialogueSystem.Nodes
             AddValidationContainer();
 
 
-            /* Character CLIPS */
+            /* Character CG */
             Label label_character = new Label("Character CG");
             label_character.AddToClassList("label_name");
             label_character.AddToClassList("Label");

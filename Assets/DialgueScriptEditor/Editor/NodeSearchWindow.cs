@@ -28,7 +28,7 @@ namespace DialogueSystem.Editor
             AddNodeSearchToGroup("Start Node",new StartNode(),"d_Animation.Play"),
             AddNodeSearchToGroup("Dialogue Node",new DialogueNode(),"d_UnityEditor.HierarchyWindow"),
             AddNodeSearchToGroup("Choice Node",new DialogueChoiceNode(),"d_TreeEditor.Distribution"),
-            //AddNodeSearchToGroup("Timer Choice Node",new TimerChoiceNode(),"d_preAudioAutoPlayOff"),
+            AddNodeSearchToGroup("Timer Choice Node",new TimerChoiceNode(),"d_preAudioAutoPlayOff"),
             AddNodeSearchToGroup("Character Node",new CharacterNode(),"d_TreeEditor.Distribution"),
             AddNodeSearchToGroup("Event Node",new EventNode(),"d_SceneViewFx"),
             AddNodeSearchToGroup("IF Node",new IFNode(),"d_preAudioLoopOff"),

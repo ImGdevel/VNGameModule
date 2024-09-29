@@ -331,8 +331,6 @@ namespace DialogueSystem
         public List<DialogueNodePort> DialogueNodePorts;
         public List<LanguageGeneric<AudioClip>> AudioClips;
         public DialogueCharacter Character;
-        public CharacterPosition CharacterPos;
-        public CharacterType CharacterType;
         public List<LanguageGeneric<string>> TextType;
         public float Duration;
     }

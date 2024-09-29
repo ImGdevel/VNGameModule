@@ -191,12 +191,7 @@ namespace DialogueSystem
 
             // Character Avatar
             dialogueUIManager.SpriteLeft.SetActive(false); dialogueUIManager.SpriteRight.SetActive(false);
-            if (_nodeData.CharacterPos == CharacterPosition.Left && _nodeData.Character != null) { 
-                dialogueUIManager.SpriteLeft.SetActive(true); dialogueUIManager.SpriteLeft.GetComponent<Image>().sprite = _nodeData.Character.GetCharacterSprite(_nodeData.CharacterPos, _nodeData.CharacterType); 
-            }
-            if (_nodeData.CharacterPos == CharacterPosition.Right && _nodeData.Character != null) { 
-                dialogueUIManager.SpriteRight.SetActive(true); dialogueUIManager.SpriteRight.GetComponent<Image>().sprite = _nodeData.Character.GetCharacterSprite(_nodeData.CharacterPos, _nodeData.CharacterType); 
-            }
+
 
             dialogueUIManager.SkipButton.SetActive(true);
             MakeButtons(new List<DialogueNodePort>());
