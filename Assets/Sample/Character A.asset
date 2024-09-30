@@ -21,26 +21,14 @@ MonoBehaviour:
   textColor: {r: 0.8, g: 0.8, b: 0.8, a: 1}
   Avatars:
   - type: 0
-    LeftPosition: {fileID: 0}
-    RightPosition: {fileID: 0}
-    CenterPosition: {fileID: 0}
+    Sprite: {fileID: 21300000, guid: 5a37ce2267b42e04f9dd619d64c8cede, type: 3}
   - type: 1
-    LeftPosition: {fileID: 0}
-    RightPosition: {fileID: 0}
-    CenterPosition: {fileID: 0}
+    Sprite: {fileID: 21300000, guid: 0c4d70e159918844984a75be9ae7fe1d, type: 3}
   - type: 2
-    LeftPosition: {fileID: 0}
-    RightPosition: {fileID: 0}
-    CenterPosition: {fileID: 0}
+    Sprite: {fileID: 0}
   - type: 3
-    LeftPosition: {fileID: 0}
-    RightPosition: {fileID: 0}
-    CenterPosition: {fileID: 0}
+    Sprite: {fileID: 0}
   - type: 4
-    LeftPosition: {fileID: 0}
-    RightPosition: {fileID: 0}
-    CenterPosition: {fileID: 0}
+    Sprite: {fileID: 0}
   - type: 5
-    LeftPosition: {fileID: 0}
-    RightPosition: {fileID: 0}
-    CenterPosition: {fileID: 0}
+    Sprite: {fileID: 0}

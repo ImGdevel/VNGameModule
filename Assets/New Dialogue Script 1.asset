@@ -16,9 +16,13 @@ MonoBehaviour:
   - BaseNodeGuid: 0947ee2f-855e-49b9-bd60-d0886ad67a19
     TargetNodeGuid: fe6be55c-4d20-44e6-b1fd-217effc570d5
   - BaseNodeGuid: 7757d1ab-7d07-4209-8434-055dde1d9911
+    TargetNodeGuid: f93d8045-604a-448f-810a-f37e126730ac
+  - BaseNodeGuid: 9508704f-6c6e-4e34-9c83-e99de684b4cb
     TargetNodeGuid: f441b9f5-be15-4b37-9c71-7167be6487f3
   - BaseNodeGuid: fe6be55c-4d20-44e6-b1fd-217effc570d5
     TargetNodeGuid: 7757d1ab-7d07-4209-8434-055dde1d9911
+  - BaseNodeGuid: f93d8045-604a-448f-810a-f37e126730ac
+    TargetNodeGuid: 9508704f-6c6e-4e34-9c83-e99de684b4cb
   DialogueChoiceNodeDatas: []
   DialogueNodeDatas:
   - NodeGuid: 7757d1ab-7d07-4209-8434-055dde1d9911
@@ -30,22 +34,44 @@ MonoBehaviour:
     Character: {fileID: 11400000, guid: 56c48fda097d62446b17ccea5fce62f3, type: 2}
     TextType:
     - languageEnum: 0
-      LanguageGenericType: ghgh
+      LanguageGenericType: Hi
+    Duration: 0
+  - NodeGuid: 9508704f-6c6e-4e34-9c83-e99de684b4cb
+    Position: {x: 1002, y: 190}
+    DialogueNodePorts: []
+    AudioClips:
+    - languageEnum: 0
+      LanguageGenericType: {fileID: 0}
+    Character: {fileID: 11400000, guid: f6621b842c232314db6be3e4bc1472f7, type: 2}
+    TextType:
+    - languageEnum: 0
+      LanguageGenericType: WHoareyou
     Duration: 0
   TimerChoiceNodeDatas: []
   CharacterNodeDatas:
   - NodeGuid: fe6be55c-4d20-44e6-b1fd-217effc570d5
-    Position: {x: 198, y: 178}
+    Position: {x: 194, y: 190}
     DialogueNodePorts: []
     Character: {fileID: 11400000, guid: f6621b842c232314db6be3e4bc1472f7, type: 2}
     CharacterSpritePos: {x: 0, y: 0, z: 0}
     CharacterSpriteSize: 1
     CharacterExpression: 0
+    CharacterEffect: 1
+    Duration: 1
+    EffectWeight: 0
+  - NodeGuid: f93d8045-604a-448f-810a-f37e126730ac
+    Position: {x: 734, y: 190}
+    DialogueNodePorts: []
+    Character: {fileID: 11400000, guid: f6621b842c232314db6be3e4bc1472f7, type: 2}
+    CharacterSpritePos: {x: 0, y: 0, z: 0}
+    CharacterSpriteSize: 1
+    CharacterExpression: 1
     CharacterEffect: 0
     Duration: 1
+    EffectWeight: 0
   EndNodeDatas:
   - NodeGuid: f441b9f5-be15-4b37-9c71-7167be6487f3
-    Position: {x: 769, y: 190}
+    Position: {x: 1285, y: 190}
     EndNodeType: 0
     Dialogue: {fileID: 0}
   EventNodeDatas: []

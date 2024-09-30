@@ -4,51 +4,73 @@ using UnityEngine;
 
 public class VNCharacterController : MonoBehaviour
 {
-    [SerializeField]
-    private SpriteList[] characterData;
-
     private Dictionary<string, VNSpriteController> characters;
 
     private const float defaultDuration = 0.1f;
 
-    private void Awake() {
+    private void Awake()
+    {
         characters = new Dictionary<string, VNSpriteController>();
-        foreach (var character in characterData) {
-            string characterName = character.listName;
-            GameObject characterObj = new GameObject("Character(" + characterName + ")");
-            VNSpriteController spriteController = characterObj.AddComponent<VNSpriteController>();
-            spriteController.SetSpriteList(character.spriteList);
-            characterObj.transform.SetParent(transform);
-            characterObj.transform.position = new Vector3(0,-2,0);
-
-            characters.Add(characterName, spriteController);
-        }
     }
 
-    public void ShowCharacter(string name, int index, float transitionDuration = defaultDuration) {
-        if (characters.TryGetValue(name, out VNSpriteController characterSprite)) {
-            StartCoroutine(characterSprite.ChangeSpriteCrossFade(index, transitionDuration));
+    /// <summary>
+    /// 캐릭터를 특정 스프라이트로 보여줌 (크로스 페이드)
+    /// </summary>
+    public void ShowCharacter(string name, Sprite sprite, float transitionDuration = defaultDuration)
+    {
+        if (!characters.TryGetValue(name, out VNSpriteController characterSprite)) {
+            characterSprite = CreateNewCharacter(name);
         }
-        else {
-            Debug.LogError("Character not found: " + name);
-        }
+
+        StartCoroutine(characterSprite.ChangeSpriteCrossFade(sprite, transitionDuration));
     }
 
-    public void MoveCharacter(string name, Vector3 position, float transitionDuration = defaultDuration) {
-        if (characters.TryGetValue(name, out VNSpriteController characterSprite)) {
-            StartCoroutine(characterSprite.MoveSpritePosition(position, transitionDuration));
+    /// <summary>
+    /// 캐릭터 이미지 변경
+    /// </summary>
+    public void ChangeCharacter(string name, Sprite sprite, float transitionDuration = defaultDuration)
+    {
+        if (!characters.TryGetValue(name, out VNSpriteController characterSprite)) {
+            characterSprite = CreateNewCharacter(name);
         }
-        else {
-            Debug.LogError("Character not found: " + name);
-        }
+
+        StartCoroutine(characterSprite.ChangeSpriteCrossFade(sprite, transitionDuration));
     }
 
-    public void DismissCharacter(string name, float transitionDuration = defaultDuration) {
-        if (characters.TryGetValue(name, out VNSpriteController characterSprite)) {
-            StartCoroutine(characterSprite.FadeOutSprite(transitionDuration));
+    /// <summary>
+    /// 캐릭터 위치 이동
+    /// </summary>
+    public void MoveCharacter(string name, Vector2 position, Vector2 scale, float transitionDuration = defaultDuration)
+    {
+        if (!characters.TryGetValue(name, out VNSpriteController characterSprite)) {
+            characterSprite = CreateNewCharacter(name);
         }
-        else {
-            Debug.LogError("Character not found: " + name);
+
+        StartCoroutine(characterSprite.MoveAndZoomSprite(position, scale, transitionDuration));
+    }
+
+    /// <summary>
+    /// 캐릭터 퇴장 (페이드 아웃)
+    /// </summary>
+    public void DismissCharacter(string name, float transitionDuration = defaultDuration)
+    {
+
+        if (!characters.TryGetValue(name, out VNSpriteController characterSprite)) {
+            characterSprite = CreateNewCharacter(name);
         }
+
+        StartCoroutine(characterSprite.FadeOutSprite(transitionDuration));
+    }
+
+    private VNSpriteController CreateNewCharacter(string name)
+    {
+        GameObject characterObj = new GameObject("Character(" + name + ")");
+        VNSpriteController spriteController = characterObj.AddComponent<VNSpriteController>();
+        characterObj.transform.SetParent(transform);
+        characterObj.transform.position = new Vector3(0, -2, 0);
+
+        characters.Add(name, spriteController);
+
+        return spriteController;
     }
 }

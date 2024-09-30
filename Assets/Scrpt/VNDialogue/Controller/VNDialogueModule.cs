@@ -285,9 +285,10 @@ public class VNDialogueModule : MonoBehaviour
     {
         switch (script.CharacterEffectType) {
             case CharacterEffectType.None:
+                characterController.ShowCharacter(script.CharacterName, script.CharacterSprite, 0);
                 break;
             case CharacterEffectType.FadeIn:
-
+                characterController.ShowCharacter(script.CharacterName, script.CharacterSprite);
                 break;
             case CharacterEffectType.FadeOut:
                 break;
