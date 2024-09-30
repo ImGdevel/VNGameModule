@@ -5,6 +5,8 @@ GridBackground {
 	--spacing: 50;
 }
 
+
+
 .edge{
 	--edge-width: 10px !important;
 }

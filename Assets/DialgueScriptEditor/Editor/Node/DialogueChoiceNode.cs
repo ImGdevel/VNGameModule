@@ -31,7 +31,7 @@ namespace DialogueSystem.Nodes
         private ObjectField character_Field;
 
         public CharacterPosition characterPosition;
-        public CharacterType characterType;
+        public CharacterExpression characterType;
         private EnumField CharacterPositionField;
         private EnumField CharacterTypeField;
 
@@ -113,7 +113,7 @@ namespace DialogueSystem.Nodes
 
             CharacterTypeField = new EnumField("Character Emotion", characterType);
             CharacterTypeField.RegisterValueChangedCallback(value => {
-                characterType = (CharacterType)value.newValue;
+                characterType = (CharacterExpression)value.newValue;
             });
             CharacterTypeField.SetValueWithoutNotify(characterType);
             characterFoldout.Add(CharacterTypeField);

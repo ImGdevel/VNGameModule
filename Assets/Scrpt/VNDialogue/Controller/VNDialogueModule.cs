@@ -3,10 +3,12 @@ using DialogueSystem.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
 using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using VisualNovelGame;
+using VisualNovelGame.Data;
 
 /// <summary>
 /// VN게임의 메인 게임 모듈
@@ -28,6 +30,7 @@ public class VNDialogueModule : MonoBehaviour
     private float typingSpeed = 0.03f;
     private float autoScrollDelay = 2.0f;
 
+    private bool isReadToNextScene = false;
 
     private bool isLockedUserCommand = true;
     private bool waitingForNextScene = false;
@@ -46,7 +49,7 @@ public class VNDialogueModule : MonoBehaviour
     private KeyCode autoDialogueKey = KeyCode.A;
     private KeyCode hideDialogueKey = KeyCode.Tab;
 
-    public static event Action EventEndScene;
+    public static event Action ForceTerminateScene;
 
     void Awake()
     {
@@ -69,23 +72,15 @@ public class VNDialogueModule : MonoBehaviour
             scenarioManager = FindObjectOfType<ScenarioManager>();
         }
 
-        isLockedUserCommand = true;
-        RegisterEventListeners();
-        StartCoroutine(StartSceneAfterDelay(2.0f));
-    }
-
-    private void RegisterEventListeners()
-    {
         dialogController.OnTypingEnd += EndDialogueScene;
         choiceController.ChoiceScene += PlayScene;
         SettingsManager.OnSettingsChanged += ApplySettings;
         MenuController.OnMenuOpened += SetGamePause;
-        //GameDataManager.Instance.OnGameDataSaved += SaveDialogueData;
-        //GameDataManager.Instance.OnGameDataLoaded += LoadDialogueData;
 
+        isLockedUserCommand = true;
+
+        StartCoroutine(StartSceneAfterDelay(2.0f));
     }
-
-
 
     /// <summary>
     /// 일정시간이 지나고 씬을 시작합니다.
@@ -106,12 +101,9 @@ public class VNDialogueModule : MonoBehaviour
     /// </summary>
     void Update()
     {
-        if (isLockedUserCommand) {
-            return;
-        }
 
         if (Input.GetKeyDown(nextDialogueKey)) {
-            PlayScene();
+            PlayNextScene();
         }
 
         if (Input.GetKeyUp(skipDialogueKey)) {
@@ -126,13 +118,47 @@ public class VNDialogueModule : MonoBehaviour
         }
     }
 
+
+
+
     /// <summary>
-    /// 다음 씬을 시작합니다.
+    /// 다음 씬을 요청합니다.
     /// </summary>
     public void PlayNextScene()
     {
-        EventEndScene?.Invoke();
-        PlayScene(scenarioManager.GetNextSceneIdById(currentSceneId));
+        if (isLockedUserCommand) {
+            return;
+        }
+
+        if (isReadToNextScene) {
+            ForceTerminateScene?.Invoke();
+        }
+        PlayScene(currentSceneId);
+    }
+
+    /// <summary>
+    /// 특정씬으로 이동합니다.
+    /// </summary>
+    /// <param name="sceneId"></param>
+    public void JumpScene(string sceneId)
+    {
+        if (isReadToNextScene) {
+            ForceTerminateScene?.Invoke();
+        }
+        PlayScene(currentSceneId);
+    }
+
+
+    /// <summary>
+    /// 자동 스크롤 모드
+    /// </summary>
+    public void ToggleAutoScrollSceneMode()
+    {
+        if (isLockedUserCommand) {
+            return;
+        }
+        autoScrollEnabled = !autoScrollEnabled;
+        Debug.Log("자동 스크롤 모드 ON");
     }
 
     /// <summary>
@@ -147,15 +173,12 @@ public class VNDialogueModule : MonoBehaviour
     /// 지정된 ID의 씬을 실행합니다.
     /// </summary>
     /// <param name="sceneId"></param>
-    public void PlayScene(string sceneId = null)
-    {
-        if (sceneId != null) {
-            currentSceneId = sceneId;
-        }
+    private void PlayScene(string sceneId)
+    { 
         ScriptDTO scriptDTO = scenarioManager.GetSceneDataById(currentSceneId);
         isLockedUserCommand = false;
         if (scriptDTO != null) {
-            Debug.Log("Current script number: " + currentSceneName + "(" + sceneId + ")");
+            isReadToNextScene = false;
             switch (scriptDTO) {
                 case DialogueScriptDTO nodeData:
                     PlayDialogueScene(nodeData);
@@ -170,7 +193,7 @@ public class VNDialogueModule : MonoBehaviour
                     PlayCharacterScene(nodeData);
                     break;
                 case EndScriptDTO nodeData:
-                    PlayEndScene(nodeData); 
+                    PlayEndScene(nodeData);
                     break;
                 case RandomScriptDTO nodeData:
                     PlayRandomScene(nodeData);
@@ -178,11 +201,11 @@ public class VNDialogueModule : MonoBehaviour
                 case IfScriptDTO nodeData:
                     PlayIfScene(nodeData);
                     break;
-
                 default:
-
+                    Debug.Log("Not Find ScriptDTO type");
                     break;
             }
+            Debug.Log("Current script number: " + currentSceneName + "(" + sceneId + ")");
         }
         else {
             Debug.Log("Not Find ScriptDTO");
@@ -203,6 +226,7 @@ public class VNDialogueModule : MonoBehaviour
     /// </summary>
     public void EndDialogueScene()
     {
+        isReadToNextScene = true;
         currentSceneId = scenarioManager.GetNextSceneIdById(currentSceneId);
         if (autoScrollEnabled) {
             StartCoroutine(AutoScrollToNextScene());
@@ -215,7 +239,8 @@ public class VNDialogueModule : MonoBehaviour
     private IEnumerator AutoScrollToNextScene()
     {
         yield return new WaitForSeconds(autoScrollDelay);
-        PlayNextScene();
+        currentSceneId = scenarioManager.GetNextSceneIdById(currentSceneId);
+        PlayScene(currentSceneId);
     }
 
     /// <summary>
@@ -258,7 +283,26 @@ public class VNDialogueModule : MonoBehaviour
     /// <param name="script"></param>
     private void PlayCharacterScene(CharacterScriptDTO script)
     {
+        switch (script.CharacterEffectType) {
+            case CharacterEffectType.None:
+                break;
+            case CharacterEffectType.FadeIn:
 
+                break;
+            case CharacterEffectType.FadeOut:
+                break;
+            case CharacterEffectType.Translate:
+                break;
+            case CharacterEffectType.Shake:
+                break;
+            case CharacterEffectType.Pomping:
+                break;
+            default:
+                break;
+        }
+
+        currentSceneId = scenarioManager.GetNextSceneIdById(currentSceneId);
+        PlayScene(currentSceneId);
     }
 
     /// <summary>
@@ -270,7 +314,7 @@ public class VNDialogueModule : MonoBehaviour
         // 게임 종료 처리 또는 엔딩씬 로직 추가
         Debug.Log("End of the dialogue scene.");
         dialogController.ClearDialogue();
-        EventEndScene?.Invoke();
+        ForceTerminateScene?.Invoke();
     }
 
     /// <summary>
@@ -357,17 +401,10 @@ public class VNDialogueModule : MonoBehaviour
 
     private void OnDestroy()
     {
-        UnregisterEventListeners();
-    }
-
-    private void UnregisterEventListeners()
-    {
         dialogController.OnTypingEnd -= EndDialogueScene;
         choiceController.ChoiceScene -= PlayScene;
         SettingsManager.OnSettingsChanged -= ApplySettings;
         MenuController.OnMenuOpened -= SetGamePause;
-        //GameDataManager.Instance.OnGameDataSaved -= SaveDialogueData;
-        //GameDataManager.Instance.OnGameDataLoaded -= LoadDialogueData;
     }
 
 }

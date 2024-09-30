@@ -1,43 +1,45 @@
 using System;
-using System.Linq;
+using DialogueSystem.Editor;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor.UIElements;
-using DialogueSystem.Editor;
-using DialogueSystem.Localization;
-using DialogueSystem.Event;
 
 namespace DialogueSystem.Nodes
 {
     public class CharacterNode : BaseNode
     {
         private DialogueCharacter character = null;
-        private float durationShow = 10;
+        private CharacterExpression characterExpression = CharacterExpression.Normal;
+        private Vector3 characterSpritePos = Vector3.zero;
+        private float characterSpriteSize = 1f;
+        private CharacterEffectType characterEffect = CharacterEffectType.None;
+        private float effectWeight = 0f;
+        private float durationShow = 1f;
 
         public List<DialogueNodePort> dialogueNodePorts = new List<DialogueNodePort>();
 
         public DialogueCharacter Character { get => character; set => character = value; }
+        public CharacterExpression CharacterExpression { get => characterExpression; set => characterExpression = value; }
+        public Vector3 CharacterSpritePos { get => characterSpritePos; set => characterSpritePos = value; }
+        public float CharacterSpriteSize { get => characterSpriteSize; set => characterSpriteSize = value; }
+        public CharacterEffectType CharacterEffect { get => characterEffect; set => characterEffect = value; }
+        public float EffectWeight { get => effectWeight; set => effectWeight = value; }
         public float DurationShow { get => durationShow; set => durationShow = value; }
 
-        private TextField texts_Field;
-        private ObjectField audioClips_Field;
-        private TextField name_Field;
+        
         private ObjectField character_Field;
+        private EnumField expression_Field;
+        private Vector2Field spritePos_Field;
+        private FloatField spriteSize_Field;
+        private EnumField effect_Field;
+        private FloatField effectWeight_Field;
         private FloatField duration_Field;
 
-        public CharacterEvent characterEvent;
-        private EnumField CharacterEventField;
+        public CharacterNode() 
+        { 
 
-        public CharacterPosition characterPosition;
-        public CharacterType characterType;
-        private EnumField CharacterPositionField;
-        private EnumField CharacterTypeField;
-
-
-        public CharacterNode()
-        {
         }
 
         public CharacterNode(Vector2 _position, DialogueEditorWindow _editorWindow, DialogueGraphView _graphView)
@@ -54,9 +56,7 @@ namespace DialogueSystem.Nodes
 
             AddValidationContainer();
 
-
-            /* Character CG */
-            Label label_character = new Label("Character CG");
+            Label label_character = new Label("Character SO");
             label_character.AddToClassList("label_name");
             label_character.AddToClassList("Label");
             mainContainer.Add(label_character);
@@ -64,43 +64,45 @@ namespace DialogueSystem.Nodes
                 objectType = typeof(DialogueCharacter),
                 allowSceneObjects = false,
             };
+            character_Field.RegisterValueChangedCallback(value => {
+                character = value.newValue as DialogueCharacter;
+            });
             character_Field.SetValueWithoutNotify(character);
             mainContainer.Add(character_Field);
 
-
-            /* AVATAR FIELDS IN FOLDOUT */
-            Label label_character_evnet = new Label("Character Event");
-            label_character_evnet.AddToClassList("label_event");
-            label_character_evnet.AddToClassList("Label");
-            mainContainer.Add(label_character_evnet);
-
-            //CharacterEventField = new EnumField("Event Type", characterEvent);
-            //CharacterEventField.RegisterValueChangedCallback(value => {
-            //    characterEvent = (CharacterEvent)value.newValue;
-            //});
-            //CharacterEventField.SetValueWithoutNotify(characterEvent);
-            //mainContainer.Add(CharacterEventField);
-
-            /* Character Position*/
-            CharacterPositionField = new EnumField("Position", characterPosition);
-            CharacterPositionField.RegisterValueChangedCallback(value => {
-                characterPosition = (CharacterPosition)value.newValue;
+            expression_Field = new EnumField("Expression", characterExpression);
+            expression_Field.RegisterValueChangedCallback(value => {
+                characterExpression = (CharacterExpression)value.newValue;
             });
-            CharacterPositionField.SetValueWithoutNotify(characterPosition);
-            mainContainer.Add(CharacterPositionField);
+            expression_Field.SetValueWithoutNotify(characterExpression);
+            mainContainer.Add(expression_Field);
 
-            /* Character Emotion*/
-            CharacterTypeField = new EnumField("Emotion", characterType);
-            CharacterTypeField.RegisterValueChangedCallback(value => {
-                characterType = (CharacterType)value.newValue;
+            effect_Field = new EnumField("Character Effect", characterEffect);
+            effect_Field.RegisterValueChangedCallback(value => {
+                characterEffect = (CharacterEffectType)value.newValue;
+                ToggleFieldsByEffect(characterEffect);
             });
-            CharacterTypeField.SetValueWithoutNotify(characterType);
-            mainContainer.Add(CharacterTypeField);
+            effect_Field.SetValueWithoutNotify(characterEffect);
+            mainContainer.Add(effect_Field);
 
-            /* TEXT NAME */
+            
+            spritePos_Field = new Vector2Field("Position");
+            spritePos_Field.SetValueWithoutNotify(characterSpritePos);
+            spritePos_Field.AddToClassList("field-margin");
+            mainContainer.Add(spritePos_Field);
+
+            spriteSize_Field = new FloatField("Size");
+            spriteSize_Field.SetValueWithoutNotify(characterSpriteSize);
+            spriteSize_Field.AddToClassList("field-margin"); 
+            mainContainer.Add(spriteSize_Field);
+
+            
+            effectWeight_Field = new FloatField("Effect Weight");
+            effectWeight_Field.SetValueWithoutNotify(effectWeight);
+            mainContainer.Add(effectWeight_Field);
+
+            // Display Time
             Label label_duration = new Label("Display Time");
-            label_duration.AddToClassList("label_duration");
-            label_duration.AddToClassList("Label");
             mainContainer.Add(label_duration);
 
             duration_Field = new FloatField("");
@@ -108,17 +110,29 @@ namespace DialogueSystem.Nodes
                 durationShow = value.newValue;
             });
             duration_Field.SetValueWithoutNotify(durationShow);
-
-            duration_Field.AddToClassList("TextDuration");
             mainContainer.Add(duration_Field);
+
+            ToggleFieldsByEffect(characterEffect);
         }
 
+        private void ToggleFieldsByEffect(CharacterEffectType effect)
+        {
+            bool showTransformFields = effect == CharacterEffectType.FadeIn || effect == CharacterEffectType.FadeOut || effect == CharacterEffectType.Translate;
+            bool showWeightField = effect == CharacterEffectType.Shake || effect == CharacterEffectType.Pomping;
+
+            spritePos_Field.style.display = showTransformFields ? DisplayStyle.Flex : DisplayStyle.None;
+            spriteSize_Field.style.display = showTransformFields ? DisplayStyle.Flex : DisplayStyle.None;
+            effectWeight_Field.style.display = showWeightField ? DisplayStyle.Flex : DisplayStyle.None;
+        }
 
         public override void LoadValueInToField()
         {
             character_Field.SetValueWithoutNotify(character);
-            CharacterPositionField.SetValueWithoutNotify(characterPosition);
-            CharacterTypeField.SetValueWithoutNotify(characterType);
+            expression_Field.SetValueWithoutNotify(characterExpression);
+            spritePos_Field.SetValueWithoutNotify(characterSpritePos);
+            spriteSize_Field.SetValueWithoutNotify(characterSpriteSize);
+            effect_Field.SetValueWithoutNotify(characterEffect);
+            effectWeight_Field.SetValueWithoutNotify(effectWeight);
             duration_Field.SetValueWithoutNotify(durationShow);
         }
 
@@ -133,14 +147,10 @@ namespace DialogueSystem.Nodes
             Port output = outputContainer.Query<Port>().First();
             if (!output.connected) error.Add("Output does not lead to any node");
 
-
             if (durationShow < 1) warning.Add("Short time for Make Decision");
 
             ErrorList = error;
             WarningList = warning;
-
         }
-
-        
     }
 }

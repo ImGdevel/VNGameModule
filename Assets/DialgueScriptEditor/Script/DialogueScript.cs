@@ -301,7 +301,7 @@ namespace DialogueSystem
         public List<LanguageGeneric<AudioClip>> AudioClips;
         public DialogueCharacter Character;
         public CharacterPosition AvatarPos;
-        public CharacterType AvatarType;
+        public CharacterExpression AvatarType;
         public List<LanguageGeneric<string>> TextType;
         public float Duration;
     }
@@ -313,7 +313,7 @@ namespace DialogueSystem
         public List<LanguageGeneric<AudioClip>> AudioClips;
         public DialogueCharacter Character;
         public CharacterPosition AvatarPos;
-        public CharacterType AvatarType;
+        public CharacterExpression AvatarType;
         public List<LanguageGeneric<string>> TextType;
         public float Duration;
         public float time;
@@ -340,9 +340,12 @@ namespace DialogueSystem
     {
         public List<DialogueNodePort> DialogueNodePorts;
         public DialogueCharacter Character;
-        public CharacterPosition CharacterPos;
-        public CharacterType CharacterType;
+        public Vector3 CharacterSpritePos;
+        public float CharacterSpriteSize;
+        public CharacterExpression CharacterExpression;
+        public CharacterEffectType CharacterEffect; 
         public float Duration;
+        public float EffectWeight;
     }
 
     [System.Serializable]
@@ -417,6 +420,12 @@ namespace DialogueSystem
         GoBack,
         ReturnToStart,
         StartDialogue
+    }
+
+    [System.Serializable]
+    public enum CharacterEffectType
+    {
+        None, FadeIn, FadeOut, Translate, Shake, Pomping
     }
 
 }

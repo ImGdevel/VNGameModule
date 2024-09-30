@@ -31,12 +31,12 @@ public class VNDialogController : MonoBehaviour
 
     private void Start()
     {
-        VNDialogueModule.EventEndScene += EndDialog;
+        VNDialogueModule.ForceTerminateScene += StopTyping;
     }
 
     private void OnDestroy()
     {
-        VNDialogueModule.EventEndScene -= EndDialog;
+        VNDialogueModule.ForceTerminateScene -= StopTyping;
     }
 
     public void TypeDialogue(string charcterName, string content, float typingSpeed) {
@@ -46,9 +46,14 @@ public class VNDialogController : MonoBehaviour
             StartCoroutine(TypeText(content, typingSpeed));
         }
         else {
-            isTyping = false;
-            StopCoroutine("TypeText");
+            StopTyping();
         }
+    }
+
+    public void StopTyping()
+    {
+        isTyping = false;
+        StopCoroutine("TypeText");
     }
 
     public void SkipDialogue(string charcterName, string content) {
@@ -77,12 +82,6 @@ public class VNDialogController : MonoBehaviour
             characterNameTextMesh.text = "";
             nameBox.SetActive(false);
         }
-    }
-
-    public void EndDialog()
-    {
-        isTyping = false;
-        StopCoroutine("TypeText");
     }
 
     private IEnumerator TypeText(string text, float speed) {

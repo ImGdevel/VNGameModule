@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using VisualNovelGame;
+using VisualNovelGame.Data;
 
 public class TestCommander : MonoBehaviour
 {

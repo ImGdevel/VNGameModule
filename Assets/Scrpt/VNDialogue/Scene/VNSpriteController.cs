@@ -12,7 +12,6 @@ public class VNSpriteController : MonoBehaviour
     private bool isTransitioning = false;
 
     private bool isAnimaionEnd = false;
-    // Awake is used for initialization
     private void Awake() {
         InitializeSprites();
     }
@@ -31,7 +30,7 @@ public class VNSpriteController : MonoBehaviour
         changeSprite.sortingOrder = currentSprite.sortingOrder + 1;
         changeSprite.enabled = false;
 
-        VNDialogueModule.EventEndScene += EndSpriteEffect;
+        VNDialogueModule.ForceTerminateScene += EndSpriteEffect;
     }
 
     // Set the list of sprites to be used
@@ -45,7 +44,7 @@ public class VNSpriteController : MonoBehaviour
     // Handle cleanup when the script is destroyed
     private void OnDestroy() {
         // Stop all running coroutines
-        VNDialogueModule.EventEndScene -= EndSpriteEffect;
+        VNDialogueModule.ForceTerminateScene -= EndSpriteEffect;
         StopAllCoroutines();
     }
 
@@ -97,7 +96,12 @@ public class VNSpriteController : MonoBehaviour
         isTransitioning = false;
     }
 
-    // Coroutine for crossfading between sprites
+    /// <summary>
+    /// 스프라이트 교차 페이드 전환
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="transitionDuration">지속시간</param>
+    /// <returns></returns>
     public IEnumerator ChangeSpriteCrossFade(int index, float transitionDuration = defaultDuration) {
         if (!isTransitioning && IsValidIndex(index)) {
             float elapsedTime = 0f;
@@ -123,7 +127,11 @@ public class VNSpriteController : MonoBehaviour
         }
     }
 
-    // Coroutine for changing the sprite with a fade to black effect
+    /// <summary>
+    /// 스프라이트를 검은색으로 페이드 처리한 후 변경
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="transitionDuration">지속시간</param>
     public IEnumerator ChangeSpriteWithFadeToBlack(int index, float transitionDuration = defaultDuration) {
         if (!isTransitioning && IsValidIndex(index)) {
             isTransitioning = true;
@@ -157,7 +165,12 @@ public class VNSpriteController : MonoBehaviour
         }
     }
 
-    // Coroutine for moving the sprite to a new position and zooming it
+    /// <summary>
+    /// 스프라이트를 새로운 위치로 이동시키고 확대
+    /// </summary>
+    /// <param name="movePosition">위치</param>
+    /// <param name="zoomScale">크기</param>
+    /// <param name="transitionDuration">지속시간</param>
     public IEnumerator MoveAndZoomSprite(Vector3 movePosition, Vector3 zoomScale, float transitionDuration = defaultDuration) {
         if (!isTransitioning) {
             isTransitioning = true;
@@ -191,7 +204,11 @@ public class VNSpriteController : MonoBehaviour
         }
     }
 
-    // Coroutine for moving the sprite to a new position
+    /// <summary>
+    /// 스프라이트를 새로운 위치로 이동
+    /// </summary>
+    /// <param name="movePosition">위치</param>
+    /// <param name="transitionDuration">변환시간</param>
     public IEnumerator MoveSpritePosition(Vector3 movePosition, float transitionDuration = defaultDuration) {
         if (!isTransitioning) {
             isTransitioning = true;
@@ -207,7 +224,12 @@ public class VNSpriteController : MonoBehaviour
         }
     }
 
-    // Coroutine for zooming the sprite
+    /// <summary>
+    /// 스프라이트 크기 조정
+    /// </summary>
+    /// <param name="zoomScale">확대</param>
+    /// <param name="transitionDuration"></param>
+    /// <returns></returns>
     public IEnumerator ZoomSprite(Vector3 zoomScale, float transitionDuration = defaultDuration) {
         if (!isTransitioning) {
             isTransitioning = true;
@@ -223,7 +245,10 @@ public class VNSpriteController : MonoBehaviour
         }
     }
 
-    // Check if the index is valid for the sprite list
+    /// <summary>
+    /// // 스프라이트 리스트의 인덱스가 유효한지 확인
+    /// </summary>
+    /// <param name="index">인덱스</param>
     private bool IsValidIndex(int index) {
         if (spriteList == null || index < 0 || index >= spriteList.Count) {
             Debug.LogWarning("Invalid sprite index: " + index);
@@ -232,7 +257,10 @@ public class VNSpriteController : MonoBehaviour
         return true;
     }
 
-    // Coroutine for fading in the change sprite
+    /// <summary>
+    /// 스프라이트를 변경하면서 페이드 인
+    /// </summary>
+    /// <param name="transitionDuration">지속시간</param>
     private IEnumerator FadeInChangeSprite(float transitionDuration = defaultDuration) {
         float elapsedTime = 0f;
         Color startColor = new Color(1f, 1f, 1f, 0f);
@@ -248,7 +276,13 @@ public class VNSpriteController : MonoBehaviour
         changeSprite.color = endColor;
     }
 
-    // Coroutine for lerping transform properties (position and scale)
+    /// <summary>
+    /// 트랜스폼 속성(위치와 스케일)을 선형 보간(lerping)
+    /// </summary>
+    /// <param name="startValue"></param>
+    /// <param name="endValue"></param>
+    /// <param name="duration"></param>
+    /// <param name="updateAction"></param>
     private IEnumerator LerpTransform(Vector3 startValue, Vector3 endValue, float duration, System.Action<Vector3> updateAction) {
         float elapsedTime = 0f;
 
@@ -261,6 +295,9 @@ public class VNSpriteController : MonoBehaviour
         updateAction(endValue);
     }
 
+    /// <summary>
+    /// 스크라이트 효과 종료
+    /// </summary>
     private void EndSpriteEffect() {
         isAnimaionEnd = true;
         isTransitioning = false;

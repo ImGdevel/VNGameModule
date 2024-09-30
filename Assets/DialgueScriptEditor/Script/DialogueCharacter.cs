@@ -56,9 +56,9 @@ namespace DialogueSystem
                 }
                 if (Avatars != null)
                 {
-                    if (Avatars.Count < System.Enum.GetNames(typeof(CharacterType)).Length)
+                    if (Avatars.Count < System.Enum.GetNames(typeof(CharacterExpression)).Length)
                     {
-                        foreach (CharacterType language in (CharacterType[])System.Enum.GetValues(typeof(CharacterType)))
+                        foreach (CharacterExpression language in (CharacterExpression[])System.Enum.GetValues(typeof(CharacterExpression)))
                         {
                             Avatars.Add(new CharacterSprite
                             {
@@ -91,14 +91,14 @@ namespace DialogueSystem
             }
         }
 
-        public Sprite GetCharacterSprite(CharacterPosition position, CharacterType type)
+        public Sprite GetCharacterSprite(CharacterPosition position, CharacterExpression type)
         {
             CharacterSprite cs = Avatars[(int)type];
 
             return cs.Sprite;
         }
 
-        public Sprite GetCharacterSprite(CharacterType type)
+        public Sprite GetCharacterSprite(CharacterExpression type)
         {
             CharacterSprite cs = Avatars[(int)type];
 
@@ -110,7 +110,7 @@ namespace DialogueSystem
 [System.Serializable]
 public class CharacterSprite
 {
-    public CharacterType type;
+    public CharacterExpression type;
     public Sprite Sprite;
 }
 
@@ -118,4 +118,4 @@ public class CharacterSprite
 public enum CharacterPosition { Center, Right, Left }
 
 [System.Serializable]
-public enum CharacterType { Normal = 0, Smile = 1, Suprized = 2, Disgust = 3, Crying = 4, Angry = 5 }
+public enum CharacterExpression { Normal = 0, Smile = 1, Suprized = 2, Disgust = 3, Crying = 4, Angry = 5 }

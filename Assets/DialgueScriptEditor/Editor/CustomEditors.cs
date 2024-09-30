@@ -243,7 +243,7 @@ public class DialogueContainerSOEditor : Editor
                 _target.DialogueChoiceNodeDatas[i].Position = EditorGUILayout.Vector2Field("Position", _target.DialogueChoiceNodeDatas[i].Position);
                 _target.DialogueChoiceNodeDatas[i].Character = (DialogueCharacter)EditorGUILayout.ObjectField("Character", _target.DialogueChoiceNodeDatas[i].Character, typeof(DialogueCharacter), false);
                 _target.DialogueChoiceNodeDatas[i].AvatarPos = (CharacterPosition)EditorGUILayout.EnumPopup("Avatar Display", _target.DialogueChoiceNodeDatas[i].AvatarPos);
-                _target.DialogueChoiceNodeDatas[i].AvatarType = (CharacterType)EditorGUILayout.EnumPopup("Avatar Emotion", _target.DialogueChoiceNodeDatas[i].AvatarType);
+                _target.DialogueChoiceNodeDatas[i].AvatarType = (CharacterExpression)EditorGUILayout.EnumPopup("Avatar Emotion", _target.DialogueChoiceNodeDatas[i].AvatarType);
                 _target.DialogueChoiceNodeDatas[i].Duration = EditorGUILayout.FloatField("Display Time", _target.DialogueChoiceNodeDatas[i].Duration);
 
                 for (int j = 0; j < _target.DialogueChoiceNodeDatas[0].TextType.Count; j++)
@@ -301,7 +301,7 @@ public class DialogueContainerSOEditor : Editor
                 _target.TimerChoiceNodeDatas[i].Position = EditorGUILayout.Vector2Field("Position", _target.TimerChoiceNodeDatas[i].Position);
                 _target.TimerChoiceNodeDatas[i].Character = (DialogueCharacter)EditorGUILayout.ObjectField("Character", _target.TimerChoiceNodeDatas[i].Character, typeof(DialogueCharacter), false);
                 _target.TimerChoiceNodeDatas[i].AvatarPos = (CharacterPosition)EditorGUILayout.EnumPopup("Avatar Display", _target.TimerChoiceNodeDatas[i].AvatarPos);
-                _target.TimerChoiceNodeDatas[i].AvatarType = (CharacterType)EditorGUILayout.EnumPopup("Avatar Emotion", _target.TimerChoiceNodeDatas[i].AvatarType);
+                _target.TimerChoiceNodeDatas[i].AvatarType = (CharacterExpression)EditorGUILayout.EnumPopup("Avatar Emotion", _target.TimerChoiceNodeDatas[i].AvatarType);
                 _target.TimerChoiceNodeDatas[i].Duration = EditorGUILayout.FloatField("Display Time", _target.TimerChoiceNodeDatas[i].Duration);
                 _target.TimerChoiceNodeDatas[i].time = EditorGUILayout.FloatField("Time to make decision", _target.TimerChoiceNodeDatas[i].time);
 

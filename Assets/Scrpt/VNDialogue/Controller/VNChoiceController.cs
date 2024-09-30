@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using VisualNovelGame.Data;
 
 public class VNChoiceController : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class VNChoiceController : MonoBehaviour
     }
 
     /// <summary>
-    /// 시간제한 타이머
+    /// 시간제한 타이머 선택지
     /// </summary>
     /// <param name="choices"></param>
     /// <param name="timer"></param>
@@ -45,7 +46,6 @@ public class VNChoiceController : MonoBehaviour
             button.onClick.AddListener(() => OnChoiceSelected(choice));
         }
     }
-
 
 
     /// <summary>

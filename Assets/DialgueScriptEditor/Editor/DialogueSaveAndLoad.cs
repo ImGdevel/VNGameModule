@@ -261,16 +261,24 @@ namespace DialogueSystem.Editor
 
         private CharacterNodeData SaveNodeData(CharacterNode _node)
         {
-            CharacterNodeData nodeData = new CharacterNodeData 
-            {
+            
+
+            CharacterNodeData nodeData = new CharacterNodeData {
                 NodeGuid = _node.nodeGuid,
                 Position = _node.GetPosition().position,
                 Character = _node.Character,
+                CharacterExpression = _node.CharacterExpression,
+                CharacterSpritePos = _node.CharacterSpritePos,
+                CharacterSpriteSize = _node.CharacterSpriteSize,
+                CharacterEffect = _node.CharacterEffect,
+                Duration = _node.DurationShow,
                 DialogueNodePorts = _node.dialogueNodePorts,
             };
-
+            
+            Debug.Log(nodeData.Character.ToString());
             return nodeData;
         }
+
 
         private IfNodeData SaveNodeData(IFNode _node)
         {
@@ -479,14 +487,17 @@ namespace DialogueSystem.Editor
                 tempNode.nodeGuid = node.NodeGuid;
 
                 tempNode.Character = node.Character;
-                tempNode.characterPosition = node.CharacterPos;
-                tempNode.characterType = node.CharacterType;
+                tempNode.CharacterExpression = node.CharacterExpression;
+                tempNode.CharacterSpritePos = node.CharacterSpritePos;
+                tempNode.CharacterSpriteSize = node.CharacterSpriteSize;
+                tempNode.CharacterEffect = node.CharacterEffect;
                 tempNode.DurationShow = node.Duration;
 
                 tempNode.LoadValueInToField();
 
                 graphView.AddElement(tempNode);
             }
+
         }
 
         private void ConnectNodes(DialogueScript _dialogueContainer)

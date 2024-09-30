@@ -10,7 +10,7 @@ namespace DialogueSystem.Event
         #region Variables
         public DialogueCharacter Character;
 
-        public CharacterType characterType;
+        public CharacterExpression characterType;
         public CharacterPosition characterPosition;
         #endregion
 
