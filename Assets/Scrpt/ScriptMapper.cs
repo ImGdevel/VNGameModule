@@ -20,8 +20,9 @@ namespace VisualNovelGame.Data
             LocalizationEnum localization = localizationManager.SelectedLang();
             DialogueCharacter character = nodeData.Character;
 
-            string characterName = $"<color={nodeData.Character.HexColor()}>" +
-                $"{character.characterName.Find(text => text.languageEnum == localization).LanguageGenericType}</color>";
+            string characterName = character != null
+                    ? $"<color={character.HexColor()}>{character.characterName.Find(text => text.languageEnum == localization).LanguageGenericType}</color>"
+                    : "";
             string text = $"{nodeData.TextType.Find(text => text.languageEnum == localization).LanguageGenericType}";
             AudioClip audioClip = nodeData.AudioClips.Find(clip => clip.languageEnum == localization).LanguageGenericType;
 
@@ -38,8 +39,9 @@ namespace VisualNovelGame.Data
             LocalizationEnum localization = localizationManager.SelectedLang();
             DialogueCharacter character = nodeData.Character;
 
-            string characterName = $"<color={character.HexColor()}>" +
-                $"{character.characterName.Find(text => text.languageEnum == localization).LanguageGenericType}</color>";
+            string characterName = character != null
+                    ? $"<color={character.HexColor()}>{character.characterName.Find(text => text.languageEnum == localization).LanguageGenericType}</color>"
+                    : "";
             string text = nodeData.TextType.Find(t => t.languageEnum == localization).LanguageGenericType;
             AudioClip audioClip = nodeData.AudioClips?.Find(clip => clip.languageEnum == localization)?.LanguageGenericType;
 
