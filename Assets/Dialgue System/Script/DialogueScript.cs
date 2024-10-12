@@ -24,6 +24,7 @@ namespace DialogueSystem
         [HideInInspector] public List<ChoiceNodeData> DialogueChoiceNodeDatas = new List<ChoiceNodeData>();
         [HideInInspector] public List<DialogueNodeData> DialogueNodeDatas = new List<DialogueNodeData>();
         [HideInInspector] public List<TimerChoiceNodeData> TimerChoiceNodeDatas = new List<TimerChoiceNodeData>();
+        [HideInInspector] public List<CharacterNodeData> CharacterNodeDatas = new List<CharacterNodeData>();
         [HideInInspector] public List<EndNodeData> EndNodeDatas = new List<EndNodeData>();
         [HideInInspector] public List<EventNodeData> EventNodeDatas = new List<EventNodeData>();
         [HideInInspector] public List<StartNodeData> StartNodeDatas = new List<StartNodeData>();
@@ -39,6 +40,7 @@ namespace DialogueSystem
                 tmp.AddRange(DialogueNodeDatas);
                 tmp.AddRange(DialogueChoiceNodeDatas);
                 tmp.AddRange(TimerChoiceNodeDatas);
+                tmp.AddRange(CharacterNodeDatas);
                 tmp.AddRange(EndNodeDatas);
                 tmp.AddRange(EventNodeDatas);
                 tmp.AddRange(StartNodeDatas);
@@ -330,8 +332,18 @@ namespace DialogueSystem
         public List<LanguageGeneric<AudioClip>> AudioClips;
         public DialogueCharacter Character;
         public CharacterPosition CharacterPos;
-        public CharacterType AvatarType;
+        public CharacterType CharacterType;
         public List<LanguageGeneric<string>> TextType;
+        public float Duration;
+    }
+
+    [System.Serializable]
+    public class CharacterNodeData : BaseNodeData
+    {
+        public List<DialogueNodePort> DialogueNodePorts;
+        public DialogueCharacter Character;
+        public CharacterPosition CharacterPos;
+        public CharacterType CharacterType;
         public float Duration;
     }
 
@@ -354,6 +366,7 @@ namespace DialogueSystem
     {
         public List<EventScriptableObjectData> EventScriptableObjects;
     }
+
     [System.Serializable]
     public class EventScriptableObjectData
     {
@@ -407,4 +420,5 @@ namespace DialogueSystem
         ReturnToStart,
         StartDialogue
     }
+
 }

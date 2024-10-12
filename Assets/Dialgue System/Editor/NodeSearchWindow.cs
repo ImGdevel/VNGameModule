@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using DialogueSystem.Nodes;
+using UnityEngine.TextCore.Text;
 
 namespace DialogueSystem.Editor
 {
@@ -28,6 +29,7 @@ namespace DialogueSystem.Editor
             AddNodeSearchToGroup("Dialogue Node",new DialogueNode(),"d_UnityEditor.HierarchyWindow"),
             AddNodeSearchToGroup("Choice Node",new DialogueChoiceNode(),"d_TreeEditor.Distribution"),
             //AddNodeSearchToGroup("Timer Choice Node",new TimerChoiceNode(),"d_preAudioAutoPlayOff"),
+            AddNodeSearchToGroup("Character Node",new CharacterNode(),"d_TreeEditor.Distribution"),
             AddNodeSearchToGroup("Event Node",new EventNode(),"d_SceneViewFx"),
             AddNodeSearchToGroup("IF Node",new IFNode(),"d_preAudioLoopOff"),
             AddNodeSearchToGroup("Random Node",new RandomNode(),"d_preAudioLoopOff"),
@@ -88,6 +90,9 @@ namespace DialogueSystem.Editor
                     return true;
                 case TimerChoiceNode node:
                     graphView.AddElement(graphView.CreateTimerChoiceNode(_pos));
+                    return true;
+                case CharacterNode node:
+                    graphView.AddElement(graphView.CreateCharacterNode(_pos));
                     return true;
                 case EventNode node:
                     graphView.AddElement(graphView.CreateEventNode(_pos));

@@ -195,7 +195,7 @@ public class DialogueContainerSOEditor : Editor
                 _target.DialogueNodeDatas[i].Position = EditorGUILayout.Vector2Field("Position", _target.DialogueNodeDatas[i].Position);
                 _target.DialogueNodeDatas[i].Character = (DialogueCharacter)EditorGUILayout.ObjectField("Character", _target.DialogueNodeDatas[i].Character, typeof(DialogueCharacter), false);
                 _target.DialogueNodeDatas[i].CharacterPos = (CharacterPosition)EditorGUILayout.EnumPopup("Avatar Display", _target.DialogueNodeDatas[i].CharacterPos);
-                _target.DialogueNodeDatas[i].AvatarType = (CharacterType)EditorGUILayout.EnumPopup("Avatar Emotion", _target.DialogueNodeDatas[i].AvatarType);
+                _target.DialogueNodeDatas[i].CharacterType = (CharacterType)EditorGUILayout.EnumPopup("Avatar Emotion", _target.DialogueNodeDatas[i].CharacterType);
 
                 _target.DialogueNodeDatas[i].Duration = EditorGUILayout.FloatField("Display Time", _target.DialogueNodeDatas[i].Duration);
 

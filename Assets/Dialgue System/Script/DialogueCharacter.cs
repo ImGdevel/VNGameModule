@@ -115,7 +115,7 @@ public class CharacterSprite
 }
 
 [System.Serializable]
-public enum CharacterPosition { None, Center, Right, Left }
+public enum CharacterPosition { Center, Right, Left }
 
 [System.Serializable]
 public enum CharacterType { Normal = 0, Smile = 1, Suprized = 2, Disgust = 3, Crying = 4, Angry = 5 }

@@ -233,7 +233,7 @@ namespace DialogueSystem.Editor
                 TextType = _node.Texts,
                 Character = _node.Character,
                 CharacterPos = _node.characterPosition,
-                AvatarType = _node.characterType,
+                CharacterType = _node.characterType,
                 AudioClips = _node.AudioClip,
                 DialogueNodePorts = _node.dialogueNodePorts,
                 Duration = _node.DurationShow
@@ -382,6 +382,8 @@ namespace DialogueSystem.Editor
                 graphView.AddElement(tempNode);
             }
 
+
+
             /* Timer Choice Node */
             foreach (TimerChoiceNodeData node in _dialogueContainer.TimerChoiceNodeDatas)
             {
@@ -429,11 +431,27 @@ namespace DialogueSystem.Editor
 
                 tempNode.Character = node.Character;
                 tempNode.characterPosition = node.CharacterPos;
-                tempNode.characterType = node.AvatarType;
+                tempNode.characterType = node.CharacterType;
 
                 tempNode.DurationShow = node.Duration;
 
                 tempNode.LoadValueInToField();
+                graphView.AddElement(tempNode);
+            }
+
+            /* Character Node */
+            foreach (CharacterNodeData node in _dialogueContainer.CharacterNodeDatas) {
+                CharacterNode tempNode = graphView.CreateCharacterNode(node.Position);
+                tempNode.nodeGuid = node.NodeGuid;
+
+                tempNode.Character = node.Character;
+                tempNode.characterPosition = node.CharacterPos;
+                tempNode.characterType = node.CharacterType;
+
+                tempNode.DurationShow = node.Duration;
+
+                tempNode.LoadValueInToField();
+
                 graphView.AddElement(tempNode);
             }
         }

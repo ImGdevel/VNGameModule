@@ -43,7 +43,7 @@ namespace DialogueSystem.Event
         [MenuItem("Assets/Create/Dialogue/New Event")]
         public static void NewEvent()
         {
-            string script = k_scriptFilePath  + "/Events/EventSOTemplate.cs.txt";
+            string script = k_scriptFilePath + "/Events/EventSOTemplate.cs.txt";
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(script, "Event.cs");
         }
     }

@@ -38,6 +38,11 @@ namespace DialogueSystem.Event
         {
             Debug.LogFormat($"<color=#{ColorUtility.ToHtmlStringRGBA(character.textColor)}>{character.GetName()}");
         }
+
+        public void BackgroundEvent()
+        {
+
+        }
     }
 
     [System.Serializable]

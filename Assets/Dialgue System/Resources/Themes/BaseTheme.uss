@@ -56,9 +56,10 @@ GridBackground {
 	bottom: 48px;
 }
 
+#Character #ValidationContainer,
 #Dialog #ValidationContainer{
-	width: 242px;
-	left: -25px;
+	width: 244px;
+	left: -26px;
 }
 
 #Start #ValidationContainer
@@ -108,6 +109,12 @@ GridBackground {
 .Label{
 	margin-top: 5px;
 	margin-left: 4px;
+}
+
+.label_texts{
+	font-width: 600;
+	padding: 2px;
+	color: #ffffff;
 }
 
 .TextBox{
@@ -207,6 +214,16 @@ GridBackground {
 	background-color: #D18522;
 }
 
+/* Dialog NODE STYLE*/
+#Character {
+	max-width: 200px; 
+	width: 200px; 
+}
+
+#Character #node-border #title {
+	background-color: #D18522;
+}
+
 
 /* Choice NODE STYLE*/
 #Choice #node-border #title {
@@ -290,12 +307,6 @@ GridBackground {
 	background-color: #9649CB;
 }
 
-#Event .unity-toolbar-menu{
-	background-color: #8742b7 !important;
-	border-width: 0px !important;
-	padding: 5px;
-}
-
 #Event .EventBox .unity-label{
 	min-width: 75px !important;
 }
@@ -307,22 +318,45 @@ GridBackground {
 	display: none;
 }
 
-.EventBox {
-	flex-direction: row;
+#Event .unity-toolbar-menu{
+    width: 220px;
+	height: 20px;
+    background-color: #585858 !important;
+    border-width: 1px !important;
+	margin: 3px 30px; 
+	radius: 3px;
+	border-radius: 3px;
 }
 
-.EventSO {
-	width: 260px;
-	max-width: 260px;
+#Event .EventBox {
+	background-color: #383838;
+	flex-direction: row;
+	margin-bottom: 0px;
+}
+
+#Event .HeaderBox {
+	background-color: #383838;
+	border: none;
+}
+
+#Event .TopRowBox{
+	background-color: #383838;
+	border: none;
+}
+
+#Event .EventSO {
+	width: 280px;
+	max-width: 280px;
 	margin-left: 2px;
 	margin-right: 0px;
 	height: 20px;
 }
 
-.EventBtn{
+#Event .EventBtn{
 	background-color: #3F3F3F !important;
-	margin-top: 1px;
-	margin-bottom: 1px;
+	border-width: 1px !important;
+	width: 18px;
+	height: 18px;
 }
 
 /* TimerChoice NODE STYLE*/
@@ -404,6 +438,7 @@ GridBackground {
 }
 
 
+#Character #node-border #title,
 #IF #node-border #title,
 #Commandr #node-border #title,
 #Random #node-border #title,
@@ -414,6 +449,7 @@ GridBackground {
 	background-color: #383838;
 }
 
+
 #Random #node-border #title .unity-button,
 #Choice #node-border #title .unity-button {
 	background-color: #383838;
@@ -421,6 +457,7 @@ GridBackground {
 	border-width: 1px;
 }
 
+#Character #selection-border,
 #IF #selection-border,
 #Commandr #selection-border,
 #Random #selection-border,
@@ -437,6 +474,7 @@ GridBackground {
 }
 
 /* BASE NODE SETTINGS */
+#Character:hover #selection-border,
 #IF:hover #selection-border,
 #Command:hover #selection-border,
 #Random:hover #selection-border,

@@ -167,6 +167,14 @@ namespace DialogueSystem.Editor
             return tmp;
         }
 
+        public CharacterNode CreateCharacterNode(Vector2 _pos)
+        {
+            CharacterNode tmp = new CharacterNode(_pos, editorWindow, this);
+            tmp.name = "Character";
+
+            return tmp;
+        }
+
         public IFNode CreateIFNode(Vector2 _pos)
         {
             IFNode tmp = new IFNode(_pos, editorWindow, this);

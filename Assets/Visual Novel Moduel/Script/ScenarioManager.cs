@@ -182,7 +182,7 @@ namespace VNGameModuel
             //캐릭터 세팅
             if (_nodeData.Character != null) {
                 string characterName = _nodeData.Character.characterName.Find(text => text.languageEnum == localizationEnum).LanguageGenericType;
-                Sprite sprite = _nodeData.Character.GetCharacterSprite(_nodeData.CharacterPos, _nodeData.AvatarType);
+                Sprite sprite = _nodeData.Character.GetCharacterSprite(_nodeData.CharacterPos, _nodeData.CharacterType);
                 CharacterPosition position = _nodeData.CharacterPos;
 
                 characterCGController.SetCharacterByPosition(characterName, sprite, position);
