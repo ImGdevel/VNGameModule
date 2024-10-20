@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c76bf2ff3652a68438d37775da7ebe79, type: 3}
-  m_Name: Character A
+  m_Name: Chaacter01
   m_EditorClassIdentifier: 
   characterName:
   - languageEnum: 0
-    LanguageGenericType: Character A
+    LanguageGenericType: YouNa
   CustomizedName:
     ValueName: 
   UseGlobalValue: 0

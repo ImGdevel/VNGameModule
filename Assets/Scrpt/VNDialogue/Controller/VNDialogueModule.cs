@@ -1,11 +1,22 @@
+using DialogueSystem;
+using DialogueSystem.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Http.Headers;
+using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using VisualNovelGame;
+using VisualNovelGame.Data;
 
+/// <summary>
+/// VN게임의 메인 게임 모듈
+/// </summary>
 public class VNDialogueModule : MonoBehaviour
 {
+    public static VNDialogueModule Instance { get; private set; }
+
     [SerializeField] GameObject dialogueUI;
     [SerializeField] VNDialogController dialogController;
     [SerializeField] VNChoiceController choiceController;
@@ -13,19 +24,24 @@ public class VNDialogueModule : MonoBehaviour
     [SerializeField] VNBackgroundController backgroundController;
     VNDialogManager dialogManager;
 
-    private List<DialogData> dialogueList;
-    private Dictionary<string, string> characterNames;
-    private Dictionary<string, List<EventData>> sceneEvents;
-    private int currentDialogueIndex = 0;
+    public ScenarioManager scenarioManager;
+    private string currentSceneId = null;
 
     private float typingSpeed = 0.03f;
     private float autoScrollDelay = 2.0f;
 
+    private bool isReadToNextScene = false;
+
+    private bool isLockedUserCommand = true;
     private bool waitingForNextScene = false;
     private bool autoScrollEnabled = false;
     private bool onSceneSkipMove = false;
     private bool isDialogueVisible = false;
-    private bool isGamePaused = true;
+
+    private bool isSkipMode = false;
+
+    private int senceCount = 0;
+
     private string currentSceneName;
 
     private KeyCode nextDialogueKey = KeyCode.Space;
@@ -33,282 +49,301 @@ public class VNDialogueModule : MonoBehaviour
     private KeyCode autoDialogueKey = KeyCode.A;
     private KeyCode hideDialogueKey = KeyCode.Tab;
 
-    public static event Action EndDialogue;
+    public static event Action ForceTerminateScene;
 
     void Awake()
     {
+        if (Instance == null) {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else {
+            Destroy(gameObject);
+            return;
+        }
+
         currentSceneName = SceneManager.GetActiveScene().name;
-        dialogController = FindObjectOfType<VNDialogController>();
-        if (dialogController == null) {
-            Debug.LogError("VNDialogController not found.");
-        }
-        choiceController = FindObjectOfType<VNChoiceController>();
-        if (choiceController == null) {
-            Debug.LogError("VNChoiceController not found.");
-        }
-        backgroundController = FindObjectOfType<VNBackgroundController>();
-        if (backgroundController == null) {
-            Debug.LogError("VNBackgroundController not found.");
-        }
-        characterController = FindObjectOfType<VNCharacterController>();
-        if (characterController == null) {
-            Debug.LogError("VNCharacterController not found.");
-        }
-        dialogManager = FindObjectOfType<VNDialogManager>();
-        if (dialogManager == null) {
-            Debug.LogError("VNDialogManager not found.");
-        }
+        InitControllerSetting();
     }
 
     void Start()
     {
-        isGamePaused = true;
-        RegisterEventListeners();
-        StartCoroutine(StartDialogueAfterDelay(2.0f));
-    }
+        if (scenarioManager == null) {
+            scenarioManager = FindObjectOfType<ScenarioManager>();
+        }
 
-    private void RegisterEventListeners()
-    {
-        dialogController.OnTypingEnd += NextDialogue;
-        choiceController.ChoiceScene += JumpScene;
+        dialogController.OnTypingEnd += EndDialogueScene;
+        choiceController.ChoiceScene += PlayScene;
         SettingsManager.OnSettingsChanged += ApplySettings;
-        MenuController.OnMenuOpened += ToggleGamePause;
-        //GameDataManager.Instance.OnGameDataSaved += SaveDialogueData;
-       // GameDataManager.Instance.OnGameDataLoaded += LoadDialogueData;
+        MenuController.OnMenuOpened += SetGamePause;
 
+        isLockedUserCommand = true;
+
+        StartCoroutine(StartSceneAfterDelay(2.0f));
     }
 
-    private void OnDestroy()
-    {
-        UnregisterEventListeners();
-    }
-
-    private void UnregisterEventListeners()
-    {
-        dialogController.OnTypingEnd -= NextDialogue;
-        choiceController.ChoiceScene -= JumpScene;
-        SettingsManager.OnSettingsChanged -= ApplySettings;
-        MenuController.OnMenuOpened -= ToggleGamePause;
-        GameDataManager.Instance.OnGameDataSaved -= SaveDialogueData;
-        GameDataManager.Instance.OnGameDataLoaded -= LoadDialogueData;
-    }
-
-    private IEnumerator StartDialogueAfterDelay(float delay)
+    /// <summary>
+    /// 일정시간이 지나고 씬을 시작합니다.
+    /// </summary>
+    /// <param name="delay"></param>
+    private IEnumerator StartSceneAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        StartDialogue();
-    }
-
-    private void StartDialogue()
-    {
         ToggleDialogueUI();
         ApplySettings(SettingsManager.GameSetting);
-        LoadDialogue(currentSceneName);
-        isGamePaused = false;
+        currentSceneId = scenarioManager.GetStartSceneId();
+        PlayScene(currentSceneId);
+        isLockedUserCommand = false;
     }
 
-    private void LoadDialogue(string loadName)
-    {
-        if (dialogManager == null) {
-            Debug.LogError("VNDialogManager is not assigned.");
-            return;
-        }
-        sceneEvents = dialogManager.GetSceneEvents();
-        dialogueList = dialogManager.GetSceneDialogs(loadName);
-
-        if (dialogueList != null && dialogueList.Count > 0) {
-            currentDialogueIndex = 0;
-            DialogData dialog = dialogueList[currentDialogueIndex];
-            if (Input.GetKey(skipDialogueKey)) {
-                SkipScene(dialog);
-            }
-            else {
-                PlayScene(dialog);
-            }
-        }
-        else {
-            Debug.LogWarning("No dialogue data found for the current scene.");
-        }
-    }
-
+    /// <summary>
+    /// 유저 커맨드 조작
+    /// </summary>
     void Update()
     {
-        if (isGamePaused) {
-            return;
-        }
 
         if (Input.GetKeyDown(nextDialogueKey)) {
-            PlayScene(dialogueList[currentDialogueIndex]);
-        }
-
-        if (Input.GetKey(skipDialogueKey)) {
-            onSceneSkipMove = true;
-            SkipScene(dialogueList[currentDialogueIndex]);
+            PlayNextScene();
         }
 
         if (Input.GetKeyUp(skipDialogueKey)) {
             onSceneSkipMove = false;
         }
 
-        if (!autoScrollEnabled && Input.GetKeyDown(autoDialogueKey)) {
-            autoScrollEnabled = true;
-            StopAllCoroutines();
-            StartCoroutine(AutoPlayScene());
+        if (Input.GetKey(skipDialogueKey)){
+            Time.timeScale = 20.0f;
         }
-        else if (autoScrollEnabled && Input.anyKeyDown) {
-            autoScrollEnabled = false;
-            StopCoroutine("AutoPlayScene");
-        }
-
-        if (Input.GetKeyDown(hideDialogueKey)) {
-            ToggleDialogueUI();
+        else {
+            Time.timeScale = 1.0f;
         }
     }
 
-    public void NextDialogue()
+
+
+
+    /// <summary>
+    /// 다음 씬을 요청합니다.
+    /// </summary>
+    public void PlayNextScene()
     {
-        currentDialogueIndex = (currentDialogueIndex + 1) % dialogueList.Count;
-        waitingForNextScene = false;
-        EndDialogue?.Invoke();
+        if (isLockedUserCommand) {
+            return;
+        }
+
+        if (isReadToNextScene) {
+            ForceTerminateScene?.Invoke();
+        }
+        PlayScene(currentSceneId);
     }
 
     /// <summary>
-    /// 해당 씬을 실행함
+    /// 특정씬으로 이동합니다.
     /// </summary>
-    /// <param name="dialog">대화 데이터를 시행함</param>
-    private void PlayScene(DialogData dialog)
+    /// <param name="sceneId"></param>
+    public void JumpScene(string sceneId)
     {
-        Debug.Log("Current dialogue number: " + currentSceneName + "(" + dialog.id + ")");
-        if (dialog.choices.Count == 0) {
-            if (sceneEvents.ContainsKey(dialog.id)) {
-                PlaySceneEvent(sceneEvents[dialog.id]);
-            }
-
-            dialogController.TypeDialogue(dialog.character, dialog.content, typingSpeed);
+        if (isReadToNextScene) {
+            ForceTerminateScene?.Invoke();
         }
-        else {
-            ChoiceScene(dialog);
-        }
+        PlayScene(currentSceneId);
     }
 
-    private void SkipScene(DialogData dialog)
+
+    /// <summary>
+    /// 자동 스크롤 모드
+    /// </summary>
+    public void ToggleAutoScrollSceneMode()
     {
-        if (dialog.choices.Count == 0) {
-            if (Input.GetKeyDown(KeyCode.LeftControl)) {
-                dialogController.CurrentDialogueSkip();
-            }
-            else {
-                if (sceneEvents.ContainsKey(dialog.id)) {
-                    PlaySceneEvent(sceneEvents[dialog.id]);
-                }
-                dialogController.SkipDialogue(dialog.character, dialog.content);
-            }
+        if (isLockedUserCommand) {
+            return;
         }
-        else {
-            ChoiceScene(dialog);
-        }
+        autoScrollEnabled = !autoScrollEnabled;
+        Debug.Log("자동 스크롤 모드 ON");
     }
 
-    private void PlaySceneEvent(List<EventData> eventDatas)
+    /// <summary>
+    /// 씬을 스킵합니다.
+    /// </summary>
+    public void FastSkipON()
     {
-        foreach (EventData eventData in eventDatas) {
-            Data data = eventData.data;
-            switch (eventData.type) {
-                case "ShowCharacter":
-                    characterController.ShowCharacter(data.name, data.number, data.time);
-                    break;
-                case "MoveCharacter":
-                    characterController.MoveCharacter(data.name, new Vector3(data.position.x, data.position.y), data.time);
-                    break;
-                case "DismissCharacter":
-                    characterController.DismissCharacter(data.name, data.time);
-                    break;
-                case "ShowBackground":
+        Time.timeScale = 20.0f;
+    }
 
-
+    /// <summary>
+    /// 지정된 ID의 씬을 실행합니다.
+    /// </summary>
+    /// <param name="sceneId"></param>
+    private void PlayScene(string sceneId)
+    { 
+        ScriptDTO scriptDTO = scenarioManager.GetSceneDataById(currentSceneId);
+        isLockedUserCommand = false;
+        if (scriptDTO != null) {
+            isReadToNextScene = false;
+            switch (scriptDTO) {
+                case DialogueScriptDTO nodeData:
+                    PlayDialogueScene(nodeData);
                     break;
-                case "ShowEventScene":
-
+                case TimerChoiceScriptDTO nodeData:
+                    PlayTimeChoiceScene(nodeData);
                     break;
-                case "ShakeScreen":
-                    Camera camera = Camera.main;
-                    VNCameraController cameraController = camera.GetComponent<VNCameraController>();
-
-                    cameraController.StartShake(data.time, data.number);
+                case ChoiceScriptDTO nodeData:
+                    PlayChoiceScene(nodeData);
                     break;
-                case "PlayVoice":
+                case CharacterScriptDTO nodeData:
+                    PlayCharacterScene(nodeData);
                     break;
-                case "PlaySound":
+                case EndScriptDTO nodeData:
+                    PlayEndScene(nodeData);
                     break;
-                case "PlayMusic":
-                    if (onSceneSkipMove) break;
-                    string musicAudio = data.name;
-                    BackgroundMusicManager.Instance.PlayMusic(musicAudio);
+                case RandomScriptDTO nodeData:
+                    PlayRandomScene(nodeData);
                     break;
-                case "SceneChange":
-                    SceneChange(data.name);
+                case IfScriptDTO nodeData:
+                    PlayIfScene(nodeData);
                     break;
                 default:
-                    Debug.LogWarning("Cannot find event type.");
+                    Debug.Log("Not Find ScriptDTO type");
                     break;
             }
+            Debug.Log("Current script number: " + currentSceneName + "(" + sceneId + ")");
+        }
+        else {
+            Debug.Log("Not Find ScriptDTO");
         }
     }
 
-    private void SceneChange(string sceneName)
+    /// <summary>
+    /// 대화 씬
+    /// </summary>
+    /// <param name="script">스크립트</param>
+    private void PlayDialogueScene(DialogueScriptDTO script)
     {
-        SceneManager.LoadScene(sceneName);
+        dialogController.TypeDialogue(script.CharacterName, script.DialogueText, typingSpeed);
     }
 
     /// <summary>
-    /// 씬 선택
+    /// 대화씬 타이핑이 종료된 경우
     /// </summary>
-    /// <param name="dialog"></param>
-    private void ChoiceScene(DialogData dialog)
+    public void EndDialogueScene()
     {
-        isGamePaused = true;
+        isReadToNextScene = true;
+        currentSceneId = scenarioManager.GetNextSceneIdById(currentSceneId);
+        if (autoScrollEnabled) {
+            StartCoroutine(AutoScrollToNextScene());
+        }
+    }
+
+    /// <summary>
+    /// autoScrollDelay 시간 동안 기다렸다가 다음 씬을 실행하는 Coroutine
+    /// </summary>
+    private IEnumerator AutoScrollToNextScene()
+    {
+        yield return new WaitForSeconds(autoScrollDelay);
+        currentSceneId = scenarioManager.GetNextSceneIdById(currentSceneId);
+        PlayScene(currentSceneId);
+    }
+
+    /// <summary>
+    /// 선택지 씬
+    /// </summary>
+    /// <param name="script">스크립트</param>
+    private void PlayChoiceScene(ChoiceScriptDTO script)
+    {
+        isLockedUserCommand = true;
         choiceController.transform.gameObject.SetActive(true);
-        choiceController.ShowChoices(dialog.choices);
+        choiceController.ShowChoices(script.Choices);
         dialogController.ClearDialogue();
     }
 
     /// <summary>
-    /// 씬 건너뛰기
+    /// 시간 제한 선택지 씬
     /// </summary>
-    /// <param name="jump_id">이동할 씬 id </param>
-    public void JumpScene(string jump_id)
+    /// <param name="script">스크립트</param>
+    private void PlayTimeChoiceScene(TimerChoiceScriptDTO script)
     {
-        choiceController.transform.gameObject.SetActive(false);
-        isGamePaused = false;
-
-        for (int i = 0; i < dialogueList.Count; i++) {
-            if (dialogueList[i].id == jump_id) {
-                currentDialogueIndex = i;
-                dialogController.ClearDialogue();
-                PlayScene(dialogueList[currentDialogueIndex]);
-                break;
-            }
-        }
+        isLockedUserCommand = true;
+        choiceController.transform.gameObject.SetActive(true);
+        choiceController.ShowChoicesWithTimer(script.Choices, script.TimeLimit);
+        dialogController.ClearDialogue();
     }
 
     /// <summary>
-    /// 자동으로 씬을 넘긴다
+    /// 랜덤 스크립트 씬
     /// </summary>
-    /// <returns></returns>
-    private IEnumerator AutoPlayScene()
+    /// <param name="script">스크립트</param>
+    private void PlayRandomScene(RandomScriptDTO script)
     {
-        while (autoScrollEnabled) {
-            PlayScene(dialogueList[currentDialogueIndex]);
-
-            waitingForNextScene = true;
-            yield return new WaitUntil(() => !waitingForNextScene);
-            yield return new WaitForSeconds(autoScrollDelay);
-        }
+        List<Choice> choices = script.randomChoices;
+        PlayScene(choices[UnityEngine.Random.Range(0, choices.Count)].nextScriptId);
     }
 
-    public void ToggleGamePause(bool state)
+    /// <summary>
+    /// 캐릭터 씬 
+    /// </summary>
+    /// <param name="script"></param>
+    private void PlayCharacterScene(CharacterScriptDTO script)
     {
-        isGamePaused = state;
+        switch (script.CharacterEffectType) {
+            case CharacterEffectType.None:
+                characterController.ShowCharacter(script.CharacterName, script.CharacterSprite, 0);
+                break;
+            case CharacterEffectType.FadeIn:
+                characterController.ShowCharacter(script.CharacterName, script.CharacterSprite);
+                break;
+            case CharacterEffectType.FadeOut:
+                break;
+            case CharacterEffectType.Translate:
+                break;
+            case CharacterEffectType.Shake:
+                break;
+            case CharacterEffectType.Pomping:
+                break;
+            default:
+                break;
+        }
+
+        currentSceneId = scenarioManager.GetNextSceneIdById(currentSceneId);
+        PlayScene(currentSceneId);
+    }
+
+    /// <summary>
+    /// 종료 씬
+    /// </summary>
+    /// <param name="script">스크립트</param>
+    private void PlayEndScene(EndScriptDTO script)
+    {
+        // 게임 종료 처리 또는 엔딩씬 로직 추가
+        Debug.Log("End of the dialogue scene.");
+        dialogController.ClearDialogue();
+        ForceTerminateScene?.Invoke();
+    }
+
+    /// <summary>
+    /// If 조건에 따른 씬 실행
+    /// </summary>
+    /// <param name="script">스크립트</param>
+    private void PlayIfScene(IfScriptDTO script)
+    {
+
+    }
+
+
+    /// <summary>
+    ///  다음 쳄터로
+    /// </summary>
+    /// <param name="sceneName"></param>
+    private void NextChapter(string ChapterName)
+    {
+        SceneManager.LoadScene(ChapterName);
+    }
+
+    /// <summary>
+    /// 게임 상호작용 잠금
+    /// </summary>
+    /// <param name="state">상태</param>
+    public void SetGamePause(bool state)
+    {
+        isLockedUserCommand = state;
     }
 
     public void ApplySettings(Settings settings)
@@ -331,13 +366,46 @@ public class VNDialogueModule : MonoBehaviour
     public void SaveDialogueData(GameData saveData)
     {
         Debug.Log("대화 데이터 저장");
-
     }
 
     public void LoadDialogueData(GameData saveData)
     {
         Debug.Log("대화 데이터 불러오기 적용");
+    }
 
+    /// <summary>
+    /// 컨트롤러 등록 여부 체크
+    /// </summary>
+    private void InitControllerSetting()
+    {
+        dialogController = FindObjectOfType<VNDialogController>();
+        if (dialogController == null) {
+            Debug.LogError("VNDialogController not found.");
+        }
+        choiceController = FindObjectOfType<VNChoiceController>();
+        if (choiceController == null) {
+            Debug.LogError("VNChoiceController not found.");
+        }
+        backgroundController = FindObjectOfType<VNBackgroundController>();
+        if (backgroundController == null) {
+            Debug.LogError("VNBackgroundController not found.");
+        }
+        characterController = FindObjectOfType<VNCharacterController>();
+        if (characterController == null) {
+            Debug.LogError("VNCharacterController not found.");
+        }
+        dialogManager = FindObjectOfType<VNDialogManager>();
+        if (dialogManager == null) {
+            Debug.LogError("VNDialogManager not found.");
+        }
+    }
+
+    private void OnDestroy()
+    {
+        dialogController.OnTypingEnd -= EndDialogueScene;
+        choiceController.ChoiceScene -= PlayScene;
+        SettingsManager.OnSettingsChanged -= ApplySettings;
+        MenuController.OnMenuOpened -= SetGamePause;
     }
 
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEngine.Assertions.Must;
 
 public class VNDialogController : MonoBehaviour
 {
@@ -28,6 +29,16 @@ public class VNDialogController : MonoBehaviour
         characterNameTextMesh.text = "";
     }
 
+    private void Start()
+    {
+        VNDialogueModule.ForceTerminateScene += StopTyping;
+    }
+
+    private void OnDestroy()
+    {
+        VNDialogueModule.ForceTerminateScene -= StopTyping;
+    }
+
     public void TypeDialogue(string charcterName, string content, float typingSpeed) {
         if (!isTyping) {
             originTypingSpeed = typingSpeed;
@@ -35,9 +46,14 @@ public class VNDialogController : MonoBehaviour
             StartCoroutine(TypeText(content, typingSpeed));
         }
         else {
-            isTyping = false;
-            StopCoroutine("TypeText");
+            StopTyping();
         }
+    }
+
+    public void StopTyping()
+    {
+        isTyping = false;
+        StopCoroutine("TypeText");
     }
 
     public void SkipDialogue(string charcterName, string content) {
@@ -85,7 +101,7 @@ public class VNDialogController : MonoBehaviour
 
         currentTypingSpeed = originTypingSpeed;
         dialogTextMesh.text = text;
-        OnTypingEnd?.Invoke(); // 이벤트 발생
+        OnTypingEnd?.Invoke();
         isTyping = false;
     }
 }

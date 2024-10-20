@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using VisualNovelGame.Data;
 
 public class VNChoiceController : MonoBehaviour
 {
@@ -12,35 +13,59 @@ public class VNChoiceController : MonoBehaviour
 
     public event Action<string> ChoiceScene;
 
-    public void ShowChoices(List<ChoiceData> choices) {
+    /// <summary>
+    /// 선택지 디스플레이
+    /// </summary>
+    /// <param name="choices">선택지</param>
+    public void ShowChoices(List<Choice> choices) {
         ClearChoices();
 
-        foreach (ChoiceData choice in choices) {
+        foreach (Choice choice in choices) {
             GameObject choiceButton = Instantiate(choiceButtonPrefab, choiceButtonContainer);
             TMP_Text buttonText = choiceButton.GetComponentInChildren<TMP_Text>();
-            buttonText.text = choice.text;
+            buttonText.text = choice.ChoiceText;
             Button button = choiceButton.GetComponent<Button>();
             button.onClick.AddListener(() => OnChoiceSelected(choice));
         }
     }
 
-    private void ClearChoices() {
-        foreach (Transform child in choiceButtonContainer) {
-            Destroy(child.gameObject);
+    /// <summary>
+    /// 시간제한 타이머 선택지
+    /// </summary>
+    /// <param name="choices"></param>
+    /// <param name="timer"></param>
+    public void ShowChoicesWithTimer(List<Choice> choices, float timer)
+    {
+        ClearChoices();
+
+        foreach (Choice choice in choices) {
+            GameObject choiceButton = Instantiate(choiceButtonPrefab, choiceButtonContainer);
+            TMP_Text buttonText = choiceButton.GetComponentInChildren<TMP_Text>();
+            buttonText.text = choice.ChoiceText;
+            Button button = choiceButton.GetComponent<Button>();
+            button.onClick.AddListener(() => OnChoiceSelected(choice));
         }
     }
 
-    private void OnChoiceSelected(ChoiceData choice) {
-        if (!string.IsNullOrEmpty(choice.nextDialog)) {
-            ChoiceScene?.Invoke(choice.nextDialog);
-        }
-        else {
-            ProcessChoiceEvent(choice);
+
+    /// <summary>
+    /// 선택지 선택시 이벤트
+    /// </summary>
+    /// <param name="choice"></param>
+    private void OnChoiceSelected(Choice choice) {
+        if (!string.IsNullOrEmpty(choice.nextScriptId)) {
+            ChoiceScene?.Invoke(choice.nextScriptId);
         }
         ClearChoices();
     }
 
-    private void ProcessChoiceEvent(ChoiceData choice) {
-        Debug.Log("?");
+    /// <summary>
+    /// 선택지 비우기
+    /// </summary>
+    private void ClearChoices()
+    {
+        foreach (Transform child in choiceButtonContainer) {
+            Destroy(child.gameObject);
+        }
     }
 }

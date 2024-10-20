@@ -1,110 +1,86 @@
 using DialogueSystem;
-using SaveSystem;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using VisualNovelGame;
 using DialogueSystem.Localization;
+using System.Collections.Generic;
+using UnityEditor.Localization.Editor;
+using UnityEngine;
+using VisualNovelGame.Data;
 
 namespace VisualNovelGame
 {
-    public class ScenarioManagers : MonoBehaviour
+    public class ScenarioManager : DialogueGetData
     {
-        public DialogueScript dialogueContainerSO;
-        //public LocalizationManager localizationManager;
+        public LocalizationManager localizationManager;
 
-        private Dictionary<int, Scenario> scenarios;
-        private DataManager<Dictionary<int, Scenario>> scenariosDataManager;
+        ScriptMapper scriptMapper;
 
-
-        private void Start()
+        void Awake()
         {
-            ConvertData();
+            if (localizationManager != null) {
+                scriptMapper = new ScriptMapper(localizationManager);
+            }
+            else {
+                Debug.LogError("LocalizationManager가 설정되지 않았습니다.");
+            }
         }
 
-        public void ScenarioSave()
+        public string GetStartSceneId()
         {
-            ConvertData();
+            BaseNodeData baseNode = GetNextNode(dialogueScript.StartNodeDatas[0]);
+            return baseNode.NodeGuid;
         }
 
-        private void ConvertData()
+        public ScriptDTO GetSceneDataById(string id)
         {
-            //Debug.Log("Content");
-
-            //Debug.Log(dialogueContainerSO.StartNodeDatas.Count);
-
-            //BaseNodeData startNode = GetNextNode(dialogueContainerSO, dialogueContainerSO.StartNodeDatas[0]);
-
-            
-
-            //BaseNodeData node = GetNextNode(dialogueContainerSO, startNode);
-            //CheckNodeType(node);
-            //BaseNodeData node2 = GetNextNode(dialogueContainerSO, node);
-            //CheckNodeType(node2);
-
-            //BaseNodeData node3 = GetNextNode(dialogueContainerSO, node2);
-            //CheckNodeType(node3);
-
-            //BaseNodeData node4 = GetNextNode(dialogueContainerSO, node3);
-            //CheckNodeType(node4);
-
-
-
+            BaseNodeData baseNode = GetNodeByGuid(id);
+            return CheckNodeType(baseNode);
         }
 
-        public void CheckNodeType(BaseNodeData _baseNodeData)
+        public ScriptDTO GetNextSceneData(string id)
         {
-
-
+            BaseNodeData nextNode = GetNextNode(GetNodeByGuid(id));
+            return CheckNodeType(nextNode);
         }
 
-
-
-        public BaseNodeData GetNodeByGuid(DialogueScript dialogueContainer, string _targetNodeGuid)
+        public string GetNextSceneIdById(string id)
         {
-            return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _targetNodeGuid);
+            BaseNodeData nextNode = GetNextNode(GetNodeByGuid(id));
+            return nextNode.NodeGuid;
         }
 
-        public BaseNodeData GetNodeByNodePort(DialogueScript dialogueContainer, DialogueNodePort _nodePort)
+        private ScriptDTO CheckNodeType(BaseNodeData baseNodeData)
         {
-            return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _nodePort.InputGuid);
-        }
+            switch (baseNodeData) {
+                case StartNodeData nodeData:
+                    return scriptMapper.ToDTO(nodeData);
 
-        public BaseNodeData GetNextNode(DialogueScript dialogueContainer, BaseNodeData _baseNodeData)
-        {
-            NodeLinkData nodeLinkData = dialogueContainer.NodeLinkDatas.Find(edge => edge.BaseNodeGuid == _baseNodeData.NodeGuid);
+                case DialogueNodeData nodeData:
+                    return scriptMapper.ToDTO(nodeData);
 
-            return GetNodeByGuid(dialogueContainer, nodeLinkData.TargetNodeGuid);
-        }
+                case ChoiceNodeData nodeData:
+                    return scriptMapper.ToDTO(nodeData);
 
+                case TimerChoiceNodeData nodeData:
+                    return scriptMapper.ToDTO(nodeData);
 
+                case CharacterNodeData nodeData:
+                    return scriptMapper.ToDTO(nodeData);
+                    
+                case EventNodeData nodeData:
+                    return scriptMapper.ToDTO(nodeData);
 
+                case EndNodeData nodeData:
+                    return scriptMapper.ToDTO(nodeData);
 
-        // 스크립트로 저장(버튼)
+                case RandomNodeData nodeData:
+                    return scriptMapper.ToDTO(nodeData);
 
-    }
+                case IfNodeData nodeData:
+                    return scriptMapper.ToDTO(nodeData);
 
-
-    class Mapper
-    {
-
-        public static BaseNodeData GetNodeByGuid(DialogueScript dialogueContainer, string _targetNodeGuid)
-        {
-            return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _targetNodeGuid);
-        }
-
-        public static BaseNodeData GetNodeByNodePort(DialogueScript dialogueContainer, DialogueNodePort _nodePort)
-        {
-            return dialogueContainer.AllNodes.Find(node => node.NodeGuid == _nodePort.InputGuid);
-        }
-
-        public static BaseNodeData GetNextNode(DialogueScript dialogueContainer, BaseNodeData _baseNodeData)
-        {
-            NodeLinkData nodeLinkData = dialogueContainer.NodeLinkDatas.Find(edge => edge.BaseNodeGuid == _baseNodeData.NodeGuid);
-
-            return GetNodeByGuid(dialogueContainer, nodeLinkData.TargetNodeGuid);
+                default:
+                    Debug.LogWarning("Not found data type");
+                    return null;
+            }
         }
     }
 }
-
