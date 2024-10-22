@@ -288,17 +288,22 @@ public class VNDialogueModule : MonoBehaviour
                 characterController.ShowCharacter(script.CharacterName, script.CharacterSprite, 0);
                 break;
             case CharacterEffectType.FadeIn:
-                characterController.ShowCharacter(script.CharacterName, script.CharacterSprite);
+                characterController.ShowCharacter(script.CharacterName, script.CharacterSprite, script.Duration);
                 break;
             case CharacterEffectType.FadeOut:
+                characterController.DismissCharacter(script.CharacterName, script.Duration);
                 break;
             case CharacterEffectType.Translate:
+                characterController.DismissCharacter(script.CharacterName);
                 break;
             case CharacterEffectType.Shake:
+                throw new NotImplementedException();
                 break;
             case CharacterEffectType.Pomping:
+                throw new NotImplementedException();
                 break;
             default:
+                Debug.LogWarning("Not found Character Effect Type");
                 break;
         }
 
@@ -324,12 +329,12 @@ public class VNDialogueModule : MonoBehaviour
     /// <param name="script">스크립트</param>
     private void PlayIfScene(IfScriptDTO script)
     {
-
+        throw new NotImplementedException();
     }
 
 
     /// <summary>
-    ///  다음 쳄터로
+    ///  다음 챕터로
     /// </summary>
     /// <param name="sceneName"></param>
     private void NextChapter(string ChapterName)
@@ -357,20 +362,35 @@ public class VNDialogueModule : MonoBehaviour
         hideDialogueKey = settings.controlSettings.HideUIKeyCode;
     }
 
+    /// <summary>
+    /// UI 토클
+    /// </summary>
     private void ToggleDialogueUI()
     {
         isDialogueVisible = !isDialogueVisible;
         dialogueUI.SetActive(isDialogueVisible);
     }
 
+    /// <summary>
+    /// 게임 데이터 저장
+    /// </summary>
+    /// <param name="saveData"></param>
+    /// <exception cref="NotImplementedException"></exception>
     public void SaveDialogueData(GameData saveData)
     {
         Debug.Log("대화 데이터 저장");
+        throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// 게임 데이터 불러오기
+    /// </summary>
+    /// <param name="saveData"></param>
+    /// <exception cref="NotImplementedException"></exception>
     public void LoadDialogueData(GameData saveData)
     {
         Debug.Log("대화 데이터 불러오기 적용");
+        throw new NotImplementedException();
     }
 
     /// <summary>

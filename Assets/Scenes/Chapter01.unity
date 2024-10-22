@@ -1075,7 +1075,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a67fda31d16168d4994b9d143a582cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueScript: {fileID: 11400000, guid: f069d3a0d90c5f549aaa65636797d274, type: 2}
+  dialogueScript: {fileID: 11400000, guid: e860844a6cdb35d49a11394850c6bd9e, type: 2}
   localizationManager: {fileID: 11400000, guid: 51c878b637fd373488f12ef9a2aa37d5, type: 2}
 --- !u!224 &1932425235 stripped
 RectTransform:
