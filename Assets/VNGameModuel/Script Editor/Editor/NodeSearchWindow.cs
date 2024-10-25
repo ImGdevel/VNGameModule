@@ -34,6 +34,7 @@ namespace DialogueSystem.Editor
             AddNodeSearchToGroup("IF Node",new IFNode(),"d_preAudioLoopOff"),
             AddNodeSearchToGroup("Random Node",new RandomNode(),"d_preAudioLoopOff"),
             AddNodeSearchToGroup("End Node",new EndNode(),"d_winbtn_win_close_a@2x"),
+            AddNodeSearchToGroup("Background Node",new BackgroundNode(),"d_winbtn_win_close_a@2x"),
 
         };
 
@@ -105,6 +106,9 @@ namespace DialogueSystem.Editor
                     return true;
                 case IFNode node:
                     graphView.AddElement(graphView.CreateIFNode(_pos));
+                    return true;
+                case BackgroundNode node:
+                    graphView.AddElement(graphView.CreateBackgroundNode(_pos));
                     return true;
             }
             return false;

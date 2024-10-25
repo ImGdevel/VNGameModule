@@ -31,6 +31,7 @@ namespace DialogueSystem
         [HideInInspector] public List<RandomNodeData> RandomNodeDatas = new List<RandomNodeData>();
         [HideInInspector] public List<CommandNodeData> CommandNodeDatas = new List<CommandNodeData>();
         [HideInInspector] public List<IfNodeData> IfNodeDatas = new List<IfNodeData>();
+        [HideInInspector] public List<BackgroundNodeData> backgroundDatas = new List<BackgroundNodeData>();
 
         public List<BaseNodeData> AllNodes
         {
@@ -347,6 +348,13 @@ namespace DialogueSystem
         public float Duration;
         public float EffectWeight;
     }
+
+    [System.Serializable]
+    public class BackgroundNodeData : BaseNodeData
+    {
+        public Sprite backgroundSprite;
+    }
+
 
     [System.Serializable]
     public class EndNodeData : BaseNodeData

@@ -182,5 +182,13 @@ namespace DialogueSystem.Editor
 
             return tmp;
         }
+
+        public BackgroundNode CreateBackgroundNode(Vector2 _pos)
+        {
+            BackgroundNode tmp = new BackgroundNode(_pos, editorWindow, this);
+            tmp.name = "Background";
+
+            return tmp;
+        }
     }
 }

@@ -13,16 +13,18 @@ MonoBehaviour:
   m_Name: Sample Dialogue Script
   m_EditorClassIdentifier: 
   NodeLinkDatas:
+  - BaseNodeGuid: 5f3b6713-ab23-4087-9d01-27087a462d99
+    TargetNodeGuid: a6a65254-9c81-428e-8136-0a780b4e9770
   - BaseNodeGuid: a1f47546-612a-4836-97df-3d21de0dbfb2
     TargetNodeGuid: abbfc38a-3114-44f7-913d-220505f73e58
   - BaseNodeGuid: abbfc38a-3114-44f7-913d-220505f73e58
     TargetNodeGuid: 3f67f12d-c1df-4ae4-81f3-c1501c130966
   - BaseNodeGuid: 3f67f12d-c1df-4ae4-81f3-c1501c130966
     TargetNodeGuid: 77854dec-c712-48cd-adfa-2f067b4a4128
-  - BaseNodeGuid: 5f3b6713-ab23-4087-9d01-27087a462d99
-    TargetNodeGuid: 5e0750a7-5cbd-4639-8916-54f9ec11f79a
   - BaseNodeGuid: 5e0750a7-5cbd-4639-8916-54f9ec11f79a
     TargetNodeGuid: a1f47546-612a-4836-97df-3d21de0dbfb2
+  - BaseNodeGuid: a6a65254-9c81-428e-8136-0a780b4e9770
+    TargetNodeGuid: 5e0750a7-5cbd-4639-8916-54f9ec11f79a
   DialogueChoiceNodeDatas: []
   DialogueNodeDatas:
   - NodeGuid: a1f47546-612a-4836-97df-3d21de0dbfb2
@@ -61,7 +63,7 @@ MonoBehaviour:
   TimerChoiceNodeDatas: []
   CharacterNodeDatas:
   - NodeGuid: 5e0750a7-5cbd-4639-8916-54f9ec11f79a
-    Position: {x: -3, y: 209}
+    Position: {x: -54, y: 209}
     DialogueNodePorts: []
     Character: {fileID: 11400000, guid: e30dc10fd694e684283b2d6aba4245a8, type: 2}
     CharacterSpritePos: {x: 0, y: 0, z: 0}
@@ -78,8 +80,12 @@ MonoBehaviour:
   EventNodeDatas: []
   StartNodeDatas:
   - NodeGuid: 5f3b6713-ab23-4087-9d01-27087a462d99
-    Position: {x: -168, y: 209}
+    Position: {x: -522, y: 209}
     startID: 
   RandomNodeDatas: []
   CommandNodeDatas: []
   IfNodeDatas: []
+  backgroundDatas:
+  - NodeGuid: a6a65254-9c81-428e-8136-0a780b4e9770
+    Position: {x: -355, y: 209}
+    backgroundSprite: {fileID: 21300000, guid: cd58311ca651af24c9b8e46700df3f3f, type: 3}

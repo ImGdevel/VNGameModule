@@ -5,6 +5,7 @@ using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor;
 using DialogueSystem.Nodes;
+using VisualNovelGame;
 
 namespace DialogueSystem.Editor
 {
@@ -82,6 +83,7 @@ namespace DialogueSystem.Editor
             _dialogueScript.CommandNodeDatas.Clear();
             _dialogueScript.CharacterNodeDatas.Clear();
             _dialogueScript.IfNodeDatas.Clear();
+            _dialogueScript.backgroundDatas.Clear();
 
             nodes.ForEach(node =>
             {
@@ -113,6 +115,9 @@ namespace DialogueSystem.Editor
                         break;
                     case IFNode ifNode:
                         _dialogueScript.IfNodeDatas.Add(SaveNodeData(ifNode));
+                        break;
+                    case BackgroundNode backgroundNode:
+                        _dialogueScript.backgroundDatas.Add(SaveNodeData(backgroundNode));
                         break;
                     default:
                         break;
@@ -275,7 +280,17 @@ namespace DialogueSystem.Editor
                 DialogueNodePorts = _node.dialogueNodePorts,
             };
             
-            Debug.Log(nodeData.Character.ToString());
+            return nodeData;
+        }
+
+        private BackgroundNodeData SaveNodeData(BackgroundNode _node)
+        {
+            BackgroundNodeData nodeData = new BackgroundNodeData {
+                NodeGuid = _node.nodeGuid,
+                Position = _node.GetPosition().position,
+                backgroundSprite = _node.BackgroundSprite
+            };
+
             return nodeData;
         }
 
@@ -497,6 +512,19 @@ namespace DialogueSystem.Editor
 
                 graphView.AddElement(tempNode);
             }
+
+            /* Background Sprite Node */
+            foreach (BackgroundNodeData node in _dialogueContainer.backgroundDatas) {
+                BackgroundNode tempNode = graphView.CreateBackgroundNode(node.Position);
+                tempNode.nodeGuid = node.NodeGuid;
+
+                tempNode.BackgroundSprite = node.backgroundSprite;
+
+                tempNode.LoadValueInToField();
+
+                graphView.AddElement(tempNode);
+            }
+
 
         }
 
